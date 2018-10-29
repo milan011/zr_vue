@@ -8,6 +8,7 @@ const user = {
     code: '',
     token: getToken(),
     name: '',
+    nickName: '',
     avatar: '',
     introduction: '',
     roles: [],
@@ -40,6 +41,9 @@ const user = {
     },
     SET_ROLES: (state, roles) => {
       state.roles = roles
+    },
+    SET_NICK_NAME: (state, nickName) => {
+      state.nickName = nickName
     }
   },
 
@@ -49,10 +53,24 @@ const user = {
       const username = userInfo.username.trim()
       return new Promise((resolve, reject) => {
         loginByUsername(username, userInfo.password).then(response => {
-          const data = response.data
-          commit('SET_TOKEN', data.token)
-          setToken(response.data.token)
-          resolve()
+          // console.log(response)
+          if(response.data.status){
+            const data = response.data
+            commit('SET_TOKEN', data.token)
+            setToken(response.data.token)
+            resolve(response)
+          }else{
+            resolve(response)
+            // console.log(response)
+            /*console.log(this)
+            // alert(response.data)
+            this.$notify.error({
+              title: '登录失败',
+              message: sss,
+              type: 'waring',
+              duration: 2000
+            })*/
+          }      
         }).catch(error => {
           reject(error)
         })
@@ -72,8 +90,8 @@ const user = {
           } else {
             reject('getInfo: roles must be a non-null array !')
           }
-
           commit('SET_NAME', data.name)
+          commit('SET_NICK_NAME', data.nick_name)
           commit('SET_AVATAR', data.avatar)
           commit('SET_INTRODUCTION', data.introduction)
           resolve(response)

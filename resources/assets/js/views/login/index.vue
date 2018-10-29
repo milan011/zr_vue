@@ -73,14 +73,14 @@ export default {
   data() {
     const validateUsername = (rule, value, callback) => {
       if (!isvalidUsername(value)) {
-        callback(new Error('Please enter the correct user name'))
+        callback(new Error('请输入用户名'))
       } else {
         callback()
       }
     }
     const validatePassword = (rule, value, callback) => {
       if (value.length < 6) {
-        callback(new Error('The password can not be less than 6 digits'))
+        callback(new Error('密码不能小于6位'))
       } else {
         callback()
       }
@@ -131,10 +131,22 @@ export default {
       this.$refs.loginForm.validate(valid => {
         if (valid) {
           this.loading = true
-          this.$store.dispatch('LoginByUsername', this.loginForm).then(() => {
+          this.$store.dispatch('LoginByUsername', this.loginForm).then((response) => {
+            
+            if(!response.data.status){
+              console.log('1')
+              console.log(response.data)
+              console.log(this)
+              console.log(this.$message())
+              this.$message.error(response.data.error);
+            }
+
             this.loading = false
+
             this.$router.push({ path: this.redirect || '/dashboard' })
-          }).catch(() => {
+ 
+          }).catch((error) => {
+            // console.log(error)
             this.loading = false
           })
         } else {

@@ -89,7 +89,7 @@
           <el-date-picker v-model="temp.timestamp" type="datetime" placeholder="Please pick a date"/>
         </el-form-item> -->
         <el-form-item :label="$t('user.name')" prop="name">
-          <el-input v-model="temp.name"/>
+          <el-input :disabled="userNameDisabled" v-model="temp.name"/>
         </el-form-item>
         <el-form-item :label="$t('user.nick_name')" prop="nick_name">
           <el-input v-model="temp.nick_name"/>
@@ -128,16 +128,6 @@
         <el-button v-else type="primary" @click="updateData">{{ $t('table.confirm') }}</el-button>
       </div>
     </el-dialog>
-
-    <el-dialog :visible.sync="dialogPvVisible" title="Reading statistics">
-      <el-table :data="pvData" border fit highlight-current-row style="width: 100%">
-        <el-table-column prop="key" label="Channel"/>
-        <el-table-column prop="pv" label="Pv"/>
-      </el-table>
-      <span slot="footer" class="dialog-footer">
-        <el-button type="primary" @click="dialogPvVisible = false">{{ $t('table.confirm') }}</el-button>
-      </span>
-    </el-dialog>
     <set-roles ref="roleChild"></set-roles>
 
   </div>
@@ -145,7 +135,7 @@
 
 <script>
 // import { fetchList, fetchPv, createArticle, updateArticle } from '@/api/article'
-import { fetchList, fetchPv, createUser, updateUser } from '@/api/user'
+import { fetchList, fetchPv, createUser, updateUser, deleteUser } from '@/api/user'
 import waves from '@/directive/waves' // 水波纹指令
 import { parseTime } from '@/utils'
 import { isTelephone } from '@/utils/validate'
@@ -225,6 +215,7 @@ export default {
       dialogFormVisible: false,
       passwordVisible: true,
       dialogStatus: '',
+      userNameDisabled: 'false',
       textMap: {
         update: '用户编辑',
         create: '用户创建'
@@ -251,6 +242,7 @@ export default {
       downloadLoading: false
     }
   },
+  
   created() {
     this.getList()
   },
@@ -280,14 +272,48 @@ export default {
       this.getList()
     },
     handleModifyStatus(row, status) {
-      this.$message({
-        message: '操作成功',
-        type: 'success'
-      })
-      row.status = status
+      this.$confirm('确定要删除?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        this.temp = Object.assign({}, row)
+        deleteUser(this.temp).then((response) => {
+          // console.log(response.data);
+          if(response.data.status === 0){
+            this.$notify({
+              title: '失败',
+              message: '删除失败',
+              type: 'warning',
+              duration: 2000
+            })
+          }else{
+            const index = this.list.indexOf(row)
+            this.list.splice(index, 1)
+            this.dialogFormVisible = false
+            this.$notify({
+              title: '成功',
+              message: '删除成功',
+              type: 'success',
+              duration: 2000
+            })
+          }   
+        })
+      }).catch((err) => {
+        console.log(err)
+        /*switch (error.response.status) {
+          case 422:
+            
+          break
+        }*/
+        this.$message({
+          type: 'info',
+          message: '已取消删除'
+        });          
+      });
     },
     resetTemp() {
-      this.temp = {
+      /*this.temp = {
         id: undefined,
         name: 'wxm',
         nick_name: 'wxm',
@@ -296,8 +322,8 @@ export default {
         password_confirmation : '111111',
         email: '',
         telephone: '13731080174'
-      }
-      /*this.temp = {
+      }*/
+      this.temp = {
         id: undefined,
         name: null,
         nick_name: null,
@@ -306,11 +332,12 @@ export default {
         password_confirmation : '',
         email: '',
         telephone: ''
-      }*/
+      }
     },
     handleCreate() {
       this.resetTemp()
       this.dialogStatus = 'create'
+      this.userNameDisabled = false
       this.passwordVisible = true
       this.dialogFormVisible = true
       this.password = 'password'
@@ -401,6 +428,7 @@ export default {
       this.temp = Object.assign({}, row) // copy obj
       this.temp.timestamp = new Date(this.temp.timestamp)
       this.dialogStatus = 'update'
+      this.userNameDisabled = true
       this.password = null
       this.password_confirmation = null
       this.passwordVisible = false
@@ -431,45 +459,6 @@ export default {
           })
         }
       })
-    },
-    handleDelete(row) {
-      this.$notify({
-        title: '成功',
-        message: '删除成功',
-        type: 'success',
-        duration: 2000
-      })
-      const index = this.list.indexOf(row)
-      this.list.splice(index, 1)
-    },
-    handleFetchPv(pv) {
-      fetchPv(pv).then(response => {
-        this.pvData = response.data.pvData
-        this.dialogPvVisible = true
-      })
-    },
-    handleDownload() {
-      this.downloadLoading = true
-      import('@/vendor/Export2Excel').then(excel => {
-        const tHeader = ['timestamp', 'title', 'type', 'importance', 'status']
-        const filterVal = ['timestamp', 'title', 'type', 'importance', 'status']
-        const data = this.formatJson(filterVal, this.list)
-        excel.export_json_to_excel({
-          header: tHeader,
-          data,
-          filename: 'table-list'
-        })
-        this.downloadLoading = false
-      })
-    },
-    formatJson(filterVal, jsonData) {
-      return jsonData.map(v => filterVal.map(j => {
-        if (j === 'timestamp') {
-          return parseTime(v[j])
-        } else {
-          return v[j]
-        }
-      }))
     },
     handleSetRoles(row) {  
       this.$refs.roleChild.handleRoles(row) 

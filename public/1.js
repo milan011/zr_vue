@@ -105,10 +105,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_get_iterator__ = __webpack_require__("./node_modules/babel-runtime/core-js/get-iterator.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_get_iterator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_get_iterator__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_babel_runtime_core_js_object_assign__ = __webpack_require__("./node_modules/babel-runtime/core-js/object/assign.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_babel_runtime_core_js_object_assign___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_babel_runtime_core_js_object_assign__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_babel_runtime_core_js_promise__ = __webpack_require__("./node_modules/babel-runtime/core-js/promise.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_babel_runtime_core_js_promise___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_babel_runtime_core_js_promise__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_babel_runtime_core_js_promise__ = __webpack_require__("./node_modules/babel-runtime/core-js/promise.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_babel_runtime_core_js_promise___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_babel_runtime_core_js_promise__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_babel_runtime_core_js_object_assign__ = __webpack_require__("./node_modules/babel-runtime/core-js/object/assign.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_babel_runtime_core_js_object_assign___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_babel_runtime_core_js_object_assign__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__api_user__ = __webpack_require__("./resources/assets/js/api/user.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__directive_waves__ = __webpack_require__("./resources/assets/js/directive/waves/index.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__utils__ = __webpack_require__("./resources/assets/js/utils/index.js");
@@ -118,19 +118,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -346,6 +333,7 @@ var calendarTypeKeyValue = calendarTypeOptions.reduce(function (acc, cur) {
       dialogFormVisible: false,
       passwordVisible: true,
       dialogStatus: '',
+      userNameDisabled: 'false',
       textMap: {
         update: '用户编辑',
         create: '用户创建'
@@ -372,7 +360,7 @@ var calendarTypeKeyValue = calendarTypeOptions.reduce(function (acc, cur) {
       var _this2 = this;
 
       this.listLoading = true;
-      Object(__WEBPACK_IMPORTED_MODULE_3__api_user__["b" /* fetchList */])(this.listQuery).then(function (response) {
+      Object(__WEBPACK_IMPORTED_MODULE_3__api_user__["c" /* fetchList */])(this.listQuery).then(function (response) {
         _this2.list = response.data.data;
         _this2.total = response.data.total;
 
@@ -395,53 +383,90 @@ var calendarTypeKeyValue = calendarTypeOptions.reduce(function (acc, cur) {
       this.getList();
     },
     handleModifyStatus: function handleModifyStatus(row, status) {
-      this.$message({
-        message: '操作成功',
-        type: 'success'
+      var _this3 = this;
+
+      this.$confirm('确定要删除?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(function () {
+        _this3.temp = __WEBPACK_IMPORTED_MODULE_2_babel_runtime_core_js_object_assign___default()({}, row);
+        Object(__WEBPACK_IMPORTED_MODULE_3__api_user__["b" /* deleteUser */])(_this3.temp).then(function (response) {
+          // console.log(response.data);
+          if (response.data.status === 0) {
+            _this3.$notify({
+              title: '失败',
+              message: '删除失败',
+              type: 'warning',
+              duration: 2000
+            });
+          } else {
+            var index = _this3.list.indexOf(row);
+            _this3.list.splice(index, 1);
+            _this3.dialogFormVisible = false;
+            _this3.$notify({
+              title: '成功',
+              message: '删除成功',
+              type: 'success',
+              duration: 2000
+            });
+          }
+        });
+      }).catch(function (err) {
+        console.log(err);
+        /*switch (error.response.status) {
+          case 422:
+            
+          break
+        }*/
+        _this3.$message({
+          type: 'info',
+          message: '已取消删除'
+        });
       });
-      row.status = status;
     },
     resetTemp: function resetTemp() {
-      this.temp = {
+      /*this.temp = {
         id: undefined,
         name: 'wxm',
         nick_name: 'wxm',
         remark: '闺女',
         password: '111111',
-        password_confirmation: '111111',
+        password_confirmation : '111111',
         email: '',
         telephone: '13731080174'
-        /*this.temp = {
-          id: undefined,
-          name: null,
-          nick_name: null,
-          remark: '',
-          password: '',
-          password_confirmation : '',
-          email: '',
-          telephone: ''
-        }*/
+      }*/
+      this.temp = {
+        id: undefined,
+        name: null,
+        nick_name: null,
+        remark: '',
+        password: '',
+        password_confirmation: '',
+        email: '',
+        telephone: ''
       };
     },
     handleCreate: function handleCreate() {
-      var _this3 = this;
+      var _this4 = this;
 
       this.resetTemp();
       this.dialogStatus = 'create';
+      this.userNameDisabled = false;
       this.passwordVisible = true;
       this.dialogFormVisible = true;
       this.password = 'password';
       this.password_confirmation = 'password_confirmation';
       this.$nextTick(function () {
-        _this3.$refs['dataForm'].clearValidate();
+        _this4.$refs['dataForm'].clearValidate();
       });
     },
     createData: function createData() {
-      var _this4 = this;
+      var _this5 = this;
 
       this.$refs['dataForm'].validate(function (valid) {
         if (valid) {
-          Object(__WEBPACK_IMPORTED_MODULE_3__api_user__["a" /* createUser */])(_this4.temp).then(function (response) {
+          Object(__WEBPACK_IMPORTED_MODULE_3__api_user__["a" /* createUser */])(_this5.temp).then(function (response) {
             /*console.log(response.data)
             return false*/
             var newUser = {
@@ -451,9 +476,9 @@ var calendarTypeKeyValue = calendarTypeOptions.reduce(function (acc, cur) {
               telephone: response.data.data.telephone,
               created_at: response.data.data.created_at | Object(__WEBPACK_IMPORTED_MODULE_5__utils__["c" /* parseTime */])('{y}-{m}-{d} {h}:{i}')
             };
-            _this4.list.unshift(newUser);
-            _this4.dialogFormVisible = false;
-            _this4.$notify({
+            _this5.list.unshift(newUser);
+            _this5.dialogFormVisible = false;
+            _this5.$notify({
               title: '成功',
               message: '创建成功',
               type: 'success',
@@ -474,7 +499,7 @@ var calendarTypeKeyValue = calendarTypeOptions.reduce(function (acc, cur) {
                 }
                 messageShow += '</ul>';
 
-                _this4.$message({
+                _this5.$message({
                   showClose: true,
                   message: messageShow,
                   type: 'error',
@@ -493,7 +518,7 @@ var calendarTypeKeyValue = calendarTypeOptions.reduce(function (acc, cur) {
                   return this.$Message.error('数据过期,请重新登录')
                   break*/
             }
-            return __WEBPACK_IMPORTED_MODULE_2_babel_runtime_core_js_promise___default.a.reject(error);
+            return __WEBPACK_IMPORTED_MODULE_1_babel_runtime_core_js_promise___default.a.reject(error);
           });
           /*.catch(function (error) {
             if (error.response) {
@@ -517,37 +542,38 @@ var calendarTypeKeyValue = calendarTypeOptions.reduce(function (acc, cur) {
       });
     },
     handleUpdate: function handleUpdate(row) {
-      var _this5 = this;
+      var _this6 = this;
 
-      this.temp = __WEBPACK_IMPORTED_MODULE_1_babel_runtime_core_js_object_assign___default()({}, row); // copy obj
+      this.temp = __WEBPACK_IMPORTED_MODULE_2_babel_runtime_core_js_object_assign___default()({}, row); // copy obj
       this.temp.timestamp = new Date(this.temp.timestamp);
       this.dialogStatus = 'update';
+      this.userNameDisabled = true;
       this.password = null;
       this.password_confirmation = null;
       this.passwordVisible = false;
       this.dialogFormVisible = true;
       this.$nextTick(function () {
-        _this5.$refs['dataForm'].clearValidate();
+        _this6.$refs['dataForm'].clearValidate();
       });
     },
     updateData: function updateData() {
-      var _this6 = this;
+      var _this7 = this;
 
       this.$refs['dataForm'].validate(function (valid) {
         if (valid) {
-          var tempData = __WEBPACK_IMPORTED_MODULE_1_babel_runtime_core_js_object_assign___default()({}, _this6.temp);
-          Object(__WEBPACK_IMPORTED_MODULE_3__api_user__["f" /* updateUser */])(tempData).then(function () {
+          var tempData = __WEBPACK_IMPORTED_MODULE_2_babel_runtime_core_js_object_assign___default()({}, _this7.temp);
+          Object(__WEBPACK_IMPORTED_MODULE_3__api_user__["g" /* updateUser */])(tempData).then(function () {
             var _iteratorNormalCompletion = true;
             var _didIteratorError = false;
             var _iteratorError = undefined;
 
             try {
-              for (var _iterator = __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_get_iterator___default()(_this6.list), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+              for (var _iterator = __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_get_iterator___default()(_this7.list), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
                 var v = _step.value;
 
-                if (v.id === _this6.temp.id) {
-                  var index = _this6.list.indexOf(v);
-                  _this6.list.splice(index, 1, _this6.temp);
+                if (v.id === _this7.temp.id) {
+                  var index = _this7.list.indexOf(v);
+                  _this7.list.splice(index, 1, _this7.temp);
                   break;
                 }
               }
@@ -566,8 +592,8 @@ var calendarTypeKeyValue = calendarTypeOptions.reduce(function (acc, cur) {
               }
             }
 
-            _this6.dialogFormVisible = false;
-            _this6.$notify({
+            _this7.dialogFormVisible = false;
+            _this7.$notify({
               title: '成功',
               message: '更新成功',
               type: 'success',
@@ -575,55 +601,6 @@ var calendarTypeKeyValue = calendarTypeOptions.reduce(function (acc, cur) {
             });
           });
         }
-      });
-    },
-    handleDelete: function handleDelete(row) {
-      this.$notify({
-        title: '成功',
-        message: '删除成功',
-        type: 'success',
-        duration: 2000
-      });
-      var index = this.list.indexOf(row);
-      this.list.splice(index, 1);
-    },
-    handleFetchPv: function handleFetchPv(pv) {
-      var _this7 = this;
-
-      Object(__WEBPACK_IMPORTED_MODULE_3__api_user__["c" /* fetchPv */])(pv).then(function (response) {
-        _this7.pvData = response.data.pvData;
-        _this7.dialogPvVisible = true;
-      });
-    },
-    handleDownload: function handleDownload() {
-      var _this8 = this;
-
-      this.downloadLoading = true;
-      __WEBPACK_IMPORTED_MODULE_2_babel_runtime_core_js_promise___default.a.resolve().then(function () {
-        return _interopRequireWildcard(__webpack_require__("./resources/assets/js/views/user recursive ^.*$")("" + function () {
-          return _interopRequireWildcard(require('@/vendor/Export2Excel'));
-        }));
-      }).then(function (excel) {
-        var tHeader = ['timestamp', 'title', 'type', 'importance', 'status'];
-        var filterVal = ['timestamp', 'title', 'type', 'importance', 'status'];
-        var data = _this8.formatJson(filterVal, _this8.list);
-        excel.export_json_to_excel({
-          header: tHeader,
-          data: data,
-          filename: 'table-list'
-        });
-        _this8.downloadLoading = false;
-      });
-    },
-    formatJson: function formatJson(filterVal, jsonData) {
-      return jsonData.map(function (v) {
-        return filterVal.map(function (j) {
-          if (j === 'timestamp') {
-            return Object(__WEBPACK_IMPORTED_MODULE_5__utils__["c" /* parseTime */])(v[j]);
-          } else {
-            return v[j];
-          }
-        });
       });
     },
     handleSetRoles: function handleSetRoles(row) {
@@ -660,7 +637,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* .fixed-width .el-button--mini {\n  padding: 10px 3px;\n  width: 70px;\n  margin-left: 0px;\n} */\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* .fixed-width .el-button--mini {\n  padding: 10px 3px;\n  width: 70px;\n  margin-left: 0px;\n} */\n", ""]);
 
 // exports
 
@@ -1039,6 +1016,7 @@ var render = function() {
                 { attrs: { label: _vm.$t("user.name"), prop: "name" } },
                 [
                   _c("el-input", {
+                    attrs: { disabled: _vm.userNameDisabled },
                     model: {
                       value: _vm.temp.name,
                       callback: function($$v) {
@@ -1210,65 +1188,6 @@ var render = function() {
                     },
                     [_vm._v(_vm._s(_vm.$t("table.confirm")))]
                   )
-            ],
-            1
-          )
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c(
-        "el-dialog",
-        {
-          attrs: { visible: _vm.dialogPvVisible, title: "Reading statistics" },
-          on: {
-            "update:visible": function($event) {
-              _vm.dialogPvVisible = $event
-            }
-          }
-        },
-        [
-          _c(
-            "el-table",
-            {
-              staticStyle: { width: "100%" },
-              attrs: {
-                data: _vm.pvData,
-                border: "",
-                fit: "",
-                "highlight-current-row": ""
-              }
-            },
-            [
-              _c("el-table-column", {
-                attrs: { prop: "key", label: "Channel" }
-              }),
-              _vm._v(" "),
-              _c("el-table-column", { attrs: { prop: "pv", label: "Pv" } })
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "span",
-            {
-              staticClass: "dialog-footer",
-              attrs: { slot: "footer" },
-              slot: "footer"
-            },
-            [
-              _c(
-                "el-button",
-                {
-                  attrs: { type: "primary" },
-                  on: {
-                    click: function($event) {
-                      _vm.dialogPvVisible = false
-                    }
-                  }
-                },
-                [_vm._v(_vm._s(_vm.$t("table.confirm")))]
-              )
             ],
             1
           )
@@ -1449,14 +1368,16 @@ function getPermissions() {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (immutable) */ __webpack_exports__["b"] = fetchList;
+/* harmony export (immutable) */ __webpack_exports__["c"] = fetchList;
 /* unused harmony export getRoles */
 /* harmony export (immutable) */ __webpack_exports__["d"] = getUserRoles;
 /* harmony export (immutable) */ __webpack_exports__["e"] = giveUserRoles;
 /* unused harmony export fetchArticle */
-/* harmony export (immutable) */ __webpack_exports__["c"] = fetchPv;
+/* unused harmony export fetchPv */
 /* harmony export (immutable) */ __webpack_exports__["a"] = createUser;
-/* harmony export (immutable) */ __webpack_exports__["f"] = updateUser;
+/* harmony export (immutable) */ __webpack_exports__["f"] = resetPassword;
+/* harmony export (immutable) */ __webpack_exports__["g"] = updateUser;
+/* harmony export (immutable) */ __webpack_exports__["b"] = deleteUser;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils_request__ = __webpack_require__("./resources/assets/js/utils/request.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__utils_auth__ = __webpack_require__("./resources/assets/js/utils/auth.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__config_js__ = __webpack_require__("./resources/assets/js/config.js");
@@ -1537,10 +1458,29 @@ function createUser(data) {
   });
 }
 
+function resetPassword(data) {
+  return Object(__WEBPACK_IMPORTED_MODULE_0__utils_request__["a" /* default */])({
+    url: __WEBPACK_IMPORTED_MODULE_2__config_js__["a" /* ROAST_CONFIG */].API_URL + '/resetPassword',
+    method: 'post',
+    params: { token: token },
+    data: data
+  });
+}
+
 function updateUser(data) {
   return Object(__WEBPACK_IMPORTED_MODULE_0__utils_request__["a" /* default */])({
     url: __WEBPACK_IMPORTED_MODULE_2__config_js__["a" /* ROAST_CONFIG */].API_URL + '/user/' + data.id,
     method: 'put',
+    params: { token: token },
+    data: data
+  });
+}
+function deleteUser(data) {
+  var token = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : Object(__WEBPACK_IMPORTED_MODULE_1__utils_auth__["a" /* getToken */])();
+
+  return Object(__WEBPACK_IMPORTED_MODULE_0__utils_request__["a" /* default */])({
+    url: __WEBPACK_IMPORTED_MODULE_2__config_js__["a" /* ROAST_CONFIG */].API_URL + '/user/' + data.id,
+    method: 'delete',
     params: { token: token },
     data: data
   });
@@ -1651,35 +1591,6 @@ if(false) {
     }, false);
   }
 });
-
-/***/ }),
-
-/***/ "./resources/assets/js/views/user recursive ^.*$":
-/***/ (function(module, exports, __webpack_require__) {
-
-var map = {
-	".": "./resources/assets/js/views/user/index.vue",
-	"./": "./resources/assets/js/views/user/index.vue",
-	"./components/SetRoles": "./resources/assets/js/views/user/components/SetRoles.vue",
-	"./components/SetRoles.vue": "./resources/assets/js/views/user/components/SetRoles.vue",
-	"./index": "./resources/assets/js/views/user/index.vue",
-	"./index.vue": "./resources/assets/js/views/user/index.vue"
-};
-function webpackContext(req) {
-	return __webpack_require__(webpackContextResolve(req));
-};
-function webpackContextResolve(req) {
-	var id = map[req];
-	if(!(id + 1)) // check for number or string
-		throw new Error("Cannot find module '" + req + "'.");
-	return id;
-};
-webpackContext.keys = function webpackContextKeys() {
-	return Object.keys(map);
-};
-webpackContext.resolve = webpackContextResolve;
-module.exports = webpackContext;
-webpackContext.id = "./resources/assets/js/views/user recursive ^.*$";
 
 /***/ }),
 

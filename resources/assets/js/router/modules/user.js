@@ -20,10 +20,10 @@ const userRouter = {
       },
       {
         hidden: true,
-        path: 'userAdd',
-        component: resolve => void(require(['@/components/hello'], resolve)),
+        path: 'passwordReset',
+        component: resolve => void(require(['@/views/user/passwordReset'], resolve)),
         name: 'userAdd',
-        meta: { title: 'userCreate' }
+        meta: { title: 'passwordReset' }
       }
     ]
 }

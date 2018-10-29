@@ -67,6 +67,15 @@ export function createUser(data) {
   })
 }
 
+export function resetPassword(data) {
+  return request({
+    url: ROAST_CONFIG.API_URL + '/resetPassword',
+    method: 'post',
+    params: { token },
+    data
+  })
+}
+
 export function updateUser(data) {
   return request({
     url: ROAST_CONFIG.API_URL + '/user/' + data.id,
@@ -74,4 +83,12 @@ export function updateUser(data) {
     params: { token },
     data
   })
+}
+export function deleteUser(data, token = getToken()) {
+  return request({
+    url: ROAST_CONFIG.API_URL + '/user/' + data.id,
+    method: 'delete',
+    params: {token},
+    data
+  }) 
 }

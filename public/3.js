@@ -85,14 +85,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   data: function data() {
     var validateUsername = function validateUsername(rule, value, callback) {
       if (!Object(__WEBPACK_IMPORTED_MODULE_0__utils_validate__["b" /* isvalidUsername */])(value)) {
-        callback(new Error('Please enter the correct user name'));
+        callback(new Error('请输入用户名'));
       } else {
         callback();
       }
     };
     var validatePassword = function validatePassword(rule, value, callback) {
       if (value.length < 6) {
-        callback(new Error('The password can not be less than 6 digits'));
+        callback(new Error('密码不能小于6位'));
       } else {
         callback();
       }
@@ -147,10 +147,21 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       this.$refs.loginForm.validate(function (valid) {
         if (valid) {
           _this.loading = true;
-          _this.$store.dispatch('LoginByUsername', _this.loginForm).then(function () {
+          _this.$store.dispatch('LoginByUsername', _this.loginForm).then(function (response) {
+
+            if (!response.data.status) {
+              console.log('1');
+              console.log(response.data);
+              console.log(_this);
+              console.log(_this.$message());
+              _this.$message.error(response.data.error);
+            }
+
             _this.loading = false;
+
             _this.$router.push({ path: _this.redirect || '/dashboard' });
-          }).catch(function () {
+          }).catch(function (error) {
+            // console.log(error)
             _this.loading = false;
           });
         } else {

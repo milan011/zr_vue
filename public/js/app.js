@@ -29,7 +29,7 @@
 /******/
 /******/ 	// objects to store loaded and loading chunks
 /******/ 	var installedChunks = {
-/******/ 		6: 0
+/******/ 		8: 0
 /******/ 	};
 /******/
 /******/ 	// The require function
@@ -3909,11 +3909,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__components_ThemePicker__ = __webpack_require__("./resources/assets/js/components/ThemePicker/index.vue");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__components_ThemePicker___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_8__components_ThemePicker__);
 
-//
-//
-//
-//
-//
 //
 //
 //
@@ -88579,32 +88574,12 @@ var render = function() {
                 [
                   _c(
                     "router-link",
-                    { attrs: { to: "/" } },
+                    { attrs: { to: "/user/passwordReset" } },
                     [
                       _c("el-dropdown-item", [
                         _vm._v(
                           "\n            " +
-                            _vm._s(_vm.$t("navbar.dashboard")) +
-                            "\n          "
-                        )
-                      ])
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "a",
-                    {
-                      attrs: {
-                        target: "_blank",
-                        href: "https://github.com/PanJiaChen/vue-element-admin/"
-                      }
-                    },
-                    [
-                      _c("el-dropdown-item", [
-                        _vm._v(
-                          "\n            " +
-                            _vm._s(_vm.$t("navbar.github")) +
+                            _vm._s(_vm.$t("navbar.passwordReset")) +
                             "\n          "
                         )
                       ])
@@ -105848,11 +105823,13 @@ var _route;
     externalLink: '外链',
     user: '用户管理',
     userCreate: '添加用户',
+    passwordReset: '重置密码',
     userUpdate: '修改用户',
     userDelete: '删除用户'
-  }, __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'permission', '权限管理'), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'permissionAdd', '添加权限'), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'permissionUpdate', '修改权限'), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'permissionDelete', '删除权限'), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'role', '角色管理'), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'roleAdd', '添加角色'), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'roleUpdate', '修改角色'), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'roleDelete', '删除角色'), _route),
+  }, __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'permission', '权限管理'), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'permissionAdd', '添加权限'), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'permissionUpdate', '修改权限'), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'permissionDelete', '删除权限'), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'role', '角色管理'), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'roleAdd', '添加角色'), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'roleUpdate', '修改角色'), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'roleDelete', '删除角色'), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'package', '套餐管理'), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'packageAdd', '添加套餐'), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'packageUpdate', '修改套餐'), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'packageDelete', '删除套餐'), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'manager', '客户经理'), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'managerAdd', '添加客户经理'), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'managerUpdate', '修改客户经理'), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'managerDelete', '删除客户经理'), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'info', '信息管理'), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'infoAdd', '添加信息'), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'infoUpdate', '修改信息'), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'infoDelete', '删除信息'), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'infoDianXin', '电信信息管理'), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'infoDianXinAdd', '添加电信信息'), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'infoDianXinUpdate', '修改电信信息'), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'infoDianXinDelete', '删除电信信息'), _route),
   navbar: {
     logOut: '退出登录',
+    passwordReset: '修改密码',
     dashboard: '首页',
     github: '项目地址',
     screenfull: '全屏',
@@ -105907,7 +105884,7 @@ var _route;
     export: '导出',
     reviewer: '审核人',
     id: '序号',
-    date: '时间',
+    date: '创建',
     author: '作者',
     readings: '阅读数',
     status: '状态',
@@ -105958,7 +105935,7 @@ var _route;
     address: '地址',
     status: '状态',
     remark: '备注',
-    creater_id: '创建者',
+    creater: '创建者',
     add: '添加'
   },
   role: {
@@ -105967,6 +105944,82 @@ var _route;
     guard_name: '标识',
     add: '添加',
     description: '角色描述'
+  },
+  package: {
+    id: 'ID',
+    name: '套餐名称',
+    bloc: '所属集团',
+    package_price: '套餐价格',
+    creater_id: '创建者',
+    month_nums: '还款月数',
+    netin: '入网时间',
+    remark: '备注',
+    status: '状态',
+    return_price: '返还金额',
+    return_moon_price: '月返还金额',
+    return_month: '返还月份',
+    nums: '还款时间几个月',
+    add: '添加'
+  },
+  manager: {
+    id: 'ID',
+    name: '客户经理',
+    telephone: '电话',
+    wx_number: '微信号码',
+    creater: '创建者',
+    email: '邮箱',
+    address: '地址',
+    remark: '备注',
+    status: '状态',
+    add: '添加',
+    first_letter: '首字母'
+  },
+  info: {
+    id: 'ID',
+    code: '序号',
+    name: '客户姓名',
+    telephone: '电话',
+    user_telephone: '客户电话',
+    manage_name: '客户经理',
+    manage_telephone: '客户经理电话',
+    project_name: '项目名称',
+    new_telephone: '入网号码',
+    uim_number: 'UIM码',
+    side_number: '副卡',
+    is_jituan: '集团卡',
+    old_bind: '绑老卡',
+    netin: '入网时间',
+    collections: '收款',
+    balance_month: '当前结算月',
+    collections_type: '收款方式',
+    creater: '创建者',
+    package_month: '套餐返还月',
+    package: '套餐名称',
+    side_number_num: '副卡数量',
+    side_uim_number: '副卡UIM码',
+    side_uim_number_num: '副卡UIM数量',
+    return_record: '返还记录',
+    remark: '备注',
+    status: '状态',
+    add: '添加'
+  },
+  infoDianXin: {
+    id: 'ID',
+    code: '序号',
+    name: '套餐名称',
+    return_telephone: '返款号码',
+    jituan: '集团名称',
+    manager: '客户经理',
+    jiakuan: '价款',
+    refunds: '返款金额',
+    new_telephone: '入网号码',
+    yongjin: '佣金方案',
+    balance_month: '结算月',
+    netin: '入网时间',
+    creater: '创建者',
+    remark: '备注',
+    status: '状态',
+    add: '添加'
   }
 });
 
@@ -106075,6 +106128,8 @@ __WEBPACK_IMPORTED_MODULE_1__router__["c" /* default */].afterEach(function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__modules_user__ = __webpack_require__("./resources/assets/js/router/modules/user.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__modules_permission__ = __webpack_require__("./resources/assets/js/router/modules/permission.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__modules_role__ = __webpack_require__("./resources/assets/js/router/modules/role.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__modules_manager__ = __webpack_require__("./resources/assets/js/router/modules/manager.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__modules_package__ = __webpack_require__("./resources/assets/js/router/modules/package.js");
 
 
 
@@ -106084,6 +106139,8 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vue_
 
 
 /* Router Modules */
+
+
 
 
 
@@ -106130,7 +106187,7 @@ var constantRouterMap = [{
     name: 'Dashboard',
     meta: { title: 'dashboard', icon: 'dashboard', noCache: true }
   }]
-}, __WEBPACK_IMPORTED_MODULE_3__modules_user__["a" /* default */], __WEBPACK_IMPORTED_MODULE_4__modules_permission__["a" /* default */], __WEBPACK_IMPORTED_MODULE_5__modules_role__["a" /* default */]];
+}, __WEBPACK_IMPORTED_MODULE_3__modules_user__["a" /* default */], __WEBPACK_IMPORTED_MODULE_4__modules_permission__["a" /* default */], __WEBPACK_IMPORTED_MODULE_5__modules_role__["a" /* default */], __WEBPACK_IMPORTED_MODULE_6__modules_manager__["a" /* default */], __WEBPACK_IMPORTED_MODULE_7__modules_package__["a" /* default */]];
 
 /* harmony default export */ __webpack_exports__["c"] = (new __WEBPACK_IMPORTED_MODULE_1_vue_router__["a" /* default */]({
   // mode: 'history', // require service support
@@ -106141,6 +106198,70 @@ var constantRouterMap = [{
 }));
 
 var asyncRouterMap = [];
+
+/***/ }),
+
+/***/ "./resources/assets/js/router/modules/manager.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__views_layout_Layout__ = __webpack_require__("./resources/assets/js/views/layout/Layout.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__views_layout_Layout___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__views_layout_Layout__);
+
+//权限管理路由组
+
+
+var permissionRouter = {
+  path: '/manager',
+  component: __WEBPACK_IMPORTED_MODULE_0__views_layout_Layout___default.a,
+  redirect: '/manager/index',
+  name: 'Manager',
+  meta: {
+    title: '',
+    icon: 'list'
+  },
+  children: [{
+    path: 'index',
+    component: function component(resolve) {
+      return void __webpack_require__.e/* require */(6).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__("./resources/assets/js/views/manager/index.vue")]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
+    },
+    name: 'manager',
+    meta: { title: 'manager' }
+  }]
+};
+/* harmony default export */ __webpack_exports__["a"] = (permissionRouter);
+
+/***/ }),
+
+/***/ "./resources/assets/js/router/modules/package.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__views_layout_Layout__ = __webpack_require__("./resources/assets/js/views/layout/Layout.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__views_layout_Layout___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__views_layout_Layout__);
+
+//权限管理路由组
+
+
+var permissionRouter = {
+  path: '/package',
+  component: __WEBPACK_IMPORTED_MODULE_0__views_layout_Layout___default.a,
+  redirect: '/package/index',
+  name: 'Package',
+  meta: {
+    title: '',
+    icon: 'size'
+  },
+  children: [{
+    path: 'index',
+    component: function component(resolve) {
+      return void __webpack_require__.e/* require */(5).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__("./resources/assets/js/views/package/index.vue")]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
+    },
+    name: 'package',
+    meta: { title: 'package' }
+  }]
+};
+/* harmony default export */ __webpack_exports__["a"] = (permissionRouter);
 
 /***/ }),
 
@@ -106236,12 +106357,12 @@ var userRouter = {
     meta: { title: 'user' }
   }, {
     hidden: true,
-    path: 'userAdd',
+    path: 'passwordReset',
     component: function component(resolve) {
-      return void __webpack_require__.e/* require */(5).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__("./resources/assets/js/components/hello.vue")]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
+      return void __webpack_require__.e/* require */(7).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__("./resources/assets/js/views/user/passwordReset.vue")]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
     },
     name: 'userAdd',
-    meta: { title: 'userCreate' }
+    meta: { title: 'passwordReset' }
   }]
 };
 /* harmony default export */ __webpack_exports__["a"] = (userRouter);
@@ -106279,6 +106400,9 @@ var getters = {
   },
   name: function name(state) {
     return state.user.name;
+  },
+  nickName: function nickName(state) {
+    return state.user.nickName;
   },
   introduction: function introduction(state) {
     return state.user.introduction;
@@ -106842,6 +106966,7 @@ var user = {
     code: '',
     token: Object(__WEBPACK_IMPORTED_MODULE_2__utils_auth__["a" /* getToken */])(),
     name: '',
+    nickName: '',
     avatar: '',
     introduction: '',
     roles: [],
@@ -106874,6 +106999,9 @@ var user = {
     },
     SET_ROLES: function SET_ROLES(state, roles) {
       state.roles = roles;
+    },
+    SET_NICK_NAME: function SET_NICK_NAME(state, nickName) {
+      state.nickName = nickName;
     }
   },
 
@@ -106885,10 +107013,24 @@ var user = {
       var username = userInfo.username.trim();
       return new __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_promise___default.a(function (resolve, reject) {
         Object(__WEBPACK_IMPORTED_MODULE_1__api_login_js__["b" /* loginByUsername */])(username, userInfo.password).then(function (response) {
-          var data = response.data;
-          commit('SET_TOKEN', data.token);
-          Object(__WEBPACK_IMPORTED_MODULE_2__utils_auth__["c" /* setToken */])(response.data.token);
-          resolve();
+          // console.log(response)
+          if (response.data.status) {
+            var data = response.data;
+            commit('SET_TOKEN', data.token);
+            Object(__WEBPACK_IMPORTED_MODULE_2__utils_auth__["c" /* setToken */])(response.data.token);
+            resolve(response);
+          } else {
+            resolve(response);
+            // console.log(response)
+            /*console.log(this)
+            // alert(response.data)
+            this.$notify.error({
+              title: '登录失败',
+              message: sss,
+              type: 'waring',
+              duration: 2000
+            })*/
+          }
         }).catch(function (error) {
           reject(error);
         });
@@ -106914,8 +107056,8 @@ var user = {
           } else {
             reject('getInfo: roles must be a non-null array !');
           }
-
           commit('SET_NAME', data.name);
+          commit('SET_NICK_NAME', data.nick_name);
           commit('SET_AVATAR', data.avatar);
           commit('SET_INTRODUCTION', data.introduction);
           resolve(response);
@@ -107404,9 +107546,6 @@ function uniqueArr(arr) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__utils_auth__ = __webpack_require__("./resources/assets/js/utils/auth.js");
 
 
-var _this = this;
-
-
 
 
 
@@ -107438,18 +107577,17 @@ service.interceptors.response.use(
 function (response) {
   return response;
 }, function (error) {
-  switch (error.response.status) {
-
+  /*switch (error.response.status) {
     // 如果响应中的 http code 为 401，那么则此用户可能 token 失效了之类的，我会触发 logout 方法，清除本地的数据并将用户重定向至登录页面
     case 401:
-      return _this.$store.dispatch('LogOut');
-      break;
+        return store.dispatch('LogOut')
+        break
     // 如果响应中的 http code 为 400，那么就弹出一条错误提示给用户
     case 400:
-      return _this.$Message.error('数据过期,请重新登录');
-      break;
+        return this.$Message.error('数据过期,请重新登录')
+        break
   }
-  return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_promise___default.a.reject(error);
+  return Promise.reject(error)*/
 },
 
 /**

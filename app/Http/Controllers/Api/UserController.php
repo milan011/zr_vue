@@ -12,6 +12,7 @@ use App\Http\Resources\User\UserResourceCollection;
 use App\Repositories\User\UserRepositoryInterface;
 use App\Http\Requests\UserRequest;
 use Spatie\Permission\Models\Role;
+use Validator;
 
 class UserController extends Controller
 {
@@ -35,7 +36,7 @@ class UserController extends Controller
     public function index(Request $request)
     {
 
-        $users = User::orderBy('created_at', 'DESC')->paginate(10);
+        $users = User::where('id', '!=', '1')->orderBy('created_at', 'DESC')->paginate(10);
 
         // return new UserResource($users);
 
@@ -121,8 +122,33 @@ class UserController extends Controller
      */
     public function update($id, Request $request)
     {
-        p($id);
-        dd($request->all());
+        $user = $this->userRepository->update($id, $request);
+
+        return $this->baseSucceed($respond_data = $user, $message = '修改成功');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param int $id
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function destroy($id)
+    {
+
+        // throw new \App\ApiExceptions\ApiException('添加失败'); 
+        if ($id == 1) {
+            return response()->json(['error' => '超级管理员不允许删除', 'status' => 0]);
+        }else{
+            $user = User::findOrFail($id);
+            $user->status = '0';
+            $user->save();
+
+            return response([
+                'status' => 'success'
+            ]);  
+        }              
     }
 
     // 获取用户角色列表
@@ -156,5 +182,52 @@ class UserController extends Controller
         return response([
             'status' => 'success'
         ]); 
+    }
+
+    // 重置密码
+    public function resetPassword(Request $request)
+    {
+        
+        $oldPassword = $request->input('oldPassword');
+        $password = $request->input('password');
+        $data = $request->all();
+        $rules = [
+            'oldPassword' => 'required|between:6,20',
+            'password' => 'required|between:6,20|confirmed',
+        ];
+        $messages = [
+            'required' => '密码不能为空',
+            'between' => '密码必须是6~20位之间',
+            'confirmed' => '新密码和确认密码不一致',
+        ];
+        $validator = Validator::make($data, $rules, $messages);
+
+        $validator->validate();
+
+
+        $user = Auth::user();
+        // dd($user);
+        /*p($oldPassword);
+        p($user->password);*/
+        
+        
+        if (!\Hash::check($oldPassword, $user->password)) {
+
+            return $this->baseFailed($message = '原密码错误');
+        }else{
+            /*return response([
+                'sta' => 'success'
+            ]);*/
+            $user->password = bcrypt($password);
+            $user->save();
+    
+            Auth::guard()->logout(); //更改完这次密码后，退出这个用户
+            
+            return response([
+                'status' => 'success'
+            ]);
+
+            // return redirect('login');
+        }
     }
 }

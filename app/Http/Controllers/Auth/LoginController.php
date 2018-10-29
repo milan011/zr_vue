@@ -52,7 +52,7 @@ class LoginController extends Controller
      */
     public function login(Request $request)
     {
-        
+
         $username = $request->input('username');
         $password = $request->input('password');
         $remember = $request->input('remember');
@@ -69,7 +69,13 @@ class LoginController extends Controller
 
         if ( ! $token = JWTAuth::attempt($login_data)) {
 
-            return response()->json(['error' => '数据过期请重新登录'], 401);
+            // return response()->json(['error' => '账号密码错误或者数据过期请刷新后重新登录'], 401);
+            return response()->json(
+                [
+                    'status' => false,
+                    'error' => '账号密码错误或者数据过期请刷新后重新登录'
+                ]
+            );
 
             /*return response([
                 'status' => 'error',

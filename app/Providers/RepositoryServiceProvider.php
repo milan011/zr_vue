@@ -32,6 +32,11 @@ class RepositoryServiceProvider extends ServiceProvider
   {
     // $this->app->bind('App\Repositories\Contracts\UserRepositoryInterface','App\Repositories\UserRepository');
     $this->app->bind('App\Repositories\User\UserRepositoryInterface','App\Repositories\User\UserRepository');
+    $this->app->bind('App\Repositories\Manager\ManagerRepositoryInterface','App\Repositories\Manager\ManagerRepository');
+    $this->app->bind('App\Repositories\Package\PackageRepositoryInterface','App\Repositories\Package\PackageRepository');
+    $this->app->bind('App\Repositories\InfoSelf\InfoSelfRepositoryInterface','App\Repositories\InfoSelf\InfoSelfRepository');
+    $this->app->bind('App\Repositories\InfoDianxin\InfoDianxinRepositoryInterface','App\Repositories\InfoDianxin\InfoDianxinRepository');
+    $this->app->bind('App\Repositories\PackageInfo\PackageInfoRepositoryInterface','App\Repositories\PackageInfo\PackageInfoRepository');
     
   }
 }

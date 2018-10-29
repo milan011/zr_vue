@@ -138,22 +138,42 @@ class UserRepository implements UserRepositoryInterface
     }
 
     public function update($id, $requestData) {
+
+        DB::beginTransaction();
+        try {
+
+            $user = User::findorFail($id);
+
+            $user->nick_name = $requestData->nick_name;
+            $user->telephone = $requestData->telephone;
+            $user->remark    = $requestData->remark;
+
+            // 更新用户
+            $user->save();
+            DB::commit();
+            return $user;
+        } catch (\Exception $e) {
+            throw  $e;
+            DB::rollBack();
+            return false;
+        }
+
         // dd($requestData->all());
-        $user = User::with(tableUnionDesign('hasManyRoles', ['roles.id', 'name', 'slug']))
-            ->findorFail($id);
+        //$user = User::with(tableUnionDesign('hasManyRoles', ['roles.id', 'name', 'slug']))
+            //->findorFail($id);
 
         /*p($requestData->role_id);
         dd($user->hasManyRoles[0]->id);*/
 
         // $user->name = $requestData->name;
-        $user->nick_name = $requestData->nick_name;
-        $user->telephone = $requestData->telephone;
-        $user->wx_number = $requestData->wx_number;
-        $user->email     = $requestData->email;
-        $user->remark    = $requestData->remark;
+        //$user->nick_name = $requestData->nick_name;
+        //$user->telephone = $requestData->telephone;
+        //$user->wx_number = $requestData->wx_number;
+        //$user->email     = $requestData->email;
+        //$user->remark    = $requestData->remark;
 
         // 更新用户
-        $user->save();
+        //$user->save();
 
         //如果角色有变化，更新UserRole表
         /*if ($requestData->role_id != $user->hasManyRoles[0]->id) {
@@ -170,8 +190,8 @@ class UserRepository implements UserRepositoryInterface
             $user_role->save();
         }*/
 
-        Session()->flash('sucess', '更新用户成功');
+        //Session()->flash('sucess', '更新用户成功');
 
-        return $user;
+        //return $user;
     }
 }

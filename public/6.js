@@ -1,6 +1,6 @@
 webpackJsonp([6],{
 
-/***/ "./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}],[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 1%\",\"last 2 versions\",\"not ie <= 8\"]}}],\"stage-2\"],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}],\"transform-vue-jsx\",\"transform-runtime\"],\"env\":{\"development\":{\"plugins\":[\"dynamic-import-node\"]}}}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/assets/js/views/permissions/index.vue":
+/***/ "./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}],[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 1%\",\"last 2 versions\",\"not ie <= 8\"]}}],\"stage-2\"],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}],\"transform-vue-jsx\",\"transform-runtime\"],\"env\":{\"development\":{\"plugins\":[\"dynamic-import-node\"]}}}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/assets/js/views/manager/index.vue":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -9,9 +9,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_get_iterator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_get_iterator__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_babel_runtime_core_js_object_assign__ = __webpack_require__("./node_modules/babel-runtime/core-js/object/assign.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_babel_runtime_core_js_object_assign___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_babel_runtime_core_js_object_assign__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__api_permission__ = __webpack_require__("./resources/assets/js/api/permission.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__api_manager__ = __webpack_require__("./resources/assets/js/api/manager.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__directive_waves__ = __webpack_require__("./resources/assets/js/directive/waves/index.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__utils__ = __webpack_require__("./resources/assets/js/utils/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__utils_validate__ = __webpack_require__("./resources/assets/js/utils/validate.js");
 
 
 //
@@ -84,16 +85,23 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
 
 
+// import { fetchList, fetchPv, createPermission, updatePermission, deletePermission } from '@/api/manager'
 
  // 水波纹指令
 
 
+
 var calendarTypeOptions = [{ key: 'web', display_name: 'web' }, { key: 'api', display_name: 'api' }];
+
+var validateTelephone = function validateTelephone(rule, value, callback) {
+  if (!Object(__WEBPACK_IMPORTED_MODULE_5__utils_validate__["a" /* isTelephone */])(value)) {
+    callback(new Error('请输入正确格式手机号'));
+  } else {
+    callback();
+  }
+};
 
 // arr to obj ,such as { CN : "China", US : "USA" }
 var calendarTypeKeyValue = calendarTypeOptions.reduce(function (acc, cur) {
@@ -102,7 +110,7 @@ var calendarTypeKeyValue = calendarTypeOptions.reduce(function (acc, cur) {
 }, {});
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'PerssionTable',
+  name: 'ManagerTable',
   directives: {
     waves: __WEBPACK_IMPORTED_MODULE_3__directive_waves__["a" /* default */]
   },
@@ -129,26 +137,28 @@ var calendarTypeKeyValue = calendarTypeOptions.reduce(function (acc, cur) {
         page: 1,
         importance: undefined,
         name: undefined,
-        guard_name: undefined
+        first_letter: undefined
       },
       calendarTypeOptions: calendarTypeOptions,
       showReviewer: false,
       temp: {
         id: undefined,
         name: '',
-        guard_name: ''
+        first_letter: '',
+        telephone: ''
       },
       dialogFormVisible: false,
       dialogStatus: '',
       textMap: {
-        update: '编辑权限',
-        create: '新增权限'
+        update: '编辑客户经理',
+        create: '新增客户经理'
       },
       dialogPvVisible: false,
       pvData: [],
       rules: {
-        guard_name: [{ required: true, message: '请选择标识', trigger: 'change' }],
-        name: [{ required: true, message: '请输入名称', trigger: 'blur' }]
+        name: [{ required: true, message: '请输入客户经理姓名', trigger: 'blur' }],
+        first_letter: [{ required: true, message: '请输入一位英文字母', trigger: 'blur' }, { min: 1, max: 1, message: '请输入一位英文字母', trigger: 'change' }, { pattern: /[a-zA-Z]/, message: '请输入一位英文字母', trigger: 'change' }],
+        telephone: [{ required: true, message: '请输入有效手机号', trigger: 'blur' }, { validator: validateTelephone, trigger: 'change' }]
       },
       downloadLoading: false
     };
@@ -162,7 +172,7 @@ var calendarTypeKeyValue = calendarTypeOptions.reduce(function (acc, cur) {
       var _this = this;
 
       this.listLoading = true;
-      Object(__WEBPACK_IMPORTED_MODULE_2__api_permission__["c" /* fetchList */])(this.listQuery).then(function (response) {
+      Object(__WEBPACK_IMPORTED_MODULE_2__api_manager__["c" /* managerList */])(this.listQuery).then(function (response) {
         _this.list = response.data.data;
         _this.total = response.data.total;
 
@@ -193,7 +203,7 @@ var calendarTypeKeyValue = calendarTypeOptions.reduce(function (acc, cur) {
         type: 'warning'
       }).then(function () {
         _this2.temp = __WEBPACK_IMPORTED_MODULE_1_babel_runtime_core_js_object_assign___default()({}, row);
-        Object(__WEBPACK_IMPORTED_MODULE_2__api_permission__["b" /* deletePermission */])(_this2.temp).then(function (response) {
+        Object(__WEBPACK_IMPORTED_MODULE_2__api_manager__["b" /* deleteManager */])(_this2.temp).then(function (response) {
           // console.log(response.data);
           if (response.data.status === 0) {
             _this2.$notify({
@@ -225,7 +235,8 @@ var calendarTypeKeyValue = calendarTypeOptions.reduce(function (acc, cur) {
       this.temp = {
         id: undefined,
         name: '',
-        guard_name: ''
+        first_letter: '',
+        telephone: ''
       };
     },
     handleCreate: function handleCreate() {
@@ -243,14 +254,25 @@ var calendarTypeKeyValue = calendarTypeOptions.reduce(function (acc, cur) {
 
       this.$refs['dataForm'].validate(function (valid) {
         if (valid) {
-          Object(__WEBPACK_IMPORTED_MODULE_2__api_permission__["a" /* createPermission */])(_this4.temp).then(function (response) {
-            // console.log(response.data);
-            _this4.temp.id = response.data.id;
-            _this4.list.unshift(_this4.temp);
+          Object(__WEBPACK_IMPORTED_MODULE_2__api_manager__["a" /* createManager */])(_this4.temp).then(function (response) {
+            /*console.log(response.data);
+            return false*/
+            var newManager = {
+              id: response.data.data.id,
+              name: response.data.data.name,
+              telephone: response.data.data.telephone,
+              created_at: response.data.data.created_at | Object(__WEBPACK_IMPORTED_MODULE_4__utils__["c" /* parseTime */])('{y}-{m}-{d} {h}:{i}')
+              /*console.log(response.data.data.id)
+              console.log(response.data.data.name)
+              console.log(response.data.data.telephone)*/
+              // console.log(newManager)
+
+              // this.temp.id = response.data.data.id
+            };_this4.list.unshift(newManager);
             _this4.dialogFormVisible = false;
             _this4.$notify({
               title: '成功',
-              message: '创建成功',
+              message: response.data.message,
               type: 'success',
               duration: 2000
             });
@@ -273,46 +295,54 @@ var calendarTypeKeyValue = calendarTypeOptions.reduce(function (acc, cur) {
 
       this.$refs['dataForm'].validate(function (valid) {
         if (valid) {
-
           var tempData = __WEBPACK_IMPORTED_MODULE_1_babel_runtime_core_js_object_assign___default()({}, _this6.temp);
-          console.log(tempData);
-          Object(__WEBPACK_IMPORTED_MODULE_2__api_permission__["d" /* updatePermission */])(tempData).then(function () {
-            var _iteratorNormalCompletion = true;
-            var _didIteratorError = false;
-            var _iteratorError = undefined;
+          // console.log(tempData)
+          Object(__WEBPACK_IMPORTED_MODULE_2__api_manager__["d" /* updateManager */])(tempData).then(function (response) {
+            console.log(response.data);
+            if (response.data.status) {
+              var _iteratorNormalCompletion = true;
+              var _didIteratorError = false;
+              var _iteratorError = undefined;
 
-            try {
-              for (var _iterator = __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_get_iterator___default()(_this6.list), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-                var v = _step.value;
-
-                if (v.id === _this6.temp.id) {
-                  var index = _this6.list.indexOf(v);
-                  _this6.list.splice(index, 1, _this6.temp);
-                  break;
-                }
-              }
-            } catch (err) {
-              _didIteratorError = true;
-              _iteratorError = err;
-            } finally {
               try {
-                if (!_iteratorNormalCompletion && _iterator.return) {
-                  _iterator.return();
+                for (var _iterator = __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_get_iterator___default()(_this6.list), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+                  var v = _step.value;
+
+                  if (v.id === _this6.temp.id) {
+                    var index = _this6.list.indexOf(v);
+                    _this6.list.splice(index, 1, _this6.temp);
+                    break;
+                  }
                 }
+              } catch (err) {
+                _didIteratorError = true;
+                _iteratorError = err;
               } finally {
-                if (_didIteratorError) {
-                  throw _iteratorError;
+                try {
+                  if (!_iteratorNormalCompletion && _iterator.return) {
+                    _iterator.return();
+                  }
+                } finally {
+                  if (_didIteratorError) {
+                    throw _iteratorError;
+                  }
                 }
               }
-            }
 
-            _this6.dialogFormVisible = false;
-            _this6.$notify({
-              title: '成功',
-              message: '更新成功',
-              type: 'success',
-              duration: 2000
-            });
+              _this6.dialogFormVisible = false;
+              _this6.$notify({
+                title: '成功',
+                message: '更新成功',
+                type: 'success',
+                duration: 2000
+              });
+            } else {
+              _this6.$notify.error({
+                title: '失败',
+                message: response.data.message,
+                duration: 2000
+              });
+            }
           });
         }
       });
@@ -332,6 +362,21 @@ var calendarTypeKeyValue = calendarTypeOptions.reduce(function (acc, cur) {
 
 /***/ }),
 
+/***/ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-42c8b14d\",\"scoped\":false,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/assets/js/views/manager/index.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* .fixed-width .el-button--mini {\n  padding: 10px 3px;\n  width: 70px;\n  margin-left: 0px;\n}\n.el-table--medium td, .el-table--medium th {\n  padding: 7px 0;\n}  */\n", ""]);
+
+// exports
+
+
+/***/ }),
+
 /***/ "./node_modules/css-loader/index.js!./resources/assets/js/directive/waves/waves.css":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -347,7 +392,7 @@ exports.push([module.i, ".waves-ripple {\r\n    position: absolute;\r\n    borde
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-4f68cae4\",\"hasScoped\":false,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/assets/js/views/permissions/index.vue":
+/***/ "./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-42c8b14d\",\"hasScoped\":false,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/assets/js/views/manager/index.vue":
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -410,7 +455,7 @@ var render = function() {
           }),
           _vm._v(" "),
           _c("el-table-column", {
-            attrs: { label: _vm.$t("permission.name"), align: "center" },
+            attrs: { label: _vm.$t("manager.name"), align: "center" },
             scopedSlots: _vm._u([
               {
                 key: "default",
@@ -422,12 +467,39 @@ var render = function() {
           }),
           _vm._v(" "),
           _c("el-table-column", {
-            attrs: { label: _vm.$t("permission.guard_name"), align: "center" },
+            attrs: { label: _vm.$t("manager.telephone"), align: "center" },
             scopedSlots: _vm._u([
               {
                 key: "default",
                 fn: function(scope) {
-                  return [_c("span", [_vm._v(_vm._s(scope.row.guard_name))])]
+                  return [_c("span", [_vm._v(_vm._s(scope.row.telephone))])]
+                }
+              }
+            ])
+          }),
+          _vm._v(" "),
+          _c("el-table-column", {
+            attrs: {
+              label: _vm.$t("table.date"),
+              width: "150px",
+              align: "center"
+            },
+            scopedSlots: _vm._u([
+              {
+                key: "default",
+                fn: function(scope) {
+                  return [
+                    _c("span", [
+                      _vm._v(
+                        _vm._s(
+                          _vm._f("parseTime")(
+                            scope.row.created_at,
+                            "{y}-{m}-{d} {h}:{i}"
+                          )
+                        )
+                      )
+                    ])
+                  ]
                 }
               }
             ])
@@ -538,7 +610,7 @@ var render = function() {
             [
               _c(
                 "el-form-item",
-                { attrs: { label: _vm.$t("permission.name"), prop: "name" } },
+                { attrs: { label: _vm.$t("manager.name"), prop: "name" } },
                 [
                   _c("el-input", {
                     model: {
@@ -557,31 +629,42 @@ var render = function() {
                 "el-form-item",
                 {
                   attrs: {
-                    label: _vm.$t("permission.guard_name"),
-                    prop: "guard_name"
+                    label: _vm.$t("manager.telephone"),
+                    prop: "telephone"
                   }
                 },
                 [
-                  _c(
-                    "el-select",
-                    {
-                      staticClass: "filter-item",
-                      attrs: { placeholder: "请选择标识" },
-                      model: {
-                        value: _vm.temp.guard_name,
-                        callback: function($$v) {
-                          _vm.$set(_vm.temp, "guard_name", $$v)
-                        },
-                        expression: "temp.guard_name"
-                      }
-                    },
-                    _vm._l(_vm.calendarTypeOptions, function(item) {
-                      return _c("el-option", {
-                        key: item.key,
-                        attrs: { label: item.display_name, value: item.key }
-                      })
-                    })
-                  )
+                  _c("el-input", {
+                    model: {
+                      value: _vm.temp.telephone,
+                      callback: function($$v) {
+                        _vm.$set(_vm.temp, "telephone", $$v)
+                      },
+                      expression: "temp.telephone"
+                    }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "el-form-item",
+                {
+                  attrs: {
+                    label: _vm.$t("manager.first_letter"),
+                    prop: "first_letter"
+                  }
+                },
+                [
+                  _c("el-input", {
+                    model: {
+                      value: _vm.temp.first_letter,
+                      callback: function($$v) {
+                        _vm.$set(_vm.temp, "first_letter", $$v)
+                      },
+                      expression: "temp.first_letter"
+                    }
+                  })
                 ],
                 1
               )
@@ -631,65 +714,6 @@ var render = function() {
           )
         ],
         1
-      ),
-      _vm._v(" "),
-      _c(
-        "el-dialog",
-        {
-          attrs: { visible: _vm.dialogPvVisible, title: "Reading statistics" },
-          on: {
-            "update:visible": function($event) {
-              _vm.dialogPvVisible = $event
-            }
-          }
-        },
-        [
-          _c(
-            "el-table",
-            {
-              staticStyle: { width: "100%" },
-              attrs: {
-                data: _vm.pvData,
-                border: "",
-                fit: "",
-                "highlight-current-row": ""
-              }
-            },
-            [
-              _c("el-table-column", {
-                attrs: { prop: "key", label: "Channel" }
-              }),
-              _vm._v(" "),
-              _c("el-table-column", { attrs: { prop: "pv", label: "Pv" } })
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "span",
-            {
-              staticClass: "dialog-footer",
-              attrs: { slot: "footer" },
-              slot: "footer"
-            },
-            [
-              _c(
-                "el-button",
-                {
-                  attrs: { type: "primary" },
-                  on: {
-                    click: function($event) {
-                      _vm.dialogPvVisible = false
-                    }
-                  }
-                },
-                [_vm._v(_vm._s(_vm.$t("table.confirm")))]
-              )
-            ],
-            1
-          )
-        ],
-        1
       )
     ],
     1
@@ -701,22 +725,47 @@ module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-4f68cae4", module.exports)
+    require("vue-hot-reload-api")      .rerender("data-v-42c8b14d", module.exports)
   }
 }
 
 /***/ }),
 
-/***/ "./resources/assets/js/api/permission.js":
+/***/ "./node_modules/vue-loader/node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-42c8b14d\",\"scoped\":false,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/assets/js/views/manager/index.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__("./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-42c8b14d\",\"scoped\":false,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/assets/js/views/manager/index.vue");
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__("./node_modules/vue-loader/node_modules/vue-style-loader/lib/addStylesClient.js")("9aca0c5a", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-42c8b14d\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./index.vue", function() {
+     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-42c8b14d\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./index.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+
+/***/ "./resources/assets/js/api/manager.js":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (immutable) */ __webpack_exports__["c"] = fetchList;
-/* unused harmony export fetchArticle */
-/* unused harmony export fetchPv */
-/* harmony export (immutable) */ __webpack_exports__["a"] = createPermission;
-/* harmony export (immutable) */ __webpack_exports__["d"] = updatePermission;
-/* harmony export (immutable) */ __webpack_exports__["b"] = deletePermission;
+/* harmony export (immutable) */ __webpack_exports__["c"] = managerList;
+/* harmony export (immutable) */ __webpack_exports__["a"] = createManager;
+/* harmony export (immutable) */ __webpack_exports__["d"] = updateManager;
+/* harmony export (immutable) */ __webpack_exports__["b"] = deleteManager;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils_request__ = __webpack_require__("./resources/assets/js/utils/request.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__utils_auth__ = __webpack_require__("./resources/assets/js/utils/auth.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__config_js__ = __webpack_require__("./resources/assets/js/config.js");
@@ -726,60 +775,44 @@ if (false) {
 
 var token = Object(__WEBPACK_IMPORTED_MODULE_1__utils_auth__["a" /* getToken */])();
 
-function fetchList(query) {
+function managerList(query) {
   var token = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : Object(__WEBPACK_IMPORTED_MODULE_1__utils_auth__["a" /* getToken */])();
 
   return Object(__WEBPACK_IMPORTED_MODULE_0__utils_request__["a" /* default */])({
     // url: '/user/list',
-    url: __WEBPACK_IMPORTED_MODULE_2__config_js__["a" /* ROAST_CONFIG */].API_URL + '/permissionList',
+    url: __WEBPACK_IMPORTED_MODULE_2__config_js__["a" /* ROAST_CONFIG */].API_URL + '/managerList',
     method: 'get',
-    params: { query: query, token: token, page: query.page }
+    params: { token: token, page: query.page }
   });
 }
 
-function fetchArticle(id) {
-  return Object(__WEBPACK_IMPORTED_MODULE_0__utils_request__["a" /* default */])({
-    url: '/article/detail',
-    method: 'get',
-    params: { id: id }
-  });
-}
-
-function fetchPv(pv) {
-  return Object(__WEBPACK_IMPORTED_MODULE_0__utils_request__["a" /* default */])({
-    url: '/article/pv',
-    method: 'get',
-    params: { pv: pv }
-  });
-}
-
-function createPermission(data) {
+function createManager(data) {
   var token = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : Object(__WEBPACK_IMPORTED_MODULE_1__utils_auth__["a" /* getToken */])();
 
   return Object(__WEBPACK_IMPORTED_MODULE_0__utils_request__["a" /* default */])({
-    url: __WEBPACK_IMPORTED_MODULE_2__config_js__["a" /* ROAST_CONFIG */].API_URL + '/permission',
+    url: __WEBPACK_IMPORTED_MODULE_2__config_js__["a" /* ROAST_CONFIG */].API_URL + '/manager',
     method: 'post',
     data: data,
     params: { token: token }
   });
 }
 
-function updatePermission(data) {
+function updateManager(data) {
   var token = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : Object(__WEBPACK_IMPORTED_MODULE_1__utils_auth__["a" /* getToken */])();
 
   return Object(__WEBPACK_IMPORTED_MODULE_0__utils_request__["a" /* default */])({
-    url: __WEBPACK_IMPORTED_MODULE_2__config_js__["a" /* ROAST_CONFIG */].API_URL + '/permission/' + data.id,
+    url: __WEBPACK_IMPORTED_MODULE_2__config_js__["a" /* ROAST_CONFIG */].API_URL + '/manager/' + data.id,
     method: 'put',
     params: { token: token },
     data: data
   });
 }
 
-function deletePermission(data) {
+function deleteManager(data) {
   var token = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : Object(__WEBPACK_IMPORTED_MODULE_1__utils_auth__["a" /* getToken */])();
 
   return Object(__WEBPACK_IMPORTED_MODULE_0__utils_request__["a" /* default */])({
-    url: __WEBPACK_IMPORTED_MODULE_2__config_js__["a" /* ROAST_CONFIG */].API_URL + '/permission/' + data.id,
+    url: __WEBPACK_IMPORTED_MODULE_2__config_js__["a" /* ROAST_CONFIG */].API_URL + '/manager/' + data.id,
     method: 'delete',
     params: { token: token },
     data: data
@@ -894,19 +927,23 @@ if(false) {
 
 /***/ }),
 
-/***/ "./resources/assets/js/views/permissions/index.vue":
+/***/ "./resources/assets/js/views/manager/index.vue":
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__("./node_modules/vue-loader/node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-42c8b14d\",\"scoped\":false,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/assets/js/views/manager/index.vue")
+}
 var normalizeComponent = __webpack_require__("./node_modules/vue-loader/lib/component-normalizer.js")
 /* script */
-var __vue_script__ = __webpack_require__("./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}],[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 1%\",\"last 2 versions\",\"not ie <= 8\"]}}],\"stage-2\"],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}],\"transform-vue-jsx\",\"transform-runtime\"],\"env\":{\"development\":{\"plugins\":[\"dynamic-import-node\"]}}}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/assets/js/views/permissions/index.vue")
+var __vue_script__ = __webpack_require__("./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}],[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 1%\",\"last 2 versions\",\"not ie <= 8\"]}}],\"stage-2\"],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}],\"transform-vue-jsx\",\"transform-runtime\"],\"env\":{\"development\":{\"plugins\":[\"dynamic-import-node\"]}}}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/assets/js/views/manager/index.vue")
 /* template */
-var __vue_template__ = __webpack_require__("./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-4f68cae4\",\"hasScoped\":false,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/assets/js/views/permissions/index.vue")
+var __vue_template__ = __webpack_require__("./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-42c8b14d\",\"hasScoped\":false,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/assets/js/views/manager/index.vue")
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
-var __vue_styles__ = null
+var __vue_styles__ = injectStyle
 /* scopeId */
 var __vue_scopeId__ = null
 /* moduleIdentifier (server only) */
@@ -919,7 +956,7 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "resources/assets/js/views/permissions/index.vue"
+Component.options.__file = "resources/assets/js/views/manager/index.vue"
 
 /* hot reload */
 if (false) {(function () {
@@ -928,9 +965,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-4f68cae4", Component.options)
+    hotAPI.createRecord("data-v-42c8b14d", Component.options)
   } else {
-    hotAPI.reload("data-v-4f68cae4", Component.options)
+    hotAPI.reload("data-v-42c8b14d", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true
