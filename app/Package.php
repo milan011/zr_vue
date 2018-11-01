@@ -24,7 +24,7 @@ class Package extends Model
      * 定义可批量赋值字段
      * @var array
      */
-    protected $fillable = ['id', 'bloc', 'name', 'package_price', 'netin', 'status', 'month_nums', 'recommend', 'remark', 'creater_id', 'created_at', 'updated_at'];
+    protected $fillable = ['id','name', 'package_price', 'status', 'month_nums', 'recommend', 'remark', 'creater_id', 'created_at', 'updated_at'];
 
     /**
      * The attributes excluded from the model's JSON form.
@@ -63,7 +63,10 @@ class Package extends Model
     // 定义Package表与PackageInfo表一对多关系
     public function hasManyPackageInfo(){
 
-      return $this->hasMany('App\PackageInfo', 'pid', 'id')->where('status', '1');
+      return $this->hasMany('App\PackageInfo', 'pid', 'id')
+                  ->select('return_month', 'return_price', 'status', 'id')
+                  ->where('status', '1')
+                  ->orderBy('return_month', 'DESC');
     }
 
     // 定义User表与Package表一对多关系

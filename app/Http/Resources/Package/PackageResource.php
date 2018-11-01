@@ -14,18 +14,29 @@ class PackageResource extends Resource
      */
     public function toArray($request)
     {
-        /*dd($this);
+        // dd($this);
         foreach ($this as $key => $value) {
-            dd($key);
-        }*/
+            foreach ($value as $k => $v) {
+                $v->hasManyPackageInfo;
+                $v->package_price = (float)($v->package_price);
+            }
+        }
 
         /*return [
             'id' => $this->id,
             'name' => $this->name,
-            'roles' => ['admin', 'editer'],
-            'avatar' => 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif',
-            'introduction' => '我是超级管理员',
+            'month_nums' => $this->month_nums,
+            'package_price' => $this->package_price,
+            'remark' => $this->remark,       
+            'created_at' => $this->created_at,       
         ];*/
         return parent::toArray($request);
     }
+
+    /*public function with($request)
+    {
+        return [
+            'return_month_price' => $this->hasManyPackageInfo(),
+        ];
+    }*/
 }

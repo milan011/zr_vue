@@ -31,7 +31,7 @@
       </el-table-column>
       <el-table-column :label="$t('table.date')" width="150px" align="center">
         <template slot-scope="scope">
-          <span>{{ scope.row.created_at | parseTime('{y}-{m}-{d} {h}:{i}') }}</span>
+          <span>{{ scope.row.created_at | parseTime('{y}-{m}-{d}') }}</span>
         </template>
       </el-table-column>
       <el-table-column :label="$t('table.actions')" align="center" class-name="small-padding fixed-width">
@@ -245,7 +245,7 @@ export default {
               id: response.data.data.id,
               name: response.data.data.name,
               telephone: response.data.data.telephone,
-              created_at: response.data.data.created_at | parseTime('{y}-{m}-{d} {h}:{i}')
+              created_at: new Date()
             }
             /*console.log(response.data.data.id)
             console.log(response.data.data.name)
@@ -301,8 +301,7 @@ export default {
                 message: response.data.message,
                 duration: 2000
               })
-            }
-            
+            }         
           })
         }
       })

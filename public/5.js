@@ -1,6 +1,6 @@
 webpackJsonp([5],{
 
-/***/ "./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}],[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 1%\",\"last 2 versions\",\"not ie <= 8\"]}}],\"stage-2\"],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}],\"transform-vue-jsx\",\"transform-runtime\"],\"env\":{\"development\":{\"plugins\":[\"dynamic-import-node\"]}}}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/assets/js/views/package/index.vue":
+/***/ "./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}],[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 1%\",\"last 2 versions\",\"not ie <= 8\"]}}],\"stage-2\"],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}],\"transform-vue-jsx\",\"transform-runtime\"],\"env\":{\"development\":{\"plugins\":[\"dynamic-import-node\"]}}}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/assets/js/views/permissions/index.vue":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -10,9 +10,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_babel_runtime_core_js_object_assign__ = __webpack_require__("./node_modules/babel-runtime/core-js/object/assign.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_babel_runtime_core_js_object_assign___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_babel_runtime_core_js_object_assign__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__api_permission__ = __webpack_require__("./resources/assets/js/api/permission.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__api_package__ = __webpack_require__("./resources/assets/js/api/package.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__directive_waves__ = __webpack_require__("./resources/assets/js/directive/waves/index.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__utils__ = __webpack_require__("./resources/assets/js/utils/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__directive_waves__ = __webpack_require__("./resources/assets/js/directive/waves/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__utils__ = __webpack_require__("./resources/assets/js/utils/index.js");
 
 
 //
@@ -104,10 +103,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-
 
 
 
@@ -123,9 +118,9 @@ var calendarTypeKeyValue = calendarTypeOptions.reduce(function (acc, cur) {
 }, {});
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'PackageTable',
+  name: 'PerssionTable',
   directives: {
-    waves: __WEBPACK_IMPORTED_MODULE_4__directive_waves__["a" /* default */]
+    waves: __WEBPACK_IMPORTED_MODULE_3__directive_waves__["a" /* default */]
   },
   filters: {
     statusFilter: function statusFilter(status) {
@@ -147,30 +142,33 @@ var calendarTypeKeyValue = calendarTypeOptions.reduce(function (acc, cur) {
       total: null,
       listLoading: true,
       listQuery: {
-        page: 1
+        page: 1,
+        importance: undefined,
+        name: undefined,
+        guard_name: undefined
       },
       calendarTypeOptions: calendarTypeOptions,
       showReviewer: false,
-      returnMonths: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'],
       temp: {
         id: undefined,
         name: '',
-        package_price: '',
-        month_nums: '12',
-        return_moon_price_list: [{ 'key': '1', 'price': null }, { 'key': '2', 'price': null }, { 'key': '3', 'price': null }, { 'key': '4', 'price': null }, { 'key': '5', 'price': null }, { 'key': '6', 'price': null }, { 'key': '7', 'price': null }, { 'key': '8', 'price': null }, { 'key': '9', 'price': null }, { 'key': '10', 'price': null }, { 'key': '11', 'price': null }, { 'key': '12', 'price': null }]
+        guard_name: '',
+        description: '',
+        group: ''
       },
       dialogFormVisible: false,
       dialogStatus: '',
       textMap: {
-        update: '编辑套餐',
-        create: '新增套餐'
+        update: '编辑权限',
+        create: '新增权限'
       },
       dialogPvVisible: false,
       pvData: [],
       rules: {
-        package_price: [{ required: true, message: '请输入套餐价格', trigger: 'change' }],
+        guard_name: [{ required: true, message: '请选择标识', trigger: 'change' }],
         name: [{ required: true, message: '请输入名称', trigger: 'blur' }],
-        month_nums: [{ required: true, message: '请输入描述', trigger: 'blur' }]
+        group: [{ required: true, message: '请输入分组', trigger: 'blur' }],
+        description: [{ required: true, message: '请输入描述', trigger: 'blur' }]
       },
       downloadLoading: false
     };
@@ -184,7 +182,7 @@ var calendarTypeKeyValue = calendarTypeOptions.reduce(function (acc, cur) {
       var _this = this;
 
       this.listLoading = true;
-      Object(__WEBPACK_IMPORTED_MODULE_3__api_package__["c" /* packageList */])(this.listQuery).then(function (response) {
+      Object(__WEBPACK_IMPORTED_MODULE_2__api_permission__["c" /* fetchList */])(this.listQuery).then(function (response) {
         _this.list = response.data.data;
         _this.total = response.data.total;
 
@@ -206,21 +204,6 @@ var calendarTypeKeyValue = calendarTypeOptions.reduce(function (acc, cur) {
       this.listQuery.page = val;
       this.getList();
     },
-    month_change: function month_change(val) {
-      var list = [];
-
-      for (var i = 1; i <= val; i++) {
-        var priceObj = {};
-        priceObj.key = i;
-        priceObj.price = null;
-        // console.log(priceObj)
-        list.push(priceObj);
-      }
-
-      console.log(list);
-
-      this.temp.return_moon_price_list = list;
-    },
     handleModifyStatus: function handleModifyStatus(row, status) {
       var _this2 = this;
 
@@ -230,7 +213,7 @@ var calendarTypeKeyValue = calendarTypeOptions.reduce(function (acc, cur) {
         type: 'warning'
       }).then(function () {
         _this2.temp = __WEBPACK_IMPORTED_MODULE_1_babel_runtime_core_js_object_assign___default()({}, row);
-        Object(__WEBPACK_IMPORTED_MODULE_3__api_package__["b" /* deletePackage */])(_this2.temp).then(function (response) {
+        Object(__WEBPACK_IMPORTED_MODULE_2__api_permission__["b" /* deletePermission */])(_this2.temp).then(function (response) {
           // console.log(response.data);
           if (response.data.status === 0) {
             _this2.$notify({
@@ -262,9 +245,9 @@ var calendarTypeKeyValue = calendarTypeOptions.reduce(function (acc, cur) {
       this.temp = {
         id: undefined,
         name: '',
-        package_price: '',
-        month_nums: '12',
-        return_moon_price_list: [{ 'key': '1', 'price': null }, { 'key': '2', 'price': null }, { 'key': '3', 'price': null }, { 'key': '4', 'price': null }, { 'key': '5', 'price': null }, { 'key': '6', 'price': null }, { 'key': '7', 'price': null }, { 'key': '8', 'price': null }, { 'key': '9', 'price': null }, { 'key': '10', 'price': null }, { 'key': '11', 'price': null }, { 'key': '12', 'price': null }]
+        guard_name: '',
+        description: '',
+        group: ''
       };
     },
     handleCreate: function handleCreate() {
@@ -280,11 +263,9 @@ var calendarTypeKeyValue = calendarTypeOptions.reduce(function (acc, cur) {
     createData: function createData() {
       var _this4 = this;
 
-      console.log(this.temp);
-      return false;
       this.$refs['dataForm'].validate(function (valid) {
         if (valid) {
-          Object(__WEBPACK_IMPORTED_MODULE_3__api_package__["a" /* createPackage */])(_this4.temp).then(function (response) {
+          Object(__WEBPACK_IMPORTED_MODULE_2__api_permission__["a" /* createPermission */])(_this4.temp).then(function (response) {
             // console.log(response.data);
             _this4.temp.id = response.data.id;
             _this4.list.unshift(_this4.temp);
@@ -314,9 +295,10 @@ var calendarTypeKeyValue = calendarTypeOptions.reduce(function (acc, cur) {
 
       this.$refs['dataForm'].validate(function (valid) {
         if (valid) {
+
           var tempData = __WEBPACK_IMPORTED_MODULE_1_babel_runtime_core_js_object_assign___default()({}, _this6.temp);
           console.log(tempData);
-          Object(__WEBPACK_IMPORTED_MODULE_3__api_package__["d" /* updatePackage */])(tempData).then(function () {
+          Object(__WEBPACK_IMPORTED_MODULE_2__api_permission__["d" /* updatePermission */])(tempData).then(function () {
             var _iteratorNormalCompletion = true;
             var _didIteratorError = false;
             var _iteratorError = undefined;
@@ -372,7 +354,7 @@ var calendarTypeKeyValue = calendarTypeOptions.reduce(function (acc, cur) {
 
 /***/ }),
 
-/***/ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-13b6aaa6\",\"scoped\":false,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/assets/js/views/package/index.vue":
+/***/ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-4f68cae4\",\"scoped\":false,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/assets/js/views/permissions/index.vue":
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/css-base.js")(false);
@@ -380,7 +362,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* .fixed-width .el-button--mini {\n  padding: 10px 3px;\n  width: 70px;\n  margin-left: 0px;\n}\n.el-table--medium td, .el-table--medium th {\n  padding: 7px 0;\n}  */\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* .fixed-width .el-button--mini {\n  padding: 10px 3px;\n  width: 70px;\n  margin-left: 0px;\n}\n.el-table--medium td, .el-table--medium th {\n  padding: 7px 0;\n}  */\n", ""]);
 
 // exports
 
@@ -402,7 +384,7 @@ exports.push([module.i, ".waves-ripple {\r\n    position: absolute;\r\n    borde
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-13b6aaa6\",\"hasScoped\":false,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/assets/js/views/package/index.vue":
+/***/ "./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-4f68cae4\",\"hasScoped\":false,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/assets/js/views/permissions/index.vue":
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -465,7 +447,7 @@ var render = function() {
           }),
           _vm._v(" "),
           _c("el-table-column", {
-            attrs: { label: _vm.$t("package.name"), align: "center" },
+            attrs: { label: _vm.$t("permission.name"), align: "center" },
             scopedSlots: _vm._u([
               {
                 key: "default",
@@ -477,51 +459,36 @@ var render = function() {
           }),
           _vm._v(" "),
           _c("el-table-column", {
-            attrs: { label: _vm.$t("package.package_price"), align: "center" },
+            attrs: { label: _vm.$t("permission.guard_name"), align: "center" },
             scopedSlots: _vm._u([
               {
                 key: "default",
                 fn: function(scope) {
-                  return [_c("span", [_vm._v(_vm._s(scope.row.package_price))])]
+                  return [_c("span", [_vm._v(_vm._s(scope.row.guard_name))])]
                 }
               }
             ])
           }),
           _vm._v(" "),
           _c("el-table-column", {
-            attrs: { label: _vm.$t("package.month_nums"), align: "center" },
+            attrs: { label: _vm.$t("permission.description"), align: "center" },
             scopedSlots: _vm._u([
               {
                 key: "default",
                 fn: function(scope) {
-                  return [_c("span", [_vm._v(_vm._s(scope.row.month_nums))])]
+                  return [_c("span", [_vm._v(_vm._s(scope.row.description))])]
                 }
               }
             ])
           }),
           _vm._v(" "),
           _c("el-table-column", {
-            attrs: {
-              label: _vm.$t("table.date"),
-              width: "150px",
-              align: "center"
-            },
+            attrs: { label: _vm.$t("permission.group"), align: "center" },
             scopedSlots: _vm._u([
               {
                 key: "default",
                 fn: function(scope) {
-                  return [
-                    _c("span", [
-                      _vm._v(
-                        _vm._s(
-                          _vm._f("parseTime")(
-                            scope.row.created_at,
-                            "{y}-{m}-{d} {h}:{i}"
-                          )
-                        )
-                      )
-                    ])
-                  ]
+                  return [_c("span", [_vm._v(_vm._s(scope.row.group))])]
                 }
               }
             ])
@@ -632,7 +599,7 @@ var render = function() {
             [
               _c(
                 "el-form-item",
-                { attrs: { label: _vm.$t("package.name"), prop: "name" } },
+                { attrs: { label: _vm.$t("permission.name"), prop: "name" } },
                 [
                   _c("el-input", {
                     model: {
@@ -651,18 +618,18 @@ var render = function() {
                 "el-form-item",
                 {
                   attrs: {
-                    label: _vm.$t("package.package_price"),
-                    prop: "package_price"
+                    label: _vm.$t("permission.description"),
+                    prop: "description"
                   }
                 },
                 [
                   _c("el-input", {
                     model: {
-                      value: _vm.temp.package_price,
+                      value: _vm.temp.description,
                       callback: function($$v) {
-                        _vm.$set(_vm.temp, "package_price", $$v)
+                        _vm.$set(_vm.temp, "description", $$v)
                       },
-                      expression: "temp.package_price"
+                      expression: "temp.description"
                     }
                   })
                 ],
@@ -671,73 +638,50 @@ var render = function() {
               _vm._v(" "),
               _c(
                 "el-form-item",
-                { attrs: { label: _vm.$t("package.month_nums") } },
+                { attrs: { label: _vm.$t("permission.group"), prop: "group" } },
+                [
+                  _c("el-input", {
+                    model: {
+                      value: _vm.temp.group,
+                      callback: function($$v) {
+                        _vm.$set(_vm.temp, "group", $$v)
+                      },
+                      expression: "temp.group"
+                    }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "el-form-item",
+                {
+                  attrs: {
+                    label: _vm.$t("permission.guard_name"),
+                    prop: "guard_name"
+                  }
+                },
                 [
                   _c(
                     "el-select",
                     {
                       staticClass: "filter-item",
-                      attrs: { placeholder: "请选择返款期数" },
-                      on: { change: _vm.month_change },
+                      attrs: { placeholder: "请选择标识" },
                       model: {
-                        value: _vm.temp.month_nums,
+                        value: _vm.temp.guard_name,
                         callback: function($$v) {
-                          _vm.$set(_vm.temp, "month_nums", $$v)
+                          _vm.$set(_vm.temp, "guard_name", $$v)
                         },
-                        expression: "temp.month_nums"
+                        expression: "temp.guard_name"
                       }
                     },
-                    _vm._l(_vm.returnMonths, function(item) {
+                    _vm._l(_vm.calendarTypeOptions, function(item) {
                       return _c("el-option", {
-                        key: item,
-                        attrs: { label: item, value: item }
+                        key: item.key,
+                        attrs: { label: item.display_name, value: item.key }
                       })
                     })
                   )
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "el-form-item",
-                { attrs: { label: _vm.$t("package.return_moon_price") } },
-                _vm._l(_vm.temp.return_moon_price_list, function(
-                  p,
-                  group_index
-                ) {
-                  return _c("el-input", {
-                    key: p.key,
-                    staticStyle: { "margin-bottom": "5px" },
-                    attrs: { value: p.price, placeholder: p.key },
-                    model: {
-                      value: p.price,
-                      callback: function($$v) {
-                        _vm.$set(p, "price", $$v)
-                      },
-                      expression: "p.price"
-                    }
-                  })
-                })
-              ),
-              _vm._v(" "),
-              _c(
-                "el-form-item",
-                { attrs: { label: _vm.$t("package.remark") } },
-                [
-                  _c("el-input", {
-                    attrs: {
-                      autosize: { minRows: 2, maxRows: 4 },
-                      type: "textarea",
-                      placeholder: "备注"
-                    },
-                    model: {
-                      value: _vm.temp.remark,
-                      callback: function($$v) {
-                        _vm.$set(_vm.temp, "remark", $$v)
-                      },
-                      expression: "temp.remark"
-                    }
-                  })
                 ],
                 1
               )
@@ -857,98 +801,35 @@ module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-13b6aaa6", module.exports)
+    require("vue-hot-reload-api")      .rerender("data-v-4f68cae4", module.exports)
   }
 }
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-13b6aaa6\",\"scoped\":false,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/assets/js/views/package/index.vue":
+/***/ "./node_modules/vue-loader/node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-4f68cae4\",\"scoped\":false,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/assets/js/views/permissions/index.vue":
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__("./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-13b6aaa6\",\"scoped\":false,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/assets/js/views/package/index.vue");
+var content = __webpack_require__("./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-4f68cae4\",\"scoped\":false,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/assets/js/views/permissions/index.vue");
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__("./node_modules/vue-loader/node_modules/vue-style-loader/lib/addStylesClient.js")("7823fc76", content, false, {});
+var update = __webpack_require__("./node_modules/vue-loader/node_modules/vue-style-loader/lib/addStylesClient.js")("50730d79", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
  if(!content.locals) {
-   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-13b6aaa6\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./index.vue", function() {
-     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-13b6aaa6\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./index.vue");
+   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-4f68cae4\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./index.vue", function() {
+     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-4f68cae4\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./index.vue");
      if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
      update(newContent);
    });
  }
  // When the module is disposed, remove the <style> tags
  module.hot.dispose(function() { update(); });
-}
-
-/***/ }),
-
-/***/ "./resources/assets/js/api/package.js":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (immutable) */ __webpack_exports__["c"] = packageList;
-/* harmony export (immutable) */ __webpack_exports__["a"] = createPackage;
-/* harmony export (immutable) */ __webpack_exports__["d"] = updatePackage;
-/* harmony export (immutable) */ __webpack_exports__["b"] = deletePackage;
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils_request__ = __webpack_require__("./resources/assets/js/utils/request.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__utils_auth__ = __webpack_require__("./resources/assets/js/utils/auth.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__config_js__ = __webpack_require__("./resources/assets/js/config.js");
-
-
-
-
-var token = Object(__WEBPACK_IMPORTED_MODULE_1__utils_auth__["a" /* getToken */])();
-
-function packageList(query) {
-  var token = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : Object(__WEBPACK_IMPORTED_MODULE_1__utils_auth__["a" /* getToken */])();
-
-  return Object(__WEBPACK_IMPORTED_MODULE_0__utils_request__["a" /* default */])({
-    // url: '/user/list',
-    url: __WEBPACK_IMPORTED_MODULE_2__config_js__["a" /* ROAST_CONFIG */].API_URL + '/packageList',
-    method: 'get',
-    params: { token: token, page: query.page }
-  });
-}
-
-function createPackage(data) {
-  var token = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : Object(__WEBPACK_IMPORTED_MODULE_1__utils_auth__["a" /* getToken */])();
-
-  return Object(__WEBPACK_IMPORTED_MODULE_0__utils_request__["a" /* default */])({
-    url: __WEBPACK_IMPORTED_MODULE_2__config_js__["a" /* ROAST_CONFIG */].API_URL + '/package',
-    method: 'post',
-    data: data,
-    params: { token: token }
-  });
-}
-
-function updatePackage(data) {
-  var token = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : Object(__WEBPACK_IMPORTED_MODULE_1__utils_auth__["a" /* getToken */])();
-
-  return Object(__WEBPACK_IMPORTED_MODULE_0__utils_request__["a" /* default */])({
-    url: __WEBPACK_IMPORTED_MODULE_2__config_js__["a" /* ROAST_CONFIG */].API_URL + '/package/' + data.id,
-    method: 'put',
-    params: { token: token },
-    data: data
-  });
-}
-
-function deletePackage(data) {
-  var token = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : Object(__WEBPACK_IMPORTED_MODULE_1__utils_auth__["a" /* getToken */])();
-
-  return Object(__WEBPACK_IMPORTED_MODULE_0__utils_request__["a" /* default */])({
-    url: __WEBPACK_IMPORTED_MODULE_2__config_js__["a" /* ROAST_CONFIG */].API_URL + '/package/' + data.id,
-    method: 'delete',
-    params: { token: token },
-    data: data
-  });
 }
 
 /***/ }),
@@ -1140,19 +1021,19 @@ if(false) {
 
 /***/ }),
 
-/***/ "./resources/assets/js/views/package/index.vue":
+/***/ "./resources/assets/js/views/permissions/index.vue":
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__("./node_modules/vue-loader/node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-13b6aaa6\",\"scoped\":false,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/assets/js/views/package/index.vue")
+  __webpack_require__("./node_modules/vue-loader/node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-4f68cae4\",\"scoped\":false,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/assets/js/views/permissions/index.vue")
 }
 var normalizeComponent = __webpack_require__("./node_modules/vue-loader/lib/component-normalizer.js")
 /* script */
-var __vue_script__ = __webpack_require__("./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}],[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 1%\",\"last 2 versions\",\"not ie <= 8\"]}}],\"stage-2\"],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}],\"transform-vue-jsx\",\"transform-runtime\"],\"env\":{\"development\":{\"plugins\":[\"dynamic-import-node\"]}}}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/assets/js/views/package/index.vue")
+var __vue_script__ = __webpack_require__("./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}],[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 1%\",\"last 2 versions\",\"not ie <= 8\"]}}],\"stage-2\"],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}],\"transform-vue-jsx\",\"transform-runtime\"],\"env\":{\"development\":{\"plugins\":[\"dynamic-import-node\"]}}}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/assets/js/views/permissions/index.vue")
 /* template */
-var __vue_template__ = __webpack_require__("./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-13b6aaa6\",\"hasScoped\":false,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/assets/js/views/package/index.vue")
+var __vue_template__ = __webpack_require__("./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-4f68cae4\",\"hasScoped\":false,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/assets/js/views/permissions/index.vue")
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -1169,7 +1050,7 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "resources/assets/js/views/package/index.vue"
+Component.options.__file = "resources/assets/js/views/permissions/index.vue"
 
 /* hot reload */
 if (false) {(function () {
@@ -1178,9 +1059,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-13b6aaa6", Component.options)
+    hotAPI.createRecord("data-v-4f68cae4", Component.options)
   } else {
-    hotAPI.reload("data-v-13b6aaa6", Component.options)
+    hotAPI.reload("data-v-4f68cae4", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true

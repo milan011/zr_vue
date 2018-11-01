@@ -36,6 +36,7 @@ class PackageController extends Controller
 
         $packages = $this->package->getAllPackage();
 
+        // dd($packages);
         return new PackageResource($packages);
     }
 
@@ -70,9 +71,10 @@ class PackageController extends Controller
     public function store(Request $packageRequest)
     {
         // dd($packageRequest->all());
-        if($this->isRepeat($packageRequest)){
+        if($this->package->isRepeat($packageRequest)){
             return $this->baseFailed($message = '该套餐已存在');
         }
+
         $new_package = $this->package->create($packageRequest);
 
         if($new_package){ //添加成功
@@ -88,12 +90,12 @@ class PackageController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function getPackage($id)
     {
         $package = $this->package->find($id);
-        $package_info = $package->hasManyPackageInfo;
+        $package->hasManyPackageInfo;
 
-        return view('admin.package.show',compact('package', 'package_info'));
+        return $this->baseSucceed($respond_data = $package, $message = '');
     }
 
     /**
@@ -121,7 +123,8 @@ class PackageController extends Controller
      */
     public function update(Request $packageRequest, $id)
     {
-        $update_package = $this->isRepeat($packageRequest);
+        // dd($packageRequest->all());
+        $update_package = $this->package->isRepeat($packageRequest);
         if($update_package && ($update_package->id != $id)){
             return $this->baseFailed($message = '您修改后的套餐信息与现有套餐冲突');
         }

@@ -47,44 +47,47 @@ class PackageRepository implements PackageRepositoryInterface
     // 创建套餐
     public function create($requestData)
     {   
-
-        DB::transaction(function() use ($requestData){
+        // dd($requestData->all());
+        $package_obj = (object) '';
+        DB::transaction(function() use ($requestData, $package_obj){
 
             $requestData['creater_id']    = Auth::id();
             $requestData['status']        = '1';
-            $requestData['name']          = $requestData['package_name'];
+            //$requestData['name']          = $requestData['package_name'];
 
             // dd($requestData->all());
             
             $package = new Package();
             $input =  array_replace($requestData->all());
             $package->fill($input);
-            $package = $package->create($input);
 
+            $package = $package->create($input);
+            // dd($package);
             // dd($requestData->month_price);
            
-            foreach ($requestData->month_price as $key => $price) {
+            foreach ($requestData->return_moon_price_list as $key => $price) {
 
                 $package_info = new PackageInfo(); //套餐信息对象
 
-                $package_info->pid       = $package->id;
-                $package_info->nums      = $package->month_nums;
-                $package_info->creater_id  = Auth::id();
-                $package_info->return_month = ($key+1);
-                $package_info->return_price  = $price;
+                $package_info->pid           = $package->id;
+                $package_info->nums          = $package->month_nums;
+                $package_info->creater_id    = Auth::id();
+                $package_info->return_month  = $price['key'];
+                $package_info->return_price  = $price['price'];
                 $package_info->save();
 
                 // dd($package_info);
             }
-            
-            return $package;
+            $package_obj->scalar = $package;         
         });
+        return $package_obj;
     }
 
     // 修改套餐
     public function update($requestData, $id)
-    {
-        DB::transaction(function() use ($requestData,$id){
+    {   
+        $package_obj = (object) '';
+        DB::transaction(function() use ($requestData,$id,$package_obj){
 
 
             // dd($requestData->all());
@@ -94,28 +97,28 @@ class PackageRepository implements PackageRepositoryInterface
             // dd($package);
             // dd($package->hasManyPackageInfo);
             $package->fill($input)->save();
-            
+            // dd($package->hasManyPackageInfo);
             foreach ($package->hasManyPackageInfo as $key => $value) {
                 //删除原有套餐月返还信息
                 $value->status = '0';
                 $value->save();
+                // dd(lastSql());
             }
             
-            foreach ($requestData->month_price as $key => $price) {
+            foreach ($requestData->return_moon_price_list as $key => $price) {
                 //新建套餐月返还信息
                 $package_info = new PackageInfo(); //套餐信息对象
 
                 $package_info->pid          = $package->id;
                 $package_info->nums         = $package->month_nums;
                 $package_info->creater_id   = Auth::id();
-                $package_info->return_month = ($key+1);
-                $package_info->return_price = $price;
+                $package_info->return_month = $price['key'];
+                $package_info->return_price = $price['price'];
                 $package_info->save();
             }
-
-            Session::flash('sucess', '修改套餐成功');
-            return $package;
+            $package_obj->scalar = $package;
         });
+        return $package_obj;
     }
 
     // 删除套餐

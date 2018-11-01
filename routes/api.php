@@ -58,6 +58,7 @@ Route::group([
     Route::get('packageList', 'PackageController@index');
     Route::get('packageAll', 'PackageController@packageAll'); //所有权限列表,无分页
     Route::post('package', 'PackageController@store');
+    Route::get('getPackage/{id}', 'PackageController@getPackage');
     Route::put('package/{id}', 'PackageController@update');
     Route::delete('package/{id}', 'PackageController@destroy');
 

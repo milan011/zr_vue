@@ -13,6 +13,14 @@ export function packageList(query, token = getToken()) {
   })
 }
 
+export function getPackage(data, token = getToken()) {
+  return request({
+    url: ROAST_CONFIG.API_URL + '/getPackage/' + data.id,
+    method: 'get',
+    params: {token},
+  })
+}
+
 export function createPackage(data, token = getToken()) {
   return request({
     url: ROAST_CONFIG.API_URL + '/package',
@@ -39,3 +47,4 @@ export function deletePackage(data, token = getToken()) {
     data
   }) 
 }
+

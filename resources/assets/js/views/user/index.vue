@@ -29,7 +29,7 @@
       </el-table-column>
       <el-table-column :label="$t('table.date')" width="150px" align="center">
         <template slot-scope="scope">
-          <span>{{ scope.row.created_at | parseTime('{y}-{m}-{d} {h}:{i}') }}</span>
+          <span>{{ scope.row.created_at | parseTime('{y}-{m}-{d}') }}</span>
         </template>
       </el-table-column>
       <!-- <el-table-column :label="$t('table.title')" min-width="150px">
@@ -175,6 +175,7 @@ export default {
   },
   data() {  
     const validateRepeatPass = (rule, value, callback) => { /*密码确认校验*/
+      // console.log(value)
       if (value !== this.temp.password) {
           callback(new Error('两次输入密码不一致!'));
       } else {
@@ -357,7 +358,7 @@ export default {
               name: response.data.data.name,
               nick_name: response.data.data.nick_name,
               telephone: response.data.data.telephone,
-              created_at: response.data.data.created_at | parseTime('{y}-{m}-{d} {h}:{i}')
+              created_at: new Date()
             }
             this.list.unshift(newUser)
             this.dialogFormVisible = false

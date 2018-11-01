@@ -155,6 +155,7 @@ export default {
     status: '状态',
     actions: '操作',
     edit: '编辑',
+    show: '查看',
     editPermissions: '权限设置',
     setRoles: '角色设置',
     publish: '发布',
@@ -225,6 +226,7 @@ export default {
     return_month: '返还月份',
     nums: '还款时间几个月',
     add: '添加',
+    show: '套餐详情',
   },
   manager: {
     id: 'ID',
