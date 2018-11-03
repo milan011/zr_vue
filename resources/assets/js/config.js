@@ -15,9 +15,26 @@ switch( process.env.NODE_ENV ){
         app_url = 'http://roast.demo.laravelacademy.org';
         break;
 }*/
-
-export const ROAST_CONFIG = {
+const ROAST_CONFIG = {
     API_URL: api_url,
     APP_URL: app_url,
     // GAODE_MAPS_JS_API_KEY: gaode_maps_js_api_key
 };
+
+const infoSelfStatus = {
+    1: '未返还',
+    2: '返还中',
+    3: '已返还',
+};
+
+const jituanStatus = {
+    0: '否',
+    1: '是',
+};
+
+export { ROAST_CONFIG, infoSelfStatus ,jituanStatus }
+
+/*export const zrConfig = {
+    infoSelfStatus: infoSelfStatus,
+    jituanStatus: jituanStatus,
+};*/

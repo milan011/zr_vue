@@ -96,7 +96,7 @@ const calendarTypeKeyValue = calendarTypeOptions.reduce((acc, cur) => {
 }, {})
 
 export default {
-  name: 'ManagerTable',
+  name: 'managerList',
   directives: {
     waves
   },

@@ -16,7 +16,8 @@ use App\Repositories\InfoSelf\InfoSelfRepositoryInterface;
 use App\Repositories\InfoDianxin\InfoDianxinRepositoryInterface;
 use App\Repositories\User\UserRepositoryInterface;
 use App\Repositories\Manager\ManagerRepositoryInterface;
-use App\Repositories\Package\PackageInfoRepositoryInterface;
+use App\Repositories\PackageInfo\PackageInfoRepositoryInterface;
+use App\Repositories\Package\PackageRepositoryInterface;
 use App\Http\Resources\InfoSelf\InfoSelfResource;
 use App\Http\Resources\InfoSelf\InfoSelfResourceCollection;
 /*use App\Http\Requests\InfoSelf\UpdateOrderRequest;
@@ -57,7 +58,6 @@ class InfoSelfController extends Controller
         $request['payed']   = false;
         $notPayed = true;
         $info_status_now = '';
-        $action = route('infoSelf.index').'/index';
         // dd($select_conditions);
         
         // dd(route('infoSelf.index'));
@@ -82,10 +82,12 @@ class InfoSelfController extends Controller
         // $request->netin = $netin;
 
         $infoSelfs = $this->infoSelf->getAllInfos($request);
-
-        // dd($infoSelfs[1]->hasManyInfoDianxin()->count());
-        
-        return view('admin.infoSelf.index', compact('infoSelfs', 'pay_status','action','info_status_now', 'select_conditions', 'netin', 'netin_year', 'netin_month'));
+        // dd(lastSql());
+        // dd($infoSelfs[0]->belongsToCreater());
+        $lll = $infoSelfs[0]->belongsToCreater;
+        /*dd($lll);
+        dd(lastSql());*/
+        return new InfoSelfResource($infoSelfs);
     }
 
     /**

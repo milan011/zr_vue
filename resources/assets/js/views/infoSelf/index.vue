@@ -17,19 +17,55 @@
           <span>{{ scope.row.id }}</span>
         </template>
       </el-table-column>
-      <el-table-column :label="$t('user.nick_name')" align="center">
+      <el-table-column :label="$t('info.project_name')" align="center">
         <template slot-scope="scope">
-          <span>{{ scope.row.nick_name }}</span>
+          <span>{{ scope.row.project_name }}</span>
         </template>
       </el-table-column>
-      <el-table-column :label="$t('user.telephone')" align="center">
+      <el-table-column :label="$t('info.new_telephone')" align="center" min-width="120%">
         <template slot-scope="scope">
-          <span>{{ scope.row.telephone }}</span>
+          <span>{{ scope.row.new_telephone }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column :label="$t('info.side_number_num')" align="center">
+        <template slot-scope="scope">
+          <span>{{ scope.row.side_number_num }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column :label="$t('info.is_jituan')" align="center">
+        <template slot-scope="scope">
+          <el-tag :type="scope.row.is_jituan | jituanStatusFilter">{{ jiTuanStatusMap[scope.row.is_jituan]}}</el-tag>
+        </template>
+      </el-table-column>
+      <el-table-column :label="$t('info.package')" align="center">
+        <template slot-scope="scope">
+          <span>{{ scope.row.project_name }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column :label="$t('info.name')" align="center">
+        <template slot-scope="scope">
+          <span>{{ scope.row.name }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column :label="$t('info.user_telephone')" align="center" min-width="120%">
+        <template slot-scope="scope">
+          <span>{{ scope.row.user_telephone }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column :label="$t('info.netin')" align="center">
+        <template slot-scope="scope">
+          <span>{{ scope.row.netin }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column :label="$t('info.status')" align="center">
+        <template slot-scope="scope">
+          <el-tag :type="scope.row.status | statusFilter">{{ statusMap[scope.row.status] }}</el-tag>
+          <!-- <span>{{ scope.row.status }}</span> -->
         </template>
       </el-table-column>
       <el-table-column :label="$t('table.date')" width="150px" align="center">
         <template slot-scope="scope">
-          <span>{{ scope.row.created_at | parseTime('{y}-{m}-{d}') }}</span>
+          <span>{{ scope.row.created_at | parseTime('{y}-{m}-{d}') }}|{{ scope.row.belongs_to_creater.nick_name }}</span>
         </template>
       </el-table-column>
       <!-- <el-table-column :label="$t('table.title')" min-width="150px">
@@ -66,8 +102,8 @@
       </el-table-column> -->
       <el-table-column :label="$t('table.actions')" align="center" width="230" class-name="small-padding fixed-width">
         <template slot-scope="scope">
+          <el-button type="success" size="mini" @click="handleShow(scope.row)">{{ $t('table.show') }}</el-button>
           <el-button type="primary" size="mini" @click="handleUpdate(scope.row)">{{ $t('table.edit') }}</el-button>
-          <el-button type="success" size="mini" @click="handleSetRoles(scope.row)">{{ $t('table.setRoles') }}</el-button>
           <el-button v-if="scope.row.status!='deleted'" size="mini" type="danger" @click="handleModifyStatus(scope.row,'deleted')">{{ $t('table.delete') }}
           </el-button>
         </template>
@@ -78,16 +114,16 @@
       <el-pagination v-show="total>0" :current-page="listQuery.page" :total="total" background layout="total, prev, pager, next"  @current-change="handleCurrentChange"/>
     </div>
 
-    <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible">
+    <!-- <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible">
       <el-form ref="dataForm" :rules="rules" :model="temp" label-position="left" label-width="100px" style="width: 400px; margin-left:50px;">
-        <!-- <el-form-item :label="$t('table.type')" prop="type">
+        <el-form-item :label="$t('table.type')" prop="type">
           <el-select v-model="temp.type" class="filter-item" placeholder="Please select">
             <el-option v-for="item in calendarTypeOptions" :key="item.key" :label="item.display_name" :value="item.key"/>
           </el-select>
-        </el-form-item> -->
-        <!-- <el-form-item :label="$t('table.date')" prop="timestamp">
+        </el-form-item>
+        <el-form-item :label="$t('table.date')" prop="timestamp">
           <el-date-picker v-model="temp.timestamp" type="datetime" placeholder="Please pick a date"/>
-        </el-form-item> -->
+        </el-form-item>
         <el-form-item :label="$t('user.name')" prop="name">
           <el-input :disabled="userNameDisabled" v-model="temp.name"/>
         </el-form-item>
@@ -103,23 +139,23 @@
         <el-form-item :label="$t('user.telephone')" prop="telephone">
           <el-input v-model="temp.telephone"/>
         </el-form-item>
-        <!-- <el-form-item :label="$t('user.email')" prop="email">
+        <el-form-item :label="$t('user.email')" prop="email">
           <el-input v-model="temp.email"/>
-        </el-form-item> -->
+        </el-form-item>
         <el-form-item :label="$t('user.remark')">
           <el-input :autosize="{ minRows: 2, maxRows: 4}" v-model="temp.remark" type="textarea" placeholder="备注"/>
         </el-form-item>
-        <!-- <el-form-item :label="$t('user.wx_number')" prop="wx_number">
+        <el-form-item :label="$t('user.wx_number')" prop="wx_number">
           <el-input v-model="temp.wx_number"/>
-        </el-form-item> -->
-        <!-- <el-form-item :label="$t('user.status')">
+        </el-form-item>
+        <el-form-item :label="$t('user.status')">
           <el-select v-model="temp.status" class="filter-item" placeholder="Please select">
             <el-option v-for="item in statusOptions" :key="item" :label="item" :value="item"/>
           </el-select>
-        </el-form-item> -->
-        <!-- <el-form-item :label="$t('user.importance')">
+        </el-form-item>
+        <el-form-item :label="$t('user.importance')">
           <el-rate v-model="temp.importance" :colors="['#99A9BF', '#F7BA2A', '#FF9900']" :max="3" style="margin-top:8px;"/>
-        </el-form-item> -->
+        </el-form-item>
         
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -127,45 +163,41 @@
         <el-button v-if="dialogStatus=='create'" type="primary" @click="createData">{{ $t('table.confirm') }}</el-button>
         <el-button v-else type="primary" @click="updateData">{{ $t('table.confirm') }}</el-button>
       </div>
-    </el-dialog>
-    <set-roles ref="roleChild"></set-roles>
+    </el-dialog> -->
+    <form-info ref="formInfoChild"></form-info>
 
   </div>
 </template>
 
 <script>
-// import { fetchList, fetchPv, createArticle, updateArticle } from '@/api/article'
-import { fetchList, fetchPv, createUser, updateUser, deleteUser } from '@/api/user'
+import { infoList, createInfo, updateInfo, deleteInfo } from '@/api/infoSelf'
 import waves from '@/directive/waves' // 水波纹指令
 import { parseTime } from '@/utils'
 import { isTelephone } from '@/utils/validate'
 import  SetRoles  from './components/SetRoles'
+import FormInfo from './components/FormInfo'
+import  { infoSelfStatus ,jituanStatus }  from '@/config.js'
 
-const calendarTypeOptions = [
-  { key: 'CN', display_name: 'China' },
-  { key: 'US', display_name: 'USA' },
-  { key: 'JP', display_name: 'Japan' },
-  { key: 'EU', display_name: 'Eurozone' }
-]
-
-// arr to obj ,such as { CN : "China", US : "USA" }
-const calendarTypeKeyValue = calendarTypeOptions.reduce((acc, cur) => {
-  acc[cur.key] = cur.display_name
-  return acc
-}, {})
 
 export default {
-  name: 'userList',
-  components: { SetRoles },
+  name: 'infoSelfList',
+  components: { FormInfo },
   directives: {
     waves
   },
   filters: {
     statusFilter(status) {
       const statusMap = {
-        published: 'success',
-        draft: 'info',
-        deleted: 'danger'
+        3: 'success',
+        2: 'info',
+        1: 'danger'
+      }
+      return statusMap[status]
+    },
+    jituanStatusFilter(status) {
+      const statusMap = {
+        1: 'success',
+        0: 'danger'
       }
       return statusMap[status]
     },
@@ -197,10 +229,10 @@ export default {
       listQuery: {
         page: 1
       },
-      calendarTypeOptions,
-      statusOptions: ['published', 'draft', 'deleted'],
-      showReviewer: false,
-      temp: {
+      // calendarTypeOptions,
+      // statusOptions: ['published', 'draft', 'deleted'],
+      // showReviewer: false,
+      /*temp: {
         id: undefined,
         name: null,
         nick_name: null,
@@ -209,21 +241,25 @@ export default {
         password_confirmation: '',
         email: '',
         telephone: ''
-      },
-      password: 'password',
+      },*/
+      /*password: 'password',
       password_confirmation: 'password_confirmation',
       passwordType: 'password',
       dialogFormVisible: false,
       passwordVisible: true,
       dialogStatus: '',
-      userNameDisabled: 'false',
-      textMap: {
+      userNameDisabled: 'false',*/
+      /*textMap: {
         update: '用户编辑',
         create: '用户创建'
-      },
-      dialogPvVisible: false,
-      pvData: [],
-      rules: {
+      },*/
+      // statusMap: zrConfig.infoSelfStatus,
+      statusMap: infoSelfStatus,
+      jiTuanStatusMap: jituanStatus,
+      // jiTuanStatusMap: zrConfig.jituanStatus,
+      // dialogPvVisible: false,
+      // pvData: [],
+      /*rules: {
         name: [{ required: true, message: '请输入用户名', trigger: 'change' }],
         nick_name: [{ required: true, message: '请输入昵称', trigger: 'change' }],
         password: [{ required: true, message: '请输入密码', trigger: 'change' },
@@ -239,18 +275,23 @@ export default {
           { required: true, message: '请输入有效手机号', trigger: 'blur' }, 
           { validator: validateTelephone, trigger: 'change' }     
         ]
-      },
-      downloadLoading: false
+      },*/
+      // downloadLoading: false
     }
   },
   
   created() {
-    this.getList()
+    Promise.all([
+      this.getList(),
+      // this.statusMap = infoSelfStatus
+      // console.log(zrConfig),
+      // console.log(infoSelfStatus)
+    ])
   },
   methods: {
     getList() {
       this.listLoading = true
-      fetchList(this.listQuery).then(response => {
+      infoList(this.listQuery).then(response => {
         this.list = response.data.data
         this.total = response.data.total
 
@@ -271,6 +312,21 @@ export default {
     handleCurrentChange(val) {
       this.listQuery.page = val
       this.getList()
+    },
+    handleShow(row) {
+      console.log('hehe')
+      /*getPackage(row).then((response) => {
+        row.return_moon_price_list = []
+        Array.prototype.forEach.call(response.data.data.has_many_package_info, child => {
+          //console.log(child.return_month)
+          //console.log(child.return_price)
+          let obj = {key:child.return_month,price:parseFloat(child.return_price)} 
+          row.return_moon_price_list.unshift(obj)
+        })  
+        this.temp = Object.assign({}, row) // copy obj
+        console.log(this.temp)
+        this.dialogInfoVisible = true       
+      }) */  
     },
     handleModifyStatus(row, status) {
       this.$confirm('确定要删除?', '提示', {
@@ -313,8 +369,8 @@ export default {
         });          
       });
     },
-    resetTemp() {
-      /*this.temp = {
+    /*resetTemp() {
+      this.temp = {
         id: undefined,
         name: 'wxm',
         nick_name: 'wxm',
@@ -323,7 +379,7 @@ export default {
         password_confirmation : '111111',
         email: '',
         telephone: '13731080174'
-      }*/
+      }
       this.temp = {
         id: undefined,
         name: null,
@@ -334,8 +390,14 @@ export default {
         email: '',
         telephone: ''
       }
+    },*/
+    handleCreate() { 
+      this.$refs.formInfoChild.handleCreateInfo() 
     },
-    handleCreate() {
+    handleUpdate(row) {  
+      this.$refs.formInfoChild.handleUpdateInfo(row) 
+    },
+    /*handleCreate() {
       this.resetTemp()
       this.dialogStatus = 'create'
       this.userNameDisabled = false
@@ -346,86 +408,9 @@ export default {
       this.$nextTick(() => {
         this.$refs['dataForm'].clearValidate()
       })
-    },
-    createData() {
-      this.$refs['dataForm'].validate((valid) => {
-        if (valid) {
-          createUser(this.temp).then((response) => {
-            /*console.log(response.data)
-            return false*/
-            let newUser = {
-              id: response.data.data.id,
-              name: response.data.data.name,
-              nick_name: response.data.data.nick_name,
-              telephone: response.data.data.telephone,
-              created_at: new Date()
-            }
-            this.list.unshift(newUser)
-            this.dialogFormVisible = false
-            this.$notify({
-              title: '成功',
-              message: '创建成功',
-              type: 'success',
-              duration: 2000
-            })
-          }).catch((error) => {
-            switch (error.response.status) {
-              case 422:
-                let errMessage = error.response.data.errors
-                let messageShow = '<ul style="list-style-type:none;">'
-                for (const prop in errMessage) {
-                  //console.log(prop)
-                  // console.log(`errMessage.${prop} = ${errMessage[prop]}`)
-                  //console.log(errMessage[prop])
-                  messageShow += '<li style="margin-bottom:5px;">'
-                  messageShow += `${errMessage[prop]}`
-                  messageShow += '</li>'
-                }
-                messageShow += '</ul>'
-
-                this.$message({
-                    showClose: true,
-                    message: messageShow,
-                    type: 'error',
-                    dangerouslyUseHTMLString: true,
-                    duration: 0
-                  });
-                  /*this.$notify.erro({
-                    title: '请注意',
-                    message: '创建失败',
-                    type: 'waring',
-                    duration: 2000
-                   })*/
-                  break
-              // 如果响应中的 http code 为 400，那么就弹出一条错误提示给用户
-              /*case 400:
-                  return this.$Message.error('数据过期,请重新登录')
-                  break*/
-            }
-            return Promise.reject(error)
-          })
-          /*.catch(function (error) {
-            if (error.response) {
-              // The request was made and the server responded with a status code
-              // that falls out of the range of 2xx
-              console.log(error.response.data);
-              console.log(error.response.status);
-              console.log(error.response.headers);
-            } else if (error.request) {
-              // The request was made but no response was received
-              // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
-              // http.ClientRequest in node.js
-              console.log(error.request);
-            } else {
-              // Something happened in setting up the request that triggered an Error
-              console.log('Error', error.message);
-            }
-            console.log(error.config);
-          })*/
-        }
-      })
-    },
-    handleUpdate(row) {
+    },*/
+    
+    /*handleUpdate(row) {
       this.temp = Object.assign({}, row) // copy obj
       this.temp.timestamp = new Date(this.temp.timestamp)
       this.dialogStatus = 'update'
@@ -437,36 +422,8 @@ export default {
       this.$nextTick(() => {
         this.$refs['dataForm'].clearValidate()
       })
-    },
-    updateData() {
-      this.$refs['dataForm'].validate((valid) => {
-        if (valid) {
-          const tempData = Object.assign({}, this.temp)
-          updateUser(tempData).then(() => {
-            for (const v of this.list) {
-              if (v.id === this.temp.id) {
-                const index = this.list.indexOf(v)
-                this.list.splice(index, 1, this.temp)
-                break
-              }
-            }
-            this.dialogFormVisible = false
-            this.$notify({
-              title: '成功',
-              message: '更新成功',
-              type: 'success',
-              duration: 2000
-            })
-          })
-        }
-      })
-    },
-    handleSetRoles(row) {  
-      this.$refs.roleChild.handleRoles(row) 
-    },
-    giveUserRoles() {
-      this.$refs.roleChild.giveRoles()
-    },
+    },*/
+    
   }
 }
 </script>

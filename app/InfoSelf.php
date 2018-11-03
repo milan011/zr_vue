@@ -97,10 +97,11 @@ class InfoSelf extends Model
         return $query;
     }
 
-    // 定义User表与order表一对多关系
+    // 定义User表与infoSelf表一对多关系
     public function belongsToCreater(){
 
-      return $this->belongsTo('App\User', 'creater_id', 'id')->select('id as user_id', 'nick_name', 'telephone as creater_telephone');
+      // return $this->belongsTo('App\User', 'creater_id', 'id')->select('id as user_id', 'nick_name', 'telephone as creater_telephone');
+      return $this->belongsTo('App\User', 'creater_id', 'id')->select('id', 'nick_name', 'telephone');
     }
 
     // 定义信息表与套餐表一对一关系

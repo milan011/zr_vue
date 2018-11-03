@@ -134,7 +134,7 @@ const calendarTypeKeyValue = calendarTypeOptions.reduce((acc, cur) => {
 }, {})
 
 export default {
-  name: 'PackageTable',
+  name: 'packageList',
   directives: {
     waves
   },
@@ -520,6 +520,9 @@ export default {
   .el-table--medium td, .el-table--medium th {
     padding: 7px 0;
   }  */
+  .el-dialog__body {
+    padding: 15px 15px;
+  }
   .el-dialog__header {
      padding-top: 10px; 
   }

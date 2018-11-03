@@ -110,7 +110,7 @@ var calendarTypeKeyValue = calendarTypeOptions.reduce(function (acc, cur) {
 }, {});
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'ManagerTable',
+  name: 'managerList',
   directives: {
     waves: __WEBPACK_IMPORTED_MODULE_3__directive_waves__["a" /* default */]
   },

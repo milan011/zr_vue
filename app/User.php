@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Auth;
 use Laravel\Passport\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
@@ -21,7 +22,7 @@ class User extends Authenticatable
     protected $guard_name = 'api'; // 使用任何你想要的守卫
     protected $table      = 'zr_users';
     protected $primaryKey ='id';
-    protected $fillable = ['name', 'nick_name', 'password', 'telephone', 'wx_number', 'address', 'creater_id', 'status', 'created_at',  'remark'];
+    protected $fillable = ['id', 'name', 'nick_name', 'password', 'telephone', 'wx_number', 'address', 'creater_id', 'status', 'created_at',  'remark'];
 
     /**
      * The attributes that should be hidden for arrays.
@@ -31,4 +32,38 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    // 是否超级管理员
+    public function isSuperAdmin() {
+
+        // dd(Auth::user()->hasRole('admin'));
+        return Auth::user()->hasRole('admin') || Auth::user()->hasRole('manger');
+        /*$user_role_id = Auth::user()->hasManyUserRole[0]->role_id; //用户角色id
+
+        return ($user_role_id == config('zhuorui.user_role_type')['超级管理员']) || ($user_role_id == config('zhuorui.user_role_type')['管理员']);*/
+    }
+
+    // 定义User表与Package表一对多关系
+    public function hasManyCreater() {
+
+        return $this->hasMany('App\Package', 'creater_id', 'id');
+    }
+
+    // 定义User表与InfoSelf表一对多关系
+    public function hasManyCreaterInfoSelf() {
+
+        return $this->hasMany('App\InfoSelf', 'creater_id', 'id');
+    }
+
+    // 定义User表与Manager表一对多关系
+    public function hasManyCreaterManager() {
+
+        return $this->hasMany('App\Manager', 'creater_id', 'id');
+    }
+
+    // 定义User表与InfoDianxin表一对多关系
+    public function hasManyCreaterInfoDianxin() {
+
+        return $this->hasMany('App\InfoDianxin', 'creater_id', 'id');
+    }
 }

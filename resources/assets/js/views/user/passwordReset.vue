@@ -34,6 +34,7 @@
 <script>
   import { resetPassword} from '@/api/user'
   export default {
+    name: 'passwordReset',
     data() {
       const validateRepeatPass = (rule, value, callback) => { /*密码确认校验*/
         if (value !== this.temp.password) {

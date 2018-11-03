@@ -45,6 +45,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+  name: 'passwordReset',
   data: function data() {
     var _this = this;
 

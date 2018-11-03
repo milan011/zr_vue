@@ -105,7 +105,7 @@ const calendarTypeKeyValue = calendarTypeOptions.reduce((acc, cur) => {
 }, {})
 
 export default {
-  name: 'PerssionTable',
+  name: 'permissionList',
   directives: {
     waves
   },

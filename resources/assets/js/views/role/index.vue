@@ -92,7 +92,7 @@ const calendarTypeKeyValue = calendarTypeOptions.reduce((acc, cur) => {
 }, {})
 
 export default {
-  name: 'RoleTable',
+  name: 'roleList',
   components: { SwitchRoles },
   directives: {
     waves

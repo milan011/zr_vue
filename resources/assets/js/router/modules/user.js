@@ -15,7 +15,7 @@ const userRouter = {
       {
         path: 'index',
         component: resolve => void(require(['@/views/user/index'], resolve)),
-        name: 'user',
+        name: 'userList',
         meta: { title: 'user' }
       },
       {

@@ -200,3 +200,7 @@ code {
     width: 70px;
     margin-left: 0px;
 }
+
+body .el-table th.gutter{
+  display: table-cell!important;
+}

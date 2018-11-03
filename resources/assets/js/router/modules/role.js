@@ -15,7 +15,7 @@ const roleRouter = {
       {
         path: 'index',
         component: resolve => void(require(['@/views/role/index'], resolve)),
-        name: 'role',
+        name: 'roleList',
         meta: { title: 'role' }
       },
     ]

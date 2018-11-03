@@ -77,16 +77,23 @@ class InfoSelfRepository implements InfoSelfRepositoryInterface
         }*/
         
         // $query = $query->chacneLaunch($request->Plan_launch);
-        // 
+        /*Post::with(array('user'=>function($query){
+            $query->select('id','username');
+        }))->get();*/
         if($request->withNoPage){ //无分页,全部返还
 
-            $infos = $query->select($this->select_columns)
+            $infos = $query->with('hasOnePackage', 'belongsToCreater')
+                     ->select($this->select_columns)
                      ->orderBy('created_at', 'DESC')
                      ->where('status','!=', '0')
                      ->get();
         }else{
 
-            $infos = $query->select($this->select_columns)
+            $infos = $query::with('hasOnePackage')
+                     ->with(['belongsToCreater'=>function($query){
+                        $query->select('id','nick_name');
+                     }])
+                     ->select($this->select_columns)
                      ->where('status','!=', '0')
                      ->orderBy('created_at', 'DESC')
                      ->paginate(10);

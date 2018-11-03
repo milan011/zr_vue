@@ -56,18 +56,17 @@ Route::group([
 
     //Package
     Route::get('packageList', 'PackageController@index');
-    Route::get('packageAll', 'PackageController@packageAll'); //所有权限列表,无分页
+    Route::get('packageAll', 'PackageController@packageAll'); //所有套餐列表,无分页
     Route::post('package', 'PackageController@store');
     Route::get('getPackage/{id}', 'PackageController@getPackage');
     Route::put('package/{id}', 'PackageController@update');
     Route::delete('package/{id}', 'PackageController@destroy');
 
     //InfoSelf
-    /*Route::get('infoSelfList', 'InfoSelfController@index');
-    Route::get('infoSelfAll', 'InfoSelfController@infoSelfAll'); //所有权限列表,无分页
+    Route::get('infoSelfList', 'InfoSelfController@index');
     Route::post('infoSelf', 'InfoSelfController@store');
     Route::put('infoSelf/{id}', 'InfoSelfController@update');
-    Route::delete('infoSelf/{id}', 'InfoSelfController@destroy');*/
+    Route::delete('infoSelf/{id}', 'InfoSelfController@destroy');
 
     //InfoDianxin
     /*Route::get('infoDianxinList', 'InfoDianxinController@index');

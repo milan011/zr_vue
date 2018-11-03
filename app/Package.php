@@ -72,6 +72,6 @@ class Package extends Model
     // 定义User表与Package表一对多关系
     public function belongsToUser(){
 
-      return $this->belongsTo('App\User', 'creater_id', 'id')->select('id as creater_id', 'nick_name', 'telephone as creater_id_telephone');
+      return $this->belongsTo('App\User', 'creater_id', 'id')->select('id', 'nick_name', 'telephone');
     }
 }

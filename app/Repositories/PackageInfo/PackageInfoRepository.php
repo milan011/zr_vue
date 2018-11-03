@@ -28,7 +28,7 @@ class PackageInfoRepository implements PackageInfoRepositoryInterface
     }
 
     // 获得套餐列表(分页)
-    public function getAllPackage()
+    public function getAllPackageInfo()
     {   
         return Package::where('status', '1')->orderBy('created_at', 'DESC')->paginate(10);
     }

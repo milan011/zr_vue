@@ -15,7 +15,7 @@ const permissionRouter = {
       {
         path: 'index',
         component: resolve => void(require(['@/views/manager/index'], resolve)),
-        name: 'manager',
+        name: 'managerList',
         meta: { title: 'manager' }
       }
     ]

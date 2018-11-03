@@ -9963,7 +9963,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "/*fade*/\n.fade-enter-active,\n.fade-leave-active {\n  transition: opacity 0.28s; }\n\n.fade-enter,\n.fade-leave-active {\n  opacity: 0; }\n\n/*fade-transform*/\n.fade-transform-leave-active,\n.fade-transform-enter-active {\n  transition: all .5s; }\n\n.fade-transform-enter {\n  opacity: 0;\n  transform: translateX(-30px); }\n\n.fade-transform-leave-to {\n  opacity: 0;\n  transform: translateX(30px); }\n\n/*breadcrumb transition*/\n.breadcrumb-enter-active,\n.breadcrumb-leave-active {\n  transition: all .5s; }\n\n.breadcrumb-enter,\n.breadcrumb-leave-active {\n  opacity: 0;\n  transform: translateX(20px); }\n\n.breadcrumb-move {\n  transition: all .5s; }\n\n.breadcrumb-leave-active {\n  position: absolute; }\n\n.el-breadcrumb__inner, .el-breadcrumb__inner a {\n  font-weight: 400 !important; }\n\n.el-upload input[type=\"file\"] {\n  display: none !important; }\n\n.el-upload__input {\n  display: none; }\n\n.cell .el-tag {\n  margin-right: 0px; }\n\n.small-padding .cell {\n  padding-left: 5px;\n  padding-right: 5px; }\n\n.fixed-width .el-button--mini {\n  padding: 7px 10px;\n  width: 60px; }\n\n.status-col .cell {\n  padding: 0 10px;\n  text-align: center; }\n  .status-col .cell .el-tag {\n    margin-right: 0px; }\n\n.el-dialog {\n  transform: none;\n  left: 0;\n  margin-top: 10vh !important;\n  position: relative;\n  margin: 0 auto; }\n\n.article-textarea textarea {\n  padding-right: 40px;\n  resize: none;\n  border: none;\n  border-radius: 0px;\n  border-bottom: 1px solid #bfcbd9; }\n\n.upload-container .el-upload {\n  width: 100%; }\n  .upload-container .el-upload .el-upload-dragger {\n    width: 100%;\n    height: 200px; }\n\n.el-dropdown-menu a {\n  display: block; }\n\n#app .main-container {\n  min-height: 100%;\n  transition: margin-left .28s;\n  margin-left: 180px;\n  position: relative; }\n\n#app .sidebar-container {\n  transition: width 0.28s;\n  width: 180px !important;\n  height: 100%;\n  position: fixed;\n  font-size: 0px;\n  top: 0;\n  bottom: 0;\n  left: 0;\n  z-index: 1001;\n  overflow: hidden; }\n  #app .sidebar-container .horizontal-collapse-transition {\n    transition: 0s width ease-in-out, 0s padding-left ease-in-out, 0s padding-right ease-in-out; }\n  #app .sidebar-container .scrollbar-wrapper {\n    overflow-x: hidden !important; }\n    #app .sidebar-container .scrollbar-wrapper .el-scrollbar__view {\n      height: 100%; }\n  #app .sidebar-container .el-scrollbar__bar.is-vertical {\n    right: 0px; }\n  #app .sidebar-container .is-horizontal {\n    display: none; }\n  #app .sidebar-container a {\n    display: inline-block;\n    width: 100%;\n    overflow: hidden; }\n  #app .sidebar-container .svg-icon {\n    margin-right: 16px; }\n  #app .sidebar-container .el-menu {\n    border: none;\n    height: 100%;\n    width: 100% !important; }\n\n#app .hideSidebar .sidebar-container {\n  width: 36px !important; }\n\n#app .hideSidebar .main-container {\n  margin-left: 36px; }\n\n#app .hideSidebar .submenu-title-noDropdown {\n  padding-left: 10px !important;\n  position: relative; }\n  #app .hideSidebar .submenu-title-noDropdown .el-tooltip {\n    padding: 0 10px !important; }\n\n#app .hideSidebar .el-submenu {\n  overflow: hidden; }\n  #app .hideSidebar .el-submenu > .el-submenu__title {\n    padding-left: 10px !important; }\n    #app .hideSidebar .el-submenu > .el-submenu__title .el-submenu__icon-arrow {\n      display: none; }\n\n#app .hideSidebar .el-menu--collapse .el-submenu > .el-submenu__title > span {\n  height: 0;\n  width: 0;\n  overflow: hidden;\n  visibility: hidden;\n  display: inline-block; }\n\n#app .sidebar-container .nest-menu .el-submenu > .el-submenu__title,\n#app .sidebar-container .el-submenu .el-menu-item {\n  min-width: 180px !important;\n  background-color: #1f2d3d !important; }\n  #app .sidebar-container .nest-menu .el-submenu > .el-submenu__title:hover,\n  #app .sidebar-container .el-submenu .el-menu-item:hover {\n    background-color: #001528 !important; }\n\n#app .el-menu--collapse .el-menu .el-submenu {\n  min-width: 180px !important; }\n\n#app .mobile .main-container {\n  margin-left: 0px; }\n\n#app .mobile .sidebar-container {\n  transition: transform .28s;\n  width: 180px !important; }\n\n#app .mobile.hideSidebar .sidebar-container {\n  transition-duration: 0.3s;\n  transform: translate3d(-180px, 0, 0); }\n\n#app .withoutAnimation .main-container,\n#app .withoutAnimation .sidebar-container {\n  transition: none; }\n\n.blue-btn {\n  background: #324157; }\n  .blue-btn:hover {\n    color: #324157; }\n    .blue-btn:hover:before, .blue-btn:hover:after {\n      background: #324157; }\n\n.light-blue-btn {\n  background: #3A71A8; }\n  .light-blue-btn:hover {\n    color: #3A71A8; }\n    .light-blue-btn:hover:before, .light-blue-btn:hover:after {\n      background: #3A71A8; }\n\n.red-btn {\n  background: #C03639; }\n  .red-btn:hover {\n    color: #C03639; }\n    .red-btn:hover:before, .red-btn:hover:after {\n      background: #C03639; }\n\n.pink-btn {\n  background: #E65D6E; }\n  .pink-btn:hover {\n    color: #E65D6E; }\n    .pink-btn:hover:before, .pink-btn:hover:after {\n      background: #E65D6E; }\n\n.green-btn {\n  background: #30B08F; }\n  .green-btn:hover {\n    color: #30B08F; }\n    .green-btn:hover:before, .green-btn:hover:after {\n      background: #30B08F; }\n\n.tiffany-btn {\n  background: #4AB7BD; }\n  .tiffany-btn:hover {\n    color: #4AB7BD; }\n    .tiffany-btn:hover:before, .tiffany-btn:hover:after {\n      background: #4AB7BD; }\n\n.yellow-btn {\n  background: #FEC171; }\n  .yellow-btn:hover {\n    color: #FEC171; }\n    .yellow-btn:hover:before, .yellow-btn:hover:after {\n      background: #FEC171; }\n\n.pan-btn {\n  font-size: 14px;\n  color: #fff;\n  padding: 14px 36px;\n  border-radius: 8px;\n  border: none;\n  outline: none;\n  transition: 600ms ease all;\n  position: relative;\n  display: inline-block; }\n  .pan-btn:hover {\n    background: #fff; }\n    .pan-btn:hover:before, .pan-btn:hover:after {\n      width: 100%;\n      transition: 600ms ease all; }\n  .pan-btn:before, .pan-btn:after {\n    content: '';\n    position: absolute;\n    top: 0;\n    right: 0;\n    height: 2px;\n    width: 0;\n    transition: 400ms ease all; }\n  .pan-btn::after {\n    right: inherit;\n    top: inherit;\n    left: 0;\n    bottom: 0; }\n\n.custom-button {\n  display: inline-block;\n  line-height: 1;\n  white-space: nowrap;\n  cursor: pointer;\n  background: #fff;\n  color: #fff;\n  -webkit-appearance: none;\n  text-align: center;\n  box-sizing: border-box;\n  outline: 0;\n  margin: 0;\n  padding: 10px 15px;\n  font-size: 14px;\n  border-radius: 4px; }\n\nbody {\n  height: 100%;\n  -moz-osx-font-smoothing: grayscale;\n  -webkit-font-smoothing: antialiased;\n  text-rendering: optimizeLegibility;\n  font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif; }\n\nlabel {\n  font-weight: 700; }\n\nhtml {\n  height: 100%;\n  box-sizing: border-box; }\n\n#app {\n  height: 100%; }\n\n*,\n*:before,\n*:after {\n  box-sizing: inherit; }\n\n.no-padding {\n  padding: 0px !important; }\n\n.padding-content {\n  padding: 4px 0; }\n\na:focus,\na:active {\n  outline: none; }\n\na,\na:focus,\na:hover {\n  cursor: pointer;\n  color: inherit;\n  text-decoration: none; }\n\ndiv:focus {\n  outline: none; }\n\n.fr {\n  float: right; }\n\n.fl {\n  float: left; }\n\n.pr-5 {\n  padding-right: 5px; }\n\n.pl-5 {\n  padding-left: 5px; }\n\n.block {\n  display: block; }\n\n.pointer {\n  cursor: pointer; }\n\n.inlineBlock {\n  display: block; }\n\n.clearfix:after {\n  visibility: hidden;\n  display: block;\n  font-size: 0;\n  content: \" \";\n  clear: both;\n  height: 0; }\n\ncode {\n  background: #eef1f6;\n  padding: 15px 16px;\n  margin-bottom: 20px;\n  display: block;\n  line-height: 36px;\n  font-size: 15px;\n  font-family: \"Source Sans Pro\", \"Helvetica Neue\", Arial, sans-serif; }\n  code a {\n    color: #337ab7;\n    cursor: pointer; }\n    code a:hover {\n      color: #20a0ff; }\n\n.warn-content {\n  background: rgba(66, 185, 131, 0.1);\n  border-radius: 2px;\n  padding: 16px;\n  padding: 1rem;\n  line-height: 1.6rem;\n  word-spacing: .05rem; }\n  .warn-content a {\n    color: #42b983;\n    font-weight: 600; }\n\n.app-container {\n  padding: 10px; }\n\n.components-container {\n  margin: 30px 50px;\n  position: relative; }\n\n.pagination-container {\n  margin-top: 5px; }\n\n.text-center {\n  text-align: center; }\n\n.sub-navbar {\n  height: 50px;\n  line-height: 50px;\n  position: relative;\n  width: 100%;\n  text-align: right;\n  padding-right: 20px;\n  transition: 600ms ease position;\n  background: linear-gradient(90deg, #20b6f9 0%, #20b6f9 0%, #2178f1 100%, #2178f1 100%); }\n  .sub-navbar .subtitle {\n    font-size: 20px;\n    color: #fff; }\n  .sub-navbar.draft {\n    background: #d0d0d0; }\n  .sub-navbar.deleted {\n    background: #d0d0d0; }\n\n.link-type,\n.link-type:focus {\n  color: #337ab7;\n  cursor: pointer; }\n  .link-type:hover,\n  .link-type:focus:hover {\n    color: #20a0ff; }\n\n.filter-container {\n  padding-bottom: 0px; }\n  .filter-container .filter-item {\n    display: inline-block;\n    vertical-align: middle;\n    margin-bottom: 10px; }\n\n.multiselect {\n  line-height: 16px; }\n\n.multiselect--active {\n  z-index: 1000 !important; }\n\n.el-table--medium td, .el-table--medium th {\n  padding: 7px 0; }\n\n.fixed-width .el-button--mini {\n  padding: 10px 3px;\n  width: 70px;\n  margin-left: 0px; }\n", ""]);
+exports.push([module.i, "/*fade*/\n.fade-enter-active,\n.fade-leave-active {\n  transition: opacity 0.28s; }\n\n.fade-enter,\n.fade-leave-active {\n  opacity: 0; }\n\n/*fade-transform*/\n.fade-transform-leave-active,\n.fade-transform-enter-active {\n  transition: all .5s; }\n\n.fade-transform-enter {\n  opacity: 0;\n  transform: translateX(-30px); }\n\n.fade-transform-leave-to {\n  opacity: 0;\n  transform: translateX(30px); }\n\n/*breadcrumb transition*/\n.breadcrumb-enter-active,\n.breadcrumb-leave-active {\n  transition: all .5s; }\n\n.breadcrumb-enter,\n.breadcrumb-leave-active {\n  opacity: 0;\n  transform: translateX(20px); }\n\n.breadcrumb-move {\n  transition: all .5s; }\n\n.breadcrumb-leave-active {\n  position: absolute; }\n\n.el-breadcrumb__inner, .el-breadcrumb__inner a {\n  font-weight: 400 !important; }\n\n.el-upload input[type=\"file\"] {\n  display: none !important; }\n\n.el-upload__input {\n  display: none; }\n\n.cell .el-tag {\n  margin-right: 0px; }\n\n.small-padding .cell {\n  padding-left: 5px;\n  padding-right: 5px; }\n\n.fixed-width .el-button--mini {\n  padding: 7px 10px;\n  width: 60px; }\n\n.status-col .cell {\n  padding: 0 10px;\n  text-align: center; }\n  .status-col .cell .el-tag {\n    margin-right: 0px; }\n\n.el-dialog {\n  transform: none;\n  left: 0;\n  margin-top: 10vh !important;\n  position: relative;\n  margin: 0 auto; }\n\n.article-textarea textarea {\n  padding-right: 40px;\n  resize: none;\n  border: none;\n  border-radius: 0px;\n  border-bottom: 1px solid #bfcbd9; }\n\n.upload-container .el-upload {\n  width: 100%; }\n  .upload-container .el-upload .el-upload-dragger {\n    width: 100%;\n    height: 200px; }\n\n.el-dropdown-menu a {\n  display: block; }\n\n#app .main-container {\n  min-height: 100%;\n  transition: margin-left .28s;\n  margin-left: 180px;\n  position: relative; }\n\n#app .sidebar-container {\n  transition: width 0.28s;\n  width: 180px !important;\n  height: 100%;\n  position: fixed;\n  font-size: 0px;\n  top: 0;\n  bottom: 0;\n  left: 0;\n  z-index: 1001;\n  overflow: hidden; }\n  #app .sidebar-container .horizontal-collapse-transition {\n    transition: 0s width ease-in-out, 0s padding-left ease-in-out, 0s padding-right ease-in-out; }\n  #app .sidebar-container .scrollbar-wrapper {\n    overflow-x: hidden !important; }\n    #app .sidebar-container .scrollbar-wrapper .el-scrollbar__view {\n      height: 100%; }\n  #app .sidebar-container .el-scrollbar__bar.is-vertical {\n    right: 0px; }\n  #app .sidebar-container .is-horizontal {\n    display: none; }\n  #app .sidebar-container a {\n    display: inline-block;\n    width: 100%;\n    overflow: hidden; }\n  #app .sidebar-container .svg-icon {\n    margin-right: 16px; }\n  #app .sidebar-container .el-menu {\n    border: none;\n    height: 100%;\n    width: 100% !important; }\n\n#app .hideSidebar .sidebar-container {\n  width: 36px !important; }\n\n#app .hideSidebar .main-container {\n  margin-left: 36px; }\n\n#app .hideSidebar .submenu-title-noDropdown {\n  padding-left: 10px !important;\n  position: relative; }\n  #app .hideSidebar .submenu-title-noDropdown .el-tooltip {\n    padding: 0 10px !important; }\n\n#app .hideSidebar .el-submenu {\n  overflow: hidden; }\n  #app .hideSidebar .el-submenu > .el-submenu__title {\n    padding-left: 10px !important; }\n    #app .hideSidebar .el-submenu > .el-submenu__title .el-submenu__icon-arrow {\n      display: none; }\n\n#app .hideSidebar .el-menu--collapse .el-submenu > .el-submenu__title > span {\n  height: 0;\n  width: 0;\n  overflow: hidden;\n  visibility: hidden;\n  display: inline-block; }\n\n#app .sidebar-container .nest-menu .el-submenu > .el-submenu__title,\n#app .sidebar-container .el-submenu .el-menu-item {\n  min-width: 180px !important;\n  background-color: #1f2d3d !important; }\n  #app .sidebar-container .nest-menu .el-submenu > .el-submenu__title:hover,\n  #app .sidebar-container .el-submenu .el-menu-item:hover {\n    background-color: #001528 !important; }\n\n#app .el-menu--collapse .el-menu .el-submenu {\n  min-width: 180px !important; }\n\n#app .mobile .main-container {\n  margin-left: 0px; }\n\n#app .mobile .sidebar-container {\n  transition: transform .28s;\n  width: 180px !important; }\n\n#app .mobile.hideSidebar .sidebar-container {\n  transition-duration: 0.3s;\n  transform: translate3d(-180px, 0, 0); }\n\n#app .withoutAnimation .main-container,\n#app .withoutAnimation .sidebar-container {\n  transition: none; }\n\n.blue-btn {\n  background: #324157; }\n  .blue-btn:hover {\n    color: #324157; }\n    .blue-btn:hover:before, .blue-btn:hover:after {\n      background: #324157; }\n\n.light-blue-btn {\n  background: #3A71A8; }\n  .light-blue-btn:hover {\n    color: #3A71A8; }\n    .light-blue-btn:hover:before, .light-blue-btn:hover:after {\n      background: #3A71A8; }\n\n.red-btn {\n  background: #C03639; }\n  .red-btn:hover {\n    color: #C03639; }\n    .red-btn:hover:before, .red-btn:hover:after {\n      background: #C03639; }\n\n.pink-btn {\n  background: #E65D6E; }\n  .pink-btn:hover {\n    color: #E65D6E; }\n    .pink-btn:hover:before, .pink-btn:hover:after {\n      background: #E65D6E; }\n\n.green-btn {\n  background: #30B08F; }\n  .green-btn:hover {\n    color: #30B08F; }\n    .green-btn:hover:before, .green-btn:hover:after {\n      background: #30B08F; }\n\n.tiffany-btn {\n  background: #4AB7BD; }\n  .tiffany-btn:hover {\n    color: #4AB7BD; }\n    .tiffany-btn:hover:before, .tiffany-btn:hover:after {\n      background: #4AB7BD; }\n\n.yellow-btn {\n  background: #FEC171; }\n  .yellow-btn:hover {\n    color: #FEC171; }\n    .yellow-btn:hover:before, .yellow-btn:hover:after {\n      background: #FEC171; }\n\n.pan-btn {\n  font-size: 14px;\n  color: #fff;\n  padding: 14px 36px;\n  border-radius: 8px;\n  border: none;\n  outline: none;\n  transition: 600ms ease all;\n  position: relative;\n  display: inline-block; }\n  .pan-btn:hover {\n    background: #fff; }\n    .pan-btn:hover:before, .pan-btn:hover:after {\n      width: 100%;\n      transition: 600ms ease all; }\n  .pan-btn:before, .pan-btn:after {\n    content: '';\n    position: absolute;\n    top: 0;\n    right: 0;\n    height: 2px;\n    width: 0;\n    transition: 400ms ease all; }\n  .pan-btn::after {\n    right: inherit;\n    top: inherit;\n    left: 0;\n    bottom: 0; }\n\n.custom-button {\n  display: inline-block;\n  line-height: 1;\n  white-space: nowrap;\n  cursor: pointer;\n  background: #fff;\n  color: #fff;\n  -webkit-appearance: none;\n  text-align: center;\n  box-sizing: border-box;\n  outline: 0;\n  margin: 0;\n  padding: 10px 15px;\n  font-size: 14px;\n  border-radius: 4px; }\n\nbody {\n  height: 100%;\n  -moz-osx-font-smoothing: grayscale;\n  -webkit-font-smoothing: antialiased;\n  text-rendering: optimizeLegibility;\n  font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif; }\n\nlabel {\n  font-weight: 700; }\n\nhtml {\n  height: 100%;\n  box-sizing: border-box; }\n\n#app {\n  height: 100%; }\n\n*,\n*:before,\n*:after {\n  box-sizing: inherit; }\n\n.no-padding {\n  padding: 0px !important; }\n\n.padding-content {\n  padding: 4px 0; }\n\na:focus,\na:active {\n  outline: none; }\n\na,\na:focus,\na:hover {\n  cursor: pointer;\n  color: inherit;\n  text-decoration: none; }\n\ndiv:focus {\n  outline: none; }\n\n.fr {\n  float: right; }\n\n.fl {\n  float: left; }\n\n.pr-5 {\n  padding-right: 5px; }\n\n.pl-5 {\n  padding-left: 5px; }\n\n.block {\n  display: block; }\n\n.pointer {\n  cursor: pointer; }\n\n.inlineBlock {\n  display: block; }\n\n.clearfix:after {\n  visibility: hidden;\n  display: block;\n  font-size: 0;\n  content: \" \";\n  clear: both;\n  height: 0; }\n\ncode {\n  background: #eef1f6;\n  padding: 15px 16px;\n  margin-bottom: 20px;\n  display: block;\n  line-height: 36px;\n  font-size: 15px;\n  font-family: \"Source Sans Pro\", \"Helvetica Neue\", Arial, sans-serif; }\n  code a {\n    color: #337ab7;\n    cursor: pointer; }\n    code a:hover {\n      color: #20a0ff; }\n\n.warn-content {\n  background: rgba(66, 185, 131, 0.1);\n  border-radius: 2px;\n  padding: 16px;\n  padding: 1rem;\n  line-height: 1.6rem;\n  word-spacing: .05rem; }\n  .warn-content a {\n    color: #42b983;\n    font-weight: 600; }\n\n.app-container {\n  padding: 10px; }\n\n.components-container {\n  margin: 30px 50px;\n  position: relative; }\n\n.pagination-container {\n  margin-top: 5px; }\n\n.text-center {\n  text-align: center; }\n\n.sub-navbar {\n  height: 50px;\n  line-height: 50px;\n  position: relative;\n  width: 100%;\n  text-align: right;\n  padding-right: 20px;\n  transition: 600ms ease position;\n  background: linear-gradient(90deg, #20b6f9 0%, #20b6f9 0%, #2178f1 100%, #2178f1 100%); }\n  .sub-navbar .subtitle {\n    font-size: 20px;\n    color: #fff; }\n  .sub-navbar.draft {\n    background: #d0d0d0; }\n  .sub-navbar.deleted {\n    background: #d0d0d0; }\n\n.link-type,\n.link-type:focus {\n  color: #337ab7;\n  cursor: pointer; }\n  .link-type:hover,\n  .link-type:focus:hover {\n    color: #20a0ff; }\n\n.filter-container {\n  padding-bottom: 0px; }\n  .filter-container .filter-item {\n    display: inline-block;\n    vertical-align: middle;\n    margin-bottom: 10px; }\n\n.multiselect {\n  line-height: 16px; }\n\n.multiselect--active {\n  z-index: 1000 !important; }\n\n.el-table--medium td, .el-table--medium th {\n  padding: 7px 0; }\n\n.fixed-width .el-button--mini {\n  padding: 10px 3px;\n  width: 70px;\n  margin-left: 0px; }\n\nbody .el-table th.gutter {\n  display: table-cell !important; }\n", ""]);
 
 // exports
 
@@ -105351,6 +105351,8 @@ module.exports = Component.exports
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ROAST_CONFIG; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return infoSelfStatus; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return jituanStatus; });
 /**
  * Defines the API route we are using.
  */
@@ -105368,12 +105370,29 @@ switch( process.env.NODE_ENV ){
         app_url = 'http://roast.demo.laravelacademy.org';
         break;
 }*/
-
 var ROAST_CONFIG = {
     API_URL: api_url,
     APP_URL: app_url
     // GAODE_MAPS_JS_API_KEY: gaode_maps_js_api_key
 };
+
+var infoSelfStatus = {
+    1: '未返还',
+    2: '返还中',
+    3: '已返还'
+};
+
+var jituanStatus = {
+    0: '否',
+    1: '是'
+};
+
+
+
+/*export const zrConfig = {
+    infoSelfStatus: infoSelfStatus,
+    jituanStatus: jituanStatus,
+};*/
 
 /***/ }),
 
@@ -105979,7 +105998,7 @@ var _route;
   info: {
     id: 'ID',
     code: '序号',
-    name: '客户姓名',
+    name: '客户',
     telephone: '电话',
     user_telephone: '客户电话',
     manage_name: '客户经理',
@@ -105990,19 +106009,20 @@ var _route;
     side_number: '副卡',
     is_jituan: '集团卡',
     old_bind: '绑老卡',
-    netin: '入网时间',
+    netin: '入网',
     collections: '收款',
     balance_month: '当前结算月',
     collections_type: '收款方式',
     creater: '创建者',
     package_month: '套餐返还月',
-    package: '套餐名称',
-    side_number_num: '副卡数量',
+    package: '套餐',
+    side_number_num: '副卡',
     side_uim_number: '副卡UIM码',
     side_uim_number_num: '副卡UIM数量',
     return_record: '返还记录',
     remark: '备注',
     status: '状态',
+    side_number_add: '副卡添加',
     add: '添加'
   },
   infoDianXin: {
@@ -106132,6 +106152,7 @@ __WEBPACK_IMPORTED_MODULE_1__router__["c" /* default */].afterEach(function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__modules_role__ = __webpack_require__("./resources/assets/js/router/modules/role.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__modules_manager__ = __webpack_require__("./resources/assets/js/router/modules/manager.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__modules_package__ = __webpack_require__("./resources/assets/js/router/modules/package.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__modules_infoSelf__ = __webpack_require__("./resources/assets/js/router/modules/infoSelf.js");
 
 
 
@@ -106141,6 +106162,7 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vue_
 
 
 /* Router Modules */
+
 
 
 
@@ -106189,7 +106211,7 @@ var constantRouterMap = [{
     name: 'Dashboard',
     meta: { title: 'dashboard', icon: 'dashboard', noCache: true }
   }]
-}, __WEBPACK_IMPORTED_MODULE_3__modules_user__["a" /* default */], __WEBPACK_IMPORTED_MODULE_4__modules_permission__["a" /* default */], __WEBPACK_IMPORTED_MODULE_5__modules_role__["a" /* default */], __WEBPACK_IMPORTED_MODULE_6__modules_manager__["a" /* default */], __WEBPACK_IMPORTED_MODULE_7__modules_package__["a" /* default */]];
+}, __WEBPACK_IMPORTED_MODULE_8__modules_infoSelf__["a" /* default */], __WEBPACK_IMPORTED_MODULE_3__modules_user__["a" /* default */], __WEBPACK_IMPORTED_MODULE_4__modules_permission__["a" /* default */], __WEBPACK_IMPORTED_MODULE_5__modules_role__["a" /* default */], __WEBPACK_IMPORTED_MODULE_6__modules_manager__["a" /* default */], __WEBPACK_IMPORTED_MODULE_7__modules_package__["a" /* default */]];
 
 /* harmony default export */ __webpack_exports__["c"] = (new __WEBPACK_IMPORTED_MODULE_1_vue_router__["a" /* default */]({
   // mode: 'history', // require service support
@@ -106200,6 +106222,38 @@ var constantRouterMap = [{
 }));
 
 var asyncRouterMap = [];
+
+/***/ }),
+
+/***/ "./resources/assets/js/router/modules/infoSelf.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__views_layout_Layout__ = __webpack_require__("./resources/assets/js/views/layout/Layout.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__views_layout_Layout___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__views_layout_Layout__);
+
+//权限管理路由组
+
+
+var infoSelfRouter = {
+  path: '/infoSelf',
+  component: __WEBPACK_IMPORTED_MODULE_0__views_layout_Layout___default.a,
+  redirect: '/infoSelf/index',
+  name: 'InfoSelf',
+  meta: {
+    title: '',
+    icon: 'documentation'
+  },
+  children: [{
+    path: 'index',
+    component: function component(resolve) {
+      return void __webpack_require__.e/* require */(2).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__("./resources/assets/js/views/infoSelf/index.vue")]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
+    },
+    name: 'infoSelfList',
+    meta: { title: 'info' }
+  }]
+};
+/* harmony default export */ __webpack_exports__["a"] = (infoSelfRouter);
 
 /***/ }),
 
@@ -106227,7 +106281,7 @@ var permissionRouter = {
     component: function component(resolve) {
       return void __webpack_require__.e/* require */(6).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__("./resources/assets/js/views/manager/index.vue")]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
     },
-    name: 'manager',
+    name: 'managerList',
     meta: { title: 'manager' }
   }]
 };
@@ -106257,9 +106311,9 @@ var permissionRouter = {
   children: [{
     path: 'index',
     component: function component(resolve) {
-      return void __webpack_require__.e/* require */(4).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__("./resources/assets/js/views/package/index.vue")]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
+      return void __webpack_require__.e/* require */(5).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__("./resources/assets/js/views/package/index.vue")]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
     },
-    name: 'package',
+    name: 'packageList',
     meta: { title: 'package' }
   }]
 };
@@ -106289,9 +106343,9 @@ var permissionRouter = {
   children: [{
     path: 'index',
     component: function component(resolve) {
-      return void __webpack_require__.e/* require */(5).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__("./resources/assets/js/views/permissions/index.vue")]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
+      return void __webpack_require__.e/* require */(4).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__("./resources/assets/js/views/permissions/index.vue")]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
     },
-    name: 'permission',
+    name: 'permissionList',
     meta: { title: 'permission' }
   }]
 };
@@ -106321,9 +106375,9 @@ var roleRouter = {
   children: [{
     path: 'index',
     component: function component(resolve) {
-      return void __webpack_require__.e/* require */(2).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__("./resources/assets/js/views/role/index.vue")]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
+      return void __webpack_require__.e/* require */(9/* duplicate */).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__("./resources/assets/js/views/role/index.vue")]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
     },
-    name: 'role',
+    name: 'roleList',
     meta: { title: 'role' }
   }]
 };
@@ -106355,7 +106409,7 @@ var userRouter = {
     component: function component(resolve) {
       return void __webpack_require__.e/* require */(1).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__("./resources/assets/js/views/user/index.vue")]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
     },
-    name: 'user',
+    name: 'userList',
     meta: { title: 'user' }
   }, {
     hidden: true,

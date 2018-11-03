@@ -90,7 +90,7 @@ class InfoDianxin extends Model
     // 定义User表与order表一对多关系
     public function belongsToCreater(){
 
-      return $this->belongsTo('App\User', 'creater_id', 'id')->select('id as user_id', 'nick_name', 'telephone as creater_telephone');
+      return $this->belongsTo('App\User', 'creater_id', 'id')->select('id ', 'nick_name', 'telephone');
     }
 
     // 定义infoDianxin表与infoSelf表一对多关系

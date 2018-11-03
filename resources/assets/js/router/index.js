@@ -12,6 +12,7 @@ import permissionRouter from './modules/permission'
 import roleRouter from './modules/role'
 import managerRouter from './modules/manager'
 import packageRouter from './modules/package'
+import infoSelfRouter from './modules/infoSelf'
 /*import componentsRouter from './modules/components'
 import chartsRouter from './modules/charts'
 import tableRouter from './modules/table'
@@ -57,11 +58,13 @@ export const constantRouterMap = [
       }
     ]
   },
+  infoSelfRouter,
   userRouter,
   permissionRouter,
   roleRouter,
   managerRouter,
   packageRouter,
+  
   /*{
     path: '',
     component: Layout,
