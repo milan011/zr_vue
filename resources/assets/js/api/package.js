@@ -13,6 +13,15 @@ export function packageList(query, token = getToken()) {
   })
 }
 
+export function packageAll(token = getToken()) {
+  return request({
+    // url: '/user/list',
+    url: ROAST_CONFIG.API_URL + '/packageAll',
+    method: 'get',
+    params: {token}
+  })
+}
+
 export function getPackage(data, token = getToken()) {
   return request({
     url: ROAST_CONFIG.API_URL + '/getPackage/' + data.id,

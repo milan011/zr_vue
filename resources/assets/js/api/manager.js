@@ -13,6 +13,15 @@ export function managerList(query, token = getToken()) {
   })
 }
 
+export function managerAll(token = getToken()) {
+  return request({
+    // url: '/user/list',
+    url: ROAST_CONFIG.API_URL + '/managerAll',
+    method: 'get',
+    params: {token}
+  })
+}
+
 export function createManager(data, token = getToken()) {
   return request({
     url: ROAST_CONFIG.API_URL + '/manager',

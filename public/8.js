@@ -1,18 +1,13 @@
 webpackJsonp([8],{
 
-/***/ "./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}],[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 1%\",\"last 2 versions\",\"not ie <= 8\"]}}],\"stage-2\"],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}],\"transform-vue-jsx\",\"transform-runtime\"],\"env\":{\"development\":{\"plugins\":[\"dynamic-import-node\"]}}}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/assets/js/views/package/index.vue":
+/***/ "./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}],[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 1%\",\"last 2 versions\",\"not ie <= 8\"]}}],\"stage-2\"],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}],\"transform-vue-jsx\",\"transform-runtime\"],\"env\":{\"development\":{\"plugins\":[\"dynamic-import-node\"]}}}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/assets/js/views/user/passwordReset.vue":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_get_iterator__ = __webpack_require__("./node_modules/babel-runtime/core-js/get-iterator.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_get_iterator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_get_iterator__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_babel_runtime_core_js_object_assign__ = __webpack_require__("./node_modules/babel-runtime/core-js/object/assign.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_babel_runtime_core_js_object_assign___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_babel_runtime_core_js_object_assign__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__api_permission__ = __webpack_require__("./resources/assets/js/api/permission.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__directive_waves__ = __webpack_require__("./resources/assets/js/directive/waves/index.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__utils__ = __webpack_require__("./resources/assets/js/utils/index.js");
-
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_promise__ = __webpack_require__("./node_modules/babel-runtime/core-js/promise.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_promise___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_promise__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__api_user__ = __webpack_require__("./resources/assets/js/api/user.js");
 
 //
 //
@@ -47,314 +42,124 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
-
-
- // 水波纹指令
-
-
-var calendarTypeOptions = [{ key: 'web', display_name: 'web' }, { key: 'api', display_name: 'api' }];
-
-// arr to obj ,such as { CN : "China", US : "USA" }
-var calendarTypeKeyValue = calendarTypeOptions.reduce(function (acc, cur) {
-  acc[cur.key] = cur.display_name;
-  return acc;
-}, {});
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'PerssionTable',
-  directives: {
-    waves: __WEBPACK_IMPORTED_MODULE_3__directive_waves__["a" /* default */]
-  },
-  filters: {
-    statusFilter: function statusFilter(status) {
-      var statusMap = {
-        published: 'success',
-        draft: 'info',
-        deleted: 'danger'
-      };
-      return statusMap[status];
-    },
-    typeFilter: function typeFilter(type) {
-      return calendarTypeKeyValue[type];
-    }
-  },
+  name: 'passwordReset',
   data: function data() {
+    var _this = this;
+
+    var validateRepeatPass = function validateRepeatPass(rule, value, callback) {
+      /*密码确认校验*/
+      if (value !== _this.temp.password) {
+        callback(new Error('两次输入密码不一致!'));
+      } else {
+        callback();
+      }
+    };
     return {
-      tableKey: 0,
-      list: null,
-      total: null,
-      listLoading: true,
-      listQuery: {
-        page: 1,
-        importance: undefined,
-        name: undefined,
-        guard_name: undefined
-      },
-      calendarTypeOptions: calendarTypeOptions,
-      showReviewer: false,
       temp: {
         id: undefined,
-        name: '',
-        guard_name: '',
-        description: '',
-        group: ''
+        name: null,
+        nick_name: null,
+        password: '',
+        oldPassword: '',
+        password_confirmation: ''
       },
-      dialogFormVisible: false,
-      dialogStatus: '',
-      textMap: {
-        update: '编辑权限',
-        create: '新增权限'
-      },
-      dialogPvVisible: false,
-      pvData: [],
+      password: 'password',
+      oldPassword: 'oldPassword',
+      password_confirmation: 'password_confirmation',
+      passwordType: 'password',
+      checkList: [],
       rules: {
-        guard_name: [{ required: true, message: '请选择标识', trigger: 'change' }],
-        name: [{ required: true, message: '请输入名称', trigger: 'blur' }],
-        group: [{ required: true, message: '请输入分组', trigger: 'blur' }],
-        description: [{ required: true, message: '请输入描述', trigger: 'blur' }]
-      },
-      downloadLoading: false
+        password: [{ required: true, message: '请输入密码', trigger: 'change' }, { min: 6, max: 16, message: '密码长度必须是6-16位', trigger: 'change' }],
+        oldPassword: [{ required: true, message: '请输入密码', trigger: 'change' }, { min: 6, max: 16, message: '密码长度必须是6-16位', trigger: 'change' }],
+        password_confirmation: [{ required: true, message: '请确认密码', trigger: 'change' }, { min: 6, max: 16, message: '密码长度必须是6-16位', trigger: 'change' }, { validator: validateRepeatPass, trigger: 'change' }]
+      }
     };
   },
+
+  computed: {
+    //userName() {
+    //console.log(this.$store.getters.name)
+    //console.log(this.nick_name = this.$store.getters.nickName)
+    //this.temp.name = this.$store.getters.name
+    //this.temp.nick_name = this.$store.getters.nickName
+    //return this.$store.getters.name
+    //},
+  },
   created: function created() {
-    this.getList();
+    __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_promise___default.a.all([
+    // this.getRolesList()
+    this.temp.name = this.$store.getters.name, this.temp.nick_name = this.$store.getters.nickName]);
   },
 
   methods: {
-    getList: function getList() {
-      var _this = this;
-
-      this.listLoading = true;
-      Object(__WEBPACK_IMPORTED_MODULE_2__api_permission__["c" /* fetchList */])(this.listQuery).then(function (response) {
-        _this.list = response.data.data;
-        _this.total = response.data.total;
-
-        // Just to simulate the time of the request
-        setTimeout(function () {
-          _this.listLoading = false;
-        }, 1.5 * 1000);
-      });
-    },
-    handleFilter: function handleFilter() {
-      this.listQuery.page = 1;
-      this.getList();
-    },
-    handleSizeChange: function handleSizeChange(val) {
-      this.listQuery.limit = val;
-      this.getList();
-    },
-    handleCurrentChange: function handleCurrentChange(val) {
-      this.listQuery.page = val;
-      this.getList();
-    },
-    handleModifyStatus: function handleModifyStatus(row, status) {
+    resetPassword: function resetPassword() {
       var _this2 = this;
 
-      this.$confirm('确定要删除?', '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning'
-      }).then(function () {
-        _this2.temp = __WEBPACK_IMPORTED_MODULE_1_babel_runtime_core_js_object_assign___default()({}, row);
-        Object(__WEBPACK_IMPORTED_MODULE_2__api_permission__["b" /* deletePermission */])(_this2.temp).then(function (response) {
-          // console.log(response.data);
-          if (response.data.status === 0) {
-            _this2.$notify({
-              title: '失败',
-              message: '删除失败',
-              type: 'warning',
-              duration: 2000
-            });
-          } else {
-            var index = _this2.list.indexOf(row);
-            _this2.list.splice(index, 1);
-            _this2.dialogFormVisible = false;
-            _this2.$notify({
-              title: '成功',
-              message: '删除成功',
-              type: 'success',
-              duration: 2000
-            });
-          }
-        });
-      }).catch(function () {
-        _this2.$message({
-          type: 'info',
-          message: '已取消删除'
-        });
-      });
-    },
-    resetTemp: function resetTemp() {
-      this.temp = {
-        id: undefined,
-        name: '',
-        guard_name: '',
-        description: '',
-        group: ''
-      };
-    },
-    handleCreate: function handleCreate() {
-      var _this3 = this;
-
-      this.resetTemp();
-      this.dialogStatus = 'create';
-      this.dialogFormVisible = true;
-      this.$nextTick(function () {
-        _this3.$refs['dataForm'].clearValidate();
-      });
-    },
-    createData: function createData() {
-      var _this4 = this;
-
       this.$refs['dataForm'].validate(function (valid) {
         if (valid) {
-          Object(__WEBPACK_IMPORTED_MODULE_2__api_permission__["a" /* createPermission */])(_this4.temp).then(function (response) {
-            // console.log(response.data);
-            _this4.temp.id = response.data.id;
-            _this4.list.unshift(_this4.temp);
-            _this4.dialogFormVisible = false;
-            _this4.$notify({
-              title: '成功',
-              message: '创建成功',
-              type: 'success',
-              duration: 2000
-            });
-          });
-        }
-      });
-    },
-    handleUpdate: function handleUpdate(row) {
-      var _this5 = this;
-
-      this.temp = __WEBPACK_IMPORTED_MODULE_1_babel_runtime_core_js_object_assign___default()({}, row); // copy obj
-      this.dialogStatus = 'update';
-      this.dialogFormVisible = true;
-      this.$nextTick(function () {
-        _this5.$refs['dataForm'].clearValidate();
-      });
-    },
-    updateData: function updateData() {
-      var _this6 = this;
-
-      this.$refs['dataForm'].validate(function (valid) {
-        if (valid) {
-
-          var tempData = __WEBPACK_IMPORTED_MODULE_1_babel_runtime_core_js_object_assign___default()({}, _this6.temp);
-          console.log(tempData);
-          Object(__WEBPACK_IMPORTED_MODULE_2__api_permission__["d" /* updatePermission */])(tempData).then(function () {
-            var _iteratorNormalCompletion = true;
-            var _didIteratorError = false;
-            var _iteratorError = undefined;
-
-            try {
-              for (var _iterator = __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_get_iterator___default()(_this6.list), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-                var v = _step.value;
-
-                if (v.id === _this6.temp.id) {
-                  var index = _this6.list.indexOf(v);
-                  _this6.list.splice(index, 1, _this6.temp);
-                  break;
-                }
-              }
-            } catch (err) {
-              _didIteratorError = true;
-              _iteratorError = err;
-            } finally {
-              try {
-                if (!_iteratorNormalCompletion && _iterator.return) {
-                  _iterator.return();
-                }
-              } finally {
-                if (_didIteratorError) {
-                  throw _iteratorError;
-                }
-              }
+          Object(__WEBPACK_IMPORTED_MODULE_1__api_user__["f" /* resetPassword */])(_this2.temp).then(function (response) {
+            console.log(response.data);
+            console.log(response.data.status);
+            // return false
+            if (response.data.status) {
+              // alert('hehe')
+              _this2.$store.dispatch('LogOut').then(function () {
+                location.reload(); // In order to re-instantiate the vue-router object to avoid bugs
+              });
+              // this.$router.push({ path: '/login' })
+              /*this.$notify({
+                title: '成功',
+                message: '密码已重置',
+                type: 'success',
+                duration: 2000
+              })*/
+            } else {
+              _this2.$notify.error({
+                title: '失败',
+                message: response.data.message,
+                type: 'waring',
+                duration: 2000
+              });
             }
+          }).catch(function (error) {
+            // console.log(error)
+            switch (error.response.status) {
+              case 422:
+                var errMessage = error.response.data.errors;
+                var messageShow = '<ul style="list-style-type:none;">';
+                for (var prop in errMessage) {
+                  //console.log(prop)
+                  // console.log(`errMessage.${prop} = ${errMessage[prop]}`)
+                  //console.log(errMessage[prop])
+                  messageShow += '<li style="margin-bottom:5px;">';
+                  messageShow += '' + errMessage[prop];
+                  messageShow += '</li>';
+                }
+                messageShow += '</ul>';
 
-            _this6.dialogFormVisible = false;
-            _this6.$notify({
-              title: '成功',
-              message: '更新成功',
-              type: 'success',
-              duration: 2000
-            });
+                _this2.$message({
+                  showClose: true,
+                  message: messageShow,
+                  type: 'error',
+                  dangerouslyUseHTMLString: true,
+                  duration: 0
+                });
+                break;
+            }
+            //return Promise.reject(error)
           });
         }
       });
-    },
-    handleDelete: function handleDelete(row) {
-      this.$notify({
-        title: '成功',
-        message: '删除成功',
-        type: 'success',
-        duration: 2000
-      });
-      var index = this.list.indexOf(row);
-      this.list.splice(index, 1);
     }
   }
 });
 
 /***/ }),
 
-/***/ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-13b6aaa6\",\"scoped\":false,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/assets/js/views/package/index.vue":
+/***/ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-510dab23\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/sass-loader/lib/loader.js!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/assets/js/views/user/passwordReset.vue":
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/css-base.js")(false);
@@ -362,29 +167,14 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* .fixed-width .el-button--mini {\n  padding: 10px 3px;\n  width: 70px;\n  margin-left: 0px;\n}\n.el-table--medium td, .el-table--medium th {\n  padding: 7px 0;\n}  */\n", ""]);
+exports.push([module.i, "", ""]);
 
 // exports
 
 
 /***/ }),
 
-/***/ "./node_modules/css-loader/index.js!./resources/assets/js/directive/waves/waves.css":
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/css-base.js")(false);
-// imports
-
-
-// module
-exports.push([module.i, ".waves-ripple {\r\n    position: absolute;\r\n    border-radius: 100%;\r\n    background-color: rgba(0, 0, 0, 0.15);\r\n    background-clip: padding-box;\r\n    pointer-events: none;\r\n    -webkit-user-select: none;\r\n    -moz-user-select: none;\r\n    -ms-user-select: none;\r\n    user-select: none;\r\n    -webkit-transform: scale(0);\r\n    -ms-transform: scale(0);\r\n    transform: scale(0);\r\n    opacity: 1;\r\n}\r\n\r\n.waves-ripple.z-active {\r\n    opacity: 0;\r\n    -webkit-transform: scale(2);\r\n    -ms-transform: scale(2);\r\n    transform: scale(2);\r\n    -webkit-transition: opacity 1.2s ease-out, -webkit-transform 0.6s ease-out;\r\n    transition: opacity 1.2s ease-out, -webkit-transform 0.6s ease-out;\r\n    transition: opacity 1.2s ease-out, transform 0.6s ease-out;\r\n    transition: opacity 1.2s ease-out, transform 0.6s ease-out, -webkit-transform 0.6s ease-out;\r\n}", ""]);
-
-// exports
-
-
-/***/ }),
-
-/***/ "./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-13b6aaa6\",\"hasScoped\":false,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/assets/js/views/package/index.vue":
+/***/ "./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-510dab23\",\"hasScoped\":true,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/assets/js/views/user/passwordReset.vue":
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -393,400 +183,163 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "app-container" },
     [
       _c(
+        "el-form",
+        {
+          ref: "dataForm",
+          staticStyle: {
+            width: "400px",
+            "margin-left": "50px",
+            "margin-top": "15px"
+          },
+          attrs: {
+            rules: _vm.rules,
+            model: _vm.temp,
+            "label-position": "left",
+            "label-width": "100px"
+          }
+        },
+        [
+          _c(
+            "el-form-item",
+            { attrs: { label: _vm.$t("user.name") } },
+            [
+              _c("el-input", {
+                attrs: { disabled: true },
+                model: {
+                  value: _vm.temp.name,
+                  callback: function($$v) {
+                    _vm.$set(_vm.temp, "name", $$v)
+                  },
+                  expression: "temp.name"
+                }
+              })
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "el-form-item",
+            { attrs: { label: _vm.$t("user.nick_name") } },
+            [
+              _c("el-input", {
+                attrs: { disabled: true },
+                model: {
+                  value: _vm.temp.nick_name,
+                  callback: function($$v) {
+                    _vm.$set(_vm.temp, "nick_name", $$v)
+                  },
+                  expression: "temp.nick_name"
+                }
+              })
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "el-form-item",
+            {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: true,
+                  expression: "true"
+                }
+              ],
+              attrs: { label: "原密码", prop: _vm.oldPassword }
+            },
+            [
+              _c("el-input", {
+                attrs: { type: _vm.passwordType },
+                model: {
+                  value: _vm.temp.oldPassword,
+                  callback: function($$v) {
+                    _vm.$set(_vm.temp, "oldPassword", $$v)
+                  },
+                  expression: "temp.oldPassword"
+                }
+              })
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "el-form-item",
+            {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: true,
+                  expression: "true"
+                }
+              ],
+              attrs: { label: "新密码", prop: _vm.password }
+            },
+            [
+              _c("el-input", {
+                attrs: { type: _vm.passwordType },
+                model: {
+                  value: _vm.temp.password,
+                  callback: function($$v) {
+                    _vm.$set(_vm.temp, "password", $$v)
+                  },
+                  expression: "temp.password"
+                }
+              })
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "el-form-item",
+            {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: true,
+                  expression: "true"
+                }
+              ],
+              attrs: { label: "确认密码", prop: _vm.password_confirmation }
+            },
+            [
+              _c("el-input", {
+                attrs: { type: _vm.passwordType },
+                model: {
+                  value: _vm.temp.password_confirmation,
+                  callback: function($$v) {
+                    _vm.$set(_vm.temp, "password_confirmation", $$v)
+                  },
+                  expression: "temp.password_confirmation"
+                }
+              })
+            ],
+            1
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
         "div",
-        { staticClass: "filter-container" },
+        {
+          staticClass: "dialog-footer",
+          staticStyle: { "margin-left": "20px" },
+          attrs: { slot: "footer" },
+          slot: "footer"
+        },
         [
           _c(
             "el-button",
             {
-              staticClass: "filter-item",
-              staticStyle: { "margin-left": "10px" },
-              attrs: { type: "primary", icon: "el-icon-edit" },
-              on: { click: _vm.handleCreate }
+              attrs: { size: "big", type: "primary" },
+              on: { click: _vm.resetPassword }
             },
-            [_vm._v("\n      " + _vm._s(_vm.$t("table.add")) + "\n    ")]
-          )
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c(
-        "el-table",
-        {
-          directives: [
-            {
-              name: "loading",
-              rawName: "v-loading",
-              value: _vm.listLoading,
-              expression: "listLoading"
-            }
-          ],
-          key: _vm.tableKey,
-          staticStyle: { width: "100%" },
-          attrs: {
-            data: _vm.list,
-            border: "",
-            fit: "",
-            "highlight-current-row": ""
-          }
-        },
-        [
-          _c("el-table-column", {
-            attrs: { label: _vm.$t("table.id"), align: "center" },
-            scopedSlots: _vm._u([
-              {
-                key: "default",
-                fn: function(scope) {
-                  return [_c("span", [_vm._v(_vm._s(scope.row.id))])]
-                }
-              }
-            ])
-          }),
-          _vm._v(" "),
-          _c("el-table-column", {
-            attrs: { label: _vm.$t("permission.name"), align: "center" },
-            scopedSlots: _vm._u([
-              {
-                key: "default",
-                fn: function(scope) {
-                  return [_c("span", [_vm._v(_vm._s(scope.row.name))])]
-                }
-              }
-            ])
-          }),
-          _vm._v(" "),
-          _c("el-table-column", {
-            attrs: { label: _vm.$t("permission.guard_name"), align: "center" },
-            scopedSlots: _vm._u([
-              {
-                key: "default",
-                fn: function(scope) {
-                  return [_c("span", [_vm._v(_vm._s(scope.row.guard_name))])]
-                }
-              }
-            ])
-          }),
-          _vm._v(" "),
-          _c("el-table-column", {
-            attrs: { label: _vm.$t("permission.description"), align: "center" },
-            scopedSlots: _vm._u([
-              {
-                key: "default",
-                fn: function(scope) {
-                  return [_c("span", [_vm._v(_vm._s(scope.row.description))])]
-                }
-              }
-            ])
-          }),
-          _vm._v(" "),
-          _c("el-table-column", {
-            attrs: { label: _vm.$t("permission.group"), align: "center" },
-            scopedSlots: _vm._u([
-              {
-                key: "default",
-                fn: function(scope) {
-                  return [_c("span", [_vm._v(_vm._s(scope.row.group))])]
-                }
-              }
-            ])
-          }),
-          _vm._v(" "),
-          _c("el-table-column", {
-            attrs: {
-              label: _vm.$t("table.actions"),
-              align: "center",
-              "class-name": "small-padding fixed-width"
-            },
-            scopedSlots: _vm._u([
-              {
-                key: "default",
-                fn: function(scope) {
-                  return [
-                    _c(
-                      "el-button",
-                      {
-                        attrs: { type: "primary", size: "mini" },
-                        on: {
-                          click: function($event) {
-                            _vm.handleUpdate(scope.row)
-                          }
-                        }
-                      },
-                      [_vm._v(_vm._s(_vm.$t("table.edit")))]
-                    ),
-                    _vm._v(" "),
-                    scope.row.status != "deleted"
-                      ? _c(
-                          "el-button",
-                          {
-                            attrs: { size: "mini", type: "danger" },
-                            on: {
-                              click: function($event) {
-                                _vm.handleModifyStatus(scope.row, "deleted")
-                              }
-                            }
-                          },
-                          [
-                            _vm._v(
-                              _vm._s(_vm.$t("table.delete")) + "\n        "
-                            )
-                          ]
-                        )
-                      : _vm._e()
-                  ]
-                }
-              }
-            ])
-          })
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "pagination-container" },
-        [
-          _c("el-pagination", {
-            directives: [
-              {
-                name: "show",
-                rawName: "v-show",
-                value: _vm.total > 0,
-                expression: "total>0"
-              }
-            ],
-            attrs: {
-              "current-page": _vm.listQuery.page,
-              total: _vm.total,
-              background: "",
-              layout: "total, prev, pager, next"
-            },
-            on: { "current-change": _vm.handleCurrentChange }
-          })
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c(
-        "el-dialog",
-        {
-          attrs: {
-            title: _vm.textMap[_vm.dialogStatus],
-            visible: _vm.dialogFormVisible
-          },
-          on: {
-            "update:visible": function($event) {
-              _vm.dialogFormVisible = $event
-            }
-          }
-        },
-        [
-          _c(
-            "el-form",
-            {
-              ref: "dataForm",
-              staticStyle: { width: "400px" },
-              attrs: {
-                rules: _vm.rules,
-                model: _vm.temp,
-                "label-position": "left",
-                "label-width": "100px"
-              }
-            },
-            [
-              _c(
-                "el-form-item",
-                { attrs: { label: _vm.$t("permission.name"), prop: "name" } },
-                [
-                  _c("el-input", {
-                    model: {
-                      value: _vm.temp.name,
-                      callback: function($$v) {
-                        _vm.$set(_vm.temp, "name", $$v)
-                      },
-                      expression: "temp.name"
-                    }
-                  })
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "el-form-item",
-                {
-                  attrs: {
-                    label: _vm.$t("permission.description"),
-                    prop: "description"
-                  }
-                },
-                [
-                  _c("el-input", {
-                    model: {
-                      value: _vm.temp.description,
-                      callback: function($$v) {
-                        _vm.$set(_vm.temp, "description", $$v)
-                      },
-                      expression: "temp.description"
-                    }
-                  })
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "el-form-item",
-                { attrs: { label: _vm.$t("permission.group"), prop: "group" } },
-                [
-                  _c("el-input", {
-                    model: {
-                      value: _vm.temp.group,
-                      callback: function($$v) {
-                        _vm.$set(_vm.temp, "group", $$v)
-                      },
-                      expression: "temp.group"
-                    }
-                  })
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "el-form-item",
-                {
-                  attrs: {
-                    label: _vm.$t("permission.guard_name"),
-                    prop: "guard_name"
-                  }
-                },
-                [
-                  _c(
-                    "el-select",
-                    {
-                      staticClass: "filter-item",
-                      attrs: { placeholder: "请选择标识" },
-                      model: {
-                        value: _vm.temp.guard_name,
-                        callback: function($$v) {
-                          _vm.$set(_vm.temp, "guard_name", $$v)
-                        },
-                        expression: "temp.guard_name"
-                      }
-                    },
-                    _vm._l(_vm.calendarTypeOptions, function(item) {
-                      return _c("el-option", {
-                        key: item.key,
-                        attrs: { label: item.display_name, value: item.key }
-                      })
-                    })
-                  )
-                ],
-                1
-              )
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "div",
-            {
-              staticClass: "dialog-footer",
-              attrs: { slot: "footer" },
-              slot: "footer"
-            },
-            [
-              _c(
-                "el-button",
-                {
-                  on: {
-                    click: function($event) {
-                      _vm.dialogFormVisible = false
-                    }
-                  }
-                },
-                [_vm._v(_vm._s(_vm.$t("table.cancel")))]
-              ),
-              _vm._v(" "),
-              _vm.dialogStatus == "create"
-                ? _c(
-                    "el-button",
-                    {
-                      attrs: { type: "primary" },
-                      on: { click: _vm.createData }
-                    },
-                    [_vm._v(_vm._s(_vm.$t("table.confirm")))]
-                  )
-                : _c(
-                    "el-button",
-                    {
-                      attrs: { type: "primary" },
-                      on: { click: _vm.updateData }
-                    },
-                    [_vm._v(_vm._s(_vm.$t("table.confirm")))]
-                  )
-            ],
-            1
-          )
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c(
-        "el-dialog",
-        {
-          attrs: { visible: _vm.dialogPvVisible, title: "Reading statistics" },
-          on: {
-            "update:visible": function($event) {
-              _vm.dialogPvVisible = $event
-            }
-          }
-        },
-        [
-          _c(
-            "el-table",
-            {
-              staticStyle: { width: "100%" },
-              attrs: {
-                data: _vm.pvData,
-                border: "",
-                fit: "",
-                "highlight-current-row": ""
-              }
-            },
-            [
-              _c("el-table-column", {
-                attrs: { prop: "key", label: "Channel" }
-              }),
-              _vm._v(" "),
-              _c("el-table-column", { attrs: { prop: "pv", label: "Pv" } })
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "span",
-            {
-              staticClass: "dialog-footer",
-              attrs: { slot: "footer" },
-              slot: "footer"
-            },
-            [
-              _c(
-                "el-button",
-                {
-                  attrs: { type: "primary" },
-                  on: {
-                    click: function($event) {
-                      _vm.dialogPvVisible = false
-                    }
-                  }
-                },
-                [_vm._v(_vm._s(_vm.$t("table.confirm")))]
-              )
-            ],
-            1
+            [_vm._v(_vm._s(_vm.$t("table.confirm")))]
           )
         ],
         1
@@ -801,29 +354,29 @@ module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-13b6aaa6", module.exports)
+    require("vue-hot-reload-api")      .rerender("data-v-510dab23", module.exports)
   }
 }
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-13b6aaa6\",\"scoped\":false,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/assets/js/views/package/index.vue":
+/***/ "./node_modules/vue-loader/node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-510dab23\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/sass-loader/lib/loader.js!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/assets/js/views/user/passwordReset.vue":
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__("./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-13b6aaa6\",\"scoped\":false,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/assets/js/views/package/index.vue");
+var content = __webpack_require__("./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-510dab23\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/sass-loader/lib/loader.js!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/assets/js/views/user/passwordReset.vue");
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__("./node_modules/vue-loader/node_modules/vue-style-loader/lib/addStylesClient.js")("7823fc76", content, false, {});
+var update = __webpack_require__("./node_modules/vue-loader/node_modules/vue-style-loader/lib/addStylesClient.js")("1f15406c", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
  if(!content.locals) {
-   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-13b6aaa6\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./index.vue", function() {
-     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-13b6aaa6\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./index.vue");
+   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-510dab23\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/sass-loader/lib/loader.js!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./passwordReset.vue", function() {
+     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-510dab23\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/sass-loader/lib/loader.js!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./passwordReset.vue");
      if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
      update(newContent);
    });
@@ -834,16 +387,20 @@ if(false) {
 
 /***/ }),
 
-/***/ "./resources/assets/js/api/permission.js":
+/***/ "./resources/assets/js/api/user.js":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (immutable) */ __webpack_exports__["c"] = fetchList;
+/* unused harmony export getRoles */
+/* harmony export (immutable) */ __webpack_exports__["d"] = getUserRoles;
+/* harmony export (immutable) */ __webpack_exports__["e"] = giveUserRoles;
 /* unused harmony export fetchArticle */
 /* unused harmony export fetchPv */
-/* harmony export (immutable) */ __webpack_exports__["a"] = createPermission;
-/* harmony export (immutable) */ __webpack_exports__["d"] = updatePermission;
-/* harmony export (immutable) */ __webpack_exports__["b"] = deletePermission;
+/* harmony export (immutable) */ __webpack_exports__["a"] = createUser;
+/* harmony export (immutable) */ __webpack_exports__["f"] = resetPassword;
+/* harmony export (immutable) */ __webpack_exports__["g"] = updateUser;
+/* harmony export (immutable) */ __webpack_exports__["b"] = deleteUser;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils_request__ = __webpack_require__("./resources/assets/js/utils/request.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__utils_auth__ = __webpack_require__("./resources/assets/js/utils/auth.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__config_js__ = __webpack_require__("./resources/assets/js/config.js");
@@ -858,9 +415,44 @@ function fetchList(query) {
 
   return Object(__WEBPACK_IMPORTED_MODULE_0__utils_request__["a" /* default */])({
     // url: '/user/list',
-    url: __WEBPACK_IMPORTED_MODULE_2__config_js__["a" /* ROAST_CONFIG */].API_URL + '/permissionList',
+    url: __WEBPACK_IMPORTED_MODULE_2__config_js__["a" /* ROAST_CONFIG */].API_URL + '/userList',
     method: 'get',
+    query: query,
     params: { token: token, page: query.page }
+  });
+}
+
+function getRoles(query) {
+  var token = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : Object(__WEBPACK_IMPORTED_MODULE_1__utils_auth__["a" /* getToken */])();
+
+  return Object(__WEBPACK_IMPORTED_MODULE_0__utils_request__["a" /* default */])({
+    // url: '/user/list',
+    url: __WEBPACK_IMPORTED_MODULE_2__config_js__["a" /* ROAST_CONFIG */].API_URL + '/roleList',
+    method: 'get',
+    query: query,
+    params: { token: token, page: query.page }
+  });
+}
+
+function getUserRoles(data) {
+  var token = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : Object(__WEBPACK_IMPORTED_MODULE_1__utils_auth__["a" /* getToken */])();
+
+  return Object(__WEBPACK_IMPORTED_MODULE_0__utils_request__["a" /* default */])({
+    url: __WEBPACK_IMPORTED_MODULE_2__config_js__["a" /* ROAST_CONFIG */].API_URL + '/user/' + data.id + '/roles',
+    method: 'get',
+    params: { token: token },
+    data: data
+  });
+}
+
+function giveUserRoles(data) {
+  var token = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : Object(__WEBPACK_IMPORTED_MODULE_1__utils_auth__["a" /* getToken */])();
+
+  return Object(__WEBPACK_IMPORTED_MODULE_0__utils_request__["a" /* default */])({
+    url: __WEBPACK_IMPORTED_MODULE_2__config_js__["a" /* ROAST_CONFIG */].API_URL + '/giveUser/' + data.id + '/roles',
+    method: 'post',
+    params: { token: token },
+    data: data
   });
 }
 
@@ -880,33 +472,37 @@ function fetchPv(pv) {
   });
 }
 
-function createPermission(data) {
-  var token = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : Object(__WEBPACK_IMPORTED_MODULE_1__utils_auth__["a" /* getToken */])();
-
+function createUser(data) {
   return Object(__WEBPACK_IMPORTED_MODULE_0__utils_request__["a" /* default */])({
-    url: __WEBPACK_IMPORTED_MODULE_2__config_js__["a" /* ROAST_CONFIG */].API_URL + '/permission',
+    url: __WEBPACK_IMPORTED_MODULE_2__config_js__["a" /* ROAST_CONFIG */].API_URL + '/user',
     method: 'post',
-    data: data,
-    params: { token: token }
-  });
-}
-
-function updatePermission(data) {
-  var token = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : Object(__WEBPACK_IMPORTED_MODULE_1__utils_auth__["a" /* getToken */])();
-
-  return Object(__WEBPACK_IMPORTED_MODULE_0__utils_request__["a" /* default */])({
-    url: __WEBPACK_IMPORTED_MODULE_2__config_js__["a" /* ROAST_CONFIG */].API_URL + '/permission/' + data.id,
-    method: 'put',
     params: { token: token },
     data: data
   });
 }
 
-function deletePermission(data) {
+function resetPassword(data) {
+  return Object(__WEBPACK_IMPORTED_MODULE_0__utils_request__["a" /* default */])({
+    url: __WEBPACK_IMPORTED_MODULE_2__config_js__["a" /* ROAST_CONFIG */].API_URL + '/resetPassword',
+    method: 'post',
+    params: { token: token },
+    data: data
+  });
+}
+
+function updateUser(data) {
+  return Object(__WEBPACK_IMPORTED_MODULE_0__utils_request__["a" /* default */])({
+    url: __WEBPACK_IMPORTED_MODULE_2__config_js__["a" /* ROAST_CONFIG */].API_URL + '/user/' + data.id,
+    method: 'put',
+    params: { token: token },
+    data: data
+  });
+}
+function deleteUser(data) {
   var token = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : Object(__WEBPACK_IMPORTED_MODULE_1__utils_auth__["a" /* getToken */])();
 
   return Object(__WEBPACK_IMPORTED_MODULE_0__utils_request__["a" /* default */])({
-    url: __WEBPACK_IMPORTED_MODULE_2__config_js__["a" /* ROAST_CONFIG */].API_URL + '/permission/' + data.id,
+    url: __WEBPACK_IMPORTED_MODULE_2__config_js__["a" /* ROAST_CONFIG */].API_URL + '/user/' + data.id,
     method: 'delete',
     params: { token: token },
     data: data
@@ -915,131 +511,25 @@ function deletePermission(data) {
 
 /***/ }),
 
-/***/ "./resources/assets/js/directive/waves/index.js":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__waves__ = __webpack_require__("./resources/assets/js/directive/waves/waves.js");
-
-
-var install = function install(Vue) {
-  Vue.directive('waves', __WEBPACK_IMPORTED_MODULE_0__waves__["a" /* default */]);
-};
-
-if (window.Vue) {
-  window.waves = __WEBPACK_IMPORTED_MODULE_0__waves__["a" /* default */];
-  Vue.use(install); // eslint-disable-line
-}
-
-__WEBPACK_IMPORTED_MODULE_0__waves__["a" /* default */].install = install;
-/* harmony default export */ __webpack_exports__["a"] = (__WEBPACK_IMPORTED_MODULE_0__waves__["a" /* default */]);
-
-/***/ }),
-
-/***/ "./resources/assets/js/directive/waves/waves.css":
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__("./node_modules/css-loader/index.js!./resources/assets/js/directive/waves/waves.css");
-if(typeof content === 'string') content = [[module.i, content, '']];
-// Prepare cssTransformation
-var transform;
-
-var options = {}
-options.transform = transform
-// add the styles to the DOM
-var update = __webpack_require__("./node_modules/style-loader/lib/addStyles.js")(content, options);
-if(content.locals) module.exports = content.locals;
-// Hot Module Replacement
-if(false) {
-	// When the styles change, update the <style> tags
-	if(!content.locals) {
-		module.hot.accept("!!../../../../../node_modules/css-loader/index.js!./waves.css", function() {
-			var newContent = require("!!../../../../../node_modules/css-loader/index.js!./waves.css");
-			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-			update(newContent);
-		});
-	}
-	// When the module is disposed, remove the <style> tags
-	module.hot.dispose(function() { update(); });
-}
-
-/***/ }),
-
-/***/ "./resources/assets/js/directive/waves/waves.js":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_object_assign__ = __webpack_require__("./node_modules/babel-runtime/core-js/object/assign.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_object_assign___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_object_assign__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__waves_css__ = __webpack_require__("./resources/assets/js/directive/waves/waves.css");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__waves_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__waves_css__);
-
-
-
-/* harmony default export */ __webpack_exports__["a"] = ({
-  bind: function bind(el, binding) {
-    el.addEventListener('click', function (e) {
-      var customOpts = __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_object_assign___default()({}, binding.value);
-      var opts = __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_object_assign___default()({
-        ele: el, // 波纹作用元素
-        type: 'hit', // hit 点击位置扩散 center中心点扩展
-        color: 'rgba(0, 0, 0, 0.15)' // 波纹颜色
-      }, customOpts);
-      var target = opts.ele;
-      if (target) {
-        target.style.position = 'relative';
-        target.style.overflow = 'hidden';
-        var rect = target.getBoundingClientRect();
-        var ripple = target.querySelector('.waves-ripple');
-        if (!ripple) {
-          ripple = document.createElement('span');
-          ripple.className = 'waves-ripple';
-          ripple.style.height = ripple.style.width = Math.max(rect.width, rect.height) + 'px';
-          target.appendChild(ripple);
-        } else {
-          ripple.className = 'waves-ripple';
-        }
-        switch (opts.type) {
-          case 'center':
-            ripple.style.top = rect.height / 2 - ripple.offsetHeight / 2 + 'px';
-            ripple.style.left = rect.width / 2 - ripple.offsetWidth / 2 + 'px';
-            break;
-          default:
-            ripple.style.top = (e.pageY - rect.top - ripple.offsetHeight / 2 - document.documentElement.scrollTop || document.body.scrollTop) + 'px';
-            ripple.style.left = (e.pageX - rect.left - ripple.offsetWidth / 2 - document.documentElement.scrollLeft || document.body.scrollLeft) + 'px';
-        }
-        ripple.style.backgroundColor = opts.color;
-        ripple.className = 'waves-ripple z-active';
-        return false;
-      }
-    }, false);
-  }
-});
-
-/***/ }),
-
-/***/ "./resources/assets/js/views/package/index.vue":
+/***/ "./resources/assets/js/views/user/passwordReset.vue":
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__("./node_modules/vue-loader/node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-13b6aaa6\",\"scoped\":false,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/assets/js/views/package/index.vue")
+  __webpack_require__("./node_modules/vue-loader/node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-510dab23\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/sass-loader/lib/loader.js!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/assets/js/views/user/passwordReset.vue")
 }
 var normalizeComponent = __webpack_require__("./node_modules/vue-loader/lib/component-normalizer.js")
 /* script */
-var __vue_script__ = __webpack_require__("./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}],[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 1%\",\"last 2 versions\",\"not ie <= 8\"]}}],\"stage-2\"],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}],\"transform-vue-jsx\",\"transform-runtime\"],\"env\":{\"development\":{\"plugins\":[\"dynamic-import-node\"]}}}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/assets/js/views/package/index.vue")
+var __vue_script__ = __webpack_require__("./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}],[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 1%\",\"last 2 versions\",\"not ie <= 8\"]}}],\"stage-2\"],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}],\"transform-vue-jsx\",\"transform-runtime\"],\"env\":{\"development\":{\"plugins\":[\"dynamic-import-node\"]}}}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/assets/js/views/user/passwordReset.vue")
 /* template */
-var __vue_template__ = __webpack_require__("./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-13b6aaa6\",\"hasScoped\":false,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/assets/js/views/package/index.vue")
+var __vue_template__ = __webpack_require__("./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-510dab23\",\"hasScoped\":true,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/assets/js/views/user/passwordReset.vue")
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
 var __vue_styles__ = injectStyle
 /* scopeId */
-var __vue_scopeId__ = null
+var __vue_scopeId__ = "data-v-510dab23"
 /* moduleIdentifier (server only) */
 var __vue_module_identifier__ = null
 var Component = normalizeComponent(
@@ -1050,7 +540,7 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "resources/assets/js/views/package/index.vue"
+Component.options.__file = "resources/assets/js/views/user/passwordReset.vue"
 
 /* hot reload */
 if (false) {(function () {
@@ -1059,9 +549,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-13b6aaa6", Component.options)
+    hotAPI.createRecord("data-v-510dab23", Component.options)
   } else {
-    hotAPI.reload("data-v-13b6aaa6", Component.options)
+    hotAPI.reload("data-v-510dab23", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true

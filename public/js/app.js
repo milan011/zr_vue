@@ -29,7 +29,7 @@
 /******/
 /******/ 	// objects to store loaded and loading chunks
 /******/ 	var installedChunks = {
-/******/ 		8: 0
+/******/ 		9: 0
 /******/ 	};
 /******/
 /******/ 	// The require function
@@ -105353,6 +105353,9 @@ module.exports = Component.exports
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ROAST_CONFIG; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return infoSelfStatus; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return jituanStatus; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return package_year; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return package_month; });
+/* unused harmony export collections_type */
 /**
  * Defines the API route we are using.
  */
@@ -105376,17 +105379,24 @@ var ROAST_CONFIG = {
     // GAODE_MAPS_JS_API_KEY: gaode_maps_js_api_key
 };
 
+//信息状态
 var infoSelfStatus = {
     1: '未返还',
     2: '返还中',
     3: '已返还'
 };
-
+//集团状态
 var jituanStatus = {
     0: '否',
     1: '是'
 };
+//入网年
+var package_year = [{ 'key': '1', 'year': '2018' }, { 'key': '2', 'year': '2019' }, { 'key': '3', 'year': '2020' }, { 'key': '4', 'year': '2021' }, { 'key': '5', 'year': '2022' }, { 'key': '6', 'year': '2023' }, { 'key': '7', 'year': '2024' }, { 'key': '8', 'year': '2025' }, { 'key': '9', 'year': '2026' }];
 
+//入网月
+var package_month = [{ 'key': '1', 'month': '01' }, { 'key': '2', 'month': '02' }, { 'key': '3', 'month': '03' }, { 'key': '4', 'month': '04' }, { 'key': '5', 'month': '05' }, { 'key': '6', 'month': '06' }, { 'key': '7', 'month': '07' }, { 'key': '8', 'month': '08' }, { 'key': '9', 'month': '09' }, { 'key': '10', 'month': '10' }, { 'key': '11', 'month': '11' }, { 'key': '12', 'month': '12' }];
+//支付方式
+var collections_type = ['微信', '支付宝', '刷卡', '现金', '其他'];
 
 
 /*export const zrConfig = {
@@ -106001,8 +106011,8 @@ var _route;
     name: '客户',
     telephone: '电话',
     user_telephone: '客户电话',
-    manage_name: '客户经理',
-    manage_telephone: '客户经理电话',
+    manager_name: '客户经理',
+    manager_telephone: '客户经理电话',
     project_name: '项目名称',
     new_telephone: '入网号码',
     uim_number: 'UIM码',
@@ -106022,7 +106032,8 @@ var _route;
     return_record: '返还记录',
     remark: '备注',
     status: '状态',
-    side_number_add: '副卡添加',
+    side_number_add: '添加',
+    side_number_remove: '删除',
     add: '添加'
   },
   infoDianXin: {
@@ -106195,7 +106206,7 @@ var constantRouterMap = [{
   name: 'login',
   path: '/login',
   component: function component(resolve) {
-    return void __webpack_require__.e/* require */(3).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__("./resources/assets/js/views/login/index.vue")]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
+    return void __webpack_require__.e/* require */(4).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__("./resources/assets/js/views/login/index.vue")]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
   }
   // hidden: true,
 }, {
@@ -106247,7 +106258,7 @@ var infoSelfRouter = {
   children: [{
     path: 'index',
     component: function component(resolve) {
-      return void __webpack_require__.e/* require */(2).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__("./resources/assets/js/views/infoSelf/index.vue")]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
+      return void __webpack_require__.e/* require */(1).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__("./resources/assets/js/views/infoSelf/index.vue")]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
     },
     name: 'infoSelfList',
     meta: { title: 'info' }
@@ -106279,7 +106290,7 @@ var permissionRouter = {
   children: [{
     path: 'index',
     component: function component(resolve) {
-      return void __webpack_require__.e/* require */(6).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__("./resources/assets/js/views/manager/index.vue")]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
+      return void __webpack_require__.e/* require */(7).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__("./resources/assets/js/views/manager/index.vue")]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
     },
     name: 'managerList',
     meta: { title: 'manager' }
@@ -106311,7 +106322,7 @@ var permissionRouter = {
   children: [{
     path: 'index',
     component: function component(resolve) {
-      return void __webpack_require__.e/* require */(5).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__("./resources/assets/js/views/package/index.vue")]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
+      return void __webpack_require__.e/* require */(6).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__("./resources/assets/js/views/package/index.vue")]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
     },
     name: 'packageList',
     meta: { title: 'package' }
@@ -106343,7 +106354,7 @@ var permissionRouter = {
   children: [{
     path: 'index',
     component: function component(resolve) {
-      return void __webpack_require__.e/* require */(4).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__("./resources/assets/js/views/permissions/index.vue")]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
+      return void __webpack_require__.e/* require */(5).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__("./resources/assets/js/views/permissions/index.vue")]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
     },
     name: 'permissionList',
     meta: { title: 'permission' }
@@ -106375,7 +106386,7 @@ var roleRouter = {
   children: [{
     path: 'index',
     component: function component(resolve) {
-      return void __webpack_require__.e/* require */(9/* duplicate */).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__("./resources/assets/js/views/role/index.vue")]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
+      return void __webpack_require__.e/* require */(3).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__("./resources/assets/js/views/role/index.vue")]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
     },
     name: 'roleList',
     meta: { title: 'role' }
@@ -106407,7 +106418,7 @@ var userRouter = {
   children: [{
     path: 'index',
     component: function component(resolve) {
-      return void __webpack_require__.e/* require */(1).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__("./resources/assets/js/views/user/index.vue")]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
+      return void __webpack_require__.e/* require */(2).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__("./resources/assets/js/views/user/index.vue")]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
     },
     name: 'userList',
     meta: { title: 'user' }
@@ -106415,7 +106426,7 @@ var userRouter = {
     hidden: true,
     path: 'passwordReset',
     component: function component(resolve) {
-      return void __webpack_require__.e/* require */(7).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__("./resources/assets/js/views/user/passwordReset.vue")]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
+      return void __webpack_require__.e/* require */(8).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__("./resources/assets/js/views/user/passwordReset.vue")]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
     },
     name: 'userAdd',
     meta: { title: 'passwordReset' }

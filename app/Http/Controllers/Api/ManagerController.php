@@ -61,10 +61,11 @@ class ManagerController extends Controller
      */
     public function managerAll(Request $request)
     {
-        $managers = Manager::select('id', 'name', 'description', 'group')
+        $managers = Manager::select('id', 'name', 'telephone', 'first_letter')
                                  ->where('status', '1')
+                                 ->orderBy('first_letter', 'ASC')
                                  ->get();
-        $managers = $managers->groupBy('group');
+        // $managers = $managers->groupBy('first_letter');
 
         return new ManagerResource($managers);
     }

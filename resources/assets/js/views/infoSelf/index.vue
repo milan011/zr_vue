@@ -17,7 +17,7 @@
           <span>{{ scope.row.id }}</span>
         </template>
       </el-table-column>
-      <el-table-column :label="$t('info.project_name')" align="center">
+      <el-table-column :label="$t('info.project_name')" show-overflow-tooltip align="center">
         <template slot-scope="scope">
           <span>{{ scope.row.project_name }}</span>
         </template>
@@ -170,7 +170,7 @@
 </template>
 
 <script>
-import { infoList, createInfo, updateInfo, deleteInfo } from '@/api/infoSelf'
+import { infoList } from '@/api/infoSelf'
 import waves from '@/directive/waves' // 水波纹指令
 import { parseTime } from '@/utils'
 import { isTelephone } from '@/utils/validate'

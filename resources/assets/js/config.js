@@ -21,18 +21,55 @@ const ROAST_CONFIG = {
     // GAODE_MAPS_JS_API_KEY: gaode_maps_js_api_key
 };
 
+//信息状态
 const infoSelfStatus = {
     1: '未返还',
     2: '返还中',
     3: '已返还',
 };
-
+//集团状态
 const jituanStatus = {
     0: '否',
     1: '是',
 };
+//入网年
+const package_year = [
+    {'key': '1', 'year': '2018'},
+    {'key': '2', 'year': '2019'},
+    {'key': '3', 'year': '2020'},
+    {'key': '4', 'year': '2021'},
+    {'key': '5', 'year': '2022'},
+    {'key': '6', 'year': '2023'},
+    {'key': '7', 'year': '2024'},
+    {'key': '8', 'year': '2025'},
+    {'key': '9', 'year': '2026'},
+]
 
-export { ROAST_CONFIG, infoSelfStatus ,jituanStatus }
+//入网月
+const package_month = [
+    {'key': '1', 'month': '01'},
+    {'key': '2', 'month': '02'},
+    {'key': '3', 'month': '03'},
+    {'key': '4', 'month': '04'},
+    {'key': '5', 'month': '05'},
+    {'key': '6', 'month': '06'},
+    {'key': '7', 'month': '07'},
+    {'key': '8', 'month': '08'},
+    {'key': '9', 'month': '09'},
+    {'key': '10', 'month': '10'},
+    {'key': '11', 'month': '11'},
+    {'key': '12', 'month': '12'},
+]
+//支付方式
+const collections_type = ['微信', '支付宝', '刷卡', '现金', '其他']
+export { 
+    ROAST_CONFIG, 
+    infoSelfStatus,
+    jituanStatus, 
+    package_year, 
+    package_month,
+    collections_type,
+}
 
 /*export const zrConfig = {
     infoSelfStatus: infoSelfStatus,

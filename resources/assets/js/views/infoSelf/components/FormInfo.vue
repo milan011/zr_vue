@@ -35,60 +35,159 @@
               </div></el-col>  
         </el-row> -->
         <div class="createPost-main-container">
-        <el-row>
-        <el-col :span="8">
-          <el-form-item :label="$t('info.manage_name')" align="center" prop="name">
-          
-            <el-input :disabled="infoNameDisabled" v-model="temp.name"/>
-
-          </el-form-item>
-        </el-col>
-        <el-col :span="8">
-          <el-form-item :label="$t('info.manage_name')" align="center" prop="name">
-          
-            <el-input :disabled="infoNameDisabled" v-model="temp.name"/>
-
-          </el-form-item>
-        </el-col>
-        <el-col :span="8">
-          <el-form-item :label="$t('info.manage_name')" align="center" prop="name">
-          
-            <el-input :disabled="infoNameDisabled" v-model="temp.name"/>
-
-          </el-form-item>
-        </el-col>
-        </el-row>
+          <el-row>
+            <el-col :span="12">
+              <el-form-item :label="$t('info.netin')">
+                <el-col :span="11">
+                  <el-select v-model="temp.current_year" class="filter-item" placeholder="Please select">
+                    <el-option v-for="year in package_year" :key="year.key" :label="year.year" :value="year.year"/>
+                  </el-select>
+                </el-col>
+                <el-col class="line" :span="2" style="text-align:center">-</el-col>
+                <el-col :span="11">
+                  <el-select v-model="temp.current_month" class="filter-item" placeholder="Please select">
+                    <el-option v-for="month in package_month" :key="month.key" :label="month.month" :value="month.month"/>
+                  </el-select>
+                </el-col>
+              </el-form-item>
+            </el-col>
+            <el-col :span="12">
+              <el-form-item :label="$t('info.manager_name')" align="center" prop="manager_name">          
+                <el-select v-model="temp.manager_name" class="filter-item" filterable placeholder="输入姓名可搜索">
+                  <el-option v-for="manager in managerList" :key="manager.id" :label="manager.name" :value="manager.id"/>
+                </el-select> 
+              </el-form-item>
+            </el-col>
+          </el-row>
+          <el-row>
+            <el-col :span="12">
+              <el-form-item :label="$t('info.project_name')" align="center" prop="project_name">
+                <el-input  v-model="temp.project_name"/>
+              </el-form-item>
+            </el-col>   
+            <el-col :span="12">
+              <el-form-item :label="$t('info.name')" align="center" prop="name">
+                <el-input  v-model="temp.name"/>
+              </el-form-item>
+            </el-col> 
+          </el-row>
+          <el-row>
+            <el-col :span="24">
+              <el-form-item :label="$t('info.new_telephone')" prop="new_telephone">
+              <el-col :span="9">
+                <el-input  placeholder="新号码" v-model="temp.new_telephone"/>
+              </el-col>
+              <el-col class="line" :span="1" style="text-align:center">-</el-col>
+              <el-col :span="9">
+                <el-input  placeholder="UIM码" v-model="temp.uim_number"/>
+              </el-col>
+            </el-form-item>
+            </el-col>
+          </el-row>
+          <el-row>
+            <el-col :span="24">
+              <el-form-item :label="$t('info.side_number')">
+              <div v-model="temp.side_numbers" v-for="(side, side_index) in temp.side_numbers" :key="side_index" >
+                <el-col :span="9">
+                  <el-input style="margin-bottom:5px;" placeholder="副卡" v-model="side.side_number"/>
+                </el-col>
+                <el-col class="line" :span="1" style="text-align:center;margin-bottom:5px;">-</el-col>
+                <el-col :span="9">
+                  <el-input style="margin-bottom:5px;" placeholder="副卡UIM码" v-model="side.uim"/>
+                </el-col>
+                <el-col :span="4">
+                  <el-button 
+                    v-if="side.add" 
+                    @click="sideAdd" 
+                    style="margin-left:5px;" 
+                    type="success" >
+                    {{ $t('info.side_number_add') }}
+                  </el-button>
+                  <el-button 
+                    v-else  
+                    @click="sideRemove($event)" 
+                    style="margin-left:5px;" 
+                    type="danger" 
+                    :dataIndex="side_index">
+                    {{ $t('info.side_number_remove') }}
+                  </el-button>
+                </el-col>
+              </div>
+            </el-form-item>
+            </el-col>
+          </el-row>
+          <el-row>
+            <el-col :span="12">
+              <el-form-item :label="$t('info.package')" align="center" prop="package_name">
+                <el-select v-model="temp.package_name" class="filter-item" filterable placeholder="输入套餐搜索">
+                  <el-option v-for="package in packageAll" :key="package.id" :label="package.name" :value="package.id"/>
+                </el-select>
+              </el-form-item>
+            </el-col>   
+            <el-col :span="12">
+              <el-form-item :label="$t('info.user_telephone')" align="center" prop="user_telephone">
+                <el-input  v-model="temp.user_telephone"/>
+              </el-form-item>
+            </el-col> 
+          </el-row>
+          <el-row>
+            <el-col :span="12">
+              <el-form-item :label="$t('info.old_bind')">
+                <el-switch
+                  v-model="temp.old_bind"
+                  active-color="#13ce66"
+                  inactive-color="#ff4949">
+                </el-switch>
+              </el-form-item>
+            </el-col>   
+            <el-col :span="12">
+              <el-form-item :label="$t('info.is_jituan')">
+                <el-switch
+                  v-model="temp.is_jituan"
+                  active-color="#13ce66"
+                  inactive-color="#ff4949">
+                </el-switch>
+              </el-form-item>
+            </el-col> 
+          </el-row>
+          <el-row>
+            <el-col :span="12">
+              <el-form-item :label="$t('info.collections')" prop="collections">
+                <el-input  v-model.number="temp.collections"/>
+              </el-form-item>
+            </el-col>   
+            <el-col :span="12">
+              <el-form-item :label="$t('info.collections_type')">
+                <el-select v-model="temp.collections_type" class="filter-item">
+                  <el-option v-for="(item, index) in collections_types" :key="item" :label="item" :value="(index+1)"/>
+                </el-select>
+              </el-form-item>
+            </el-col> 
+          </el-row>
+          <el-row>
+            <el-col :span="12">
+              <el-form-item :label="$t('info.remark')">
+                <el-input :autosize="{ minRows: 2, maxRows: 4}" v-model="temp.remark" type="textarea" placeholder="备注"/>
+              </el-form-item>
+            </el-col>   
+          </el-row>
         </div>
-        <el-form-item :label="$t('info.netin')" prop="name">
+        <!-- <el-form-item :label="$t('info.netin')" prop="name">
           <el-col :span="9">
-            <el-date-picker type="date" placeholder="选择日期"  style="width: 100%;"></el-date-picker>
+            <el-date-picker v-model="temp.timestamp" type="datetime" placeholder="选择日期"  style="width: 100%;"></el-date-picker>
           </el-col>
           <el-col class="line" :span="1" style="text-align:center">-</el-col>
           <el-col :span="9">
-            <el-time-picker type="fixed-time" placeholder="选择时间"  style="width: 100%;"></el-time-picker>
+            <el-time-picker type="fixed-time" placeholder="选择时间" v-model="temp.time"  style="width: 100%;"></el-time-picker>
           </el-col>
-        </el-form-item>
+        </el-form-item> -->
         
-          <el-form-item :label="$t('info.manage_name')" align="center" prop="name">
+          <!-- <el-form-item :label="$t('info.manage_name')" align="center" prop="name">
           <el-col :span="12">
             <el-input :disabled="infoNameDisabled" v-model="temp.name"/>
             </el-col>
-          </el-form-item>
-        
-        
-          <el-form-item :label="$t('info.project_name')" align="center" prop="name">
-          <el-col :span="12">
-
-            <el-input :disabled="infoNameDisabled" v-model="temp.name"/>
-            </el-col>
-          </el-form-item>
-        
-        
-          <el-form-item :label="$t('info.name')" align="center" prop="name">
-          <el-col :span="12">
-            <el-input :disabled="infoNameDisabled" v-model="temp.name"/>
-            </el-col>
-          </el-form-item>
+          </el-form-item> -->
+          
         
         <!-- <el-col :span="11">
           <el-form-item :label="$t('info.name')" prop="name">
@@ -100,7 +199,7 @@
           </el-col>
         </el-form-item>
         </el-col> -->
-        <el-form-item :label="$t('info.new_telephone')" prop="name">
+        <!-- <el-form-item :label="$t('info.new_telephone')" prop="name">
           <el-col :span="11">
             <el-input :disabled="infoNameDisabled" placeholder="新号码" v-model="temp.name"/>
           </el-col>
@@ -108,8 +207,8 @@
           <el-col :span="11">
             <el-input :disabled="infoNameDisabled" placeholder="UIM码" v-model="temp.name"/>
           </el-col>
-        </el-form-item>
-        <el-form-item :label="$t('info.side_number')" prop="name">
+        </el-form-item> -->
+        <!-- <el-form-item :label="$t('info.side_number')" prop="name">
           <el-col :span="9">
             <el-input :disabled="infoNameDisabled" placeholder="副卡" v-model="temp.name"/>
           </el-col>
@@ -123,17 +222,9 @@
           <el-form-item :label="$t('info.package')" align="center">
           <el-col :span="12">
             <el-select v-model="temp.status" class="filter-item" placeholder="Please select">
-              <el-option :value="1"/>
-              <el-option :value="2"/>
-              <el-option :value="3"/>
-              <!-- <el-option v-for="item in statusOptions" :key="item" :label="item" :value="item"/> -->
+              <el-option v-for="item in statusOptions" :key="item" :label="item" :value="item"/>
             </el-select></el-col>
-          </el-form-item>
-        
-        
-          <el-form-item :label="$t('info.user_telephone')" align="center" >
-            <el-col :span="12"><el-input v-model="temp.name"/></el-col>
-          </el-form-item>
+          </el-form-item> -->
         
         <!-- <el-form-item v-show="passwordVisible" :label="$t('info.password')" :prop="password">
           <el-input :type="passwordType" v-model="temp.password"/>
@@ -141,15 +232,15 @@
         <el-form-item v-show="passwordVisible" :label="$t('info.passwordRepeat')" :prop="password_confirmation">
           <el-input :type="passwordType" v-model="temp.password_confirmation"/>
         </el-form-item> -->
-        <el-form-item :label="$t('info.telephone')" prop="telephone">
+        <!-- <el-form-item :label="$t('info.telephone')" prop="telephone">
           <el-input v-model="temp.telephone"/>
-        </el-form-item>
+        </el-form-item> -->
         <!-- <el-form-item :label="$t('info.email')" prop="email">
           <el-input v-model="temp.email"/>
         </el-form-item> -->
-        <el-form-item :label="$t('info.remark')">
+        <!-- <el-form-item :label="$t('info.remark')">
           <el-input :autosize="{ minRows: 2, maxRows: 4}" v-model="temp.remark" type="textarea" placeholder="备注"/>
-        </el-form-item>
+        </el-form-item> -->
         <!-- <el-form-item :label="$t('info.wx_number')" prop="wx_number">
           <el-input v-model="temp.wx_number"/>
         </el-form-item> -->
@@ -173,43 +264,65 @@
 </template>
 <script>
   import { getRolePermissions, getPermissions, giveRolePermissions } from '@/api/role'
-  // const cityOptions = ['上海', '北京', '广州', '深圳'];
+  import { createInfo, updateInfo, deleteInfo } from '@/api/infoSelf'
+  import { isTelephone } from '@/utils/validate'
+  import { managerAll } from '@/api/manager'
+  import { packageAll } from '@/api/package'
+  import  { package_year ,package_month, collections_type }  from '@/config.js'
   export default {
     data() {
       const validateTelephone = (rule, value, callback) => {
-      if (!isTelephone(value)) {
-        callback(new Error('请输入正确格式手机号'))
-      } else {
-        callback()
+        if (!isTelephone(value)) {
+          callback(new Error('请输入正确格式手机号'))
+        } else {
+          callback()
+        }
       }
-    }
       return {
         temp: {
           id: undefined,
-          name: null,
-          nick_name: null,
+          name: '阿宝',
+          new_telephone: '13731080174',
+          user_telephone: '13731080174',
+          uim_number: '8986111804311020036',
           remark: '',
-          password: '',
-          password_confirmation: '',
-          email: '',
-          status: 'published',
-          telephone: ''
-        },
-        statusOptions: ['published', 'draft', 'deleted'],
-        infoNameDisabled:false,
-        rules: {
-          name: [{ required: true, message: '请输入用户名', trigger: 'change' }],
-          nick_name: [{ required: true, message: '请输入昵称', trigger: 'change' }],
-          password: [{ required: true, message: '请输入密码', trigger: 'change' },
-            { min: 6, max: 16, message: '密码长度必须是6-16位', trigger: 'change' }
+          current_year: new Date().getFullYear(),
+          current_month: new Date().getMonth()+1,
+          manager_name: '',
+          package_name: '',
+          project_name: '大唐',
+          collections: 200,
+          side_numbers: [
+            {side_number:'13731080174', uim: '8986111804311020036', add: true}, 
           ],
-          /*password_confirmation: [
-            { required: true, message: '请确认密码', trigger: 'change' },
-            { min: 6, max: 16, message: '密码长度必须是6-16位', trigger: 'change' },
-            { validator: validateRepeatPass, trigger: 'change' }
+          collections_type: '微信',
+          old_bind: false,
+          is_jituan: false,
+        },
+        collections_types: collections_type,
+        infoNameDisabled:false,
+        package_year:package_year,
+        package_month:package_month,
+        managerList: [],
+        packageAll: [],
+        rules: {
+          name: [{ required: true, message: '请输入客户姓名', trigger: 'change' }],
+          package_name: [{ required: true, message: '请选择套餐', trigger: 'change' }],
+          manager_name: [{ required: true, message: '请选择客户经理', trigger: 'change' }],
+          project_name: [{ required: true, message: '请输入项目名称', trigger: 'change' }],
+          /*uim_number: [
+            { required: true, message: '请输入19位UIM码', trigger: 'change' },
+            { len: 19, message: '请输入19位UIM码', trigger: 'change' }
           ],*/
-          // email: [{ type: 'email', required: true, message: '请输入正确格式的邮箱', trigger: 'change' }],
-          telephone: [
+          collections: [
+            { required: true, message: '请确认收款数字' },
+            { type: 'number',  message: '收款应为数字' },
+          ],
+          user_telephone: [
+            { required: true, message: '请输入有效手机号', trigger: 'blur' }, 
+            { validator: validateTelephone, trigger: 'change' }     
+          ],
+          new_telephone: [
             { required: true, message: '请输入有效手机号', trigger: 'blur' }, 
             { validator: validateTelephone, trigger: 'change' }     
           ]
@@ -226,39 +339,57 @@
     },
     created() {    
       Promise.all([
-        this.getPermissionList()
+        this.getManagerList(),
+        this.getPackageList()
       ])
     },
     methods: {
-      getPermissionList() {
-        getPermissions().then(response => {
-          this.permissions = response.data.data
+      sideAdd(){ //添加副卡
+        let newSide = {side_number:'', uim: '', add: false}
+        this.temp.side_numbers.push(newSide)
+      },
+      sideRemove(event){ //删除副卡
+        this.temp.side_numbers.splice(event.currentTarget.getAttribute('dataIndex'),1)
+      },
+      getManagerList() {
+        managerAll().then(response => {
+          /*console.log(response.data.data)
+          return false*/
+          this.managerList = response.data.data
+        })
+      },
+      getPackageList() {
+        packageAll().then(response => {
+          /*console.log(response.data.data)
+          return false*/
+          this.packageAll = response.data.data
         })
       },
       resetTemp() {
-        /*this.temp = {
-          id: undefined,
-          name: 'wxm',
-          nick_name: 'wxm',
-          remark: '闺女',
-          password: '111111',
-          password_confirmation : '111111',
-          email: '',
-          telephone: '13731080174'
-        }*/
         this.temp = {
           id: undefined,
           name: null,
-          nick_name: null,
+          new_telephone: null,
+          user_telephone: null,
+          uim_number: null,
           remark: '',
-          password: '',
-          password_confirmation : '',
-          email: '',
-          telephone: ''
+          current_year: new Date().getFullYear(),
+          current_month: new Date().getMonth()+1,
+          manager_name: '',
+          package_name: '',
+          project_name: '',
+          collections: '',
+          side_numbers: [
+            {side_number:'', uim: '', add: true},
+            
+          ],
+          collections_type: '微信',
+          old_bind: false,
+          is_jituan: false,
         }
       },
-      handlePermission(row) { 
-        /*row参数为点击的角色信息对象*/
+      /*handlePermission(row) { 
+        // row参数为点击的角色信息对象
         getRolePermissions(row).then((response) => {
           this.checkList = response.data
           this.permissionTemp.id = row.id
@@ -266,23 +397,17 @@
         })
 
         // this.infoDialogFormVisible = true
-        /*this.$nextTick(() => {
+        this.$nextTick(() => {
           this.$refs['permissionDForm'].clearValidate()
-        })*/
-      },
+        })
+      },*/
       handleCreateInfo(){
+        // this.resetTemp()
         this.dialogStatus = 'create'
         this.infoDialogFormVisible = true
-        /*this.resetTemp()
-        this.dialogStatus = 'create'
-        this.infoNameDisabled = false
-        this.passwordVisible = true
-        this.dialogFormVisible = true
-        this.password = 'password'
-        this.password_confirmation = 'password_confirmation'
         this.$nextTick(() => {
           this.$refs['dataForm'].clearValidate()
-        })*/
+        })
       },
       createData() {
         this.$refs['dataForm'].validate((valid) => {
@@ -306,6 +431,7 @@
                 duration: 2000
               })
             }).catch((error) => {
+              console.log(error)
               switch (error.response.status) {
                 case 422:
                   let errMessage = error.response.data.errors
@@ -415,5 +541,9 @@
   }
   .el-dialog__header {
      padding-top: 10px; 
+  }
+  .el-select {
+    display: inline;
+    position: relative;
   }
 </style>

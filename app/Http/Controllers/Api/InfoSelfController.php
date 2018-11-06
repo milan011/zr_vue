@@ -207,7 +207,7 @@ class InfoSelfController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {
+    {   
         $dt = Carbon::now(); //当前日期
 
         $dt_year  = $dt->year;  //当前年
@@ -231,9 +231,17 @@ class InfoSelfController extends Controller
 
         // dd($request->all());
 
+        if($this->infoSelf->isRepeat($request->new_telephone)){
+            return $this->baseFailed($message = '入网号码已存在');
+        }
+        dd('呵呵');
         $info = $this->infoSelf->create($request);
 
-        return redirect('infoSelf/index')->withInput();
+        if($info){ //添加成功
+            return $this->baseSucceed($respond_data = $info, $message = '添加成功');
+        }else{  //添加失败
+            return $this->baseFailed($message = '内部错误');
+        } 
     }
 
     /**
