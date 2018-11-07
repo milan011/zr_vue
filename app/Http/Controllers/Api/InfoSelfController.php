@@ -201,6 +201,22 @@ class InfoSelfController extends Controller
         return view('admin.infoSelf.index', compact('infoSelfs', 'pay_status','action', 'info_status_now','select_conditions', 'notPayed', 'netin', 'netin_year', 'netin_month'));
     }
 
+     /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function getInfo($id)
+    {
+        $info = $this->infoSelf->find($id);
+        $info->belongsToCreater;
+        $info->hasOnePackage;
+        $info->hasManyInfoDianxin;
+
+        return $this->baseSucceed($respond_data = $info, $message = '');
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -234,7 +250,7 @@ class InfoSelfController extends Controller
         if($this->infoSelf->isRepeat($request->new_telephone)){
             return $this->baseFailed($message = '入网号码已存在');
         }
-        dd('呵呵');
+
         $info = $this->infoSelf->create($request);
 
         if($info){ //添加成功
@@ -315,9 +331,9 @@ class InfoSelfController extends Controller
     {   
         // dd($request->all());
 
-        $this->infoSelf->update($request, $id);
+        $info = $this->infoSelf->update($request, $id);
         
-        return redirect('infoSelf/index')->withInput();
+        return $this->baseSucceed($respond_data = $info, $message = '修改成功');
     }
 
     /**
@@ -330,9 +346,7 @@ class InfoSelfController extends Controller
     {
         // dd($id);
         $this->infoSelf->destroy($id);
-
-        return redirect('infoSelf/index');
-        // return redirect('order/index')->route('order.index');
+        return $this->baseSucceed($message = '修改成功');
     }
 
     /**

@@ -131,131 +131,17 @@ class InfoSelfRepository implements InfoSelfRepositoryInterface
     // 创建信息
     public function create($requestData)
     {             
-            
-            $repeated = $this->isRepeat($requestData->new_telephone);
+        $requestData['creater_id']  = Auth::id();
+        $requestData['remark']      = empty($requestData['remark']) ? '' : $requestData['remark'] ;
 
-            // dd($repeated);
-
-            if(null !== $repeated){
-                Session::flash('sucess', '该号码已经存在');
-                return $repeated;
-            }
-
-            $requestData['creater_id']     = Auth::id();
-    
-            $info   = new InfoSelf();
-
-            //获得客户经理信息
-            $manager = Manager::findOrFail($requestData['manager']);
-            // dd($manager);
-            // dd($requestData->all());
-            $package = Package::findOrFail($requestData['package_id']);
-            
-            // dd($manager);
-            // 处理副卡信息
-            // dd($requestData->all());
-
-            $side_list_info      = [];
-            $side_number_arr     = [];
-            $side_uim_number_arr = [];
-            $side_list           = [];
-            $side_number         = '';
-            $side_uim_number     = '';
-
-            // dd(array_filter($requestData['side_numbers']));
-
-            // dd(empty(array_filter($requestData['side_numbers'])));
-
-            if(!empty(array_filter($requestData['side_numbers']))){
-
-                foreach ($requestData['side_numbers'] as $key => $value) {
-
-                    $side_list_info[$key]['side'] = $value;
-                    $side_list_info[$key]['uim']  = $requestData['side_uim_numbers'][$key];
-                }
-
-                $side_list = a_array_unique($side_list_info);
-
-                foreach ($side_list as $key => $value) {
-                    $side_number_arr[]     = $value['side'];
-                    $side_uim_number_arr[] = $value['uim'];
-                }
-
-                $side_number     = implode("|",  $side_number_arr);
-                $side_uim_number = implode("|",  $side_uim_number_arr);
-            }
-
-            // dd($side_list);
-            /*p($side_uim_number_arr);
-            dd(explode('|', $side_uim_number));*/
-            
-            // 副卡uim数量
-            $side_uim_number_num = count(array_unique(array_filter($requestData['side_uim_numbers'])));
-
-
-            
-            /*p(count($side_list));
-            p($side_number);
-            p($side_uim_number);
-            dd($side_list);
-            dd($side_list_info);*/
-
-            
-
-            /*if (!empty($requestData['side_numbers'])){
-
-                $side_number     = implode("|",  array_unique($requestData['side_numbers']));
-                $side_number_num = count($requestData['side_numbers']);
-            }else{
-                $side_number_num = 0;
-            }
-            
-            //处理副卡uim码
-            if (!empty($requestData['side_uim_numbers'])){
-
-                $side_uim_number     = implode("|",  array_unique($requestData['side_uim_numbers']));
-                $side_uim_number_num = count($requestData['side_uim_numbers']);
-            }else{
-                $side_uim_number_num = 0;
-            }*/
-
-            // dd($side_number);
-
-            $requestData['code']                 = getInfoCode();
-            $requestData['manage_name']          = $manager->name;
-            $requestData['manage_id']            = $manager->id;
-            $requestData['manage_telephone']     = $manager->telephone;
-            $requestData['package_month']        = $package->month_nums;
-            $requestData['user_telephone']       = $requestData['telephone'];
-            $requestData['side_number']          = $side_number;
-            $requestData['side_number_num']      = count($side_list);
-            $requestData['side_uim_number']      = $side_uim_number;
-            $requestData['side_uim_number_num']  = $side_uim_number_num;
-            $requestData['netin']                = $requestData['netin_year'].'-'.$requestData['netin_moth'];
-            $requestData['old_bind']             = isset($requestData['old_bind']) ? '1' : '0';
-            $requestData['is_jituan']            = isset($requestData['is_jituan']) ? '1' : '0';
-
-            // dd($requestData->all());
-
-            $input  =  array_replace($requestData->all());
-            
-            $info->fill($input);
-
-            $info = $info->create($input);
-            Session::flash('sucess', '添加信息成功');
-
-            return $info;     
-    }
-
-    // 信息更新
-    public function update($requestData, $id)
-    {   
-
-        $repeated = $this->isRepeat($requestData->new_telephone);
-
-        $info   = InfoSelf::select($this->select_columns)->findorFail($id); //获取信息
-        $manager = Manager::findOrFail($requestData['manager']);//获得客户经理信息
-
+        $info   = new InfoSelf();
+        //获得客户经理信息
+        $manager = Manager::findOrFail($requestData['manage_id']);
+        // dd($manager);
+        // dd($requestData->all());
+        $package = Package::findOrFail($requestData['package_id']);
+        
+        // dd($manager);
         // 处理副卡信息
         // dd($requestData->all());
         $side_list_info      = [];
@@ -264,33 +150,142 @@ class InfoSelfRepository implements InfoSelfRepositoryInterface
         $side_list           = [];
         $side_number         = '';
         $side_uim_number     = '';
+
+        // dd(array_filter($requestData['side_numbers']));
         // dd(array_filter($requestData['side_numbers']));
         // dd(empty(array_filter($requestData['side_numbers'])));
         if(!empty(array_filter($requestData['side_numbers']))){
             foreach ($requestData['side_numbers'] as $key => $value) {
-                $side_list_info[$key]['side'] = $value;
-                $side_list_info[$key]['uim']  = $requestData['side_uim_numbers'][$key];
+                $side_list_info[$key]['side'] = $value['side_number'];
+                $side_list_info[$key]['uim']  = $value['uim'];
             }
+            // dd(array_filter($side_list_info));
             $side_list = a_array_unique($side_list_info);
+            // dd($side_list);
             foreach ($side_list as $key => $value) {
-                $side_number_arr[]     = $value['side'];
-                $side_uim_number_arr[] = $value['uim'];
+                if($value['side'] !== null){
+                    $side_number_arr[]     = $value['side'];
+                    $side_uim_number_arr[] = $value['uim'];
+                }         
             }
+            // dd($side_number_arr);
             $side_number     = implode("|",  $side_number_arr);
             $side_uim_number = implode("|",  $side_uim_number_arr);
         }
-        // dd($side_list);
+
+        $side_uim_number_num = count(array_unique(array_filter($side_uim_number_arr)));
+
+        /*p($side_list);
+        p($side_uim_number);
+        p($side_number);
+        p($side_uim_number_arr);
+        p($side_number_arr);
+        p(count($side_number_arr));
+        dd($side_uim_number_num);
+        dd(explode('|', $side_uim_number));*/
+        
         // 副卡uim数量
-        $side_uim_number_num = count(array_unique(array_filter($requestData['side_uim_numbers'])));
+        
+        
+        // p(count($side_list));
+        /*p($side_number);exit;
+        p($side_uim_number);
+        dd($side_list);
+        dd($side_list_info);*/
+        
+        /*if (!empty($requestData['side_numbers'])){
+            $side_number     = implode("|",  array_unique($requestData['side_numbers']));
+            $side_number_num = count($requestData['side_numbers']);
+        }else{
+            $side_number_num = 0;
+        }
+            
+        //处理副卡uim码
+        if (!empty($requestData['side_uim_numbers'])){
+            $side_uim_number     = implode("|",  array_unique($requestData['side_uim_numbers']));
+            $side_uim_number_num = count($requestData['side_uim_numbers']);
+        }else{
+            $side_uim_number_num = 0;
+        }*/
+        // dd($side_number);
+        $requestData['code']                 = getInfoCode();
+        $requestData['manage_name']          = $manager->name;
+        $requestData['manage_id']            = $manager->id;
+        $requestData['manage_telephone']     = $manager->telephone;
+        $requestData['package_month']        = $package->month_nums;
+        $requestData['package_id']           = $package->id;
+        $requestData['user_telephone']       = $requestData['user_telephone'];
+        $requestData['side_number']          = $side_number;
+        $requestData['side_number_num']      = count($side_number_arr);
+        $requestData['side_uim_number']      = $side_uim_number;
+        $requestData['side_uim_number_num']  = $side_uim_number_num;
+        $requestData['status']               = '1';
+        $requestData['netin']                = $requestData['netin_year'].'-'.$requestData['netin_month'];
+        $requestData['old_bind']             = ($requestData['old_bind']) ? '1' : '0';
+        $requestData['is_jituan']            = ($requestData['is_jituan']) ? '1' : '0';
+
+        // dd($requestData->all());
+
+        $input  =  array_replace($requestData->all());
+        
+        $info->fill($input);
+
+        $info = $info->create($input);
+        
+
+        return $info;     
+    }
+
+    // 信息更新
+    public function update($requestData, $id)
+    {   
+        // dd($requestData->all());
+        $info   = InfoSelf::select($this->select_columns)->findorFail($id); //获取信息
+        $manager = Manager::findOrFail($requestData['manage_id']);//获得客户经理信息
+        $package = Package::findOrFail($requestData['package_id']);//获得客户经理信息
+        // dd($manager);
+        // 处理副卡信息
+        // dd($requestData->all());
+        $side_list_info      = [];
+        $side_number_arr     = [];
+        $side_uim_number_arr = [];
+        $side_list           = [];
+        $side_number         = '';
+        $side_uim_number     = '';
+
+        // dd(array_filter($requestData['side_numbers']));
+        // dd(array_filter($requestData['side_numbers']));
+        // dd(empty(array_filter($requestData['side_numbers'])));
+        if(!empty(array_filter($requestData['side_numbers']))){
+            foreach ($requestData['side_numbers'] as $key => $value) {
+                $side_list_info[$key]['side'] = $value['side_number'];
+                $side_list_info[$key]['uim']  = $value['uim'];
+            }
+            // dd(array_filter($side_list_info));
+            $side_list = a_array_unique($side_list_info);
+            // dd($side_list);
+            foreach ($side_list as $key => $value) {
+                if($value['side'] !== null){
+                    $side_number_arr[]     = $value['side'];
+                    $side_uim_number_arr[] = $value['uim'];
+                }         
+            }
+            // dd($side_number_arr);
+            $side_number     = implode("|",  $side_number_arr);
+            $side_uim_number = implode("|",  $side_uim_number_arr);
+        }
+
+        $side_uim_number_num = count(array_unique(array_filter($side_uim_number_arr)));
         
         $info->name                 = $requestData->name;
-        $info->user_telephone       = $requestData->telephone;
+        $info->user_telephone       = $requestData->user_telephone;
         $info->manage_name          = $manager->name;
         $info->manage_telephone     = $manager->telephone;
-        $info->manage_id            = $requestData->manager;
-        $info->package_id           = $requestData->package_id;
+        $info->manage_id            = $manager->id;
+        $info->package_id           = $package->id;
+        $info->package_month        = $package->month_nums;
         $info->project_name         = $requestData->project_name;
-        $info->side_number_num      = count($side_list);
+        $info->side_number_num      = count($side_number_arr);
         $info->uim_number           = $requestData->uim_number;
         $info->collections          = $requestData->collections;
         $info->side_number          = $side_number;
@@ -298,12 +293,10 @@ class InfoSelfRepository implements InfoSelfRepositoryInterface
         $info->remark               = $requestData->remark;
         $info->side_uim_number_num  = $side_uim_number_num;
         $info->collections_type     = $requestData->collections_type;
-        $info->netin                = $requestData->netin_year.'-'.$requestData->netin_moth;
-        $info->old_bind             = isset($requestData->old_bind) ? '1' : '0';
-        $info->is_jituan            = isset($requestData->is_jituan) ? '1' : '0';
+        $info->netin                = $requestData->netin_year.'-'.$requestData->netin_month;
+        $info->old_bind             = ($requestData->old_bind) ? '1' : '0';
+        $info->is_jituan            = ($requestData->is_jituan) ? '1' : '0';
 
-
-        Session::flash('sucess', '信息修改成功');
         $info->save();
 
         return $info;                     
@@ -316,11 +309,12 @@ class InfoSelfRepository implements InfoSelfRepositoryInterface
             $info = InfoSelf::findorFail($id);
             $info->status = '0';
             $info->save();
-            Session::flash('sucess', '删除约车成功');
+
+            return $info;
            
         } catch (\Illuminate\Database\QueryException $e) {
-            Session()->flash('faill', '删除约车失败');
-        }      
+            return false;
+        }       
     }
 
     //判断电话号码是否重复

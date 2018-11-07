@@ -464,7 +464,7 @@ export default {
           // console.log(tempData)
           if(this.return_moon_price){
             updatePackage(tempData).then((response) => {
-              console.log(response)
+              // console.log(response)
               if(response.data.status){
                 for (const v of this.list) {
                   if (v.id === this.temp.id) {

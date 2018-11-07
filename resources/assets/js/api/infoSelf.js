@@ -13,6 +13,14 @@ export function infoList(query, token = getToken()) {
   })
 }
 
+export function getInfo(data, token = getToken()) {
+  return request({
+    url: ROAST_CONFIG.API_URL + '/getInfo/' + data.id,
+    method: 'get',
+    params: {token},
+  })
+}
+
 export function createInfo(data, token = getToken()) {
   return request({
     url: ROAST_CONFIG.API_URL + '/infoSelf',

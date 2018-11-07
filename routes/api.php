@@ -65,6 +65,7 @@ Route::group([
     //InfoSelf
     Route::get('infoSelfList', 'InfoSelfController@index');
     Route::post('infoSelf', 'InfoSelfController@store');
+    Route::get('getInfo/{id}', 'InfoSelfController@getInfo');
     Route::put('infoSelf/{id}', 'InfoSelfController@update');
     Route::delete('infoSelf/{id}', 'InfoSelfController@destroy');
 

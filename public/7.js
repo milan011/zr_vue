@@ -172,7 +172,7 @@ var calendarTypeKeyValue = calendarTypeOptions.reduce(function (acc, cur) {
       var _this = this;
 
       this.listLoading = true;
-      Object(__WEBPACK_IMPORTED_MODULE_2__api_manager__["c" /* managerList */])(this.listQuery).then(function (response) {
+      Object(__WEBPACK_IMPORTED_MODULE_2__api_manager__["d" /* managerList */])(this.listQuery).then(function (response) {
         _this.list = response.data.data;
         _this.total = response.data.total;
 
@@ -297,7 +297,7 @@ var calendarTypeKeyValue = calendarTypeOptions.reduce(function (acc, cur) {
         if (valid) {
           var tempData = __WEBPACK_IMPORTED_MODULE_1_babel_runtime_core_js_object_assign___default()({}, _this6.temp);
           // console.log(tempData)
-          Object(__WEBPACK_IMPORTED_MODULE_2__api_manager__["d" /* updateManager */])(tempData).then(function (response) {
+          Object(__WEBPACK_IMPORTED_MODULE_2__api_manager__["e" /* updateManager */])(tempData).then(function (response) {
             console.log(response.data);
             if (response.data.status) {
               var _iteratorNormalCompletion = true;
@@ -762,10 +762,10 @@ if(false) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (immutable) */ __webpack_exports__["c"] = managerList;
-/* unused harmony export managerAll */
+/* harmony export (immutable) */ __webpack_exports__["d"] = managerList;
+/* harmony export (immutable) */ __webpack_exports__["c"] = managerAll;
 /* harmony export (immutable) */ __webpack_exports__["a"] = createManager;
-/* harmony export (immutable) */ __webpack_exports__["d"] = updateManager;
+/* harmony export (immutable) */ __webpack_exports__["e"] = updateManager;
 /* harmony export (immutable) */ __webpack_exports__["b"] = deleteManager;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils_request__ = __webpack_require__("./resources/assets/js/utils/request.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__utils_auth__ = __webpack_require__("./resources/assets/js/utils/auth.js");

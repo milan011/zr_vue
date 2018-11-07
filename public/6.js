@@ -216,7 +216,7 @@ var calendarTypeKeyValue = calendarTypeOptions.reduce(function (acc, cur) {
       var _this = this;
 
       this.listLoading = true;
-      Object(__WEBPACK_IMPORTED_MODULE_2__api_package__["d" /* packageList */])(this.listQuery).then(function (response) {
+      Object(__WEBPACK_IMPORTED_MODULE_2__api_package__["e" /* packageList */])(this.listQuery).then(function (response) {
         _this.list = response.data.data;
         _this.total = response.data.total;
 
@@ -461,8 +461,8 @@ var calendarTypeKeyValue = calendarTypeOptions.reduce(function (acc, cur) {
           });
           // console.log(tempData)
           if (_this7.return_moon_price) {
-            Object(__WEBPACK_IMPORTED_MODULE_2__api_package__["e" /* updatePackage */])(tempData).then(function (response) {
-              console.log(response);
+            Object(__WEBPACK_IMPORTED_MODULE_2__api_package__["f" /* updatePackage */])(tempData).then(function (response) {
+              // console.log(response)
               if (response.data.status) {
                 var _iteratorNormalCompletion = true;
                 var _didIteratorError = false;
@@ -1154,11 +1154,11 @@ if(false) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (immutable) */ __webpack_exports__["d"] = packageList;
-/* unused harmony export packageAll */
+/* harmony export (immutable) */ __webpack_exports__["e"] = packageList;
+/* harmony export (immutable) */ __webpack_exports__["d"] = packageAll;
 /* harmony export (immutable) */ __webpack_exports__["c"] = getPackage;
 /* harmony export (immutable) */ __webpack_exports__["a"] = createPackage;
-/* harmony export (immutable) */ __webpack_exports__["e"] = updatePackage;
+/* harmony export (immutable) */ __webpack_exports__["f"] = updatePackage;
 /* harmony export (immutable) */ __webpack_exports__["b"] = deletePackage;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils_request__ = __webpack_require__("./resources/assets/js/utils/request.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__utils_auth__ = __webpack_require__("./resources/assets/js/utils/auth.js");

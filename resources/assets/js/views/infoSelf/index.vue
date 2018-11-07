@@ -32,14 +32,14 @@
           <span>{{ scope.row.side_number_num }}</span>
         </template>
       </el-table-column>
-      <el-table-column :label="$t('info.is_jituan')" align="center">
+      <el-table-column :label="$t('info.is_jituan')" show-overflow-tooltip align="center">
         <template slot-scope="scope">
           <el-tag :type="scope.row.is_jituan | jituanStatusFilter">{{ jiTuanStatusMap[scope.row.is_jituan]}}</el-tag>
         </template>
       </el-table-column>
       <el-table-column :label="$t('info.package')" align="center">
         <template slot-scope="scope">
-          <span>{{ scope.row.project_name }}</span>
+          <span>{{ scope.row.has_one_package ? scope.row.has_one_package.name : '' }}</span>
         </template>
       </el-table-column>
       <el-table-column :label="$t('info.name')" align="center">
@@ -65,7 +65,7 @@
       </el-table-column>
       <el-table-column :label="$t('table.date')" width="150px" align="center">
         <template slot-scope="scope">
-          <span>{{ scope.row.created_at | parseTime('{y}-{m}-{d}') }}|{{ scope.row.belongs_to_creater.nick_name }}</span>
+          <span>{{ scope.row.created_at | parseTime('{y}-{m}-{d}') }}|{{ scope.row.belongs_to_creater ? scope.row.belongs_to_creater.nick_name : '' }}</span>
         </template>
       </el-table-column>
       <!-- <el-table-column :label="$t('table.title')" min-width="150px">
@@ -164,13 +164,13 @@
         <el-button v-else type="primary" @click="updateData">{{ $t('table.confirm') }}</el-button>
       </div>
     </el-dialog> -->
-    <form-info ref="formInfoChild"></form-info>
+    <form-info ref="formInfoChild" v-bind:infoSelfList="this.list" v-on:addNewInfo="addList($event)"></form-info>
 
   </div>
 </template>
 
 <script>
-import { infoList } from '@/api/infoSelf'
+import { infoList, deleteInfo } from '@/api/infoSelf'
 import waves from '@/directive/waves' // 水波纹指令
 import { parseTime } from '@/utils'
 import { isTelephone } from '@/utils/validate'
@@ -301,6 +301,20 @@ export default {
         }, 1.5 * 1000)
       })
     },
+    addList(newInfo){
+      console.log(newInfo)
+      if(newInfo.update){
+        for (const v of this.list) {
+          if (v.id === newInfo.id) {
+            const index = this.list.indexOf(v)
+            this.list.splice(index, 1, newInfo)
+            break
+          }
+        }
+      }else{
+        this.list.unshift(newInfo)
+      }   
+    },
     handleFilter() {
       this.listQuery.page = 1
       this.getList()
@@ -335,7 +349,7 @@ export default {
         type: 'warning'
       }).then(() => {
         this.temp = Object.assign({}, row)
-        deleteUser(this.temp).then((response) => {
+        deleteInfo(this.temp).then((response) => {
           // console.log(response.data);
           if(response.data.status === 0){
             this.$notify({

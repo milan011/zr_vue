@@ -62,6 +62,7 @@ const package_month = [
 ]
 //支付方式
 const collections_type = ['微信', '支付宝', '刷卡', '现金', '其他']
+
 export { 
     ROAST_CONFIG, 
     infoSelfStatus,

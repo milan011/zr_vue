@@ -5,21 +5,20 @@ webpackJsonp([1],{
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_get_iterator__ = __webpack_require__("./node_modules/babel-runtime/core-js/get-iterator.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_get_iterator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_get_iterator__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_babel_runtime_core_js_object_assign__ = __webpack_require__("./node_modules/babel-runtime/core-js/object/assign.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_babel_runtime_core_js_object_assign___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_babel_runtime_core_js_object_assign__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_babel_runtime_core_js_promise__ = __webpack_require__("./node_modules/babel-runtime/core-js/promise.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_babel_runtime_core_js_promise___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_babel_runtime_core_js_promise__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__api_role__ = __webpack_require__("./resources/assets/js/api/role.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__api_infoSelf__ = __webpack_require__("./resources/assets/js/api/infoSelf.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__utils_validate__ = __webpack_require__("./resources/assets/js/utils/validate.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__api_manager__ = __webpack_require__("./resources/assets/js/api/manager.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__api_package__ = __webpack_require__("./resources/assets/js/api/package.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__config_js__ = __webpack_require__("./resources/assets/js/config.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_object_assign__ = __webpack_require__("./node_modules/babel-runtime/core-js/object/assign.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_object_assign___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_object_assign__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_babel_runtime_core_js_promise__ = __webpack_require__("./node_modules/babel-runtime/core-js/promise.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_babel_runtime_core_js_promise___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_babel_runtime_core_js_promise__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__api_infoSelf__ = __webpack_require__("./resources/assets/js/api/infoSelf.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__utils_validate__ = __webpack_require__("./resources/assets/js/utils/validate.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__api_manager__ = __webpack_require__("./resources/assets/js/api/manager.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__api_package__ = __webpack_require__("./resources/assets/js/api/package.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__config_js__ = __webpack_require__("./resources/assets/js/config.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__common_js__ = __webpack_require__("./resources/assets/js/common.js");
 
 
-
+//
+//
 //
 //
 //
@@ -294,12 +293,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     var validateTelephone = function validateTelephone(rule, value, callback) {
-      if (!Object(__WEBPACK_IMPORTED_MODULE_5__utils_validate__["a" /* isTelephone */])(value)) {
+      if (!Object(__WEBPACK_IMPORTED_MODULE_3__utils_validate__["a" /* isTelephone */])(value)) {
         callback(new Error('请输入正确格式手机号'));
       } else {
         callback();
       }
     };
+    props: ["infoSelfList"];
     return {
       temp: {
         id: undefined,
@@ -307,28 +307,30 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         new_telephone: '13731080174',
         user_telephone: '13731080174',
         uim_number: '8986111804311020036',
-        remark: '',
-        current_year: new Date().getFullYear(),
-        current_month: new Date().getMonth() + 1,
-        manager_name: '',
+        remark: ' ',
+        netin_year: new Date().getFullYear(),
+        netin_month: new Date().getMonth() + 1,
+        manage_id: null,
         package_name: '',
+        package_id: null,
         project_name: '大唐',
         collections: 200,
         side_numbers: [{ side_number: '13731080174', uim: '8986111804311020036', add: true }],
-        collections_type: '微信',
-        old_bind: false,
-        is_jituan: false
+        collections_type: 1,
+        old_bind: '0',
+        is_jituan: '0'
       },
-      collections_types: __WEBPACK_IMPORTED_MODULE_8__config_js__["b" /* collections_type */],
+      infoNewTelephoneDisabled: false,
+      collections_types: __WEBPACK_IMPORTED_MODULE_6__config_js__["b" /* collections_type */],
       infoNameDisabled: false,
-      package_year: __WEBPACK_IMPORTED_MODULE_8__config_js__["f" /* package_year */],
-      package_month: __WEBPACK_IMPORTED_MODULE_8__config_js__["e" /* package_month */],
+      package_year: __WEBPACK_IMPORTED_MODULE_6__config_js__["f" /* package_year */],
+      package_month: __WEBPACK_IMPORTED_MODULE_6__config_js__["e" /* package_month */],
       managerList: [],
       packageAll: [],
       rules: {
         name: [{ required: true, message: '请输入客户姓名', trigger: 'change' }],
-        package_name: [{ required: true, message: '请选择套餐', trigger: 'change' }],
-        manager_name: [{ required: true, message: '请选择客户经理', trigger: 'change' }],
+        package_id: [{ required: true, message: '请选择套餐', trigger: 'change' }],
+        manage_id: [{ required: true, message: '请选择客户经理', trigger: 'change' }],
         project_name: [{ required: true, message: '请输入项目名称', trigger: 'change' }],
         /*uim_number: [
           { required: true, message: '请输入19位UIM码', trigger: 'change' },
@@ -349,7 +351,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     };
   },
   created: function created() {
-    __WEBPACK_IMPORTED_MODULE_2_babel_runtime_core_js_promise___default.a.all([this.getManagerList(), this.getPackageList()]);
+    __WEBPACK_IMPORTED_MODULE_1_babel_runtime_core_js_promise___default.a.all([this.getManagerList(), this.getPackageList()]);
   },
 
   methods: {
@@ -358,26 +360,44 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       var newSide = { side_number: '', uim: '', add: false };
       this.temp.side_numbers.push(newSide);
     },
+    packageChange: function packageChange(event) {
+      var _this = this;
+
+      //console.log(event)
+      //console.log(this.packageAll)
+
+      Array.prototype.forEach.call(this.packageAll, function (child) {
+        // console.log(child)
+        if (event === child.id) {
+          console.log(child.name); //
+          _this.temp.package_name = child.name;
+        }
+      });
+    },
     sideRemove: function sideRemove(event) {
       //删除副卡
       this.temp.side_numbers.splice(event.currentTarget.getAttribute('dataIndex'), 1);
     },
-    getManagerList: function getManagerList() {
-      var _this = this;
 
-      Object(__WEBPACK_IMPORTED_MODULE_6__api_manager__["c" /* managerAll */])().then(function (response) {
+    addInfoSelfList: function addInfoSelfList(value) {
+      this.$emit("addNewInfo", value);
+    },
+    getManagerList: function getManagerList() {
+      var _this2 = this;
+
+      Object(__WEBPACK_IMPORTED_MODULE_4__api_manager__["c" /* managerAll */])().then(function (response) {
         /*console.log(response.data.data)
         return false*/
-        _this.managerList = response.data.data;
+        _this2.managerList = response.data.data;
       });
     },
     getPackageList: function getPackageList() {
-      var _this2 = this;
+      var _this3 = this;
 
-      Object(__WEBPACK_IMPORTED_MODULE_7__api_package__["d" /* packageAll */])().then(function (response) {
+      Object(__WEBPACK_IMPORTED_MODULE_5__api_package__["d" /* packageAll */])().then(function (response) {
         /*console.log(response.data.data)
         return false*/
-        _this2.packageAll = response.data.data;
+        _this3.packageAll = response.data.data;
       });
     },
     resetTemp: function resetTemp() {
@@ -387,17 +407,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         new_telephone: null,
         user_telephone: null,
         uim_number: null,
-        remark: '',
-        current_year: new Date().getFullYear(),
-        current_month: new Date().getMonth() + 1,
-        manager_name: '',
+        remark: ' ',
+        netin_year: new Date().getFullYear(),
+        netin_month: new Date().getMonth() + 1,
+        manage_id: null,
+        package_id: null,
         package_name: '',
         project_name: '',
-        collections: '',
+        collections: 200,
         side_numbers: [{ side_number: '', uim: '', add: true }],
-        collections_type: '微信',
-        old_bind: false,
-        is_jituan: false
+        collections_type: 1,
+        old_bind: '0',
+        is_jituan: '0'
       };
     },
 
@@ -414,38 +435,63 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       })
     },*/
     handleCreateInfo: function handleCreateInfo() {
-      var _this3 = this;
+      var _this4 = this;
 
-      // this.resetTemp()
+      this.resetTemp();
       this.dialogStatus = 'create';
       this.infoDialogFormVisible = true;
+      this.infoNewTelephoneDisabled = false;
       this.$nextTick(function () {
-        _this3.$refs['dataForm'].clearValidate();
+        _this4.$refs['dataForm'].clearValidate();
       });
     },
     createData: function createData() {
-      var _this4 = this;
+      var _this5 = this;
 
       this.$refs['dataForm'].validate(function (valid) {
         if (valid) {
-          Object(__WEBPACK_IMPORTED_MODULE_4__api_infoSelf__["a" /* createInfo */])(_this4.temp).then(function (response) {
-            /*console.log(response.data)
+          Object(__WEBPACK_IMPORTED_MODULE_2__api_infoSelf__["a" /* createInfo */])(_this5.temp).then(function (response) {
+            /*console.log(this.temp)
             return false*/
-            var newInfo = {
-              id: response.data.data.id,
-              name: response.data.data.name,
-              nick_name: response.data.data.nick_name,
-              telephone: response.data.data.telephone,
-              created_at: new Date()
-            };
-            _this4.list.unshift(newInfo);
-            _this4.dialogFormVisible = false;
-            _this4.$notify({
-              title: '成功',
-              message: '创建成功',
-              type: 'success',
-              duration: 2000
-            });
+            if (response.data.status) {
+              //添加成功
+              var resData = response.data.data;
+              var newInfo = {
+                id: resData.id,
+                new_telephone: resData.new_telephone,
+                project_name: resData.project_name,
+                is_jituan: resData.is_jituan,
+                name: resData.name,
+                has_one_package: { name: _this5.temp.package_name },
+                netin: resData.netin,
+                old_bind: resData.old_bind,
+                side_number: resData.side_number,
+                package_id: resData.package_id,
+                manage_id: resData.manage_id,
+                collections: resData.collections,
+                side_uim_number: resData.side_uim_number,
+                side_number_num: resData.side_number_num,
+                user_telephone: resData.user_telephone,
+                status: resData.status,
+                belongs_to_creater: { nick_name: _this5.$store.getters.nickName },
+                created_at: new Date()
+              };
+              _this5.addInfoSelfList(newInfo);
+              _this5.infoDialogFormVisible = false;
+              _this5.$notify({
+                title: '成功',
+                message: '创建成功',
+                type: 'success',
+                duration: 2000
+              });
+            } else {
+              //添加失败
+              _this5.$notify.error({
+                title: '注意',
+                message: response.data.message,
+                duration: 2000
+              });
+            }
           }).catch(function (error) {
             console.log(error);
             switch (error.response.status) {
@@ -462,7 +508,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 }
                 messageShow += '</ul>';
 
-                _this4.$message({
+                _this5.$message({
                   showClose: true,
                   message: messageShow,
                   type: 'error',
@@ -481,7 +527,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                   return this.$Message.error('数据过期,请重新登录')
                   break*/
             }
-            return __WEBPACK_IMPORTED_MODULE_2_babel_runtime_core_js_promise___default.a.reject(error);
+            return __WEBPACK_IMPORTED_MODULE_1_babel_runtime_core_js_promise___default.a.reject(error);
           });
           /*.catch(function (error) {
             if (error.response) {
@@ -505,61 +551,92 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       });
     },
     handleUpdateInfo: function handleUpdateInfo(row) {
-      //this.temp = Object.assign({}, row) // copy obj
+
+      /*getInfo(row).then((response) => {
+        console.log(response.data)
+        return false
+             
+      })*/
+      var netin_arr = row.netin.split('-');
+      var side_arr = row.side_number.split('|');
+      var side_uim_arr = row.side_uim_number.split('|');
+      row.side_numbers = [];
+
+      /*
+      console.log(netin_arr)
+      console.log(side_arr)
+      console.log(side_uim_arr)
+      console.log(isEmpty(side_uim_arr))*/
+
+      if (!Object(__WEBPACK_IMPORTED_MODULE_7__common_js__["a" /* isEmpty */])(side_arr)) {
+        Array.prototype.forEach.call(side_arr, function (child, index) {
+          //console.log(child)
+          //console.log(index)
+          var addAction = false;
+          if (index == 0) addAction = true;
+          // side = {side_number: child, uim: side_uim_arr[index], add: addAction}
+          row.side_numbers.push({ side_number: child, uim: side_uim_arr[index], add: addAction });
+        });
+      }
+
+      // console.log(row.side_numbers)
+
+      row.netin_year = netin_arr[0];
+      row.netin_month = netin_arr[1];
+      row.collections = parseInt(row.collections);
+
+      /*if(row.is_jituan == '1'){
+            row.is_jituan = true
+          }else{
+            row.is_jituan = false
+          }
+          if(row.old_bind == '1'){
+            row.old_bind = true
+          }else{
+            row.old_bind = false
+          }*/
+      this.temp = __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_object_assign___default()({}, row); // copy obj
       //this.temp.timestamp = new Date(this.temp.timestamp)
+      console.log(row);
       this.dialogStatus = 'update';
-      //this.infoNameDisabled = true
-      //this.password = null
-      //this.password_confirmation = null
-      //this.passwordVisible = false
-      this.infoDialogFormVisible = true;
+      this.infoNewTelephoneDisabled = true, this.infoDialogFormVisible = true;
       //this.$nextTick(() => {
       //  this.$refs['dataForm'].clearValidate()
       //})
     },
     updateData: function updateData() {
-      var _this5 = this;
+      var _this6 = this;
 
       this.$refs['dataForm'].validate(function (valid) {
         if (valid) {
-          var tempData = __WEBPACK_IMPORTED_MODULE_1_babel_runtime_core_js_object_assign___default()({}, _this5.temp);
-          Object(__WEBPACK_IMPORTED_MODULE_4__api_infoSelf__["c" /* updateInfo */])(tempData).then(function () {
-            var _iteratorNormalCompletion = true;
-            var _didIteratorError = false;
-            var _iteratorError = undefined;
-
-            try {
-              for (var _iterator = __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_get_iterator___default()(_this5.list), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-                var v = _step.value;
-
-                if (v.id === _this5.temp.id) {
-                  var index = _this5.list.indexOf(v);
-                  _this5.list.splice(index, 1, _this5.temp);
-                  break;
+          var tempData = __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_object_assign___default()({}, _this6.temp);
+          Object(__WEBPACK_IMPORTED_MODULE_2__api_infoSelf__["d" /* updateInfo */])(tempData).then(function (response) {
+            if (response.data.status) {
+              /*for (const v of this.list) {
+                if (v.id === this.temp.id) {
+                  const index = this.list.indexOf(v)
+                  this.list.splice(index, 1, this.temp)
+                  break
                 }
-              }
-            } catch (err) {
-              _didIteratorError = true;
-              _iteratorError = err;
-            } finally {
-              try {
-                if (!_iteratorNormalCompletion && _iterator.return) {
-                  _iterator.return();
-                }
-              } finally {
-                if (_didIteratorError) {
-                  throw _iteratorError;
-                }
-              }
+              }*/
+              _this6.temp.update = true;
+              _this6.temp.has_one_package = { name: _this6.temp.package_name };
+              _this6.temp.is_jituan = response.data.data.is_jituan;
+              _this6.addInfoSelfList(_this6.temp);
+              _this6.infoDialogFormVisible = false;
+              _this6.$notify({
+                title: '成功',
+                message: '更新成功',
+                type: 'success',
+                duration: 2000
+              });
+            } else {
+              _this6.$notify.error({
+                title: '失败',
+                message: response.data.message,
+                duration: 2000
+              });
             }
-
-            _this5.dialogFormVisible = false;
-            _this5.$notify({
-              title: '成功',
-              message: '更新成功',
-              type: 'success',
-              duration: 2000
-            });
           });
         }
       });
@@ -672,17 +749,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_object_assign__ = __webpack_require__("./node_modules/babel-runtime/core-js/object/assign.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_object_assign___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_object_assign__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_babel_runtime_core_js_promise__ = __webpack_require__("./node_modules/babel-runtime/core-js/promise.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_babel_runtime_core_js_promise___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_babel_runtime_core_js_promise__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__api_infoSelf__ = __webpack_require__("./resources/assets/js/api/infoSelf.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__directive_waves__ = __webpack_require__("./resources/assets/js/directive/waves/index.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__utils__ = __webpack_require__("./resources/assets/js/utils/index.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__utils_validate__ = __webpack_require__("./resources/assets/js/utils/validate.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_SetRoles__ = __webpack_require__("./resources/assets/js/views/infoSelf/components/SetRoles.vue");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_SetRoles___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6__components_SetRoles__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__components_FormInfo__ = __webpack_require__("./resources/assets/js/views/infoSelf/components/FormInfo.vue");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__components_FormInfo___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7__components_FormInfo__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__config_js__ = __webpack_require__("./resources/assets/js/config.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_babel_runtime_core_js_get_iterator__ = __webpack_require__("./node_modules/babel-runtime/core-js/get-iterator.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_babel_runtime_core_js_get_iterator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_babel_runtime_core_js_get_iterator__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_babel_runtime_core_js_promise__ = __webpack_require__("./node_modules/babel-runtime/core-js/promise.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_babel_runtime_core_js_promise___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_babel_runtime_core_js_promise__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__api_infoSelf__ = __webpack_require__("./resources/assets/js/api/infoSelf.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__directive_waves__ = __webpack_require__("./resources/assets/js/directive/waves/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__utils__ = __webpack_require__("./resources/assets/js/utils/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__utils_validate__ = __webpack_require__("./resources/assets/js/utils/validate.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__components_SetRoles__ = __webpack_require__("./resources/assets/js/views/infoSelf/components/SetRoles.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__components_SetRoles___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7__components_SetRoles__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__components_FormInfo__ = __webpack_require__("./resources/assets/js/views/infoSelf/components/FormInfo.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__components_FormInfo___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_8__components_FormInfo__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__config_js__ = __webpack_require__("./resources/assets/js/config.js");
+
 
 
 //
@@ -867,9 +947,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'infoSelfList',
-  components: { FormInfo: __WEBPACK_IMPORTED_MODULE_7__components_FormInfo___default.a },
+  components: { FormInfo: __WEBPACK_IMPORTED_MODULE_8__components_FormInfo___default.a },
   directives: {
-    waves: __WEBPACK_IMPORTED_MODULE_3__directive_waves__["a" /* default */]
+    waves: __WEBPACK_IMPORTED_MODULE_4__directive_waves__["a" /* default */]
   },
   filters: {
     statusFilter: function statusFilter(status) {
@@ -904,7 +984,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       }
     };
     var validateTelephone = function validateTelephone(rule, value, callback) {
-      if (!Object(__WEBPACK_IMPORTED_MODULE_5__utils_validate__["a" /* isTelephone */])(value)) {
+      if (!Object(__WEBPACK_IMPORTED_MODULE_6__utils_validate__["a" /* isTelephone */])(value)) {
         callback(new Error('请输入正确格式手机号'));
       } else {
         callback();
@@ -943,8 +1023,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         create: '用户创建'
       },*/
       // statusMap: zrConfig.infoSelfStatus,
-      statusMap: __WEBPACK_IMPORTED_MODULE_8__config_js__["c" /* infoSelfStatus */],
-      jiTuanStatusMap: __WEBPACK_IMPORTED_MODULE_8__config_js__["d" /* jituanStatus */]
+      statusMap: __WEBPACK_IMPORTED_MODULE_9__config_js__["c" /* infoSelfStatus */],
+      jiTuanStatusMap: __WEBPACK_IMPORTED_MODULE_9__config_js__["d" /* jituanStatus */]
       // jiTuanStatusMap: zrConfig.jituanStatus,
       // dialogPvVisible: false,
       // pvData: [],
@@ -969,7 +1049,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     };
   },
   created: function created() {
-    __WEBPACK_IMPORTED_MODULE_1_babel_runtime_core_js_promise___default.a.all([this.getList()]
+    __WEBPACK_IMPORTED_MODULE_2_babel_runtime_core_js_promise___default.a.all([this.getList()]
     // this.statusMap = infoSelfStatus
     // console.log(zrConfig),
     // console.log(infoSelfStatus)
@@ -981,7 +1061,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       var _this2 = this;
 
       this.listLoading = true;
-      Object(__WEBPACK_IMPORTED_MODULE_2__api_infoSelf__["b" /* infoList */])(this.listQuery).then(function (response) {
+      Object(__WEBPACK_IMPORTED_MODULE_3__api_infoSelf__["c" /* infoList */])(this.listQuery).then(function (response) {
         _this2.list = response.data.data;
         _this2.total = response.data.total;
 
@@ -990,6 +1070,41 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           _this2.listLoading = false;
         }, 1.5 * 1000);
       });
+    },
+    addList: function addList(newInfo) {
+      console.log(newInfo);
+      if (newInfo.update) {
+        var _iteratorNormalCompletion = true;
+        var _didIteratorError = false;
+        var _iteratorError = undefined;
+
+        try {
+          for (var _iterator = __WEBPACK_IMPORTED_MODULE_1_babel_runtime_core_js_get_iterator___default()(this.list), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+            var v = _step.value;
+
+            if (v.id === newInfo.id) {
+              var index = this.list.indexOf(v);
+              this.list.splice(index, 1, newInfo);
+              break;
+            }
+          }
+        } catch (err) {
+          _didIteratorError = true;
+          _iteratorError = err;
+        } finally {
+          try {
+            if (!_iteratorNormalCompletion && _iterator.return) {
+              _iterator.return();
+            }
+          } finally {
+            if (_didIteratorError) {
+              throw _iteratorError;
+            }
+          }
+        }
+      } else {
+        this.list.unshift(newInfo);
+      }
     },
     handleFilter: function handleFilter() {
       this.listQuery.page = 1;
@@ -1027,7 +1142,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         type: 'warning'
       }).then(function () {
         _this3.temp = __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_object_assign___default()({}, row);
-        deleteUser(_this3.temp).then(function (response) {
+        Object(__WEBPACK_IMPORTED_MODULE_3__api_infoSelf__["b" /* deleteInfo */])(_this3.temp).then(function (response) {
           // console.log(response.data);
           if (response.data.status === 0) {
             _this3.$notify({
@@ -1118,7 +1233,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* .fixed-width .el-button--mini {\n  padding: 10px 3px;\n  width: 70px;\n  margin-left: 0px;\n}\n.el-table--medium td, .el-table--medium th {\n  padding: 7px 0;\n}  */\n.el-dialog__body {\n  padding: 15px 15px;\n}\n.el-dialog__header {\n   padding-top: 10px;\n}\n.el-select {\n  display: inline;\n  position: relative;\n}\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* .fixed-width .el-button--mini {\n  padding: 10px 3px;\n  width: 70px;\n  margin-left: 0px;\n}\n.el-table--medium td, .el-table--medium th {\n  padding: 7px 0;\n}  */\n.el-dialog__body {\n  padding: 15px 15px;\n}\n.el-dialog__header {\n   padding-top: 10px;\n}\n.el-select {\n  display: inline;\n  position: relative;\n}\n", ""]);
 
 // exports
 
@@ -1133,7 +1248,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* .fixed-width .el-button--mini {\n  padding: 10px 3px;\n  width: 70px;\n  margin-left: 0px;\n} */\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* .fixed-width .el-button--mini {\n  padding: 10px 3px;\n  width: 70px;\n  margin-left: 0px;\n} */\n", ""]);
 
 // exports
 
@@ -1329,15 +1444,11 @@ var render = function() {
                                       staticClass: "filter-item",
                                       attrs: { placeholder: "Please select" },
                                       model: {
-                                        value: _vm.temp.current_year,
+                                        value: _vm.temp.netin_year,
                                         callback: function($$v) {
-                                          _vm.$set(
-                                            _vm.temp,
-                                            "current_year",
-                                            $$v
-                                          )
+                                          _vm.$set(_vm.temp, "netin_year", $$v)
                                         },
-                                        expression: "temp.current_year"
+                                        expression: "temp.netin_year"
                                       }
                                     },
                                     _vm._l(_vm.package_year, function(year) {
@@ -1374,15 +1485,11 @@ var render = function() {
                                       staticClass: "filter-item",
                                       attrs: { placeholder: "Please select" },
                                       model: {
-                                        value: _vm.temp.current_month,
+                                        value: _vm.temp.netin_month,
                                         callback: function($$v) {
-                                          _vm.$set(
-                                            _vm.temp,
-                                            "current_month",
-                                            $$v
-                                          )
+                                          _vm.$set(_vm.temp, "netin_month", $$v)
                                         },
-                                        expression: "temp.current_month"
+                                        expression: "temp.netin_month"
                                       }
                                     },
                                     _vm._l(_vm.package_month, function(month) {
@@ -1415,7 +1522,7 @@ var render = function() {
                               attrs: {
                                 label: _vm.$t("info.manager_name"),
                                 align: "center",
-                                prop: "manager_name"
+                                prop: "manage_id"
                               }
                             },
                             [
@@ -1428,19 +1535,19 @@ var render = function() {
                                     placeholder: "输入姓名可搜索"
                                   },
                                   model: {
-                                    value: _vm.temp.manager_name,
+                                    value: _vm.temp.manage_id,
                                     callback: function($$v) {
-                                      _vm.$set(_vm.temp, "manager_name", $$v)
+                                      _vm.$set(_vm.temp, "manage_id", $$v)
                                     },
-                                    expression: "temp.manager_name"
+                                    expression: "temp.manage_id"
                                   }
                                 },
-                                _vm._l(_vm.managerList, function(manager) {
+                                _vm._l(_vm.managerList, function(manage) {
                                   return _c("el-option", {
-                                    key: manager.id,
+                                    key: manage.id,
                                     attrs: {
-                                      label: manager.name,
-                                      value: manager.id
+                                      label: manage.name,
+                                      value: manage.id
                                     }
                                   })
                                 })
@@ -1542,7 +1649,10 @@ var render = function() {
                                 { attrs: { span: 9 } },
                                 [
                                   _c("el-input", {
-                                    attrs: { placeholder: "新号码" },
+                                    attrs: {
+                                      disabled: _vm.infoNewTelephoneDisabled,
+                                      placeholder: "新号码"
+                                    },
                                     model: {
                                       value: _vm.temp.new_telephone,
                                       callback: function($$v) {
@@ -1752,7 +1862,7 @@ var render = function() {
                               attrs: {
                                 label: _vm.$t("info.package"),
                                 align: "center",
-                                prop: "package_name"
+                                prop: "package_id"
                               }
                             },
                             [
@@ -1764,12 +1874,17 @@ var render = function() {
                                     filterable: "",
                                     placeholder: "输入套餐搜索"
                                   },
+                                  on: {
+                                    change: function($event) {
+                                      _vm.packageChange($event)
+                                    }
+                                  },
                                   model: {
-                                    value: _vm.temp.package_name,
+                                    value: _vm.temp.package_id,
                                     callback: function($$v) {
-                                      _vm.$set(_vm.temp, "package_name", $$v)
+                                      _vm.$set(_vm.temp, "package_id", $$v)
                                     },
-                                    expression: "temp.package_name"
+                                    expression: "temp.package_id"
                                   }
                                 },
                                 _vm._l(_vm.packageAll, function(package) {
@@ -1864,7 +1979,9 @@ var render = function() {
                               _c("el-switch", {
                                 attrs: {
                                   "active-color": "#13ce66",
-                                  "inactive-color": "#ff4949"
+                                  "inactive-color": "#ff4949",
+                                  "active-value": "1",
+                                  "inactive-value": "0"
                                 },
                                 model: {
                                   value: _vm.temp.is_jituan,
@@ -2019,7 +2136,7 @@ var render = function() {
                 {
                   on: {
                     click: function($event) {
-                      _vm.dialogFormVisible = false
+                      _vm.CloseinfoDialogFormVisible = false
                     }
                   }
                 },
@@ -2185,7 +2302,11 @@ var render = function() {
           }),
           _vm._v(" "),
           _c("el-table-column", {
-            attrs: { label: _vm.$t("info.is_jituan"), align: "center" },
+            attrs: {
+              label: _vm.$t("info.is_jituan"),
+              "show-overflow-tooltip": "",
+              align: "center"
+            },
             scopedSlots: _vm._u([
               {
                 key: "default",
@@ -2214,7 +2335,17 @@ var render = function() {
               {
                 key: "default",
                 fn: function(scope) {
-                  return [_c("span", [_vm._v(_vm._s(scope.row.project_name))])]
+                  return [
+                    _c("span", [
+                      _vm._v(
+                        _vm._s(
+                          scope.row.has_one_package
+                            ? scope.row.has_one_package.name
+                            : ""
+                        )
+                      )
+                    ])
+                  ]
                 }
               }
             ])
@@ -2304,7 +2435,11 @@ var render = function() {
                           )
                         ) +
                           "|" +
-                          _vm._s(scope.row.belongs_to_creater.nick_name)
+                          _vm._s(
+                            scope.row.belongs_to_creater
+                              ? scope.row.belongs_to_creater.nick_name
+                              : ""
+                          )
                       )
                     ])
                   ]
@@ -2403,7 +2538,15 @@ var render = function() {
         1
       ),
       _vm._v(" "),
-      _c("form-info", { ref: "formInfoChild" })
+      _c("form-info", {
+        ref: "formInfoChild",
+        attrs: { infoSelfList: this.list },
+        on: {
+          addNewInfo: function($event) {
+            _vm.addList($event)
+          }
+        }
+      })
     ],
     1
   )
@@ -2505,10 +2648,11 @@ if(false) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (immutable) */ __webpack_exports__["b"] = infoList;
+/* harmony export (immutable) */ __webpack_exports__["c"] = infoList;
+/* unused harmony export getInfo */
 /* harmony export (immutable) */ __webpack_exports__["a"] = createInfo;
-/* harmony export (immutable) */ __webpack_exports__["c"] = updateInfo;
-/* unused harmony export deleteInfo */
+/* harmony export (immutable) */ __webpack_exports__["d"] = updateInfo;
+/* harmony export (immutable) */ __webpack_exports__["b"] = deleteInfo;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils_request__ = __webpack_require__("./resources/assets/js/utils/request.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__utils_auth__ = __webpack_require__("./resources/assets/js/utils/auth.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__config_js__ = __webpack_require__("./resources/assets/js/config.js");
@@ -2526,6 +2670,16 @@ function infoList(query) {
     url: __WEBPACK_IMPORTED_MODULE_2__config_js__["a" /* ROAST_CONFIG */].API_URL + '/infoSelfList',
     method: 'get',
     params: { query: query, token: token, page: query.page }
+  });
+}
+
+function getInfo(data) {
+  var token = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : Object(__WEBPACK_IMPORTED_MODULE_1__utils_auth__["a" /* getToken */])();
+
+  return Object(__WEBPACK_IMPORTED_MODULE_0__utils_request__["a" /* default */])({
+    url: __WEBPACK_IMPORTED_MODULE_2__config_js__["a" /* ROAST_CONFIG */].API_URL + '/getInfo/' + data.id,
+    method: 'get',
+    params: { token: token }
   });
 }
 
@@ -2725,104 +2879,6 @@ function deletePackage(data) {
 
 /***/ }),
 
-/***/ "./resources/assets/js/api/role.js":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (immutable) */ __webpack_exports__["c"] = fetchList;
-/* harmony export (immutable) */ __webpack_exports__["a"] = createRole;
-/* harmony export (immutable) */ __webpack_exports__["g"] = updateRole;
-/* harmony export (immutable) */ __webpack_exports__["b"] = deleteRole;
-/* harmony export (immutable) */ __webpack_exports__["e"] = getRolePermissions;
-/* harmony export (immutable) */ __webpack_exports__["f"] = giveRolePermissions;
-/* harmony export (immutable) */ __webpack_exports__["d"] = getPermissions;
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils_request__ = __webpack_require__("./resources/assets/js/utils/request.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__utils_auth__ = __webpack_require__("./resources/assets/js/utils/auth.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__config_js__ = __webpack_require__("./resources/assets/js/config.js");
-
-
-
-
-var token = Object(__WEBPACK_IMPORTED_MODULE_1__utils_auth__["a" /* getToken */])();
-
-function fetchList(query) {
-  var token = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : Object(__WEBPACK_IMPORTED_MODULE_1__utils_auth__["a" /* getToken */])();
-
-  return Object(__WEBPACK_IMPORTED_MODULE_0__utils_request__["a" /* default */])({
-    // url: '/user/list',
-    url: __WEBPACK_IMPORTED_MODULE_2__config_js__["a" /* ROAST_CONFIG */].API_URL + '/roleList',
-    method: 'get',
-    params: { query: query, token: token, page: query.page }
-  });
-}
-
-function createRole(data) {
-  var token = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : Object(__WEBPACK_IMPORTED_MODULE_1__utils_auth__["a" /* getToken */])();
-
-  return Object(__WEBPACK_IMPORTED_MODULE_0__utils_request__["a" /* default */])({
-    url: __WEBPACK_IMPORTED_MODULE_2__config_js__["a" /* ROAST_CONFIG */].API_URL + '/role',
-    method: 'post',
-    data: data,
-    params: { token: token }
-  });
-}
-
-function updateRole(data) {
-  var token = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : Object(__WEBPACK_IMPORTED_MODULE_1__utils_auth__["a" /* getToken */])();
-
-  return Object(__WEBPACK_IMPORTED_MODULE_0__utils_request__["a" /* default */])({
-    url: __WEBPACK_IMPORTED_MODULE_2__config_js__["a" /* ROAST_CONFIG */].API_URL + '/role/' + data.id,
-    method: 'put',
-    params: { token: token },
-    data: data
-  });
-}
-
-function deleteRole(data) {
-  var token = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : Object(__WEBPACK_IMPORTED_MODULE_1__utils_auth__["a" /* getToken */])();
-
-  return Object(__WEBPACK_IMPORTED_MODULE_0__utils_request__["a" /* default */])({
-    url: __WEBPACK_IMPORTED_MODULE_2__config_js__["a" /* ROAST_CONFIG */].API_URL + '/role/' + data.id,
-    method: 'delete',
-    params: { token: token },
-    data: data
-  });
-}
-
-function getRolePermissions(data) {
-  var token = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : Object(__WEBPACK_IMPORTED_MODULE_1__utils_auth__["a" /* getToken */])();
-
-  return Object(__WEBPACK_IMPORTED_MODULE_0__utils_request__["a" /* default */])({
-    url: __WEBPACK_IMPORTED_MODULE_2__config_js__["a" /* ROAST_CONFIG */].API_URL + '/role/' + data.id + '/permissions',
-    method: 'get',
-    params: { token: token },
-    data: data
-  });
-}
-
-function giveRolePermissions(data) {
-  var token = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : Object(__WEBPACK_IMPORTED_MODULE_1__utils_auth__["a" /* getToken */])();
-
-  return Object(__WEBPACK_IMPORTED_MODULE_0__utils_request__["a" /* default */])({
-    url: __WEBPACK_IMPORTED_MODULE_2__config_js__["a" /* ROAST_CONFIG */].API_URL + '/giveRole/' + data.id + '/permissions',
-    method: 'post',
-    params: { token: token },
-    data: data
-  });
-}
-
-function getPermissions() {
-  var token = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : Object(__WEBPACK_IMPORTED_MODULE_1__utils_auth__["a" /* getToken */])();
-
-  return Object(__WEBPACK_IMPORTED_MODULE_0__utils_request__["a" /* default */])({
-    url: __WEBPACK_IMPORTED_MODULE_2__config_js__["a" /* ROAST_CONFIG */].API_URL + '/permissionAll',
-    method: 'get',
-    params: { token: token }
-  });
-}
-
-/***/ }),
-
 /***/ "./resources/assets/js/api/user.js":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -2943,6 +2999,24 @@ function deleteUser(data) {
     params: { token: token },
     data: data
   });
+}
+
+/***/ }),
+
+/***/ "./resources/assets/js/common.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = isEmpty;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_object_keys__ = __webpack_require__("./node_modules/babel-runtime/core-js/object/keys.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_object_keys___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_object_keys__);
+
+
+// 公共方法
+
+//判断数组对象是否为空
+function isEmpty(v) {
+  return Array.isArray(v) && v.length == 0 || Object.prototype.isPrototypeOf(v) && __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_object_keys___default()(v).length == 0;
 }
 
 /***/ }),

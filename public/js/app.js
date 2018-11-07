@@ -105351,11 +105351,11 @@ module.exports = Component.exports
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ROAST_CONFIG; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return infoSelfStatus; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return jituanStatus; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return package_year; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return package_month; });
-/* unused harmony export collections_type */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return infoSelfStatus; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return jituanStatus; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return package_year; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return package_month; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return collections_type; });
 /**
  * Defines the API route we are using.
  */
@@ -105397,6 +105397,7 @@ var package_year = [{ 'key': '1', 'year': '2018' }, { 'key': '2', 'year': '2019'
 var package_month = [{ 'key': '1', 'month': '01' }, { 'key': '2', 'month': '02' }, { 'key': '3', 'month': '03' }, { 'key': '4', 'month': '04' }, { 'key': '5', 'month': '05' }, { 'key': '6', 'month': '06' }, { 'key': '7', 'month': '07' }, { 'key': '8', 'month': '08' }, { 'key': '9', 'month': '09' }, { 'key': '10', 'month': '10' }, { 'key': '11', 'month': '11' }, { 'key': '12', 'month': '12' }];
 //支付方式
 var collections_type = ['微信', '支付宝', '刷卡', '现金', '其他'];
+
 
 
 /*export const zrConfig = {
