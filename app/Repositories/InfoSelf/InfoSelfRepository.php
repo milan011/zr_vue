@@ -33,15 +33,15 @@ class InfoSelfRepository implements InfoSelfRepositoryInterface
     }
 
     // 根据不同参数获得信息列表
-    public function getAllInfos($request)
+    public function getAllInfos($queryList)
     {   
         // dd($request->Plan_launch);
         // $query = Plan::query();  // 返回的是一个 QueryBuilder 实例
         $query = new InfoSelf();       // 返回的是一个Plan实例,两种方法均可
         // dd($request->all());
-        $query = $query->addCondition($request->all()); //根据条件组合语句
+        $query = $query->addCondition($queryList); //根据条件组合语句
         // dd($request->pay_status);
-        switch ($request->pay_status) {
+        switch ($queryList['pay_status']) {
             case 'payed':
                 # 已返还全部金额
                 $query = $query->where('status', '3');
@@ -80,16 +80,16 @@ class InfoSelfRepository implements InfoSelfRepositoryInterface
         /*Post::with(array('user'=>function($query){
             $query->select('id','username');
         }))->get();*/
-        if($request->withNoPage){ //无分页,全部返还
+        if($queryList['withNoPage']){ //无分页,全部返还
 
-            $infos = $query->with('hasOnePackage', 'belongsToCreater')
+            $infos = $query->with('hasOnePackage', 'belongsToCreater', 'hasManyInfoDianxin')
                      ->select($this->select_columns)
                      ->orderBy('created_at', 'DESC')
                      ->where('status','!=', '0')
                      ->get();
         }else{
 
-            $infos = $query::with('hasOnePackage')
+            $infos = $query::with('hasOnePackage', 'hasManyInfoDianxin')
                      ->with(['belongsToCreater'=>function($query){
                         $query->select('id','nick_name');
                      }])

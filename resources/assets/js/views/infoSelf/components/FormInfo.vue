@@ -257,7 +257,7 @@
         
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button @click="CloseinfoDialogFormVisible = false">{{ $t('table.cancel') }}</el-button>
+        <el-button @click="infoDialogFormVisible = false">{{ $t('table.cancel') }}</el-button>
         <el-button v-if="dialogStatus=='create'" type="primary" @click="createData">{{ $t('table.confirm') }}</el-button>
         <el-button v-else type="primary" @click="updateData">{{ $t('table.confirm') }}</el-button>
       </div>
@@ -296,6 +296,7 @@
           package_id: null,
           project_name: '大唐',
           collections: 200,
+          newPackageName: '',
           side_numbers: [
             {side_number:'13731080174', uim: '8986111804311020036', add: true}, 
           ],
@@ -342,7 +343,7 @@
         permissions: []
       };
     },
-    created() {    
+    created() {  
       Promise.all([
         this.getManagerList(),
         this.getPackageList(),
@@ -360,8 +361,8 @@
         Array.prototype.forEach.call(this.packageAll, child => {
           // console.log(child)
           if(event === child.id){
-            console.log(child.name)//
-            this.temp.package_name = child.name
+            // console.log(child.name)
+            this.temp.newPackageName = child.name
           }
         });
       },
@@ -400,6 +401,7 @@
           package_name: '',
           project_name: '',
           collections: 200,
+          newPackageName: '',
           side_numbers: [
             {side_number:'', uim: '', add: true}, 
           ],
@@ -438,13 +440,12 @@
               return false*/
               if(response.data.status){ //添加成功
                 let resData = response.data.data
-                let newInfo = {
+                /*let newInfo = {
                   id: resData.id,
                   new_telephone: resData.new_telephone,
                   project_name: resData.project_name,
                   is_jituan: resData.is_jituan,
                   name: resData.name,
-                  has_one_package: {name: this.temp.package_name},
                   netin: resData.netin,
                   old_bind: resData.old_bind,
                   side_number: resData.side_number,
@@ -457,8 +458,9 @@
                   status: resData.status,
                   belongs_to_creater: {nick_name: this.$store.getters.nickName},
                   created_at: new Date()
-                }
-                this.addInfoSelfList(newInfo)
+                }*/
+                // console.log(newInfo)
+                this.addInfoSelfList(resData)
                 this.infoDialogFormVisible = false
                 this.$notify({
                   title: '成功',
@@ -539,49 +541,51 @@
              
       })*/ 
       let netin_arr     = row.netin.split('-')
-        let side_arr      = row.side_number.split('|')
-        let side_uim_arr  = row.side_uim_number.split('|')
-        row.side_numbers  = []
-  
-        /*
-        console.log(netin_arr)
-        console.log(side_arr)
-        console.log(side_uim_arr)
-        console.log(isEmpty(side_uim_arr))*/
-  
-        if(!isEmpty(side_arr)){
-          Array.prototype.forEach.call(side_arr, (child, index) => {
-            //console.log(child)
-            //console.log(index)
-            let addAction = false
-            if(index == 0) addAction = true 
-            // side = {side_number: child, uim: side_uim_arr[index], add: addAction}
-            row.side_numbers.push({side_number: child, uim: side_uim_arr[index], add: addAction})     
-          })
-        }
-  
-        // console.log(row.side_numbers)
-  
-        row.netin_year  = netin_arr[0]
-        row.netin_month = netin_arr[1]
-        row.collections = parseInt(row.collections)
-        
-        /*if(row.is_jituan == '1'){
-              row.is_jituan = true
-            }else{
-              row.is_jituan = false
-            }
-            if(row.old_bind == '1'){
-              row.old_bind = true
-            }else{
-              row.old_bind = false
-            }*/
-        this.temp = Object.assign({}, row) // copy obj
-        //this.temp.timestamp = new Date(this.temp.timestamp)
-        console.log(row)
-        this.dialogStatus = 'update'
-        this.infoNewTelephoneDisabled = true,
-        this.infoDialogFormVisible = true 
+      let side_arr      = row.side_number.split('|')
+      let side_uim_arr  = row.side_uim_number.split('|')
+      row.side_numbers  = []
+
+      /*
+      console.log(netin_arr)
+      console.log(side_arr)
+      console.log(side_uim_arr)
+      console.log(isEmpty(side_uim_arr))*/
+
+      if(!isEmpty(side_arr)){
+        Array.prototype.forEach.call(side_arr, (child, index) => {
+          //console.log(child)
+          //console.log(index)
+          let addAction = false
+          if(index == 0) addAction = true 
+          // side = {side_number: child, uim: side_uim_arr[index], add: addAction}
+          row.side_numbers.push({side_number: child, uim: side_uim_arr[index], add: addAction})     
+        })
+      }
+
+      // console.log(row.side_numbers)
+
+      row.netin_year  = netin_arr[0]
+      row.netin_month = netin_arr[1]
+      row.collections = parseInt(row.collections)
+      row.collections_type = parseInt(row.collections_type)
+      
+      /*if(row.is_jituan == '1'){
+            row.is_jituan = true
+          }else{
+            row.is_jituan = false
+          }
+          if(row.old_bind == '1'){
+            row.old_bind = true
+          }else{
+            row.old_bind = false
+          }*/
+      this.temp = Object.assign({}, row) // copy obj
+      //this.temp.timestamp = new Date(this.temp.timestamp)
+      console.log(row)
+      console.log(this.temp)
+      this.dialogStatus = 'update'
+      this.infoNewTelephoneDisabled = true,
+      this.infoDialogFormVisible = true 
       //this.$nextTick(() => {
       //  this.$refs['dataForm'].clearValidate()
       //})
@@ -599,8 +603,12 @@
                   break
                 }
               }*/
+              console.log(this.temp.newPackageName)
+              console.log(this.temp)
               this.temp.update = true
-              this.temp.has_one_package = {name:this.temp.package_name}
+              this.temp.has_one_package = response.data.data.has_one_package
+              this.temp.side_number = response.data.data.side_number
+              this.temp.side_number_num = response.data.data.side_number_num
               this.temp.is_jituan = response.data.data.is_jituan
               this.addInfoSelfList(this.temp)
               this.infoDialogFormVisible = false

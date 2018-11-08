@@ -47,3 +47,11 @@ function getInfoCode($type = 'info')
     $code .= $date;
     return $code;
 }
+
+/**
+ * Json对象转数组
+ */
+function jsonToArray($json = '')
+{
+    return json_decode($json, true);
+}

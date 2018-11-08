@@ -105353,9 +105353,10 @@ module.exports = Component.exports
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ROAST_CONFIG; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return infoSelfStatus; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return jituanStatus; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return package_year; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return package_month; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return package_year; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return package_month; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return collections_type; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return oldBindStatus; });
 /**
  * Defines the API route we are using.
  */
@@ -105387,6 +105388,12 @@ var infoSelfStatus = {
 };
 //集团状态
 var jituanStatus = {
+    0: '否',
+    1: '是'
+};
+
+//绑老卡状态
+var oldBindStatus = {
     0: '否',
     1: '是'
 };

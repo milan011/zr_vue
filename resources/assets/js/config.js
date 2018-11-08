@@ -32,6 +32,12 @@ const jituanStatus = {
     0: '否',
     1: '是',
 };
+
+//绑老卡状态
+const oldBindStatus = {
+    0: '否',
+    1: '是',
+};
 //入网年
 const package_year = [
     {'key': '1', 'year': '2018'},
@@ -70,6 +76,7 @@ export {
     package_year, 
     package_month,
     collections_type,
+    oldBindStatus,
 }
 
 /*export const zrConfig = {

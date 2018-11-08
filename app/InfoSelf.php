@@ -53,11 +53,9 @@ class InfoSelf extends Model
     }
 
     // 搜索条件处理
-    public function addCondition($requestData){
+    public function addCondition($query){
 
         $query = $this;
-
-
 
         if(!(Auth::user()->isSuperAdmin())){
 
@@ -65,13 +63,13 @@ class InfoSelf extends Model
 
         }           
 
-        if(!empty($requestData['status'])){
+        if(!empty($query['status'])){
             //有订单状态选项
-            $query = $query->where('status', $requestData['status']);
+            $query = $query->where('status', $query['status']);
         }  
 
-        if(!empty($requestData['netin_year']) && !empty($requestData['netin_month'])){
-            $netin = $requestData['netin_year'].'-'.$requestData['netin_month'];
+        if(!empty($query['netin_year']) && !empty($query['netin_month'])){
+            $netin = $query['netin_year'].'-'.$query['netin_month'];
             $query = $query->where('netin', $netin);
         }
         

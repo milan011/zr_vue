@@ -51,13 +51,15 @@ class InfoSelfController extends Controller
      */
     public function index(Request $request)
     {
+        $query = jsonToArray($request->input('query')); //获取搜索信息
+
+        $query['withNoPage'] = false;
+        // dd($query);
+
         $request = $this->netin_date($request);
 
-        $pay_status = !empty($request['pay_status']) ? $request['pay_status'] : '' ;
-        $select_conditions  = $request->all();
-        $request['payed']   = false;
-        $notPayed = true;
-        $info_status_now = '';
+        $query['pay_status'] = !empty($query['pay_status']) ? $query['pay_status'] : '' ;
+
         // dd($select_conditions);
         
         // dd(route('infoSelf.index'));
@@ -81,7 +83,7 @@ class InfoSelfController extends Controller
 
         // $request->netin = $netin;
 
-        $infoSelfs = $this->infoSelf->getAllInfos($request);
+        $infoSelfs = $this->infoSelf->getAllInfos($query);
         // dd(lastSql());
         // dd($infoSelfs[0]->belongsToCreater());
         $lll = $infoSelfs[0]->belongsToCreater;
@@ -252,6 +254,8 @@ class InfoSelfController extends Controller
         }
 
         $info = $this->infoSelf->create($request);
+        $info->hasOnePackage;
+        $info->belongsToCreater;
 
         if($info){ //添加成功
             return $this->baseSucceed($respond_data = $info, $message = '添加成功');
@@ -332,7 +336,8 @@ class InfoSelfController extends Controller
         // dd($request->all());
 
         $info = $this->infoSelf->update($request, $id);
-        
+        $info->hasOnePackage;
+
         return $this->baseSucceed($respond_data = $info, $message = '修改成功');
     }
 

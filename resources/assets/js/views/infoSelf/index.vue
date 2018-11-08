@@ -1,7 +1,7 @@
 <template>
   <div class="app-container">
     <div class="filter-container">
-      <el-button v-waves class="filter-item" type="primary" icon="el-icon-search" @click="handleFilter">{{ $t('table.search') }}</el-button>
+      <el-button v-waves class="filter-item" type="primary" icon="el-icon-search" @click="dialogSelectFormVisible = true">{{ $t('table.search') }}</el-button>
       <el-button class="filter-item" style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="handleCreate">{{ $t('table.add') }}</el-button>
     </div>
     <el-table
@@ -60,7 +60,6 @@
       <el-table-column :label="$t('info.status')" align="center">
         <template slot-scope="scope">
           <el-tag :type="scope.row.status | statusFilter">{{ statusMap[scope.row.status] }}</el-tag>
-          <!-- <span>{{ scope.row.status }}</span> -->
         </template>
       </el-table-column>
       <el-table-column :label="$t('table.date')" width="150px" align="center">
@@ -68,38 +67,6 @@
           <span>{{ scope.row.created_at | parseTime('{y}-{m}-{d}') }}|{{ scope.row.belongs_to_creater ? scope.row.belongs_to_creater.nick_name : '' }}</span>
         </template>
       </el-table-column>
-      <!-- <el-table-column :label="$t('table.title')" min-width="150px">
-        <template slot-scope="scope">
-          <span class="link-type" @click="handleUpdate(scope.row)">{{ scope.row.title }}</span>
-          <el-tag>{{ scope.row.type | typeFilter }}</el-tag>
-        </template>
-      </el-table-column>
-      <el-table-column :label="$t('table.author')" width="110px" align="center">
-        <template slot-scope="scope">
-          <span>{{ scope.row.author }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column v-if="showReviewer" :label="$t('table.reviewer')" width="110px" align="center">
-        <template slot-scope="scope">
-          <span style="color:red;">{{ scope.row.reviewer }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column :label="$t('table.importance')" width="80px">
-        <template slot-scope="scope">
-          <svg-icon v-for="n in +scope.row.importance" :key="n" icon-class="star" class="meta-item__icon"/>
-        </template>
-      </el-table-column>
-      <el-table-column :label="$t('table.readings')" align="center" width="95">
-        <template slot-scope="scope">
-          <span v-if="scope.row.pageviews" class="link-type" @click="handleFetchPv(scope.row.pageviews)">{{ scope.row.pageviews }}</span>
-          <span v-else>0</span>
-        </template>
-      </el-table-column>
-      <el-table-column :label="$t('table.status')" class-name="status-col" width="100">
-        <template slot-scope="scope">
-          <el-tag :type="scope.row.status | statusFilter">{{ scope.row.status }}</el-tag>
-        </template>
-      </el-table-column> -->
       <el-table-column :label="$t('table.actions')" align="center" width="230" class-name="small-padding fixed-width">
         <template slot-scope="scope">
           <el-button type="success" size="mini" @click="handleShow(scope.row)">{{ $t('table.show') }}</el-button>
@@ -109,63 +76,28 @@
         </template>
       </el-table-column>
     </el-table>
-
+    <el-dialog title="搜索信息" :visible.sync="dialogSelectFormVisible">
+      <el-form :model="form" style="width: 400px;">
+        <el-form-item label="活动名称" :label-width="formLabelWidth">
+          <el-input v-model="form.name" autocomplete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="活动区域" :label-width="formLabelWidth">
+          <el-select v-model="form.region" placeholder="请选择活动区域">
+            <el-option label="区域一" value="shanghai"></el-option>
+            <el-option label="区域二" value="beijing"></el-option>
+          </el-select>
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="dialogSelectFormVisible = false">取 消</el-button>
+        <el-button type="primary" @click="handleFilter">确 定</el-button>
+      </div>
+    </el-dialog>
     <div class="pagination-container">
       <el-pagination v-show="total>0" :current-page="listQuery.page" :total="total" background layout="total, prev, pager, next"  @current-change="handleCurrentChange"/>
     </div>
-
-    <!-- <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible">
-      <el-form ref="dataForm" :rules="rules" :model="temp" label-position="left" label-width="100px" style="width: 400px; margin-left:50px;">
-        <el-form-item :label="$t('table.type')" prop="type">
-          <el-select v-model="temp.type" class="filter-item" placeholder="Please select">
-            <el-option v-for="item in calendarTypeOptions" :key="item.key" :label="item.display_name" :value="item.key"/>
-          </el-select>
-        </el-form-item>
-        <el-form-item :label="$t('table.date')" prop="timestamp">
-          <el-date-picker v-model="temp.timestamp" type="datetime" placeholder="Please pick a date"/>
-        </el-form-item>
-        <el-form-item :label="$t('user.name')" prop="name">
-          <el-input :disabled="userNameDisabled" v-model="temp.name"/>
-        </el-form-item>
-        <el-form-item :label="$t('user.nick_name')" prop="nick_name">
-          <el-input v-model="temp.nick_name"/>
-        </el-form-item>
-        <el-form-item v-show="passwordVisible" :label="$t('user.password')" :prop="password">
-          <el-input :type="passwordType" v-model="temp.password"/>
-        </el-form-item>
-        <el-form-item v-show="passwordVisible" :label="$t('user.passwordRepeat')" :prop="password_confirmation">
-          <el-input :type="passwordType" v-model="temp.password_confirmation"/>
-        </el-form-item>
-        <el-form-item :label="$t('user.telephone')" prop="telephone">
-          <el-input v-model="temp.telephone"/>
-        </el-form-item>
-        <el-form-item :label="$t('user.email')" prop="email">
-          <el-input v-model="temp.email"/>
-        </el-form-item>
-        <el-form-item :label="$t('user.remark')">
-          <el-input :autosize="{ minRows: 2, maxRows: 4}" v-model="temp.remark" type="textarea" placeholder="备注"/>
-        </el-form-item>
-        <el-form-item :label="$t('user.wx_number')" prop="wx_number">
-          <el-input v-model="temp.wx_number"/>
-        </el-form-item>
-        <el-form-item :label="$t('user.status')">
-          <el-select v-model="temp.status" class="filter-item" placeholder="Please select">
-            <el-option v-for="item in statusOptions" :key="item" :label="item" :value="item"/>
-          </el-select>
-        </el-form-item>
-        <el-form-item :label="$t('user.importance')">
-          <el-rate v-model="temp.importance" :colors="['#99A9BF', '#F7BA2A', '#FF9900']" :max="3" style="margin-top:8px;"/>
-        </el-form-item>
-        
-      </el-form>
-      <div slot="footer" class="dialog-footer">
-        <el-button @click="dialogFormVisible = false">{{ $t('table.cancel') }}</el-button>
-        <el-button v-if="dialogStatus=='create'" type="primary" @click="createData">{{ $t('table.confirm') }}</el-button>
-        <el-button v-else type="primary" @click="updateData">{{ $t('table.confirm') }}</el-button>
-      </div>
-    </el-dialog> -->
     <form-info ref="formInfoChild" v-bind:infoSelfList="this.list" v-on:addNewInfo="addList($event)"></form-info>
-
+    <show-info ref="showInfoChild" ></show-info>
   </div>
 </template>
 
@@ -174,14 +106,13 @@ import { infoList, deleteInfo } from '@/api/infoSelf'
 import waves from '@/directive/waves' // 水波纹指令
 import { parseTime } from '@/utils'
 import { isTelephone } from '@/utils/validate'
-import  SetRoles  from './components/SetRoles'
+import  ShowInfo  from './components/ShowInfo'
 import FormInfo from './components/FormInfo'
 import  { infoSelfStatus ,jituanStatus }  from '@/config.js'
 
-
 export default {
   name: 'infoSelfList',
-  components: { FormInfo },
+  components: { FormInfo, ShowInfo },
   directives: {
     waves
   },
@@ -206,86 +137,36 @@ export default {
     }
   },
   data() {  
-    const validateRepeatPass = (rule, value, callback) => { /*密码确认校验*/
-      // console.log(value)
-      if (value !== this.temp.password) {
-          callback(new Error('两次输入密码不一致!'));
-      } else {
-          callback();
-      }
-    };
-    const validateTelephone = (rule, value, callback) => {
-      if (!isTelephone(value)) {
-        callback(new Error('请输入正确格式手机号'))
-      } else {
-        callback()
-      }
-    }
     return {
+      temp:{},
       tableKey: 0,
       list: null,
       total: null,
       listLoading: true,
       listQuery: {
-        page: 1
+        page: 1,
+        status: '1',
       },
-      // calendarTypeOptions,
-      // statusOptions: ['published', 'draft', 'deleted'],
-      // showReviewer: false,
-      /*temp: {
-        id: undefined,
-        name: null,
-        nick_name: null,
-        remark: '',
-        password: '',
-        password_confirmation: '',
-        email: '',
-        telephone: ''
-      },*/
-      /*password: 'password',
-      password_confirmation: 'password_confirmation',
-      passwordType: 'password',
-      dialogFormVisible: false,
-      passwordVisible: true,
-      dialogStatus: '',
-      userNameDisabled: 'false',*/
-      /*textMap: {
-        update: '用户编辑',
-        create: '用户创建'
-      },*/
-      // statusMap: zrConfig.infoSelfStatus,
+      form: {
+        name: '',
+        region: '',
+        date1: '',
+        date2: '',
+        delivery: false,
+        type: [],
+        resource: '',
+        desc: ''
+      },
+      formLabelWidth: '120px',
+      dialogSelectFormVisible: false,
       statusMap: infoSelfStatus,
       jiTuanStatusMap: jituanStatus,
-      // jiTuanStatusMap: zrConfig.jituanStatus,
-      // dialogPvVisible: false,
-      // pvData: [],
-      /*rules: {
-        name: [{ required: true, message: '请输入用户名', trigger: 'change' }],
-        nick_name: [{ required: true, message: '请输入昵称', trigger: 'change' }],
-        password: [{ required: true, message: '请输入密码', trigger: 'change' },
-          { min: 6, max: 16, message: '密码长度必须是6-16位', trigger: 'change' }
-        ],
-        password_confirmation: [
-          { required: true, message: '请确认密码', trigger: 'change' },
-          { min: 6, max: 16, message: '密码长度必须是6-16位', trigger: 'change' },
-          { validator: validateRepeatPass, trigger: 'change' }
-        ],
-        email: [{ type: 'email', required: true, message: '请输入正确格式的邮箱', trigger: 'change' }],
-        telephone: [
-          { required: true, message: '请输入有效手机号', trigger: 'blur' }, 
-          { validator: validateTelephone, trigger: 'change' }     
-        ]
-      },*/
-      // downloadLoading: false
     }
   },
   
   created() {
     Promise.all([
       this.getList(),
-      // this.statusMap = infoSelfStatus
-      // console.log(zrConfig),
-      // console.log(infoSelfStatus)
     ])
   },
   methods: {
@@ -319,28 +200,9 @@ export default {
       this.listQuery.page = 1
       this.getList()
     },
-    handleSizeChange(val) {
-      this.listQuery.limit = val
-      this.getList()
-    },
     handleCurrentChange(val) {
       this.listQuery.page = val
       this.getList()
-    },
-    handleShow(row) {
-      console.log('hehe')
-      /*getPackage(row).then((response) => {
-        row.return_moon_price_list = []
-        Array.prototype.forEach.call(response.data.data.has_many_package_info, child => {
-          //console.log(child.return_month)
-          //console.log(child.return_price)
-          let obj = {key:child.return_month,price:parseFloat(child.return_price)} 
-          row.return_moon_price_list.unshift(obj)
-        })  
-        this.temp = Object.assign({}, row) // copy obj
-        console.log(this.temp)
-        this.dialogInfoVisible = true       
-      }) */  
     },
     handleModifyStatus(row, status) {
       this.$confirm('确定要删除?', '提示', {
@@ -383,61 +245,15 @@ export default {
         });          
       });
     },
-    /*resetTemp() {
-      this.temp = {
-        id: undefined,
-        name: 'wxm',
-        nick_name: 'wxm',
-        remark: '闺女',
-        password: '111111',
-        password_confirmation : '111111',
-        email: '',
-        telephone: '13731080174'
-      }
-      this.temp = {
-        id: undefined,
-        name: null,
-        nick_name: null,
-        remark: '',
-        password: '',
-        password_confirmation : '',
-        email: '',
-        telephone: ''
-      }
-    },*/
     handleCreate() { 
       this.$refs.formInfoChild.handleCreateInfo() 
     },
     handleUpdate(row) {  
       this.$refs.formInfoChild.handleUpdateInfo(row) 
     },
-    /*handleCreate() {
-      this.resetTemp()
-      this.dialogStatus = 'create'
-      this.userNameDisabled = false
-      this.passwordVisible = true
-      this.dialogFormVisible = true
-      this.password = 'password'
-      this.password_confirmation = 'password_confirmation'
-      this.$nextTick(() => {
-        this.$refs['dataForm'].clearValidate()
-      })
-    },*/
-    
-    /*handleUpdate(row) {
-      this.temp = Object.assign({}, row) // copy obj
-      this.temp.timestamp = new Date(this.temp.timestamp)
-      this.dialogStatus = 'update'
-      this.userNameDisabled = true
-      this.password = null
-      this.password_confirmation = null
-      this.passwordVisible = false
-      this.dialogFormVisible = true
-      this.$nextTick(() => {
-        this.$refs['dataForm'].clearValidate()
-      })
-    },*/
-    
+    handleShow(row) {
+      this.$refs.showInfoChild.handleShowInfo(row)
+    },   
   }
 }
 </script>
