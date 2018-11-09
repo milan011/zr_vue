@@ -956,6 +956,42 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
  // 水波纹指令
@@ -1000,20 +1036,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       listLoading: true,
       listQuery: {
         page: 1,
-        status: '1'
+        netin_month: '',
+        netin_year: '',
+        selectTelephone: '',
+        status: ''
       },
-      form: {
-        name: '',
-        region: '',
-        date1: '',
-        date2: '',
-        delivery: false,
-        type: [],
-        resource: '',
-        desc: ''
+      package_year: __WEBPACK_IMPORTED_MODULE_9__config_js__["g" /* package_year */],
+      package_month: __WEBPACK_IMPORTED_MODULE_9__config_js__["f" /* package_month */],
+      queryForm: {
+        /*selectTelephone: '',
+        netin_year: '',
+        netin_month: '',
+        status: '',*/
       },
       formLabelWidth: '120px',
-      dialogSelectFormVisible: false,
       statusMap: __WEBPACK_IMPORTED_MODULE_9__config_js__["c" /* infoSelfStatus */],
       jiTuanStatusMap: __WEBPACK_IMPORTED_MODULE_9__config_js__["d" /* jituanStatus */]
     };
@@ -1073,11 +1109,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       }
     },
     handleFilter: function handleFilter() {
+      console.log(this.listQuery);
+      // return false
       this.listQuery.page = 1;
       this.getList();
     },
     handleCurrentChange: function handleCurrentChange(val) {
       this.listQuery.page = val;
+      console.log(this.listQuery);
+      // return false
       this.getList();
     },
     handleModifyStatus: function handleModifyStatus(row, status) {
@@ -1175,7 +1215,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* .fixed-width .el-button--mini {\n  padding: 10px 3px;\n  width: 70px;\n  margin-left: 0px;\n} */\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* .fixed-width .el-button--mini {\n  padding: 10px 3px;\n  width: 70px;\n  margin-left: 0px;\n} */\n", ""]);
 
 // exports
 
@@ -2505,17 +2545,92 @@ var render = function() {
         "div",
         { staticClass: "filter-container" },
         [
+          _c("el-input", {
+            staticClass: "filter-item",
+            staticStyle: { width: "120px" },
+            attrs: { placeholder: _vm.$t("info.new_telephone"), clearable: "" },
+            model: {
+              value: _vm.listQuery.selectTelephone,
+              callback: function($$v) {
+                _vm.$set(_vm.listQuery, "selectTelephone", $$v)
+              },
+              expression: "listQuery.selectTelephone"
+            }
+          }),
+          _vm._v(" "),
+          _c(
+            "el-select",
+            {
+              staticClass: "filter-item",
+              staticStyle: { width: "100px" },
+              attrs: { clearable: "", placeholder: "入网年" },
+              model: {
+                value: _vm.listQuery.netin_year,
+                callback: function($$v) {
+                  _vm.$set(_vm.listQuery, "netin_year", $$v)
+                },
+                expression: "listQuery.netin_year"
+              }
+            },
+            _vm._l(_vm.package_year, function(year) {
+              return _c("el-option", {
+                key: year.key,
+                attrs: { label: year.year, value: year.year }
+              })
+            })
+          ),
+          _vm._v(" "),
+          _c(
+            "el-select",
+            {
+              staticClass: "filter-item",
+              staticStyle: { width: "100px" },
+              attrs: { clearable: "", placeholder: "入网月" },
+              model: {
+                value: _vm.listQuery.netin_month,
+                callback: function($$v) {
+                  _vm.$set(_vm.listQuery, "netin_month", $$v)
+                },
+                expression: "listQuery.netin_month"
+              }
+            },
+            _vm._l(_vm.package_month, function(month) {
+              return _c("el-option", {
+                key: month.key,
+                attrs: { label: month.month, value: month.month }
+              })
+            })
+          ),
+          _vm._v(" "),
+          _c(
+            "el-select",
+            {
+              staticClass: "filter-item",
+              staticStyle: { width: "100px" },
+              attrs: { placeholder: _vm.$t("info.status"), clearable: "" },
+              model: {
+                value: _vm.listQuery.status,
+                callback: function($$v) {
+                  _vm.$set(_vm.listQuery, "status", $$v)
+                },
+                expression: "listQuery.status"
+              }
+            },
+            _vm._l(_vm.statusMap, function(item, key, index) {
+              return _c("el-option", {
+                key: item,
+                attrs: { label: item, value: key }
+              })
+            })
+          ),
+          _vm._v(" "),
           _c(
             "el-button",
             {
               directives: [{ name: "waves", rawName: "v-waves" }],
               staticClass: "filter-item",
               attrs: { type: "primary", icon: "el-icon-search" },
-              on: {
-                click: function($event) {
-                  _vm.dialogSelectFormVisible = true
-                }
-              }
+              on: { click: _vm.handleFilter }
             },
             [_vm._v(_vm._s(_vm.$t("table.search")))]
           ),
@@ -2821,115 +2936,6 @@ var render = function() {
               }
             ])
           })
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c(
-        "el-dialog",
-        {
-          attrs: { title: "搜索信息", visible: _vm.dialogSelectFormVisible },
-          on: {
-            "update:visible": function($event) {
-              _vm.dialogSelectFormVisible = $event
-            }
-          }
-        },
-        [
-          _c(
-            "el-form",
-            { staticStyle: { width: "400px" }, attrs: { model: _vm.form } },
-            [
-              _c(
-                "el-form-item",
-                {
-                  attrs: {
-                    label: "活动名称",
-                    "label-width": _vm.formLabelWidth
-                  }
-                },
-                [
-                  _c("el-input", {
-                    attrs: { autocomplete: "off" },
-                    model: {
-                      value: _vm.form.name,
-                      callback: function($$v) {
-                        _vm.$set(_vm.form, "name", $$v)
-                      },
-                      expression: "form.name"
-                    }
-                  })
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "el-form-item",
-                {
-                  attrs: {
-                    label: "活动区域",
-                    "label-width": _vm.formLabelWidth
-                  }
-                },
-                [
-                  _c(
-                    "el-select",
-                    {
-                      attrs: { placeholder: "请选择活动区域" },
-                      model: {
-                        value: _vm.form.region,
-                        callback: function($$v) {
-                          _vm.$set(_vm.form, "region", $$v)
-                        },
-                        expression: "form.region"
-                      }
-                    },
-                    [
-                      _c("el-option", {
-                        attrs: { label: "区域一", value: "shanghai" }
-                      }),
-                      _vm._v(" "),
-                      _c("el-option", {
-                        attrs: { label: "区域二", value: "beijing" }
-                      })
-                    ],
-                    1
-                  )
-                ],
-                1
-              )
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "div",
-            {
-              staticClass: "dialog-footer",
-              attrs: { slot: "footer" },
-              slot: "footer"
-            },
-            [
-              _c(
-                "el-button",
-                {
-                  on: {
-                    click: function($event) {
-                      _vm.dialogSelectFormVisible = false
-                    }
-                  }
-                },
-                [_vm._v("取 消")]
-              ),
-              _vm._v(" "),
-              _c(
-                "el-button",
-                { attrs: { type: "primary" }, on: { click: _vm.handleFilter } },
-                [_vm._v("确 定")]
-              )
-            ],
-            1
-          )
         ],
         1
       ),

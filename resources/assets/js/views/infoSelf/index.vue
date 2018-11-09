@@ -1,7 +1,23 @@
 <template>
   <div class="app-container">
     <div class="filter-container">
-      <el-button v-waves class="filter-item" type="primary" icon="el-icon-search" @click="dialogSelectFormVisible = true">{{ $t('table.search') }}</el-button>
+      <el-input 
+        :placeholder="$t('info.new_telephone')"
+        clearable 
+        v-model="listQuery.selectTelephone"
+        style="width: 120px;" 
+        class="filter-item">
+      </el-input>
+      <el-select style="width:100px;" clearable v-model="listQuery.netin_year" class="filter-item" placeholder="入网年">
+        <el-option v-for="year in package_year" :key="year.key" :label="year.year" :value="year.year"/>
+      </el-select>
+      <el-select style="width:100px;" clearable v-model="listQuery.netin_month" class="filter-item" placeholder="入网月">
+        <el-option v-for="month in package_month" :key="month.key" :label="month.month" :value="month.month"/>
+      </el-select>
+      <el-select style="width:100px;" :placeholder="$t('info.status')" clearable v-model="listQuery.status" class="filter-item">
+        <el-option v-for="(item, key, index) in statusMap" :key="item" :label="item" :value="key"/>
+      </el-select>
+      <el-button v-waves class="filter-item" type="primary" icon="el-icon-search" @click="handleFilter">{{ $t('table.search') }}</el-button>
       <el-button class="filter-item" style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="handleCreate">{{ $t('table.add') }}</el-button>
     </div>
     <el-table
@@ -76,23 +92,43 @@
         </template>
       </el-table-column>
     </el-table>
-    <el-dialog title="搜索信息" :visible.sync="dialogSelectFormVisible">
-      <el-form :model="form" style="width: 400px;">
-        <el-form-item label="活动名称" :label-width="formLabelWidth">
-          <el-input v-model="form.name" autocomplete="off"></el-input>
+    <!-- <el-dialog title="搜索信息" :visible.sync="dialogSelectFormVisible">
+      <el-form :model="queryForm" style="width: 400px;">
+        <el-row style="margin-left: 80px;">
+          <el-col :span="24">
+            <el-form-item :label="$t('info.netin')">
+              <el-col :span="8">
+                <el-select clearable v-model="queryForm.netin_year" class="filter-item" placeholder="Please select">
+                  <el-option v-for="year in package_year" :key="year.key" :label="year.year" :value="year.year"/>
+                </el-select>
+              </el-col>
+              <el-col class="line" :span="1" style="text-align:center">-</el-col>
+              <el-col :span="8">
+                <el-select clearable v-model="queryForm.netin_month" class="filter-item" placeholder="Please select">
+                  <el-option v-for="month in package_month" :key="month.key" :label="month.month" :value="month.month"/>
+                </el-select>
+              </el-col>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-form-item :label="$t('info.new_telephone')" :label-width="formLabelWidth">
+          <el-input clearable v-model="queryForm.selectTelephone" autocomplete="off"></el-input>
         </el-form-item>
-        <el-form-item label="活动区域" :label-width="formLabelWidth">
+        <el-form-item :label="$t('info.status')" :label-width="formLabelWidth">
           <el-select v-model="form.region" placeholder="请选择活动区域">
             <el-option label="区域一" value="shanghai"></el-option>
             <el-option label="区域二" value="beijing"></el-option>
           </el-select>
+          <el-select clearable v-model="queryForm.status" class="filter-item">
+            <el-option v-for="(item, key, index) in statusMap" :key="item" :label="item" :value="key"/>
+          </el-select>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button @click="dialogSelectFormVisible = false">取 消</el-button>
+        <el-button @click="resetQueryForm">取 消</el-button>
         <el-button type="primary" @click="handleFilter">确 定</el-button>
       </div>
-    </el-dialog>
+    </el-dialog> -->
     <div class="pagination-container">
       <el-pagination v-show="total>0" :current-page="listQuery.page" :total="total" background layout="total, prev, pager, next"  @current-change="handleCurrentChange"/>
     </div>
@@ -108,7 +144,7 @@ import { parseTime } from '@/utils'
 import { isTelephone } from '@/utils/validate'
 import  ShowInfo  from './components/ShowInfo'
 import FormInfo from './components/FormInfo'
-import  { infoSelfStatus ,jituanStatus }  from '@/config.js'
+import  { infoSelfStatus ,jituanStatus, package_year ,package_month, collections_type }  from '@/config.js'
 
 export default {
   name: 'infoSelfList',
@@ -145,20 +181,20 @@ export default {
       listLoading: true,
       listQuery: {
         page: 1,
-        status: '1',
+        netin_month: '',
+        netin_year: '',
+        selectTelephone: '',
+        status: '',
       },
-      form: {
-        name: '',
-        region: '',
-        date1: '',
-        date2: '',
-        delivery: false,
-        type: [],
-        resource: '',
-        desc: ''
+      package_year:package_year,
+      package_month:package_month,
+      queryForm: {
+        /*selectTelephone: '',
+        netin_year: '',
+        netin_month: '',
+        status: '',*/
       },
       formLabelWidth: '120px',
-      dialogSelectFormVisible: false,
       statusMap: infoSelfStatus,
       jiTuanStatusMap: jituanStatus,
     }
@@ -197,11 +233,15 @@ export default {
       }   
     },
     handleFilter() {
+      console.log(this.listQuery)
+      // return false
       this.listQuery.page = 1
       this.getList()
     },
     handleCurrentChange(val) {
       this.listQuery.page = val
+      console.log(this.listQuery)
+      // return false
       this.getList()
     },
     handleModifyStatus(row, status) {

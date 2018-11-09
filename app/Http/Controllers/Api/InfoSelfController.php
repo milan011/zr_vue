@@ -54,7 +54,26 @@ class InfoSelfController extends Controller
         $query = jsonToArray($request->input('query')); //获取搜索信息
 
         $query['withNoPage'] = false;
-        // dd($query);
+
+        if(empty($query['netin_year']) && empty($query['netin_month'])){
+
+        }else{
+            //有入网日期筛选
+            $current_date  = Carbon::now(); //当前日期
+            $current_year  = $current_date->year;  //当前年
+            $current_month = $current_date->month; //当前月
+
+            if(empty($query['netin_year'])){
+                p('no year');
+                $query['netin_year'] = (string)$current_year; 
+            }
+
+            if(empty($query['netin_month'])){
+                p('no month');
+                $query['netin_month'] = (string)$current_month; 
+            }
+        }
+        dd($query);
 
         $request = $this->netin_date($request);
 
