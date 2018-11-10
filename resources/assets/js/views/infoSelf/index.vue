@@ -5,7 +5,7 @@
         :placeholder="$t('info.new_telephone')"
         clearable 
         v-model="listQuery.selectTelephone"
-        style="width: 120px;" 
+        style="width: 150px;" 
         class="filter-item">
       </el-input>
       <el-select style="width:100px;" clearable v-model="listQuery.netin_year" class="filter-item" placeholder="入网年">
@@ -18,6 +18,7 @@
         <el-option v-for="(item, key, index) in statusMap" :key="item" :label="item" :value="key"/>
       </el-select>
       <el-button v-waves class="filter-item" type="primary" icon="el-icon-search" @click="handleFilter">{{ $t('table.search') }}</el-button>
+      <el-button v-waves :loading="downloadLoading" class="filter-item" type="primary" icon="el-icon-download" @click="handleDownload">{{ $t('table.export') }}</el-button>
       <el-button class="filter-item" style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="handleCreate">{{ $t('table.add') }}</el-button>
     </div>
     <el-table
@@ -70,7 +71,7 @@
       </el-table-column>
       <el-table-column :label="$t('info.netin')" align="center">
         <template slot-scope="scope">
-          <span>{{ scope.row.netin }}</span>
+          <span>{{ scope.row.netin || '' }}</span>
         </template>
       </el-table-column>
       <el-table-column :label="$t('info.status')" align="center">
@@ -80,7 +81,13 @@
       </el-table-column>
       <el-table-column :label="$t('table.date')" width="150px" align="center">
         <template slot-scope="scope">
-          <span>{{ scope.row.created_at | parseTime('{y}-{m}-{d}') }}|{{ scope.row.belongs_to_creater ? scope.row.belongs_to_creater.nick_name : '' }}</span>
+          <span>
+            {{ scope.row.created_at | parseTime('{y}-{m}-{d}') }}
+            |
+            <!-- {{ scope.row.belongs_to_creater ? scope.row.belongs_to_creater.nick_name : '' }} -->
+            <span v-if="scope.row.belongs_to_creater">{{scope.row.belongs_to_creater.nick_name}}</span>
+            <span v-else></span>
+          </span>
         </template>
       </el-table-column>
       <el-table-column :label="$t('table.actions')" align="center" width="230" class-name="small-padding fixed-width">
@@ -144,6 +151,7 @@ import { parseTime } from '@/utils'
 import { isTelephone } from '@/utils/validate'
 import  ShowInfo  from './components/ShowInfo'
 import FormInfo from './components/FormInfo'
+import { export_table_to_excel, export_json_to_excel } from '@/vendor/Export2Excel.js'
 import  { infoSelfStatus ,jituanStatus, package_year ,package_month, collections_type }  from '@/config.js'
 
 export default {
@@ -197,6 +205,7 @@ export default {
       formLabelWidth: '120px',
       statusMap: infoSelfStatus,
       jiTuanStatusMap: jituanStatus,
+      downloadLoading: false
     }
   },
   
@@ -219,7 +228,7 @@ export default {
       })
     },
     addList(newInfo){
-      console.log(newInfo)
+      // console.log(newInfo)
       if(newInfo.update){
         for (const v of this.list) {
           if (v.id === newInfo.id) {
@@ -232,15 +241,49 @@ export default {
         this.list.unshift(newInfo)
       }   
     },
+    handleDownload() {
+      this.downloadLoading = true
+      // console.log(export_json_to_excel)
+      this.listQuery.withNoPage = true
+      infoList(this.listQuery).then(response => {
+        this.list = response.data.data
+        // console.log(this.list)
+        // return false
+        Array.prototype.forEach.call(this.list, child => {
+          console.log(child)
+          child.date = child.created_at | parseTime('{y}-{m}-{d}')
+
+        })
+        const tHeader = ['序号','日期','客户经理','电话','项目', '客户姓名', '新号码', 'UIM码', '集团卡', '绑老卡','副卡(UIM)','套餐标准', '联系方式', '收款', '收款方式', '销售人']
+        const filterVal = ['id','date','manage_name','manage_telephone','project_name', 'name', 'new_telephone', 'uim_number', 'is_jituan', 'old_bind','side_number','package_id', 'user_telephone', 'collections', 'collections_type', 'creater_id']
+        const data = this.formatJson(filterVal, this.list)
+        export_json_to_excel({
+          header: tHeader,
+          data,
+          filename: 'table-list'
+        })
+        this.downloadLoading = false
+      })
+      
+    },
+    formatJson(filterVal, jsonData) {
+      return jsonData.map(v => filterVal.map(j => {
+        if (j === 'timestamp') {
+          return parseTime(v[j])
+        } else {
+          return v[j]
+        }
+      }))
+    },
     handleFilter() {
-      console.log(this.listQuery)
+      // console.log(this.listQuery)
       // return false
       this.listQuery.page = 1
       this.getList()
     },
     handleCurrentChange(val) {
       this.listQuery.page = val
-      console.log(this.listQuery)
+      // console.log(this.listQuery)
       // return false
       this.getList()
     },

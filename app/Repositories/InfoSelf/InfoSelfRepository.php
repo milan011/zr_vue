@@ -41,28 +41,7 @@ class InfoSelfRepository implements InfoSelfRepositoryInterface
         // dd($request->all());
         $query = $query->addCondition($queryList); //根据条件组合语句
         // dd($request->pay_status);
-        switch ($queryList['pay_status']) {
-            case 'payed':
-                # 已返还全部金额
-                $query = $query->where('status', '3');
-                
-                break;
-            case 'paying':
-                # 返还中...
-                $query = $query->where('status', '2');
-                
-                $query = $query->where('old_bind', '0');
-            break;
-            case 'unpayed':
-                # 尚未返还
-                $query = $query->where('status', '1');
-                
-                $query = $query->where('old_bind', '0');
-            break;
-            default:
-                // $query = $query->where('status', '1');
-                break;
-        }
+        
         /*if(isset($request->payed)){
             if($request->payed){
                 //已经付款
@@ -75,7 +54,7 @@ class InfoSelfRepository implements InfoSelfRepositoryInterface
                 $query = $query->where('old_bind', '0');
             }
         }*/
-        
+        // dd($query);
         // $query = $query->chacneLaunch($request->Plan_launch);
         /*Post::with(array('user'=>function($query){
             $query->select('id','username');
@@ -89,7 +68,7 @@ class InfoSelfRepository implements InfoSelfRepositoryInterface
                      ->get();
         }else{
 
-            $infos = $query::with('hasOnePackage', 'hasManyInfoDianxin')
+            $infos = $query->with('hasOnePackage', 'hasManyInfoDianxin')
                      ->with(['belongsToCreater'=>function($query){
                         $query->select('id','nick_name');
                      }])

@@ -15,6 +15,7 @@ let config = {
   resolve: {
     alias: {
       '@':path.resolve("resources/assets/js"),
+      // 'vendor': path.resolve('resources/assets/js/vendor'),
     }
   },
   // chunks:[]

@@ -51,11 +51,17 @@ class InfoSelfController extends Controller
      */
     public function index(Request $request)
     {
-        $query = jsonToArray($request->input('query')); //获取搜索信息
+        $query_list = jsonToArray($request->input('query')); //获取搜索信息
 
-        $query['withNoPage'] = false;
+        // isset($query_list['withNoPage']) ? : false;
 
-        if(empty($query['netin_year']) && empty($query['netin_month'])){
+        $query_list['withNoPage'] = isset($query_list['withNoPage']);
+
+        $query_list['netin'] = $this->netinQuery($query_list['netin_year'], $query_list['netin_month']);
+
+        // dd($query_list);
+
+        /*if(empty($query['netin_year']) && empty($query['netin_month'])){
 
         }else{
             //有入网日期筛选
@@ -63,21 +69,25 @@ class InfoSelfController extends Controller
             $current_year  = $current_date->year;  //当前年
             $current_month = $current_date->month; //当前月
 
+            if(strlen($current_month) == 1){
+                $current_month = '0'.$current_month;
+            }
+
             if(empty($query['netin_year'])){
-                p('no year');
+                // p('no year');
                 $query['netin_year'] = (string)$current_year; 
             }
 
             if(empty($query['netin_month'])){
-                p('no month');
+                // p('no month');
                 $query['netin_month'] = (string)$current_month; 
             }
         }
-        dd($query);
+        dd($query);*/
 
-        $request = $this->netin_date($request);
+        //$request = $this->netin_date($request);
 
-        $query['pay_status'] = !empty($query['pay_status']) ? $query['pay_status'] : '' ;
+        // $query['pay_status'] = !empty($query['pay_status']) ? $query['pay_status'] : '' ;
 
         // dd($select_conditions);
         
@@ -102,10 +112,10 @@ class InfoSelfController extends Controller
 
         // $request->netin = $netin;
 
-        $infoSelfs = $this->infoSelf->getAllInfos($query);
+        $infoSelfs = $this->infoSelf->getAllInfos($query_list);
         // dd(lastSql());
         // dd($infoSelfs[0]->belongsToCreater());
-        $lll = $infoSelfs[0]->belongsToCreater;
+        // $lll = $infoSelfs[0]->belongsToCreater;
         /*dd($lll);
         dd(lastSql());*/
         return new InfoSelfResource($infoSelfs);
@@ -530,6 +540,37 @@ class InfoSelfController extends Controller
         // dd($total_num);
         
         return view('admin.infoSelf.statistics', compact('salesman_statistics', 'netin', 'netin_year', 'netin_month', 'total_num'));
+    }
+
+    //处理入网日期格式
+    protected function netinQuery($netin_year, $netin_month){
+
+        if(empty($netin_year) && empty($netin_month)){
+            $netin = '';
+        }else{
+            //有入网日期筛选
+            $current_date  = Carbon::now(); //当前日期
+            $current_year  = $current_date->year;  //当前年
+            $current_month = $current_date->month; //当前月
+
+            if(strlen($current_month) == 1){
+                $current_month = '0'.$current_month;
+            }
+
+            if(empty($netin_year)){
+                // p('no year');
+                $netin_year = (string)$current_year; 
+            }
+
+            if(empty($netin_month)){
+                // p('no month');
+                $netin_month = (string)$current_month; 
+            }
+
+            $netin = $netin_year . '-' . $netin_month;
+        }
+
+        return $netin;
     }
 
     protected function netin_date($request){

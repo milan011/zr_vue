@@ -53,9 +53,11 @@ class InfoSelf extends Model
     }
 
     // 搜索条件处理
-    public function addCondition($query){
+    public function addCondition($queryList){
 
         $query = $this;
+
+        // dd($queryList);
 
         if(!(Auth::user()->isSuperAdmin())){
 
@@ -63,14 +65,40 @@ class InfoSelf extends Model
 
         }           
 
-        if(!empty($query['status'])){
-            //有订单状态选项
-            $query = $query->where('status', $query['status']);
-        }  
+        switch ($queryList['status']) {
+            case '3':
+                # 已返还全部金额
+                $query = $query->where('status', '3');
+                
+                break;
+            case '2':
+                # 返还中...
+                $query = $query->where('status', '2');
+                
+                $query = $query->where('old_bind', '0');
+            break;
+            case '1':
+                # 尚未返还
+                $query = $query->where('status', '1');
+                
+                $query = $query->where('old_bind', '0');
+            break;
+            default:
+                // $query = $query->where('status', '1');
+                break;
+        } 
 
-        if(!empty($query['netin_year']) && !empty($query['netin_month'])){
-            $netin = $query['netin_year'].'-'.$query['netin_month'];
+        /*if(!empty($queryList['netin_year']) && !empty($queryList['netin_month'])){
+            $netin = $queryList['netin_year'].'-'.$queryList['netin_month'];
             $query = $query->where('netin', $netin);
+        }*/
+
+        if(!empty($queryList['netin'])){
+            $query = $query->where('netin', $queryList['netin']);
+        }
+
+        if(!empty($queryList['selectTelephone'])){
+            $query = $query->where('new_telephone','like','%'.$queryList['selectTelephone'].'%');
         }
         
         return $query;
