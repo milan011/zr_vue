@@ -62,8 +62,11 @@ class InfoSelf extends Model
         if(!(Auth::user()->isSuperAdmin())){
 
             $query = $query->where('creater_id', Auth::id());  
-
-        }           
+        }else{
+            if(!empty($queryList['creater_id'])){
+                $query = $query->where('creater_id',$queryList['creater_id']);
+            }
+        }         
 
         switch ($queryList['status']) {
             case '3':
@@ -100,7 +103,7 @@ class InfoSelf extends Model
         if(!empty($queryList['selectTelephone'])){
             $query = $query->where('new_telephone','like','%'.$queryList['selectTelephone'].'%');
         }
-        
+       
         return $query;
     }
 

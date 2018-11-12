@@ -105863,7 +105863,7 @@ var _route;
     passwordReset: '重置密码',
     userUpdate: '修改用户',
     userDelete: '删除用户'
-  }, __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'permission', '权限管理'), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'permissionAdd', '添加权限'), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'permissionUpdate', '修改权限'), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'permissionDelete', '删除权限'), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'role', '角色管理'), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'roleAdd', '添加角色'), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'roleUpdate', '修改角色'), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'roleDelete', '删除角色'), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'package', '套餐管理'), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'packageAdd', '添加套餐'), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'packageUpdate', '修改套餐'), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'packageDelete', '删除套餐'), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'manager', '客户经理'), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'managerAdd', '添加客户经理'), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'managerUpdate', '修改客户经理'), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'managerDelete', '删除客户经理'), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'info', '信息管理'), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'infoAdd', '添加信息'), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'infoUpdate', '修改信息'), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'infoDelete', '删除信息'), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'infoDianXin', '电信信息管理'), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'infoDianXinAdd', '添加电信信息'), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'infoDianXinUpdate', '修改电信信息'), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'infoDianXinDelete', '删除电信信息'), _route),
+  }, __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'permission', '权限管理'), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'permissionAdd', '添加权限'), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'permissionUpdate', '修改权限'), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'permissionDelete', '删除权限'), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'role', '角色管理'), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'roleAdd', '添加角色'), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'roleUpdate', '修改角色'), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'roleDelete', '删除角色'), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'package', '套餐管理'), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'packageAdd', '添加套餐'), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'packageUpdate', '修改套餐'), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'packageDelete', '删除套餐'), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'manager', '客户经理'), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'managerAdd', '添加客户经理'), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'managerUpdate', '修改客户经理'), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'managerDelete', '删除客户经理'), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'info', '信息管理'), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'infoAdd', '添加信息'), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'infoUpdate', '修改信息'), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'infoDelete', '删除信息'), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'infoDianXin', '电信信息'), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'infoDianXinAdd', '添加电信信息'), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'infoDianXinUpdate', '修改电信信息'), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'infoDianXinDelete', '删除电信信息'), _route),
   navbar: {
     logOut: '退出登录',
     passwordReset: '修改密码',
@@ -106172,6 +106172,7 @@ __WEBPACK_IMPORTED_MODULE_1__router__["c" /* default */].afterEach(function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__modules_manager__ = __webpack_require__("./resources/assets/js/router/modules/manager.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__modules_package__ = __webpack_require__("./resources/assets/js/router/modules/package.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__modules_infoSelf__ = __webpack_require__("./resources/assets/js/router/modules/infoSelf.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__modules_infoDianxin__ = __webpack_require__("./resources/assets/js/router/modules/infoDianxin.js");
 
 
 
@@ -106181,6 +106182,7 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vue_
 
 
 /* Router Modules */
+
 
 
 
@@ -106230,7 +106232,15 @@ var constantRouterMap = [{
     name: 'Dashboard',
     meta: { title: 'dashboard', icon: 'dashboard', noCache: true }
   }]
-}, __WEBPACK_IMPORTED_MODULE_8__modules_infoSelf__["a" /* default */], __WEBPACK_IMPORTED_MODULE_3__modules_user__["a" /* default */], __WEBPACK_IMPORTED_MODULE_4__modules_permission__["a" /* default */], __WEBPACK_IMPORTED_MODULE_5__modules_role__["a" /* default */], __WEBPACK_IMPORTED_MODULE_6__modules_manager__["a" /* default */], __WEBPACK_IMPORTED_MODULE_7__modules_package__["a" /* default */]];
+}, {
+  hidden: true,
+  path: '/user/passwordReset',
+  component: function component(resolve) {
+    return void __webpack_require__.e/* require */(8).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__("./resources/assets/js/views/user/passwordReset.vue")]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
+  },
+  name: 'userAdd',
+  meta: { title: 'passwordReset' }
+}, __WEBPACK_IMPORTED_MODULE_8__modules_infoSelf__["a" /* default */]];
 
 /* harmony default export */ __webpack_exports__["c"] = (new __WEBPACK_IMPORTED_MODULE_1_vue_router__["a" /* default */]({
   // mode: 'history', // require service support
@@ -106240,7 +106250,39 @@ var constantRouterMap = [{
   routes: constantRouterMap
 }));
 
-var asyncRouterMap = [];
+var asyncRouterMap = [__WEBPACK_IMPORTED_MODULE_9__modules_infoDianxin__["a" /* default */], __WEBPACK_IMPORTED_MODULE_3__modules_user__["a" /* default */], __WEBPACK_IMPORTED_MODULE_4__modules_permission__["a" /* default */], __WEBPACK_IMPORTED_MODULE_5__modules_role__["a" /* default */], __WEBPACK_IMPORTED_MODULE_6__modules_manager__["a" /* default */], __WEBPACK_IMPORTED_MODULE_7__modules_package__["a" /* default */], { path: '*', redirect: '/404', hidden: true }];
+
+/***/ }),
+
+/***/ "./resources/assets/js/router/modules/infoDianxin.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__views_layout_Layout__ = __webpack_require__("./resources/assets/js/views/layout/Layout.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__views_layout_Layout___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__views_layout_Layout__);
+//电信信息管理路由组
+
+
+var infoDianxinRouter = {
+  path: '/infoDianxin',
+  component: __WEBPACK_IMPORTED_MODULE_0__views_layout_Layout___default.a,
+  redirect: '/infoDianxin/index',
+  name: 'infoDianXin',
+  meta: {
+    title: '',
+    icon: 'message',
+    roles: ['admin', 'manager']
+  },
+  children: [{
+    path: 'index',
+    component: function component(resolve) {
+      return void __webpack_require__.e/* require */(10).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__("./resources/assets/js/views/infoDianxin/index.vue")]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
+    },
+    name: 'infoDianxinList',
+    meta: { title: 'infoDianXin' }
+  }]
+};
+/* harmony default export */ __webpack_exports__["a"] = (infoDianxinRouter);
 
 /***/ }),
 
@@ -106251,7 +106293,7 @@ var asyncRouterMap = [];
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__views_layout_Layout__ = __webpack_require__("./resources/assets/js/views/layout/Layout.vue");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__views_layout_Layout___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__views_layout_Layout__);
 
-//权限管理路由组
+//信息管理路由组
 
 
 var infoSelfRouter = {
@@ -106293,7 +106335,8 @@ var permissionRouter = {
   name: 'Manager',
   meta: {
     title: '',
-    icon: 'list'
+    icon: 'list',
+    roles: ['admin', 'manager'] //页面需要的权限
   },
   children: [{
     path: 'index',
@@ -106325,7 +106368,8 @@ var permissionRouter = {
   name: 'Package',
   meta: {
     title: '',
-    icon: 'size'
+    icon: 'size',
+    roles: ['admin', 'manager']
   },
   children: [{
     path: 'index',
@@ -106357,7 +106401,8 @@ var permissionRouter = {
   name: 'Permission',
   meta: {
     title: '',
-    icon: 'password'
+    icon: 'password',
+    roles: ['admin']
   },
   children: [{
     path: 'index',
@@ -106389,7 +106434,8 @@ var roleRouter = {
   name: 'Role',
   meta: {
     title: '',
-    icon: 'people'
+    icon: 'people',
+    roles: ['admin']
   },
   children: [{
     path: 'index',
@@ -106421,7 +106467,8 @@ var userRouter = {
   name: 'User',
   meta: {
     title: '',
-    icon: 'user'
+    icon: 'user',
+    roles: ['admin', 'manager']
   },
   children: [{
     path: 'index',
@@ -106430,14 +106477,6 @@ var userRouter = {
     },
     name: 'userList',
     meta: { title: 'user' }
-  }, {
-    hidden: true,
-    path: 'passwordReset',
-    component: function component(resolve) {
-      return void __webpack_require__.e/* require */(8).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__("./resources/assets/js/views/user/passwordReset.vue")]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
-    },
-    name: 'userAdd',
-    meta: { title: 'passwordReset' }
   }]
 };
 /* harmony default export */ __webpack_exports__["a"] = (userRouter);

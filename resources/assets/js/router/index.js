@@ -13,6 +13,7 @@ import roleRouter from './modules/role'
 import managerRouter from './modules/manager'
 import packageRouter from './modules/package'
 import infoSelfRouter from './modules/infoSelf'
+import infoDianxinRouter from './modules/infoDianxin'
 /*import componentsRouter from './modules/components'
 import chartsRouter from './modules/charts'
 import tableRouter from './modules/table'
@@ -58,12 +59,20 @@ export const constantRouterMap = [
       }
     ]
   },
+  {
+    hidden: true,
+    path: '/user/passwordReset',
+    component: resolve => void(require(['@/views/user/passwordReset'], resolve)),
+    name: 'userAdd',
+    meta: { title: 'passwordReset' }
+  },
+
   infoSelfRouter,
-  userRouter,
+  /*userRouter,
   permissionRouter,
   roleRouter,
   managerRouter,
-  packageRouter,
+  packageRouter,*/
   
   /*{
     path: '',
@@ -89,6 +98,15 @@ export default new Router({
 
 export const asyncRouterMap = [
   
+  infoDianxinRouter,
+  userRouter,
+  permissionRouter,
+  roleRouter,
+  managerRouter,
+  packageRouter,
+  
+
+  { path: '*', redirect: '/404', hidden: true }
 ]
 
 

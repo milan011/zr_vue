@@ -48,9 +48,7 @@ class InfoDianxinController extends Controller
         
         $infos = $this->infoDianxin->getAllDianXinInfos($request);
         
-        return view('admin.infoDianxin.index',compact(
-            'infos'
-        ));
+        return new InfoDianxinResource($infos);
     }
 
     /**

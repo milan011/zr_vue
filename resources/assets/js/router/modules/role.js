@@ -9,7 +9,8 @@ const roleRouter = {
     name: 'Role',
     meta: {
       title: '',
-      icon: 'people'
+      icon: 'people',
+      roles: ['admin']
     },
     children: [
       {

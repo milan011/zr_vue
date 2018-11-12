@@ -87,7 +87,7 @@ export default {
     infoAdd:'添加信息',
     infoUpdate:'修改信息',
     infoDelete:'删除信息',
-    infoDianXin:'电信信息管理',
+    infoDianXin:'电信信息',
     infoDianXinAdd:'添加电信信息',
     infoDianXinUpdate:'修改电信信息',
     infoDianXinDelete:'删除电信信息',

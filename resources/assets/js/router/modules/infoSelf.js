@@ -1,5 +1,5 @@
 
-//权限管理路由组
+//信息管理路由组
 import Layout from '@/views/layout/Layout'
 
 const infoSelfRouter = {

@@ -9,7 +9,8 @@ const permissionRouter = {
     name: 'Manager',
     meta: {
       title: '',
-      icon: 'list'
+      icon: 'list',
+      roles: ['admin', 'manager'] //页面需要的权限
     },
     children: [
       {

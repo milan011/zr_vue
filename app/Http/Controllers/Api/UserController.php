@@ -44,6 +44,30 @@ class UserController extends Controller
     }
 
     /**
+     * 所有用户列表(无分页)
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function userAll(Request $request)
+    {
+        $users = $this->userRepository->getusers();
+        // dd($users);
+        // dd($users);$user->hasRole('writer');
+
+        $usersSalers = $users->filter(function ($value, $key) { //只获取销售顾问
+
+            return $value->hasRole('saler');
+        });
+
+        // dd (new UserResource($usersSalers));
+
+        // dd($usersSalers);
+        // UserResource::withoutWrapping();
+        // return new UserResource($usersSalers);
+        return $usersSalers;
+    }
+
+    /**
      * 获取登录用户信息,用于Auth
      *
      * @param Request $request

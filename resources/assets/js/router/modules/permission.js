@@ -9,7 +9,8 @@ const permissionRouter = {
     name: 'Permission',
     meta: {
       title: '',
-      icon: 'password'
+      icon: 'password',
+      roles: ['admin']
     },
     children: [
       {

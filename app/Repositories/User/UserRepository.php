@@ -29,6 +29,14 @@ class UserRepository implements UserRepositoryInterface
                        ->findOrFail($id);
     }
 
+    // 获得所有用户
+    public function getUsers()
+    {   
+        return User::select($this->select_columns)
+                   ->where('status', '1')
+                   ->get();
+    }
+
     /*public function get_user_and_role($userId)
     {
         $user = $this->model->find($userId);

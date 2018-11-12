@@ -37,7 +37,7 @@ class User extends Authenticatable
     public function isSuperAdmin() {
 
         // dd(Auth::user()->hasRole('admin'));
-        return Auth::user()->hasRole('admin') || Auth::user()->hasRole('manger');
+        return Auth::user()->hasRole('admin') || Auth::user()->hasRole('manager');
         /*$user_role_id = Auth::user()->hasManyUserRole[0]->role_id; //用户角色id
 
         return ($user_role_id == config('zhuorui.user_role_type')['超级管理员']) || ($user_role_id == config('zhuorui.user_role_type')['管理员']);*/

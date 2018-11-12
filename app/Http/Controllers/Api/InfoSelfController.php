@@ -55,7 +55,7 @@ class InfoSelfController extends Controller
 
         // isset($query_list['withNoPage']) ? : false;
 
-        $query_list['withNoPage'] = isset($query_list['withNoPage']);
+        //$query_list['withNoPage'] = ($query_list['withNoPage']) ? true : false ;
 
         $query_list['netin'] = $this->netinQuery($query_list['netin_year'], $query_list['netin_month']);
 

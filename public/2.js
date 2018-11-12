@@ -1370,6 +1370,7 @@ function getPermissions() {
 
 "use strict";
 /* harmony export (immutable) */ __webpack_exports__["c"] = fetchList;
+/* harmony export (immutable) */ __webpack_exports__["h"] = userAll;
 /* unused harmony export getRoles */
 /* harmony export (immutable) */ __webpack_exports__["d"] = getUserRoles;
 /* harmony export (immutable) */ __webpack_exports__["e"] = giveUserRoles;
@@ -1397,6 +1398,17 @@ function fetchList(query) {
     method: 'get',
     query: query,
     params: { token: token, page: query.page }
+  });
+}
+
+function userAll() {
+  var token = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : Object(__WEBPACK_IMPORTED_MODULE_1__utils_auth__["a" /* getToken */])();
+
+  return Object(__WEBPACK_IMPORTED_MODULE_0__utils_request__["a" /* default */])({
+    // url: '/user/list',
+    url: __WEBPACK_IMPORTED_MODULE_2__config_js__["a" /* ROAST_CONFIG */].API_URL + '/userAll',
+    method: 'get',
+    params: { token: token }
   });
 }
 

@@ -9,7 +9,8 @@ const permissionRouter = {
     name: 'Package',
     meta: {
       title: '',
-      icon: 'size'
+      icon: 'size',
+      roles: ['admin', 'manager']
     },
     children: [
       {

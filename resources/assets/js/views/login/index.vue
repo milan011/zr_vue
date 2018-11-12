@@ -134,16 +134,16 @@ export default {
           this.$store.dispatch('LoginByUsername', this.loginForm).then((response) => {
             
             if(!response.data.status){
-              console.log('1')
+              /*console.log('1')
               console.log(response.data)
               console.log(this)
-              console.log(this.$message())
+              console.log(this.$message())*/
               this.$message.error(response.data.error);
             }
 
             this.loading = false
 
-            this.$router.push({ path: this.redirect || '/dashboard' })
+            this.$router.push({ path: this.redirect || '/infoSelf' })
  
           }).catch((error) => {
             // console.log(error)

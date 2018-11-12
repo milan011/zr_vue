@@ -150,16 +150,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           _this.$store.dispatch('LoginByUsername', _this.loginForm).then(function (response) {
 
             if (!response.data.status) {
-              console.log('1');
-              console.log(response.data);
-              console.log(_this);
-              console.log(_this.$message());
+              /*console.log('1')
+              console.log(response.data)
+              console.log(this)
+              console.log(this.$message())*/
               _this.$message.error(response.data.error);
             }
 
             _this.loading = false;
 
-            _this.$router.push({ path: _this.redirect || '/dashboard' });
+            _this.$router.push({ path: _this.redirect || '/infoSelf' });
           }).catch(function (error) {
             // console.log(error)
             _this.loading = false;

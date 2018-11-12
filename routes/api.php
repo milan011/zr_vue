@@ -23,6 +23,7 @@ Route::group([
 ], function () {
     // User
     Route::get('getUserInfo', 'UserController@getUser');
+    Route::get('userAll', 'UserController@userAll');
     Route::post('userLogout', 'UserController@logout');
     Route::get('userList', 'UserController@index');
     Route::post('user', 'UserController@store');
@@ -70,11 +71,11 @@ Route::group([
     Route::delete('infoSelf/{id}', 'InfoSelfController@destroy');
 
     //InfoDianxin
-    /*Route::get('infoDianxinList', 'InfoDianxinController@index');
-    Route::get('infoDianxinAll', 'InfoDianxinController@infoDianxinAll'); //所有权限列表,无分页
+    Route::get('infoDianxinList', 'InfoDianxinController@index');
+    // Route::get('infoDianxinAll', 'InfoDianxinController@infoDianxinAll'); //所有信息列表,无分页
     Route::post('infoDianxin', 'InfoDianxinController@store');
     Route::put('infoDianxin/{id}', 'InfoDianxinController@update');
-    Route::delete('infoDianxin/{id}', 'InfoDianxinController@destroy');*/
+    Route::delete('infoDianxin/{id}', 'InfoDianxinController@destroy');
 
     /*
     Route::get('all_roles', 'RolesController@allRoles');

@@ -150,7 +150,8 @@
 </template>
 
 <script>
-import { infoList, deleteInfo } from '@/api/infoSelf'
+// import { infoList, deleteInfo } from '@/api/infoSelf'
+import { infoDianxinList, deleteInfoDianxin } from '@/api/infoDianxin'
 import { userAll, } from '@/api/user'
 import waves from '@/directive/waves' // 水波纹指令
 import { parseTime } from '@/utils'
@@ -226,7 +227,7 @@ export default {
   methods: {
     getList() {
       this.listLoading = true
-      infoList(this.listQuery).then(response => {
+      infoDianxinList(this.listQuery).then(response => {
         this.list = response.data.data
         this.total = response.data.total
 

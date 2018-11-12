@@ -9,7 +9,8 @@ const userRouter = {
     name: 'User',
     meta: {
       title: '',
-      icon: 'user'
+      icon: 'user',
+      roles: ['admin', 'manager']
     },
     children: [
       {
@@ -18,13 +19,13 @@ const userRouter = {
         name: 'userList',
         meta: { title: 'user' }
       },
-      {
+      /*{
         hidden: true,
         path: 'passwordReset',
         component: resolve => void(require(['@/views/user/passwordReset'], resolve)),
         name: 'userAdd',
         meta: { title: 'passwordReset' }
-      }
+      }*/
     ]
 }
 export default userRouter

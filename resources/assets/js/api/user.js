@@ -14,6 +14,15 @@ export function fetchList(query, token = getToken()) {
   })
 }
 
+export function userAll(token = getToken()) {
+  return request({
+    // url: '/user/list',
+    url: ROAST_CONFIG.API_URL + '/userAll',
+    method: 'get',
+    params: {token}
+  })
+}
+
 export function getRoles(query, token = getToken()) {
   return request({
     // url: '/user/list',
