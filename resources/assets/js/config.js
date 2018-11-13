@@ -27,6 +27,11 @@ const infoSelfStatus = {
     2: '返还中',
     3: '已返还',
 };
+//电信信息状态
+const infoDianxinStatus = {
+    1: '未匹对',
+    2: '已匹对',
+};
 //集团状态
 const jituanStatus = {
     0: '否',
@@ -77,6 +82,7 @@ export {
     package_month,
     collections_type,
     oldBindStatus,
+    infoDianxinStatus,
 }
 
 /*export const zrConfig = {

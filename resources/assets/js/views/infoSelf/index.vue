@@ -355,6 +355,7 @@ export default {
     },
     handleCurrentChange(val) {
       this.listQuery.page = val
+      this.listQuery.withNoPage = false
       // console.log(this.listQuery)
       // return false
       this.getList()

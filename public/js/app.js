@@ -105351,12 +105351,13 @@ module.exports = Component.exports
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ROAST_CONFIG; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return infoSelfStatus; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return jituanStatus; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return package_year; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return package_month; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return infoSelfStatus; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return jituanStatus; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return package_year; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return package_month; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return collections_type; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return oldBindStatus; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return oldBindStatus; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return infoDianxinStatus; });
 /**
  * Defines the API route we are using.
  */
@@ -105385,6 +105386,11 @@ var infoSelfStatus = {
     1: '未返还',
     2: '返还中',
     3: '已返还'
+};
+//电信信息状态
+var infoDianxinStatus = {
+    1: '未匹对',
+    2: '已匹对'
 };
 //集团状态
 var jituanStatus = {
@@ -106044,20 +106050,21 @@ var _route;
     side_number_remove: '删除',
     add: '添加'
   },
-  infoDianXin: {
-    id: 'ID',
-    code: '序号',
+  infoDianxin: {
+    id: '序号',
+    // code: '序号',
     name: '套餐名称',
     return_telephone: '返款号码',
     jituan: '集团名称',
     manager: '客户经理',
     jiakuan: '价款',
     refunds: '返款金额',
-    new_telephone: '入网号码',
+    // return_telephone: '入网号码',
     yongjin: '佣金方案',
     balance_month: '结算月',
-    netin: '入网时间',
+    netin: '返还日期',
     creater: '创建者',
+    import: '导入日期',
     remark: '备注',
     status: '状态',
     add: '添加'

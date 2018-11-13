@@ -9,193 +9,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_object_assign___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_object_assign__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_babel_runtime_core_js_promise__ = __webpack_require__("./node_modules/babel-runtime/core-js/promise.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_babel_runtime_core_js_promise___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_babel_runtime_core_js_promise__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__api_infoSelf__ = __webpack_require__("./resources/assets/js/api/infoSelf.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__api_infoDianxin__ = __webpack_require__("./resources/assets/js/api/infoDianxin.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__utils_validate__ = __webpack_require__("./resources/assets/js/utils/validate.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__api_manager__ = __webpack_require__("./resources/assets/js/api/manager.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__api_package__ = __webpack_require__("./resources/assets/js/api/package.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__config_js__ = __webpack_require__("./resources/assets/js/config.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__common_js__ = __webpack_require__("./resources/assets/js/common.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__config_js__ = __webpack_require__("./resources/assets/js/config.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__common_js__ = __webpack_require__("./resources/assets/js/common.js");
 
 
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -286,8 +105,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 
-
-
+//import { managerAll } from '@/api/manager'
+//import { packageAll } from '@/api/package'
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -303,124 +122,94 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     return {
       temp: {
         id: undefined,
-        name: '阿宝',
-        new_telephone: '13731080174',
-        user_telephone: '13731080174',
-        uim_number: '8986111804311020036',
-        remark: ' ',
+        name: '18元套餐',
+        return_telephone: '13731080174',
+        manager: '阿宝',
+        jituan: '阿宝集团',
         netin_year: new Date().getFullYear(),
         netin_month: new Date().getMonth() + 1,
-        manage_id: null,
-        package_name: '',
-        package_id: null,
-        project_name: '大唐',
-        collections: 200,
-        newPackageName: '',
-        side_numbers: [{ side_number: '13731080174', uim: '8986111804311020036', add: true }],
-        collections_type: 1,
-        old_bind: '0',
-        is_jituan: '0'
+        yongjin: ' ',
+        refunds: 200,
+        jiakuan: 100,
+        balance_month: 0
       },
-      infoNewTelephoneDisabled: false,
-      collections_types: __WEBPACK_IMPORTED_MODULE_6__config_js__["b" /* collections_type */],
-      infoNameDisabled: false,
-      package_year: __WEBPACK_IMPORTED_MODULE_6__config_js__["g" /* package_year */],
-      package_month: __WEBPACK_IMPORTED_MODULE_6__config_js__["f" /* package_month */],
-      managerList: [],
-      packageAll: [],
+
+      package_year: __WEBPACK_IMPORTED_MODULE_4__config_js__["h" /* package_year */],
+      package_month: __WEBPACK_IMPORTED_MODULE_4__config_js__["g" /* package_month */],
       rules: {
-        name: [{ required: true, message: '请输入客户姓名', trigger: 'change' }],
-        package_id: [{ required: true, message: '请选择套餐', trigger: 'change' }],
-        manage_id: [{ required: true, message: '请选择客户经理', trigger: 'change' }],
-        project_name: [{ required: true, message: '请输入项目名称', trigger: 'change' }],
-        /*uim_number: [
-          { required: true, message: '请输入19位UIM码', trigger: 'change' },
-          { len: 19, message: '请输入19位UIM码', trigger: 'change' }
-        ],*/
-        collections: [{ required: true, message: '请确认收款数字' }, { type: 'number', message: '收款应为数字' }],
-        user_telephone: [{ required: true, message: '请输入有效手机号', trigger: 'blur' }, { validator: validateTelephone, trigger: 'change' }],
-        new_telephone: [{ required: true, message: '请输入有效手机号', trigger: 'blur' }, { validator: validateTelephone, trigger: 'change' }]
+        name: [{ required: true, message: '请输入套餐名', trigger: 'change' }],
+        jituan: [{ required: true, message: '请输入集团', trigger: 'change' }],
+        manager: [{ required: true, message: '请输入客户经理', trigger: 'change' }],
+        refunds: [{ required: true, message: '请确认返款金额' }, { type: 'number', message: '返款金额应为数字' }],
+        jiakuan: [{ required: true, message: '请确认价款金额' }, { type: 'number', message: '价款应为数字' }],
+        balance_month: [{ required: true, message: '请确认返还月' }, { type: 'number', message: '返还月应为数字' }],
+        return_telephone: [{ required: true, message: '请输入有效手机号', trigger: 'blur' }, { validator: validateTelephone, trigger: 'change' }]
       },
       textMap: {
         update: '信息编辑',
         create: '信息添加'
       },
-      infoDialogFormVisible: false,
-      dialogStatus: '',
-      checkList: ['info_list', 'role_list'],
-      permissions: []
+      infoDianxinDialogFormVisible: false,
+      dialogStatus: ''
+      // checkList: ['info_list', 'role_list'],
     };
   },
   created: function created() {
-    __WEBPACK_IMPORTED_MODULE_1_babel_runtime_core_js_promise___default.a.all([this.getManagerList(), this.getPackageList()]);
+    __WEBPACK_IMPORTED_MODULE_1_babel_runtime_core_js_promise___default.a.all([
+      /*this.getManagerList(),
+      this.getPackageList(),*/
+    ]);
   },
 
   methods: {
-    sideAdd: function sideAdd() {
-      //添加副卡
-      var newSide = { side_number: '', uim: '', add: false };
-      this.temp.side_numbers.push(newSide);
-    },
-    packageChange: function packageChange(event) {
-      var _this = this;
-
+    /*sideAdd(){ //添加副卡
+      let newSide = {side_number:'', uim: '', add: false}
+      this.temp.side_numbers.push(newSide)
+    },*/
+    /*packageChange(event){
       //console.log(event)
       //console.log(this.packageAll)
-
-      Array.prototype.forEach.call(this.packageAll, function (child) {
+       Array.prototype.forEach.call(this.packageAll, child => {
         // console.log(child)
-        if (event === child.id) {
+        if(event === child.id){
           // console.log(child.name)
-          _this.temp.newPackageName = child.name;
+          this.temp.newPackageName = child.name
         }
       });
-    },
-    sideRemove: function sideRemove(event) {
-      //删除副卡
-      this.temp.side_numbers.splice(event.currentTarget.getAttribute('dataIndex'), 1);
-    },
-
+    },*/
+    /*sideRemove(event){ //删除副卡
+      this.temp.side_numbers.splice(event.currentTarget.getAttribute('dataIndex'),1)
+    },*/
     addInfoSelfList: function addInfoSelfList(value) {
       this.$emit("addNewInfo", value);
     },
-    getManagerList: function getManagerList() {
-      var _this2 = this;
-
-      Object(__WEBPACK_IMPORTED_MODULE_4__api_manager__["c" /* managerAll */])().then(function (response) {
-        /*console.log(response.data.data)
-        return false*/
-        _this2.managerList = response.data.data;
-      });
-    },
-    getPackageList: function getPackageList() {
-      var _this3 = this;
-
-      Object(__WEBPACK_IMPORTED_MODULE_5__api_package__["d" /* packageAll */])().then(function (response) {
-        /*console.log(response.data.data)
-        return false*/
-        _this3.packageAll = response.data.data;
-      });
-    },
+    /*getManagerList() {
+      managerAll().then(response => {
+        console.log(response.data.data)
+        return false
+        this.managerList = response.data.data
+      })
+    },*/
+    /*getPackageList() {
+      packageAll().then(response => {
+        console.log(response.data.data)
+        return false
+        this.packageAll = response.data.data
+      })
+    },*/
     resetTemp: function resetTemp() {
       this.temp = {
         id: undefined,
-        name: null,
-        new_telephone: null,
-        user_telephone: null,
-        uim_number: null,
-        remark: ' ',
+        name: '18元套餐',
+        return_telephone: '13731080174',
+        manager: '阿宝',
+        jituan: '阿宝集团',
         netin_year: new Date().getFullYear(),
         netin_month: new Date().getMonth() + 1,
-        manage_id: null,
-        package_id: null,
-        package_name: '',
-        project_name: '',
-        collections: 200,
-        newPackageName: '',
-        side_numbers: [{ side_number: '', uim: '', add: true }],
-        collections_type: 1,
-        old_bind: '0',
-        is_jituan: '0'
+        yongjin: ' ',
+        refunds: 200,
+        jiakuan: 100,
+        balance_month: 0
       };
     },
 
@@ -429,30 +218,29 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       getRolePermissions(row).then((response) => {
         this.checkList = response.data
         this.permissionTemp.id = row.id
-        this.infoDialogFormVisible = true
+        this.infoDianxinDialogFormVisible = true
       })
-       // this.infoDialogFormVisible = true
+       // this.infoDianxinDialogFormVisible = true
       this.$nextTick(() => {
         this.$refs['permissionDForm'].clearValidate()
       })
     },*/
     handleCreateInfo: function handleCreateInfo() {
-      var _this4 = this;
+      var _this = this;
 
       this.resetTemp();
       this.dialogStatus = 'create';
-      this.infoDialogFormVisible = true;
-      this.infoNewTelephoneDisabled = false;
+      this.infoDianxinDialogFormVisible = true;
       this.$nextTick(function () {
-        _this4.$refs['dataForm'].clearValidate();
+        _this.$refs['dataForm'].clearValidate();
       });
     },
     createData: function createData() {
-      var _this5 = this;
+      var _this2 = this;
 
       this.$refs['dataForm'].validate(function (valid) {
         if (valid) {
-          Object(__WEBPACK_IMPORTED_MODULE_2__api_infoSelf__["a" /* createInfo */])(_this5.temp).then(function (response) {
+          Object(__WEBPACK_IMPORTED_MODULE_2__api_infoDianxin__["a" /* createInfoDianxin */])(_this2.temp).then(function (response) {
             /*console.log(this.temp)
             return false*/
             if (response.data.status) {
@@ -478,9 +266,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 created_at: new Date()
               }*/
               // console.log(newInfo)
-              _this5.addInfoSelfList(resData);
-              _this5.infoDialogFormVisible = false;
-              _this5.$notify({
+              //resData.netin_year    = resData.netin.substring(0,4)
+              //resData.netin_month   = resData.netin.substring(4,6)
+              _this2.addInfoSelfList(resData);
+              _this2.infoDianxinDialogFormVisible = false;
+              _this2.$notify({
                 title: '成功',
                 message: '创建成功',
                 type: 'success',
@@ -488,7 +278,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
               });
             } else {
               //添加失败
-              _this5.$notify.error({
+              _this2.$notify.error({
                 title: '注意',
                 message: response.data.message,
                 duration: 2000
@@ -510,7 +300,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 }
                 messageShow += '</ul>';
 
-                _this5.$message({
+                _this2.$message({
                   showClose: true,
                   message: messageShow,
                   type: 'error',
@@ -559,10 +349,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         return false
              
       })*/
-      var netin_arr = row.netin.split('-');
-      var side_arr = row.side_number.split('|');
-      var side_uim_arr = row.side_uim_number.split('|');
-      row.side_numbers = [];
+      /*let netin_arr     = row.netin.split('-')
+      let side_arr      = row.side_number.split('|')
+      let side_uim_arr  = row.side_uim_number.split('|')
+      row.side_numbers  = []*/
 
       /*
       console.log(netin_arr)
@@ -570,23 +360,23 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       console.log(side_uim_arr)
       console.log(isEmpty(side_uim_arr))*/
 
-      if (!Object(__WEBPACK_IMPORTED_MODULE_7__common_js__["a" /* isEmpty */])(side_arr)) {
-        Array.prototype.forEach.call(side_arr, function (child, index) {
+      /*if(!isEmpty(side_arr)){
+        Array.prototype.forEach.call(side_arr, (child, index) => {
           //console.log(child)
           //console.log(index)
-          var addAction = false;
-          if (index == 0) addAction = true;
+          let addAction = false
+          if(index == 0) addAction = true 
           // side = {side_number: child, uim: side_uim_arr[index], add: addAction}
-          row.side_numbers.push({ side_number: child, uim: side_uim_arr[index], add: addAction });
-        });
-      }
+          row.side_numbers.push({side_number: child, uim: side_uim_arr[index], add: addAction})     
+        })
+      }*/
 
       // console.log(row.side_numbers)
 
-      row.netin_year = netin_arr[0];
-      row.netin_month = netin_arr[1];
-      row.collections = parseInt(row.collections);
-      row.collections_type = parseInt(row.collections_type);
+      /*row.netin_year  = netin_arr[0]
+      row.netin_month = netin_arr[1]
+      row.collections = parseInt(row.collections)
+      row.collections_type = parseInt(row.collections_type)*/
 
       /*if(row.is_jituan == '1'){
             row.is_jituan = true
@@ -598,23 +388,30 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           }else{
             row.old_bind = false
           }*/
+      row.netin_year = row.netin.substring(0, 4);
+      row.netin_month = row.netin.substring(4, 6);
+      row.jiakuan = parseInt(row.jiakuan);
+      row.refunds = parseInt(row.refunds);
+      row.balance_month = parseInt(row.balance_month);
+
       this.temp = __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_object_assign___default()({}, row); // copy obj
       //this.temp.timestamp = new Date(this.temp.timestamp)
-      console.log(row);
-      console.log(this.temp);
+      //console.log(row)
+      //console.log(typeof(row.netin))
+      // console.log(this.temp)
       this.dialogStatus = 'update';
-      this.infoNewTelephoneDisabled = true, this.infoDialogFormVisible = true;
+      this.infoNewTelephoneDisabled = true, this.infoDianxinDialogFormVisible = true;
       //this.$nextTick(() => {
       //  this.$refs['dataForm'].clearValidate()
       //})
     },
     updateData: function updateData() {
-      var _this6 = this;
+      var _this3 = this;
 
       this.$refs['dataForm'].validate(function (valid) {
         if (valid) {
-          var tempData = __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_object_assign___default()({}, _this6.temp);
-          Object(__WEBPACK_IMPORTED_MODULE_2__api_infoSelf__["e" /* updateInfo */])(tempData).then(function (response) {
+          var tempData = __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_object_assign___default()({}, _this3.temp);
+          Object(__WEBPACK_IMPORTED_MODULE_2__api_infoDianxin__["c" /* updateInfoDianxin */])(tempData).then(function (response) {
             if (response.data.status) {
               /*for (const v of this.list) {
                 if (v.id === this.temp.id) {
@@ -623,23 +420,27 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                   break
                 }
               }*/
-              console.log(_this6.temp.newPackageName);
-              console.log(_this6.temp);
-              _this6.temp.update = true;
-              _this6.temp.has_one_package = response.data.data.has_one_package;
-              _this6.temp.side_number = response.data.data.side_number;
-              _this6.temp.side_number_num = response.data.data.side_number_num;
-              _this6.temp.is_jituan = response.data.data.is_jituan;
-              _this6.addInfoSelfList(_this6.temp);
-              _this6.infoDialogFormVisible = false;
-              _this6.$notify({
+              // console.log(this.temp.newPackageName)
+
+              _this3.temp.update = true;
+              _this3.temp.has_one_package = response.data.data.has_one_package;
+              _this3.temp.side_number = response.data.data.side_number;
+              _this3.temp.side_number_num = response.data.data.side_number_num;
+              _this3.temp.is_jituan = response.data.data.is_jituan;
+              _this3.temp.netin = response.data.data.netin;
+              //this.temp.netin_year    = response.data.data.netin.substring(0,4)
+              //this.temp.netin_month   = response.data.data.netin.substring(4,6)
+              console.log(_this3.temp);
+              _this3.addInfoSelfList(_this3.temp);
+              _this3.infoDianxinDialogFormVisible = false;
+              _this3.$notify({
                 title: '成功',
                 message: '更新成功',
                 type: 'success',
                 duration: 2000
               });
             } else {
-              _this6.$notify.error({
+              _this3.$notify.error({
                 title: '失败',
                 message: response.data.message,
                 duration: 2000
@@ -663,9 +464,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_object_assign___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_object_assign__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_babel_runtime_core_js_promise__ = __webpack_require__("./node_modules/babel-runtime/core-js/promise.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_babel_runtime_core_js_promise___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_babel_runtime_core_js_promise__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__api_infoSelf__ = __webpack_require__("./resources/assets/js/api/infoSelf.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__utils__ = __webpack_require__("./resources/assets/js/utils/index.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__config_js__ = __webpack_require__("./resources/assets/js/config.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__utils__ = __webpack_require__("./resources/assets/js/utils/index.js");
 
 
 //
@@ -719,79 +518,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'ShowInfo',
   data: function data() {
     return {
-      temp: {
-        has_one_package: { name: null, month_nums: null, package_price: null }
-      },
-      dialogInfoVisible: false,
-      statusMap: __WEBPACK_IMPORTED_MODULE_4__config_js__["c" /* infoSelfStatus */],
-      jiTuanStatusMap: __WEBPACK_IMPORTED_MODULE_4__config_js__["d" /* jituanStatus */],
-      oldBindStatusMap: __WEBPACK_IMPORTED_MODULE_4__config_js__["e" /* oldBindStatus */],
-      collections_type: __WEBPACK_IMPORTED_MODULE_4__config_js__["b" /* collections_type */]
+      temp: {},
+      dialogInfoVisible: false
     };
   },
   created: function created() {
@@ -800,30 +534,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
   methods: {
     handleShowInfo: function handleShowInfo(row) {
-      var _this = this;
-
-      // console.log(row.has_many_package_info)
-      Object(__WEBPACK_IMPORTED_MODULE_2__api_infoSelf__["c" /* getInfo */])(row).then(function () {
-        var side_arr = row.side_number.split("|");
-        var side_uim_arr = row.side_uim_number.split("|");
-        var side_info = [];
-
-        //side_arr     = row.side_number.split("|")
-        //side_uim_arr = row.side_uim_number.split("|")
-
-        //console.log(side_arr)
-        //console.log(side_uim_arr)
-
-        Array.prototype.forEach.call(side_arr, function (side, index) {
-          /*console.log(index)
-          console.log(side)*/
-          side_info.push({ side_number: side, side_uim_number: side_uim_arr[index] });
-        });
-        row.side_numbers = side_info;
-        _this.temp = __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_object_assign___default()({}, row); // copy obj
-        // console.log(this.temp)
-        _this.dialogInfoVisible = true;
-      });
+      // console.log(row)
+      // return false
+      this.temp = __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_object_assign___default()({}, row); // copy obj
+      this.dialogInfoVisible = true;
     }
   }
 });
@@ -842,16 +556,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_babel_runtime_core_js_promise__ = __webpack_require__("./node_modules/babel-runtime/core-js/promise.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_babel_runtime_core_js_promise___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_babel_runtime_core_js_promise__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__api_infoDianxin__ = __webpack_require__("./resources/assets/js/api/infoDianxin.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__api_user__ = __webpack_require__("./resources/assets/js/api/user.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__directive_waves__ = __webpack_require__("./resources/assets/js/directive/waves/index.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__utils__ = __webpack_require__("./resources/assets/js/utils/index.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__utils_validate__ = __webpack_require__("./resources/assets/js/utils/validate.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__components_ShowInfo__ = __webpack_require__("./resources/assets/js/views/infoDianxin/components/ShowInfo.vue");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__components_ShowInfo___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_8__components_ShowInfo__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__components_FormInfo__ = __webpack_require__("./resources/assets/js/views/infoDianxin/components/FormInfo.vue");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__components_FormInfo___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_9__components_FormInfo__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__vendor_Export2Excel_js__ = __webpack_require__("./resources/assets/js/vendor/Export2Excel.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__config_js__ = __webpack_require__("./resources/assets/js/config.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__directive_waves__ = __webpack_require__("./resources/assets/js/directive/waves/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__utils__ = __webpack_require__("./resources/assets/js/utils/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__utils_validate__ = __webpack_require__("./resources/assets/js/utils/validate.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__components_ShowInfo__ = __webpack_require__("./resources/assets/js/views/infoDianxin/components/ShowInfo.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__components_ShowInfo___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7__components_ShowInfo__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__components_FormInfo__ = __webpack_require__("./resources/assets/js/views/infoDianxin/components/FormInfo.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__components_FormInfo___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_8__components_FormInfo__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__vendor_Export2Excel_js__ = __webpack_require__("./resources/assets/js/vendor/Export2Excel.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__config_js__ = __webpack_require__("./resources/assets/js/config.js");
 
 
 
@@ -956,58 +669,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-// import { infoList, deleteInfo } from '@/api/infoSelf'
 
 
  // 水波纹指令
@@ -1020,15 +681,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'infoSelfList',
-  components: { FormInfo: __WEBPACK_IMPORTED_MODULE_9__components_FormInfo___default.a, ShowInfo: __WEBPACK_IMPORTED_MODULE_8__components_ShowInfo___default.a },
+  components: { FormInfo: __WEBPACK_IMPORTED_MODULE_8__components_FormInfo___default.a, ShowInfo: __WEBPACK_IMPORTED_MODULE_7__components_ShowInfo___default.a },
   directives: {
-    waves: __WEBPACK_IMPORTED_MODULE_5__directive_waves__["a" /* default */]
+    waves: __WEBPACK_IMPORTED_MODULE_4__directive_waves__["a" /* default */]
   },
   filters: {
     statusFilter: function statusFilter(status) {
       var statusMap = {
-        3: 'success',
-        2: 'info',
+        2: 'success',
         1: 'danger'
       };
       return statusMap[status];
@@ -1057,23 +717,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         withNoPage: false,
         netin_month: '',
         netin_year: '',
-        selectTelephone: '192',
-        creater_id: '',
+        selectTelephone: '',
         status: ''
       },
-      userList: [],
       isAdmin: false,
-      package_year: __WEBPACK_IMPORTED_MODULE_11__config_js__["g" /* package_year */],
-      package_month: __WEBPACK_IMPORTED_MODULE_11__config_js__["f" /* package_month */],
-      statusMap: __WEBPACK_IMPORTED_MODULE_11__config_js__["c" /* infoSelfStatus */],
-      jiTuanStatusMap: __WEBPACK_IMPORTED_MODULE_11__config_js__["d" /* jituanStatus */],
-      oldBindStatusMap: __WEBPACK_IMPORTED_MODULE_11__config_js__["e" /* oldBindStatus */],
-      collectionsTypeMap: __WEBPACK_IMPORTED_MODULE_11__config_js__["b" /* collections_type */],
+      package_year: __WEBPACK_IMPORTED_MODULE_10__config_js__["h" /* package_year */],
+      package_month: __WEBPACK_IMPORTED_MODULE_10__config_js__["g" /* package_month */],
+      statusMap: __WEBPACK_IMPORTED_MODULE_10__config_js__["c" /* infoDianxinStatus */],
       downloadLoading: false
     };
   },
   created: function created() {
-    __WEBPACK_IMPORTED_MODULE_2_babel_runtime_core_js_promise___default.a.all([this.getList(), this.getUserList(), this.isAdminOrManager()]
+    __WEBPACK_IMPORTED_MODULE_2_babel_runtime_core_js_promise___default.a.all([this.getList(), this.isAdminOrManager()]
     // console.log(this.$store.getters.roles)
     );
   },
@@ -1083,7 +738,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       var _this = this;
 
       this.listLoading = true;
-      Object(__WEBPACK_IMPORTED_MODULE_3__api_infoDianxin__["a" /* infoDianxinList */])(this.listQuery).then(function (response) {
+      Object(__WEBPACK_IMPORTED_MODULE_3__api_infoDianxin__["b" /* infoDianxinList */])(this.listQuery).then(function (response) {
         _this.list = response.data.data;
         _this.total = response.data.total;
 
@@ -1091,15 +746,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         setTimeout(function () {
           _this.listLoading = false;
         }, 1.5 * 1000);
-      });
-    },
-    getUserList: function getUserList() {
-      var _this2 = this;
-
-      Object(__WEBPACK_IMPORTED_MODULE_4__api_user__["h" /* userAll */])().then(function (response) {
-        // console.log(response.data)
-        // return false
-        _this2.userList = response.data;
       });
     },
     isAdminOrManager: function isAdminOrManager() {
@@ -1146,8 +792,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       }
     },
     handleDownload: function handleDownload() {
-      var _this3 = this;
+      var _this2 = this;
 
+      // this.handleFilter()
       this.downloadLoading = true;
 
       if (this.listQuery.netin_year == '' && this.listQuery.netin_month == '' && this.listQuery.selectTelephone == '' && this.listQuery.status == '' && this.listQuery.creater == '') {
@@ -1162,61 +809,58 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       console.log(this.listQuery);
       // return false
       this.listQuery.withNoPage = true;
-      infoList(this.listQuery).then(function (response) {
-        _this3.listExport = response.data.data;
+      Object(__WEBPACK_IMPORTED_MODULE_3__api_infoDianxin__["b" /* infoDianxinList */])(this.listQuery).then(function (response) {
+        _this2.listExport = response.data.data;
         // console.log(this.listExport)
         // return false
-        Array.prototype.forEach.call(_this3.listExport, function (child) {
+        /*Array.prototype.forEach.call(this.listExport, child => {
           // console.log(child)
-          if (child.side_number !== '') {
-            var side_arr = child.side_number.split("|");
-            var side_uim_arr = child.side_uim_number.split("|");
-            child.side_info = '';
-
-            //side_arr     = row.side_number.split("|")
+          if(child.side_number !== ''){
+            let side_arr     = child.side_number.split("|")
+            let side_uim_arr = child.side_uim_number.split("|")
+            child.side_info    = ''
+                //side_arr     = row.side_number.split("|")
             //side_uim_arr = row.side_uim_number.split("|")
-
-            //console.log(side_arr)
+                //console.log(side_arr)
             //console.log(side_uim_arr)
-
-            Array.prototype.forEach.call(side_arr, function (side, index) {
+                Array.prototype.forEach.call(side_arr, (side, index) => {
               //console.log(index)
               //console.log(side)
-              var s_info = side + '(' + side_uim_arr[index] + ')' + "\r\n";
-              child.side_info += s_info;
-            });
+              let s_info = side + '(' + side_uim_arr[index] + ')' + "\r\n"
+              child.side_info +=  s_info
+            })
             // child.side_info = child.side_info.substr(1,child.side_info.length-2);slice(start,[end])
             // console.log(child.side_info)
-            child.side_info = child.side_info.slice(0, child.side_info.length - 2);
+            child.side_info = child.side_info.slice(0,child.side_info.length-2)
           }
-
-          //console.log(this.listExport)
-          child.date = child.created_at.slice(0, 10);
-          child.isJituan = _this3.jiTuanStatusMap[child.is_jituan];
-          child.oldBind = _this3.oldBindStatusMap[child.old_bind];
-          child.packageName = child.has_one_package.name;
-          child.collectionsType = _this3.collectionsTypeMap[child.collections_type];
-          child.creater = child.belongs_to_creater.nick_name;
-        });
-        var tHeader = ['序号', '日期', '客户经理', '电话', '项目', '客户姓名', '新号码', 'UIM码', '集团卡', '绑老卡', '副卡(UIM)', '套餐标准', '联系方式', '收款', '收款方式', '销售人'];
-        var filterVal = ['id', 'date', 'manage_name', 'manage_telephone', 'project_name', 'name', 'new_telephone', 'uim_number', 'isJituan', 'oldBind', 'side_info', 'package_id', 'user_telephone', 'collections', 'collectionsType', 'creater'];
-        var data = _this3.formatJson(filterVal, _this3.listExport);
+          
+            //console.log(this.listExport)
+          child.date      = child.created_at.slice(0,10)
+          child.isJituan = this.jiTuanStatusMap[child.is_jituan]
+          child.oldBind  = this.oldBindStatusMap[child.old_bind]
+          child.packageName  = child.has_one_package.name
+          child.collectionsType  = this.collectionsTypeMap[child.collections_type]
+          child.creater  = child.belongs_to_creater.nick_name
+          })*/
+        var tHeader = ['套餐名称', '返款号码', '集团名称', '返款金额', '价款', '结算月', '客户经理', '佣金方案', '返还日期'];
+        var filterVal = ['name', 'return_telephone', 'jituan', 'refunds', 'jiakuan', 'balance_month', 'manager', 'yongjin', 'netin'];
+        var data = _this2.formatJson(filterVal, _this2.listExport);
         // console.log(data)
         // return false
-        var tableName = '信息表';
-        Object(__WEBPACK_IMPORTED_MODULE_10__vendor_Export2Excel_js__["a" /* export_json_to_excel */])({
+        var tableName = '电信信息表';
+        Object(__WEBPACK_IMPORTED_MODULE_9__vendor_Export2Excel_js__["a" /* export_json_to_excel */])({
           header: tHeader,
           data: data,
           filename: tableName
         });
-        _this3.downloadLoading = false;
+        _this2.downloadLoading = false;
       });
     },
     formatJson: function formatJson(filterVal, jsonData) {
       return jsonData.map(function (v) {
         return filterVal.map(function (j) {
           if (j === 'timestamp') {
-            return Object(__WEBPACK_IMPORTED_MODULE_6__utils__["c" /* parseTime */])(v[j]);
+            return Object(__WEBPACK_IMPORTED_MODULE_5__utils__["c" /* parseTime */])(v[j]);
           } else {
             return v[j];
           }
@@ -1232,33 +876,34 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     handleCurrentChange: function handleCurrentChange(val) {
       this.listQuery.page = val;
+      this.listQuery.withNoPage = false;
       // console.log(this.listQuery)
       // return false
       this.getList();
     },
     handleModifyStatus: function handleModifyStatus(row, status) {
-      var _this4 = this;
+      var _this3 = this;
 
       this.$confirm('确定要删除?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'
       }).then(function () {
-        _this4.temp = __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_object_assign___default()({}, row);
-        deleteInfo(_this4.temp).then(function (response) {
+        _this3.temp = __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_object_assign___default()({}, row);
+        deleteInfo(_this3.temp).then(function (response) {
           // console.log(response.data);
           if (response.data.status === 0) {
-            _this4.$notify({
+            _this3.$notify({
               title: '失败',
               message: '删除失败',
               type: 'warning',
               duration: 2000
             });
           } else {
-            var index = _this4.list.indexOf(row);
-            _this4.list.splice(index, 1);
-            _this4.dialogFormVisible = false;
-            _this4.$notify({
+            var index = _this3.list.indexOf(row);
+            _this3.list.splice(index, 1);
+            _this3.dialogFormVisible = false;
+            _this3.$notify({
               title: '成功',
               message: '删除成功',
               type: 'success',
@@ -1273,7 +918,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             
           break
         }*/
-        _this4.$message({
+        _this3.$message({
           type: 'info',
           message: '已取消删除'
         });
@@ -1316,7 +961,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* .fixed-width .el-button--mini {\n  padding: 10px 3px;\n  width: 70px;\n  margin-left: 0px;\n} */\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* .fixed-width .el-button--mini {\n  padding: 10px 3px;\n  width: 70px;\n  margin-left: 0px;\n} */\n", ""]);
 
 // exports
 
@@ -1331,7 +976,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* .fixed-width .el-button--mini {\n  padding: 10px 3px;\n  width: 70px;\n  margin-left: 0px;\n}\n.el-table--medium td, .el-table--medium th {\n  padding: 7px 0;\n}  */\n.el-dialog__body {\n  padding: 15px 15px;\n}\n.el-dialog__header {\n   padding-top: 10px;\n}\n.el-select {\n  display: inline;\n  position: relative;\n}\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* .fixed-width .el-button--mini {\n  padding: 10px 3px;\n  width: 70px;\n  margin-left: 0px;\n}\n.el-table--medium td, .el-table--medium th {\n  padding: 7px 0;\n}  */\n.el-dialog__body {\n  padding: 15px 15px;\n}\n.el-dialog__header {\n   padding-top: 10px;\n}\n.el-select {\n  display: inline;\n  position: relative;\n}\n", ""]);
 
 // exports
 
@@ -3506,12 +3151,9 @@ var render = function() {
                   [
                     _c("span", [
                       _vm._v(
-                        _vm._s(_vm.$t("info.name")) +
+                        _vm._s(_vm.$t("infoDianxin.name")) +
                           ":" +
-                          _vm._s(_vm.temp.name) +
-                          "(" +
-                          _vm._s(_vm.temp.user_telephone) +
-                          ")"
+                          _vm._s(_vm.temp.name)
                       )
                     ])
                   ]
@@ -3531,10 +3173,10 @@ var render = function() {
                   [
                     _vm._v(
                       "\r\n          " +
-                        _vm._s(_vm.$t("info.manager_name")) +
+                        _vm._s(_vm.$t("infoDianxin.return_telephone")) +
                         ":"
                     ),
-                    _c("span", [_vm._v(_vm._s(_vm.temp.manage_name))])
+                    _c("span", [_vm._v(_vm._s(_vm.temp.return_telephone))])
                   ]
                 )
               ]),
@@ -3546,10 +3188,10 @@ var render = function() {
                   [
                     _vm._v(
                       "\r\n          " +
-                        _vm._s(_vm.$t("info.new_telephone")) +
+                        _vm._s(_vm.$t("infoDianxin.jiakuan")) +
                         ":"
                     ),
-                    _c("span", [_vm._v(_vm._s(_vm.temp.new_telephone))])
+                    _c("span", [_vm._v(_vm._s(_vm.temp.jiakuan))])
                   ]
                 )
               ]),
@@ -3592,60 +3234,47 @@ var render = function() {
           _c(
             "el-row",
             [
-              _c("el-col", { attrs: { span: 12 } }, [
+              _c("el-col", { attrs: { span: 8 } }, [
                 _c(
                   "div",
                   { staticClass: "grid-content bg-purple self-style" },
                   [
                     _vm._v(
-                      "\r\n          " + _vm._s(_vm.$t("info.uim_number")) + ":"
+                      "\r\n          " +
+                        _vm._s(_vm.$t("infoDianxin.jituan")) +
+                        ":"
                     ),
-                    _c("span", [_vm._v(_vm._s(_vm.temp.uim_number))])
+                    _c("span", [_vm._v(_vm._s(_vm.temp.jituan))])
                   ]
                 )
               ]),
               _vm._v(" "),
-              _c("el-col", { attrs: { span: 6 } }, [
+              _c("el-col", { attrs: { span: 8 } }, [
                 _c(
                   "div",
                   { staticClass: "grid-content bg-purple-light self-style" },
                   [
                     _vm._v(
                       "\r\n          " +
-                        _vm._s(_vm.$t("info.project_name")) +
+                        _vm._s(_vm.$t("infoDianxin.manager")) +
                         ":"
                     ),
-                    _c("span", [_vm._v(_vm._s(_vm.temp.project_name))])
+                    _c("span", [_vm._v(_vm._s(_vm.temp.manager))])
                   ]
                 )
               ]),
               _vm._v(" "),
-              _c("el-col", { attrs: { span: 3 } }, [
+              _c("el-col", { attrs: { span: 8 } }, [
                 _c(
                   "div",
                   { staticClass: "grid-content bg-purple-light self-style" },
                   [
                     _vm._v(
-                      "\r\n          " + _vm._s(_vm.$t("info.old_bind")) + ":"
+                      "\r\n          " +
+                        _vm._s(_vm.$t("infoDianxin.netin")) +
+                        ":"
                     ),
-                    _c("span", [
-                      _vm._v(_vm._s(_vm.oldBindStatusMap[_vm.temp.old_bind]))
-                    ])
-                  ]
-                )
-              ]),
-              _vm._v(" "),
-              _c("el-col", { attrs: { span: 3 } }, [
-                _c(
-                  "div",
-                  { staticClass: "grid-content bg-purple-light self-style" },
-                  [
-                    _vm._v(
-                      "\r\n          " + _vm._s(_vm.$t("info.is_jituan")) + ":"
-                    ),
-                    _c("span", [
-                      _vm._v(_vm._s(_vm.jiTuanStatusMap[_vm.temp.is_jituan]))
-                    ])
+                    _c("span", [_vm._v(_vm._s(_vm.temp.netin))])
                   ]
                 )
               ])
@@ -3656,297 +3285,52 @@ var render = function() {
           _c(
             "el-row",
             [
-              _c("el-col", { attrs: { span: 6 } }, [
+              _c("el-col", { attrs: { span: 8 } }, [
                 _c(
                   "div",
                   { staticClass: "grid-content bg-purple self-style" },
                   [
                     _vm._v(
                       "\r\n          " +
-                        _vm._s(_vm.$t("info.collections")) +
+                        _vm._s(_vm.$t("infoDianxin.yongjin")) +
                         ":"
                     ),
-                    _c("span", [_vm._v(_vm._s(_vm.temp.collections))])
+                    _c("span", [_vm._v(_vm._s(_vm.temp.yongjin))])
                   ]
                 )
               ]),
               _vm._v(" "),
-              _c("el-col", { attrs: { span: 6 } }, [
+              _c("el-col", { attrs: { span: 8 } }, [
                 _c(
                   "div",
-                  { staticClass: "grid-content bg-purple self-style" },
+                  { staticClass: "grid-content bg-purple-light self-style" },
                   [
                     _vm._v(
                       "\r\n          " +
-                        _vm._s(_vm.$t("info.collections_type")) +
+                        _vm._s(_vm.$t("infoDianxin.refunds")) +
                         ":"
                     ),
-                    _c("span", [
-                      _vm._v(
-                        _vm._s(
-                          _vm.collections_type[_vm.temp.collections_type - 1]
-                        )
-                      )
-                    ])
+                    _c("span", [_vm._v(_vm._s(_vm.temp.refunds))])
                   ]
                 )
               ]),
               _vm._v(" "),
-              _c("el-col", { attrs: { span: 6 } }, [
+              _c("el-col", { attrs: { span: 8 } }, [
                 _c(
                   "div",
                   { staticClass: "grid-content bg-purple self-style" },
                   [
                     _vm._v(
                       "\r\n          " +
-                        _vm._s(_vm.$t("info.balance_month")) +
+                        _vm._s(_vm.$t("infoDianxin.balance_month")) +
                         ":"
                     ),
                     _c("span", [_vm._v(_vm._s(_vm.temp.balance_month))])
                   ]
                 )
-              ]),
-              _vm._v(" "),
-              _c("el-col", { attrs: { span: 6 } }, [
-                _c(
-                  "div",
-                  { staticClass: "grid-content bg-purple self-style" },
-                  [
-                    _vm._v(
-                      "\r\n          " + _vm._s(_vm.$t("info.status")) + ":"
-                    ),
-                    _c("span", [_vm._v(_vm._s(_vm.statusMap[_vm.temp.status]))])
-                  ]
-                )
               ])
             ],
             1
-          ),
-          _vm._v(" "),
-          _c(
-            "el-row",
-            [
-              _c("el-col", { attrs: { span: 6 } }, [
-                _c(
-                  "div",
-                  { staticClass: "grid-content bg-purple self-style" },
-                  [
-                    _vm._v(
-                      "\r\n          " + _vm._s(_vm.$t("info.netin")) + ":"
-                    ),
-                    _c("span", [_vm._v(_vm._s(_vm.temp.netin))])
-                  ]
-                )
-              ]),
-              _vm._v(" "),
-              _c("el-col", { attrs: { span: 6 } }, [
-                _c(
-                  "div",
-                  { staticClass: "grid-content bg-purple self-style" },
-                  [
-                    _vm._v(
-                      "\r\n          " + _vm._s(_vm.$t("info.remark")) + ":"
-                    ),
-                    _c("span", [_vm._v(_vm._s(_vm.temp.remark))])
-                  ]
-                )
-              ])
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "el-row",
-            [
-              _c("el-col", { attrs: { span: 24 } }, [
-                _c(
-                  "div",
-                  { staticClass: "grid-content bg-purple-dark self-style" },
-                  [_c("span", [_vm._v("副卡信息")])]
-                )
-              ])
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "el-row",
-            _vm._l(_vm.temp.side_numbers, function(side, group_index) {
-              return _c(
-                "div",
-                { key: side.side_number },
-                [
-                  _c("el-col", { attrs: { span: 12 } }, [
-                    _c(
-                      "div",
-                      { staticClass: "grid-content bg-purple self-style" },
-                      [
-                        _vm._v(
-                          "\r\n          " +
-                            _vm._s(_vm.$t("info.side_number_num")) +
-                            ":"
-                        ),
-                        _c("span", [_vm._v(_vm._s(side.side_number))])
-                      ]
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _c("el-col", { attrs: { span: 12 } }, [
-                    _c(
-                      "div",
-                      { staticClass: "grid-content bg-purple self-style" },
-                      [
-                        _vm._v(
-                          "\r\n          " +
-                            _vm._s(_vm.$t("info.side_uim_number")) +
-                            ":"
-                        ),
-                        _c("span", [_vm._v(_vm._s(side.side_uim_number))])
-                      ]
-                    )
-                  ])
-                ],
-                1
-              )
-            })
-          ),
-          _vm._v(" "),
-          _c(
-            "el-row",
-            [
-              _c("el-col", { attrs: { span: 24 } }, [
-                _c(
-                  "div",
-                  { staticClass: "grid-content bg-purple-dark self-style" },
-                  [_c("span", [_vm._v("套餐信息")])]
-                )
-              ])
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "el-row",
-            [
-              _c("el-col", { attrs: { span: 8 } }, [
-                _c(
-                  "div",
-                  { staticClass: "grid-content bg-purple self-style" },
-                  [
-                    _vm._v(
-                      "\r\n          " + _vm._s(_vm.$t("package.name")) + ":"
-                    ),
-                    _c("span", [_vm._v(_vm._s(_vm.temp.has_one_package.name))])
-                  ]
-                )
-              ]),
-              _vm._v(" "),
-              _c("el-col", { attrs: { span: 8 } }, [
-                _c(
-                  "div",
-                  { staticClass: "grid-content bg-purple self-style" },
-                  [
-                    _vm._v(
-                      "\r\n          " +
-                        _vm._s(_vm.$t("package.month_nums")) +
-                        ":"
-                    ),
-                    _c("span", [
-                      _vm._v(_vm._s(_vm.temp.has_one_package.month_nums))
-                    ])
-                  ]
-                )
-              ]),
-              _vm._v(" "),
-              _c("el-col", { attrs: { span: 8 } }, [
-                _c(
-                  "div",
-                  { staticClass: "grid-content bg-purple self-style" },
-                  [
-                    _vm._v(
-                      "\r\n          " +
-                        _vm._s(_vm.$t("package.package_price")) +
-                        ":"
-                    ),
-                    _c("span", [
-                      _vm._v(_vm._s(_vm.temp.has_one_package.package_price))
-                    ])
-                  ]
-                )
-              ])
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "el-row",
-            [
-              _c("el-col", { attrs: { span: 24 } }, [
-                _c(
-                  "div",
-                  { staticClass: "grid-content bg-purple-dark self-style" },
-                  [_c("span", [_vm._v("返还信息")])]
-                )
-              ])
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "el-row",
-            _vm._l(_vm.temp.has_many_info_dianxin, function(info, info_index) {
-              return _c(
-                "div",
-                { key: info_index },
-                [
-                  _c("el-col", { attrs: { span: 8 } }, [
-                    _c(
-                      "div",
-                      { staticClass: "grid-content bg-purple self-style" },
-                      [
-                        _vm._v(
-                          "\r\n          " +
-                            _vm._s(_vm.$t("infoDianXin.refunds")) +
-                            ":"
-                        ),
-                        _c("span", [_vm._v(_vm._s(info.refunds))])
-                      ]
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _c("el-col", { attrs: { span: 8 } }, [
-                    _c(
-                      "div",
-                      { staticClass: "grid-content bg-purple self-style" },
-                      [
-                        _vm._v(
-                          "\r\n            " +
-                            _vm._s(_vm.$t("infoDianXin.balance_month")) +
-                            ":"
-                        ),
-                        _c("span", [_vm._v(_vm._s(info.balance_month))])
-                      ]
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _c("el-col", { attrs: { span: 8 } }, [
-                    _c(
-                      "div",
-                      { staticClass: "grid-content bg-purple self-style" },
-                      [
-                        _vm._v(
-                          "\r\n            " +
-                            _vm._s(_vm.$t("infoDianXin.netin")) +
-                            ":"
-                        ),
-                        _c("span", [_vm._v(_vm._s(info.netin))])
-                      ]
-                    )
-                  ])
-                ],
-                1
-              )
-            })
           )
         ],
         1
@@ -3985,7 +3369,10 @@ var render = function() {
           _c("el-input", {
             staticClass: "filter-item",
             staticStyle: { width: "150px" },
-            attrs: { placeholder: _vm.$t("info.new_telephone"), clearable: "" },
+            attrs: {
+              placeholder: _vm.$t("infoDianxin.return_telephone"),
+              clearable: ""
+            },
             model: {
               value: _vm.listQuery.selectTelephone,
               callback: function($$v) {
@@ -4058,30 +3445,6 @@ var render = function() {
                   return _c("el-option", {
                     key: item,
                     attrs: { label: item, value: key }
-                  })
-                })
-              )
-            : _vm._e(),
-          _vm._v(" "),
-          _vm.isAdmin
-            ? _c(
-                "el-select",
-                {
-                  staticClass: "filter-item",
-                  staticStyle: { width: "100px" },
-                  attrs: { clearable: "", filterable: "", placeholder: "销售" },
-                  model: {
-                    value: _vm.listQuery.creater_id,
-                    callback: function($$v) {
-                      _vm.$set(_vm.listQuery, "creater_id", $$v)
-                    },
-                    expression: "listQuery.creater_id"
-                  }
-                },
-                _vm._l(_vm.userList, function(user) {
-                  return _c("el-option", {
-                    key: user.id,
-                    attrs: { label: user.nick_name, value: user.id }
                   })
                 })
               )
@@ -4177,53 +3540,7 @@ var render = function() {
           _vm._v(" "),
           _c("el-table-column", {
             attrs: {
-              label: _vm.$t("info.project_name"),
-              "show-overflow-tooltip": "",
-              align: "center"
-            },
-            scopedSlots: _vm._u([
-              {
-                key: "default",
-                fn: function(scope) {
-                  return [_c("span", [_vm._v(_vm._s(scope.row.project_name))])]
-                }
-              }
-            ])
-          }),
-          _vm._v(" "),
-          _c("el-table-column", {
-            attrs: {
-              label: _vm.$t("info.new_telephone"),
-              align: "center",
-              "min-width": "120%"
-            },
-            scopedSlots: _vm._u([
-              {
-                key: "default",
-                fn: function(scope) {
-                  return [_c("span", [_vm._v(_vm._s(scope.row.new_telephone))])]
-                }
-              }
-            ])
-          }),
-          _vm._v(" "),
-          _c("el-table-column", {
-            attrs: { label: _vm.$t("info.side_number_num"), align: "center" },
-            scopedSlots: _vm._u([
-              {
-                key: "default",
-                fn: function(scope) {
-                  return [
-                    _c("span", [_vm._v(_vm._s(scope.row.side_number_num))])
-                  ]
-                }
-              }
-            ])
-          }),
-          _vm._v(" "),
-          _c("el-table-column", {
-            attrs: {
-              label: _vm.$t("info.is_jituan"),
+              label: _vm.$t("infoDianxin.return_telephone"),
               "show-overflow-tooltip": "",
               align: "center"
             },
@@ -4232,17 +3549,7 @@ var render = function() {
                 key: "default",
                 fn: function(scope) {
                   return [
-                    _c(
-                      "el-tag",
-                      {
-                        attrs: {
-                          type: _vm._f("jituanStatusFilter")(
-                            scope.row.is_jituan
-                          )
-                        }
-                      },
-                      [_vm._v(_vm._s(_vm.jiTuanStatusMap[scope.row.is_jituan]))]
-                    )
+                    _c("span", [_vm._v(_vm._s(scope.row.return_telephone))])
                   ]
                 }
               }
@@ -4250,29 +3557,38 @@ var render = function() {
           }),
           _vm._v(" "),
           _c("el-table-column", {
-            attrs: { label: _vm.$t("info.package"), align: "center" },
+            attrs: { label: _vm.$t("infoDianxin.refunds"), align: "center" },
             scopedSlots: _vm._u([
               {
                 key: "default",
                 fn: function(scope) {
-                  return [
-                    _c("span", [
-                      _vm._v(
-                        _vm._s(
-                          scope.row.has_one_package
-                            ? scope.row.has_one_package.name
-                            : ""
-                        )
-                      )
-                    ])
-                  ]
+                  return [_c("span", [_vm._v(_vm._s(scope.row.refunds))])]
                 }
               }
             ])
           }),
           _vm._v(" "),
           _c("el-table-column", {
-            attrs: { label: _vm.$t("info.name"), align: "center" },
+            attrs: {
+              label: _vm.$t("infoDianxin.balance_month"),
+              align: "center"
+            },
+            scopedSlots: _vm._u([
+              {
+                key: "default",
+                fn: function(scope) {
+                  return [_c("span", [_vm._v(_vm._s(scope.row.balance_month))])]
+                }
+              }
+            ])
+          }),
+          _vm._v(" "),
+          _c("el-table-column", {
+            attrs: {
+              label: _vm.$t("infoDianxin.name"),
+              "show-overflow-tooltip": "",
+              align: "center"
+            },
             scopedSlots: _vm._u([
               {
                 key: "default",
@@ -4284,25 +3600,7 @@ var render = function() {
           }),
           _vm._v(" "),
           _c("el-table-column", {
-            attrs: {
-              label: _vm.$t("info.user_telephone"),
-              align: "center",
-              "min-width": "120%"
-            },
-            scopedSlots: _vm._u([
-              {
-                key: "default",
-                fn: function(scope) {
-                  return [
-                    _c("span", [_vm._v(_vm._s(scope.row.user_telephone))])
-                  ]
-                }
-              }
-            ])
-          }),
-          _vm._v(" "),
-          _c("el-table-column", {
-            attrs: { label: _vm.$t("info.netin"), align: "center" },
+            attrs: { label: _vm.$t("infoDianxin.netin"), align: "center" },
             scopedSlots: _vm._u([
               {
                 key: "default",
@@ -4315,7 +3613,7 @@ var render = function() {
           _vm._v(" "),
           _vm.isAdmin
             ? _c("el-table-column", {
-                attrs: { label: _vm.$t("info.status"), align: "center" },
+                attrs: { label: _vm.$t("infoDianxin.status"), align: "center" },
                 scopedSlots: _vm._u([
                   {
                     key: "default",
@@ -4339,7 +3637,7 @@ var render = function() {
           _vm._v(" "),
           _c("el-table-column", {
             attrs: {
-              label: _vm.$t("table.date"),
+              label: _vm.$t("infoDianxin.import"),
               width: "150px",
               align: "center"
             },
@@ -4506,11 +3804,11 @@ var render = function() {
         {
           attrs: {
             title: _vm.textMap[_vm.dialogStatus],
-            visible: _vm.infoDialogFormVisible
+            visible: _vm.infoDianxinDialogFormVisible
           },
           on: {
             "update:visible": function($event) {
-              _vm.infoDialogFormVisible = $event
+              _vm.infoDianxinDialogFormVisible = $event
             }
           }
         },
@@ -4542,7 +3840,7 @@ var render = function() {
                         [
                           _c(
                             "el-form-item",
-                            { attrs: { label: _vm.$t("info.netin") } },
+                            { attrs: { label: _vm.$t("infoDianxin.netin") } },
                             [
                               _c(
                                 "el-col",
@@ -4620,53 +3918,6 @@ var render = function() {
                           )
                         ],
                         1
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "el-col",
-                        { attrs: { span: 12 } },
-                        [
-                          _c(
-                            "el-form-item",
-                            {
-                              attrs: {
-                                label: _vm.$t("info.manager_name"),
-                                align: "center",
-                                prop: "manage_id"
-                              }
-                            },
-                            [
-                              _c(
-                                "el-select",
-                                {
-                                  staticClass: "filter-item",
-                                  attrs: {
-                                    filterable: "",
-                                    placeholder: "输入姓名可搜索"
-                                  },
-                                  model: {
-                                    value: _vm.temp.manage_id,
-                                    callback: function($$v) {
-                                      _vm.$set(_vm.temp, "manage_id", $$v)
-                                    },
-                                    expression: "temp.manage_id"
-                                  }
-                                },
-                                _vm._l(_vm.managerList, function(manage) {
-                                  return _c("el-option", {
-                                    key: manage.id,
-                                    attrs: {
-                                      label: manage.name,
-                                      value: manage.id
-                                    }
-                                  })
-                                })
-                              )
-                            ],
-                            1
-                          )
-                        ],
-                        1
                       )
                     ],
                     1
@@ -4683,19 +3934,19 @@ var render = function() {
                             "el-form-item",
                             {
                               attrs: {
-                                label: _vm.$t("info.project_name"),
+                                label: _vm.$t("infoDianxin.return_telephone"),
                                 align: "center",
-                                prop: "project_name"
+                                prop: "return_telephone"
                               }
                             },
                             [
                               _c("el-input", {
                                 model: {
-                                  value: _vm.temp.project_name,
+                                  value: _vm.temp.return_telephone,
                                   callback: function($$v) {
-                                    _vm.$set(_vm.temp, "project_name", $$v)
+                                    _vm.$set(_vm.temp, "return_telephone", $$v)
                                   },
-                                  expression: "temp.project_name"
+                                  expression: "temp.return_telephone"
                                 }
                               })
                             ],
@@ -4713,7 +3964,7 @@ var render = function() {
                             "el-form-item",
                             {
                               attrs: {
-                                label: _vm.$t("info.name"),
+                                label: _vm.$t("infoDianxin.name"),
                                 align: "center",
                                 prop: "name"
                               }
@@ -4743,270 +3994,27 @@ var render = function() {
                     [
                       _c(
                         "el-col",
-                        { attrs: { span: 24 } },
-                        [
-                          _c(
-                            "el-form-item",
-                            {
-                              attrs: {
-                                label: _vm.$t("info.new_telephone"),
-                                prop: "new_telephone"
-                              }
-                            },
-                            [
-                              _c(
-                                "el-col",
-                                { attrs: { span: 9 } },
-                                [
-                                  _c("el-input", {
-                                    attrs: {
-                                      disabled: _vm.infoNewTelephoneDisabled,
-                                      placeholder: "新号码"
-                                    },
-                                    model: {
-                                      value: _vm.temp.new_telephone,
-                                      callback: function($$v) {
-                                        _vm.$set(_vm.temp, "new_telephone", $$v)
-                                      },
-                                      expression: "temp.new_telephone"
-                                    }
-                                  })
-                                ],
-                                1
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "el-col",
-                                {
-                                  staticClass: "line",
-                                  staticStyle: { "text-align": "center" },
-                                  attrs: { span: 1 }
-                                },
-                                [_vm._v("-")]
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "el-col",
-                                { attrs: { span: 9 } },
-                                [
-                                  _c("el-input", {
-                                    attrs: { placeholder: "UIM码" },
-                                    model: {
-                                      value: _vm.temp.uim_number,
-                                      callback: function($$v) {
-                                        _vm.$set(_vm.temp, "uim_number", $$v)
-                                      },
-                                      expression: "temp.uim_number"
-                                    }
-                                  })
-                                ],
-                                1
-                              )
-                            ],
-                            1
-                          )
-                        ],
-                        1
-                      )
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "el-row",
-                    [
-                      _c(
-                        "el-col",
-                        { attrs: { span: 24 } },
-                        [
-                          _c(
-                            "el-form-item",
-                            { attrs: { label: _vm.$t("info.side_number") } },
-                            _vm._l(_vm.temp.side_numbers, function(
-                              side,
-                              side_index
-                            ) {
-                              return _c(
-                                "div",
-                                {
-                                  key: side_index,
-                                  model: {
-                                    value: _vm.temp.side_numbers,
-                                    callback: function($$v) {
-                                      _vm.$set(_vm.temp, "side_numbers", $$v)
-                                    },
-                                    expression: "temp.side_numbers"
-                                  }
-                                },
-                                [
-                                  _c(
-                                    "el-col",
-                                    { attrs: { span: 9 } },
-                                    [
-                                      _c("el-input", {
-                                        staticStyle: { "margin-bottom": "5px" },
-                                        attrs: { placeholder: "副卡" },
-                                        model: {
-                                          value: side.side_number,
-                                          callback: function($$v) {
-                                            _vm.$set(side, "side_number", $$v)
-                                          },
-                                          expression: "side.side_number"
-                                        }
-                                      })
-                                    ],
-                                    1
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "el-col",
-                                    {
-                                      staticClass: "line",
-                                      staticStyle: {
-                                        "text-align": "center",
-                                        "margin-bottom": "5px"
-                                      },
-                                      attrs: { span: 1 }
-                                    },
-                                    [_vm._v("-")]
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "el-col",
-                                    { attrs: { span: 9 } },
-                                    [
-                                      _c("el-input", {
-                                        staticStyle: { "margin-bottom": "5px" },
-                                        attrs: { placeholder: "副卡UIM码" },
-                                        model: {
-                                          value: side.uim,
-                                          callback: function($$v) {
-                                            _vm.$set(side, "uim", $$v)
-                                          },
-                                          expression: "side.uim"
-                                        }
-                                      })
-                                    ],
-                                    1
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "el-col",
-                                    { attrs: { span: 4 } },
-                                    [
-                                      side.add
-                                        ? _c(
-                                            "el-button",
-                                            {
-                                              staticStyle: {
-                                                "margin-left": "5px"
-                                              },
-                                              attrs: { type: "success" },
-                                              on: { click: _vm.sideAdd }
-                                            },
-                                            [
-                                              _vm._v(
-                                                "\r\n                    " +
-                                                  _vm._s(
-                                                    _vm.$t(
-                                                      "info.side_number_add"
-                                                    )
-                                                  ) +
-                                                  "\r\n                  "
-                                              )
-                                            ]
-                                          )
-                                        : _c(
-                                            "el-button",
-                                            {
-                                              staticStyle: {
-                                                "margin-left": "5px"
-                                              },
-                                              attrs: {
-                                                type: "danger",
-                                                dataIndex: side_index
-                                              },
-                                              on: {
-                                                click: function($event) {
-                                                  _vm.sideRemove($event)
-                                                }
-                                              }
-                                            },
-                                            [
-                                              _vm._v(
-                                                "\r\n                    " +
-                                                  _vm._s(
-                                                    _vm.$t(
-                                                      "info.side_number_remove"
-                                                    )
-                                                  ) +
-                                                  "\r\n                  "
-                                              )
-                                            ]
-                                          )
-                                    ],
-                                    1
-                                  )
-                                ],
-                                1
-                              )
-                            })
-                          )
-                        ],
-                        1
-                      )
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "el-row",
-                    [
-                      _c(
-                        "el-col",
                         { attrs: { span: 12 } },
                         [
                           _c(
                             "el-form-item",
                             {
                               attrs: {
-                                label: _vm.$t("info.package"),
+                                label: _vm.$t("infoDianxin.manager"),
                                 align: "center",
-                                prop: "package_id"
+                                prop: "manager"
                               }
                             },
                             [
-                              _c(
-                                "el-select",
-                                {
-                                  staticClass: "filter-item",
-                                  attrs: {
-                                    filterable: "",
-                                    placeholder: "输入套餐搜索"
+                              _c("el-input", {
+                                model: {
+                                  value: _vm.temp.manager,
+                                  callback: function($$v) {
+                                    _vm.$set(_vm.temp, "manager", $$v)
                                   },
-                                  on: {
-                                    change: function($event) {
-                                      _vm.packageChange($event)
-                                    }
-                                  },
-                                  model: {
-                                    value: _vm.temp.package_id,
-                                    callback: function($$v) {
-                                      _vm.$set(_vm.temp, "package_id", $$v)
-                                    },
-                                    expression: "temp.package_id"
-                                  }
-                                },
-                                _vm._l(_vm.packageAll, function(package) {
-                                  return _c("el-option", {
-                                    key: package.id,
-                                    attrs: {
-                                      label: package.name,
-                                      value: package.id
-                                    }
-                                  })
-                                })
-                              )
+                                  expression: "temp.manager"
+                                }
+                              })
                             ],
                             1
                           )
@@ -5022,83 +4030,19 @@ var render = function() {
                             "el-form-item",
                             {
                               attrs: {
-                                label: _vm.$t("info.user_telephone"),
+                                label: _vm.$t("infoDianxin.jituan"),
                                 align: "center",
-                                prop: "user_telephone"
+                                prop: "jituan"
                               }
                             },
                             [
                               _c("el-input", {
                                 model: {
-                                  value: _vm.temp.user_telephone,
+                                  value: _vm.temp.jituan,
                                   callback: function($$v) {
-                                    _vm.$set(_vm.temp, "user_telephone", $$v)
+                                    _vm.$set(_vm.temp, "jituan", $$v)
                                   },
-                                  expression: "temp.user_telephone"
-                                }
-                              })
-                            ],
-                            1
-                          )
-                        ],
-                        1
-                      )
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "el-row",
-                    [
-                      _c(
-                        "el-col",
-                        { attrs: { span: 12 } },
-                        [
-                          _c(
-                            "el-form-item",
-                            { attrs: { label: _vm.$t("info.old_bind") } },
-                            [
-                              _c("el-switch", {
-                                attrs: {
-                                  "active-color": "#13ce66",
-                                  "inactive-color": "#ff4949"
-                                },
-                                model: {
-                                  value: _vm.temp.old_bind,
-                                  callback: function($$v) {
-                                    _vm.$set(_vm.temp, "old_bind", $$v)
-                                  },
-                                  expression: "temp.old_bind"
-                                }
-                              })
-                            ],
-                            1
-                          )
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "el-col",
-                        { attrs: { span: 12 } },
-                        [
-                          _c(
-                            "el-form-item",
-                            { attrs: { label: _vm.$t("info.is_jituan") } },
-                            [
-                              _c("el-switch", {
-                                attrs: {
-                                  "active-color": "#13ce66",
-                                  "inactive-color": "#ff4949",
-                                  "active-value": "1",
-                                  "inactive-value": "0"
-                                },
-                                model: {
-                                  value: _vm.temp.is_jituan,
-                                  callback: function($$v) {
-                                    _vm.$set(_vm.temp, "is_jituan", $$v)
-                                  },
-                                  expression: "temp.is_jituan"
+                                  expression: "temp.jituan"
                                 }
                               })
                             ],
@@ -5122,100 +4066,118 @@ var render = function() {
                             "el-form-item",
                             {
                               attrs: {
-                                label: _vm.$t("info.collections"),
-                                prop: "collections"
+                                label: _vm.$t("infoDianxin.yongjin"),
+                                align: "center"
                               }
                             },
                             [
                               _c("el-input", {
                                 model: {
-                                  value: _vm.temp.collections,
+                                  value: _vm.temp.yongjin,
+                                  callback: function($$v) {
+                                    _vm.$set(_vm.temp, "yongjin", $$v)
+                                  },
+                                  expression: "temp.yongjin"
+                                }
+                              })
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "el-col",
+                        { attrs: { span: 12 } },
+                        [
+                          _c(
+                            "el-form-item",
+                            {
+                              attrs: {
+                                label: _vm.$t("infoDianxin.refunds"),
+                                align: "center",
+                                prop: "refunds"
+                              }
+                            },
+                            [
+                              _c("el-input", {
+                                model: {
+                                  value: _vm.temp.refunds,
+                                  callback: function($$v) {
+                                    _vm.$set(_vm.temp, "refunds", _vm._n($$v))
+                                  },
+                                  expression: "temp.refunds"
+                                }
+                              })
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "el-row",
+                    [
+                      _c(
+                        "el-col",
+                        { attrs: { span: 12 } },
+                        [
+                          _c(
+                            "el-form-item",
+                            {
+                              attrs: {
+                                label: _vm.$t("infoDianxin.jiakuan"),
+                                align: "center",
+                                prop: "jiakuan"
+                              }
+                            },
+                            [
+                              _c("el-input", {
+                                model: {
+                                  value: _vm.temp.jiakuan,
+                                  callback: function($$v) {
+                                    _vm.$set(_vm.temp, "jiakuan", _vm._n($$v))
+                                  },
+                                  expression: "temp.jiakuan"
+                                }
+                              })
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "el-col",
+                        { attrs: { span: 12 } },
+                        [
+                          _c(
+                            "el-form-item",
+                            {
+                              attrs: {
+                                label: _vm.$t("infoDianxin.balance_month"),
+                                align: "center",
+                                prop: "balance_month"
+                              }
+                            },
+                            [
+                              _c("el-input", {
+                                model: {
+                                  value: _vm.temp.balance_month,
                                   callback: function($$v) {
                                     _vm.$set(
                                       _vm.temp,
-                                      "collections",
+                                      "balance_month",
                                       _vm._n($$v)
                                     )
                                   },
-                                  expression: "temp.collections"
-                                }
-                              })
-                            ],
-                            1
-                          )
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "el-col",
-                        { attrs: { span: 12 } },
-                        [
-                          _c(
-                            "el-form-item",
-                            {
-                              attrs: { label: _vm.$t("info.collections_type") }
-                            },
-                            [
-                              _c(
-                                "el-select",
-                                {
-                                  staticClass: "filter-item",
-                                  model: {
-                                    value: _vm.temp.collections_type,
-                                    callback: function($$v) {
-                                      _vm.$set(
-                                        _vm.temp,
-                                        "collections_type",
-                                        $$v
-                                      )
-                                    },
-                                    expression: "temp.collections_type"
-                                  }
-                                },
-                                _vm._l(_vm.collections_types, function(
-                                  item,
-                                  index
-                                ) {
-                                  return _c("el-option", {
-                                    key: item,
-                                    attrs: { label: item, value: index + 1 }
-                                  })
-                                })
-                              )
-                            ],
-                            1
-                          )
-                        ],
-                        1
-                      )
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "el-row",
-                    [
-                      _c(
-                        "el-col",
-                        { attrs: { span: 12 } },
-                        [
-                          _c(
-                            "el-form-item",
-                            { attrs: { label: _vm.$t("info.remark") } },
-                            [
-                              _c("el-input", {
-                                attrs: {
-                                  autosize: { minRows: 2, maxRows: 4 },
-                                  type: "textarea",
-                                  placeholder: "备注"
-                                },
-                                model: {
-                                  value: _vm.temp.remark,
-                                  callback: function($$v) {
-                                    _vm.$set(_vm.temp, "remark", $$v)
-                                  },
-                                  expression: "temp.remark"
+                                  expression: "temp.balance_month"
                                 }
                               })
                             ],
@@ -5246,7 +4208,7 @@ var render = function() {
                 {
                   on: {
                     click: function($event) {
-                      _vm.infoDialogFormVisible = false
+                      _vm.infoDianxinDialogFormVisible = false
                     }
                   }
                 },
@@ -35418,10 +34380,10 @@ var XLS = XLSX, ODS = XLSX;
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (immutable) */ __webpack_exports__["a"] = infoDianxinList;
+/* harmony export (immutable) */ __webpack_exports__["b"] = infoDianxinList;
 /* unused harmony export getInfoDianxin */
-/* unused harmony export createInfoDianxin */
-/* unused harmony export updateInfoDianxin */
+/* harmony export (immutable) */ __webpack_exports__["a"] = createInfoDianxin;
+/* harmony export (immutable) */ __webpack_exports__["c"] = updateInfoDianxin;
 /* unused harmony export deleteInfoDianxin */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils_request__ = __webpack_require__("./resources/assets/js/utils/request.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__utils_auth__ = __webpack_require__("./resources/assets/js/utils/auth.js");
@@ -35480,377 +34442,6 @@ function deleteInfoDianxin(data) {
 
   return Object(__WEBPACK_IMPORTED_MODULE_0__utils_request__["a" /* default */])({
     url: __WEBPACK_IMPORTED_MODULE_2__config_js__["a" /* ROAST_CONFIG */].API_URL + '/infoDianxin/' + data.id,
-    method: 'delete',
-    params: { token: token },
-    data: data
-  });
-}
-
-/***/ }),
-
-/***/ "./resources/assets/js/api/infoSelf.js":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (immutable) */ __webpack_exports__["d"] = infoList;
-/* harmony export (immutable) */ __webpack_exports__["c"] = getInfo;
-/* harmony export (immutable) */ __webpack_exports__["a"] = createInfo;
-/* harmony export (immutable) */ __webpack_exports__["e"] = updateInfo;
-/* harmony export (immutable) */ __webpack_exports__["b"] = deleteInfo;
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils_request__ = __webpack_require__("./resources/assets/js/utils/request.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__utils_auth__ = __webpack_require__("./resources/assets/js/utils/auth.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__config_js__ = __webpack_require__("./resources/assets/js/config.js");
-
-
-
-
-var token = Object(__WEBPACK_IMPORTED_MODULE_1__utils_auth__["a" /* getToken */])();
-
-function infoList(query) {
-  var token = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : Object(__WEBPACK_IMPORTED_MODULE_1__utils_auth__["a" /* getToken */])();
-
-  return Object(__WEBPACK_IMPORTED_MODULE_0__utils_request__["a" /* default */])({
-    // url: '/user/list',
-    url: __WEBPACK_IMPORTED_MODULE_2__config_js__["a" /* ROAST_CONFIG */].API_URL + '/infoSelfList',
-    method: 'get',
-    params: { query: query, token: token, page: query.page }
-  });
-}
-
-function getInfo(data) {
-  var token = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : Object(__WEBPACK_IMPORTED_MODULE_1__utils_auth__["a" /* getToken */])();
-
-  return Object(__WEBPACK_IMPORTED_MODULE_0__utils_request__["a" /* default */])({
-    url: __WEBPACK_IMPORTED_MODULE_2__config_js__["a" /* ROAST_CONFIG */].API_URL + '/getInfo/' + data.id,
-    method: 'get',
-    params: { token: token }
-  });
-}
-
-function createInfo(data) {
-  var token = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : Object(__WEBPACK_IMPORTED_MODULE_1__utils_auth__["a" /* getToken */])();
-
-  return Object(__WEBPACK_IMPORTED_MODULE_0__utils_request__["a" /* default */])({
-    url: __WEBPACK_IMPORTED_MODULE_2__config_js__["a" /* ROAST_CONFIG */].API_URL + '/infoSelf',
-    method: 'post',
-    data: data,
-    params: { token: token }
-  });
-}
-
-function updateInfo(data) {
-  var token = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : Object(__WEBPACK_IMPORTED_MODULE_1__utils_auth__["a" /* getToken */])();
-
-  return Object(__WEBPACK_IMPORTED_MODULE_0__utils_request__["a" /* default */])({
-    url: __WEBPACK_IMPORTED_MODULE_2__config_js__["a" /* ROAST_CONFIG */].API_URL + '/infoSelf/' + data.id,
-    method: 'put',
-    params: { token: token },
-    data: data
-  });
-}
-
-function deleteInfo(data) {
-  var token = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : Object(__WEBPACK_IMPORTED_MODULE_1__utils_auth__["a" /* getToken */])();
-
-  return Object(__WEBPACK_IMPORTED_MODULE_0__utils_request__["a" /* default */])({
-    url: __WEBPACK_IMPORTED_MODULE_2__config_js__["a" /* ROAST_CONFIG */].API_URL + '/infoSelf/' + data.id,
-    method: 'delete',
-    params: { token: token },
-    data: data
-  });
-}
-
-/***/ }),
-
-/***/ "./resources/assets/js/api/manager.js":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (immutable) */ __webpack_exports__["d"] = managerList;
-/* harmony export (immutable) */ __webpack_exports__["c"] = managerAll;
-/* harmony export (immutable) */ __webpack_exports__["a"] = createManager;
-/* harmony export (immutable) */ __webpack_exports__["e"] = updateManager;
-/* harmony export (immutable) */ __webpack_exports__["b"] = deleteManager;
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils_request__ = __webpack_require__("./resources/assets/js/utils/request.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__utils_auth__ = __webpack_require__("./resources/assets/js/utils/auth.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__config_js__ = __webpack_require__("./resources/assets/js/config.js");
-
-
-
-
-var token = Object(__WEBPACK_IMPORTED_MODULE_1__utils_auth__["a" /* getToken */])();
-
-function managerList(query) {
-  var token = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : Object(__WEBPACK_IMPORTED_MODULE_1__utils_auth__["a" /* getToken */])();
-
-  return Object(__WEBPACK_IMPORTED_MODULE_0__utils_request__["a" /* default */])({
-    // url: '/user/list',
-    url: __WEBPACK_IMPORTED_MODULE_2__config_js__["a" /* ROAST_CONFIG */].API_URL + '/managerList',
-    method: 'get',
-    params: { token: token, page: query.page }
-  });
-}
-
-function managerAll() {
-  var token = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : Object(__WEBPACK_IMPORTED_MODULE_1__utils_auth__["a" /* getToken */])();
-
-  return Object(__WEBPACK_IMPORTED_MODULE_0__utils_request__["a" /* default */])({
-    // url: '/user/list',
-    url: __WEBPACK_IMPORTED_MODULE_2__config_js__["a" /* ROAST_CONFIG */].API_URL + '/managerAll',
-    method: 'get',
-    params: { token: token }
-  });
-}
-
-function createManager(data) {
-  var token = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : Object(__WEBPACK_IMPORTED_MODULE_1__utils_auth__["a" /* getToken */])();
-
-  return Object(__WEBPACK_IMPORTED_MODULE_0__utils_request__["a" /* default */])({
-    url: __WEBPACK_IMPORTED_MODULE_2__config_js__["a" /* ROAST_CONFIG */].API_URL + '/manager',
-    method: 'post',
-    data: data,
-    params: { token: token }
-  });
-}
-
-function updateManager(data) {
-  var token = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : Object(__WEBPACK_IMPORTED_MODULE_1__utils_auth__["a" /* getToken */])();
-
-  return Object(__WEBPACK_IMPORTED_MODULE_0__utils_request__["a" /* default */])({
-    url: __WEBPACK_IMPORTED_MODULE_2__config_js__["a" /* ROAST_CONFIG */].API_URL + '/manager/' + data.id,
-    method: 'put',
-    params: { token: token },
-    data: data
-  });
-}
-
-function deleteManager(data) {
-  var token = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : Object(__WEBPACK_IMPORTED_MODULE_1__utils_auth__["a" /* getToken */])();
-
-  return Object(__WEBPACK_IMPORTED_MODULE_0__utils_request__["a" /* default */])({
-    url: __WEBPACK_IMPORTED_MODULE_2__config_js__["a" /* ROAST_CONFIG */].API_URL + '/manager/' + data.id,
-    method: 'delete',
-    params: { token: token },
-    data: data
-  });
-}
-
-/***/ }),
-
-/***/ "./resources/assets/js/api/package.js":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (immutable) */ __webpack_exports__["e"] = packageList;
-/* harmony export (immutable) */ __webpack_exports__["d"] = packageAll;
-/* harmony export (immutable) */ __webpack_exports__["c"] = getPackage;
-/* harmony export (immutable) */ __webpack_exports__["a"] = createPackage;
-/* harmony export (immutable) */ __webpack_exports__["f"] = updatePackage;
-/* harmony export (immutable) */ __webpack_exports__["b"] = deletePackage;
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils_request__ = __webpack_require__("./resources/assets/js/utils/request.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__utils_auth__ = __webpack_require__("./resources/assets/js/utils/auth.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__config_js__ = __webpack_require__("./resources/assets/js/config.js");
-
-
-
-
-var token = Object(__WEBPACK_IMPORTED_MODULE_1__utils_auth__["a" /* getToken */])();
-
-function packageList(query) {
-  var token = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : Object(__WEBPACK_IMPORTED_MODULE_1__utils_auth__["a" /* getToken */])();
-
-  return Object(__WEBPACK_IMPORTED_MODULE_0__utils_request__["a" /* default */])({
-    // url: '/user/list',
-    url: __WEBPACK_IMPORTED_MODULE_2__config_js__["a" /* ROAST_CONFIG */].API_URL + '/packageList',
-    method: 'get',
-    params: { token: token, page: query.page }
-  });
-}
-
-function packageAll() {
-  var token = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : Object(__WEBPACK_IMPORTED_MODULE_1__utils_auth__["a" /* getToken */])();
-
-  return Object(__WEBPACK_IMPORTED_MODULE_0__utils_request__["a" /* default */])({
-    // url: '/user/list',
-    url: __WEBPACK_IMPORTED_MODULE_2__config_js__["a" /* ROAST_CONFIG */].API_URL + '/packageAll',
-    method: 'get',
-    params: { token: token }
-  });
-}
-
-function getPackage(data) {
-  var token = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : Object(__WEBPACK_IMPORTED_MODULE_1__utils_auth__["a" /* getToken */])();
-
-  return Object(__WEBPACK_IMPORTED_MODULE_0__utils_request__["a" /* default */])({
-    url: __WEBPACK_IMPORTED_MODULE_2__config_js__["a" /* ROAST_CONFIG */].API_URL + '/getPackage/' + data.id,
-    method: 'get',
-    params: { token: token }
-  });
-}
-
-function createPackage(data) {
-  var token = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : Object(__WEBPACK_IMPORTED_MODULE_1__utils_auth__["a" /* getToken */])();
-
-  return Object(__WEBPACK_IMPORTED_MODULE_0__utils_request__["a" /* default */])({
-    url: __WEBPACK_IMPORTED_MODULE_2__config_js__["a" /* ROAST_CONFIG */].API_URL + '/package',
-    method: 'post',
-    data: data,
-    params: { token: token }
-  });
-}
-
-function updatePackage(data) {
-  var token = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : Object(__WEBPACK_IMPORTED_MODULE_1__utils_auth__["a" /* getToken */])();
-
-  return Object(__WEBPACK_IMPORTED_MODULE_0__utils_request__["a" /* default */])({
-    url: __WEBPACK_IMPORTED_MODULE_2__config_js__["a" /* ROAST_CONFIG */].API_URL + '/package/' + data.id,
-    method: 'put',
-    params: { token: token },
-    data: data
-  });
-}
-
-function deletePackage(data) {
-  var token = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : Object(__WEBPACK_IMPORTED_MODULE_1__utils_auth__["a" /* getToken */])();
-
-  return Object(__WEBPACK_IMPORTED_MODULE_0__utils_request__["a" /* default */])({
-    url: __WEBPACK_IMPORTED_MODULE_2__config_js__["a" /* ROAST_CONFIG */].API_URL + '/package/' + data.id,
-    method: 'delete',
-    params: { token: token },
-    data: data
-  });
-}
-
-/***/ }),
-
-/***/ "./resources/assets/js/api/user.js":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (immutable) */ __webpack_exports__["c"] = fetchList;
-/* harmony export (immutable) */ __webpack_exports__["h"] = userAll;
-/* unused harmony export getRoles */
-/* harmony export (immutable) */ __webpack_exports__["d"] = getUserRoles;
-/* harmony export (immutable) */ __webpack_exports__["e"] = giveUserRoles;
-/* unused harmony export fetchArticle */
-/* unused harmony export fetchPv */
-/* harmony export (immutable) */ __webpack_exports__["a"] = createUser;
-/* harmony export (immutable) */ __webpack_exports__["f"] = resetPassword;
-/* harmony export (immutable) */ __webpack_exports__["g"] = updateUser;
-/* harmony export (immutable) */ __webpack_exports__["b"] = deleteUser;
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils_request__ = __webpack_require__("./resources/assets/js/utils/request.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__utils_auth__ = __webpack_require__("./resources/assets/js/utils/auth.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__config_js__ = __webpack_require__("./resources/assets/js/config.js");
-
-
-
-
-var token = Object(__WEBPACK_IMPORTED_MODULE_1__utils_auth__["a" /* getToken */])();
-
-function fetchList(query) {
-  var token = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : Object(__WEBPACK_IMPORTED_MODULE_1__utils_auth__["a" /* getToken */])();
-
-  return Object(__WEBPACK_IMPORTED_MODULE_0__utils_request__["a" /* default */])({
-    // url: '/user/list',
-    url: __WEBPACK_IMPORTED_MODULE_2__config_js__["a" /* ROAST_CONFIG */].API_URL + '/userList',
-    method: 'get',
-    query: query,
-    params: { token: token, page: query.page }
-  });
-}
-
-function userAll() {
-  var token = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : Object(__WEBPACK_IMPORTED_MODULE_1__utils_auth__["a" /* getToken */])();
-
-  return Object(__WEBPACK_IMPORTED_MODULE_0__utils_request__["a" /* default */])({
-    // url: '/user/list',
-    url: __WEBPACK_IMPORTED_MODULE_2__config_js__["a" /* ROAST_CONFIG */].API_URL + '/userAll',
-    method: 'get',
-    params: { token: token }
-  });
-}
-
-function getRoles(query) {
-  var token = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : Object(__WEBPACK_IMPORTED_MODULE_1__utils_auth__["a" /* getToken */])();
-
-  return Object(__WEBPACK_IMPORTED_MODULE_0__utils_request__["a" /* default */])({
-    // url: '/user/list',
-    url: __WEBPACK_IMPORTED_MODULE_2__config_js__["a" /* ROAST_CONFIG */].API_URL + '/roleList',
-    method: 'get',
-    query: query,
-    params: { token: token, page: query.page }
-  });
-}
-
-function getUserRoles(data) {
-  var token = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : Object(__WEBPACK_IMPORTED_MODULE_1__utils_auth__["a" /* getToken */])();
-
-  return Object(__WEBPACK_IMPORTED_MODULE_0__utils_request__["a" /* default */])({
-    url: __WEBPACK_IMPORTED_MODULE_2__config_js__["a" /* ROAST_CONFIG */].API_URL + '/user/' + data.id + '/roles',
-    method: 'get',
-    params: { token: token },
-    data: data
-  });
-}
-
-function giveUserRoles(data) {
-  var token = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : Object(__WEBPACK_IMPORTED_MODULE_1__utils_auth__["a" /* getToken */])();
-
-  return Object(__WEBPACK_IMPORTED_MODULE_0__utils_request__["a" /* default */])({
-    url: __WEBPACK_IMPORTED_MODULE_2__config_js__["a" /* ROAST_CONFIG */].API_URL + '/giveUser/' + data.id + '/roles',
-    method: 'post',
-    params: { token: token },
-    data: data
-  });
-}
-
-function fetchArticle(id) {
-  return Object(__WEBPACK_IMPORTED_MODULE_0__utils_request__["a" /* default */])({
-    url: '/article/detail',
-    method: 'get',
-    params: { id: id }
-  });
-}
-
-function fetchPv(pv) {
-  return Object(__WEBPACK_IMPORTED_MODULE_0__utils_request__["a" /* default */])({
-    url: '/article/pv',
-    method: 'get',
-    params: { pv: pv }
-  });
-}
-
-function createUser(data) {
-  return Object(__WEBPACK_IMPORTED_MODULE_0__utils_request__["a" /* default */])({
-    url: __WEBPACK_IMPORTED_MODULE_2__config_js__["a" /* ROAST_CONFIG */].API_URL + '/user',
-    method: 'post',
-    params: { token: token },
-    data: data
-  });
-}
-
-function resetPassword(data) {
-  return Object(__WEBPACK_IMPORTED_MODULE_0__utils_request__["a" /* default */])({
-    url: __WEBPACK_IMPORTED_MODULE_2__config_js__["a" /* ROAST_CONFIG */].API_URL + '/resetPassword',
-    method: 'post',
-    params: { token: token },
-    data: data
-  });
-}
-
-function updateUser(data) {
-  return Object(__WEBPACK_IMPORTED_MODULE_0__utils_request__["a" /* default */])({
-    url: __WEBPACK_IMPORTED_MODULE_2__config_js__["a" /* ROAST_CONFIG */].API_URL + '/user/' + data.id,
-    method: 'put',
-    params: { token: token },
-    data: data
-  });
-}
-function deleteUser(data) {
-  var token = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : Object(__WEBPACK_IMPORTED_MODULE_1__utils_auth__["a" /* getToken */])();
-
-  return Object(__WEBPACK_IMPORTED_MODULE_0__utils_request__["a" /* default */])({
-    url: __WEBPACK_IMPORTED_MODULE_2__config_js__["a" /* ROAST_CONFIG */].API_URL + '/user/' + data.id,
     method: 'delete',
     params: { token: token },
     data: data

@@ -324,8 +324,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       infoNewTelephoneDisabled: false,
       collections_types: __WEBPACK_IMPORTED_MODULE_6__config_js__["b" /* collections_type */],
       infoNameDisabled: false,
-      package_year: __WEBPACK_IMPORTED_MODULE_6__config_js__["g" /* package_year */],
-      package_month: __WEBPACK_IMPORTED_MODULE_6__config_js__["f" /* package_month */],
+      package_year: __WEBPACK_IMPORTED_MODULE_6__config_js__["h" /* package_year */],
+      package_month: __WEBPACK_IMPORTED_MODULE_6__config_js__["g" /* package_month */],
       managerList: [],
       packageAll: [],
       rules: {
@@ -788,9 +788,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         has_one_package: { name: null, month_nums: null, package_price: null }
       },
       dialogInfoVisible: false,
-      statusMap: __WEBPACK_IMPORTED_MODULE_4__config_js__["c" /* infoSelfStatus */],
-      jiTuanStatusMap: __WEBPACK_IMPORTED_MODULE_4__config_js__["d" /* jituanStatus */],
-      oldBindStatusMap: __WEBPACK_IMPORTED_MODULE_4__config_js__["e" /* oldBindStatus */],
+      statusMap: __WEBPACK_IMPORTED_MODULE_4__config_js__["d" /* infoSelfStatus */],
+      jiTuanStatusMap: __WEBPACK_IMPORTED_MODULE_4__config_js__["e" /* jituanStatus */],
+      oldBindStatusMap: __WEBPACK_IMPORTED_MODULE_4__config_js__["f" /* oldBindStatus */],
       collections_type: __WEBPACK_IMPORTED_MODULE_4__config_js__["b" /* collections_type */]
     };
   },
@@ -1062,11 +1062,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       },
       userList: [],
       isAdmin: false,
-      package_year: __WEBPACK_IMPORTED_MODULE_11__config_js__["g" /* package_year */],
-      package_month: __WEBPACK_IMPORTED_MODULE_11__config_js__["f" /* package_month */],
-      statusMap: __WEBPACK_IMPORTED_MODULE_11__config_js__["c" /* infoSelfStatus */],
-      jiTuanStatusMap: __WEBPACK_IMPORTED_MODULE_11__config_js__["d" /* jituanStatus */],
-      oldBindStatusMap: __WEBPACK_IMPORTED_MODULE_11__config_js__["e" /* oldBindStatus */],
+      package_year: __WEBPACK_IMPORTED_MODULE_11__config_js__["h" /* package_year */],
+      package_month: __WEBPACK_IMPORTED_MODULE_11__config_js__["g" /* package_month */],
+      statusMap: __WEBPACK_IMPORTED_MODULE_11__config_js__["d" /* infoSelfStatus */],
+      jiTuanStatusMap: __WEBPACK_IMPORTED_MODULE_11__config_js__["e" /* jituanStatus */],
+      oldBindStatusMap: __WEBPACK_IMPORTED_MODULE_11__config_js__["f" /* oldBindStatus */],
       collectionsTypeMap: __WEBPACK_IMPORTED_MODULE_11__config_js__["b" /* collections_type */],
       downloadLoading: false
     };
@@ -1231,6 +1231,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     handleCurrentChange: function handleCurrentChange(val) {
       this.listQuery.page = val;
+      this.listQuery.withNoPage = false;
       // console.log(this.listQuery)
       // return false
       this.getList();
@@ -1330,7 +1331,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* .fixed-width .el-button--mini {\n  padding: 10px 3px;\n  width: 70px;\n  margin-left: 0px;\n} */\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* .fixed-width .el-button--mini {\n  padding: 10px 3px;\n  width: 70px;\n  margin-left: 0px;\n} */\n", ""]);
 
 // exports
 

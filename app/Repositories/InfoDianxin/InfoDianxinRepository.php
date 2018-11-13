@@ -29,13 +29,13 @@ class InfoDianxinRepository implements InfoDianxinRepositoryInterface
     }
 
     // 根据不同参数获得信息列表
-    public function getAllDianXinInfos($request)
+    public function getAllDianXinInfos($queryList)
     {   
         // dd($request->all());
         // $query = Order::query();  // 返回的是一个 QueryBuilder 实例
         $query = new InfoDianxin();       // 返回的是一个Order实例,两种方法均可
 
-        $query = $query->addCondition($request->all()); //根据条件组合语句
+        $query = $query->addCondition($queryList); //根据条件组合语句
      
         if(isset($request->dealed)){
             if(!$request->dealed){
@@ -44,20 +44,16 @@ class InfoDianxinRepository implements InfoDianxinRepositoryInterface
             }
         }
 
-        $query = $query->where('status','!=', '0');
+        // $query = $query->where('status','!=', '0');
+        $query = $query->with('belongsToCreater', 'belongsToInfoSelf');
+        $query = $query->select($this->select_columns)->orderBy('created_at', 'desc');
 
         // $query = $query->where('car_status', $request->input('car_status', '1'));
 
-        if($request->withNoPage){ //无分页,全部返还
-
-            return $query->select($this->select_columns)
-                     ->orderBy('created_at', 'desc')
-                     ->get();
+        if($queryList['withNoPage']){ //无分页,全部返还
+            return $query->get();
         }else{
-
-            return $query->select($this->select_columns)
-                     ->orderBy('created_at', 'desc')
-                     ->paginate(10);
+            return $query->paginate(10);
         }
     }
 
@@ -65,7 +61,7 @@ class InfoDianxinRepository implements InfoDianxinRepositoryInterface
     public function create($requestData)
     {   
         // dd($requestData->all());
-        if(!empty($requestData->add_shoudong)){
+        /*if(!empty($requestData->add_shoudong)){
             //手动添加电信信息
             $repeated = $this->isRepeat($requestData->return_telephone,$requestData->balance_month);
 
@@ -79,21 +75,29 @@ class InfoDianxinRepository implements InfoDianxinRepositoryInterface
             unset($requestData['_token']);
             unset($requestData['netin_year']);
             unset($requestData['netin_moth']);
-        }
+        }*/
         
         // dd($requestData);
 
         $infoDianxin = new InfoDianxin();
 
-        // $input =  array_replace($requestData->all());
-
         $requestData['creater_id'] = Auth::id();
+        $requestData['netin']      = $requestData['netin_year'].$requestData['netin_month'];
+
+        unset($requestData['token']);
+        unset($requestData['netin_year']);
+        unset($requestData['netin_month']);
+        $input =  array_replace($requestData->all());
+        unset($input['token']);
         
-
-        $infoDianxin = $infoDianxin->insertIgnore($requestData);
-
+        // dd($input);
+        // $info = $infoDianxin->insertIgnore($input);
+        // dd(lastSql());
+        // dd($info);
+        $info = $infoDianxin->create($input);
+        // dd($info);
         // Session::flash('sucess', '添加成功');
-        return $infoDianxin;     
+        return $info;     
     }
 
     // 信息更新
@@ -109,9 +113,9 @@ class InfoDianxinRepository implements InfoDianxinRepositoryInterface
         $info->jituan          = $requestData->jituan;
         $info->manager         = $requestData->manager;
         $info->balance_month   = $requestData->balance_month;
-        $info->netin           = $requestData->netin_year.'-'.$requestData->netin_moth;
+        $info->netin           = $requestData->netin_year.$requestData->netin_month;
 
-        Session::flash('sucess', '信息修改成功');
+        // Session::flash('sucess', '信息修改成功');
         $info->save();
 
         return $info;                     

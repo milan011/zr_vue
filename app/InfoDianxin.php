@@ -51,20 +51,29 @@ class InfoDianxin extends Model
             $array['updated_at'] = $now;
         }
 
-        DB::insert('INSERT IGNORE INTO '.$a->table.' ('.implode(',',array_keys($array)).
+        $id = DB::insert('INSERT IGNORE INTO '.$a->table.' ('.implode(',',array_keys($array)).
             ') values (?'.str_repeat(',?',count($array) - 1).')',array_values($array));
 
         // dd(lastSql());
+        return $id;
     }
 
     // 搜索条件处理
-    public function addCondition($requestData){
+    public function addCondition($queryList){
 
         $query = $this;  
-        if(!empty($requestData['status'])){
+        if(!empty($queryList['status'])){
             //有订单状态选项
-            $query = $query->where('status', $requestData['status']);
+            $query = $query->where('status', $queryList['status']);
         } 
+        if(!empty($queryList['netin'])){
+            $query = $query->where('netin', $queryList['netin']);
+        }
+
+        if(!empty($queryList['selectTelephone'])){
+            $query = $query->where('return_telephone','like',$queryList['selectTelephone'].'%');
+        }
+        // dd();
         return $query;
     }
 
@@ -90,7 +99,7 @@ class InfoDianxin extends Model
     // 定义User表与order表一对多关系
     public function belongsToCreater(){
 
-      return $this->belongsTo('App\User', 'creater_id', 'id')->select('id ', 'nick_name', 'telephone');
+      return $this->belongsTo('App\User', 'creater_id', 'id')->select('id', 'nick_name', 'telephone');
     }
 
     // 定义infoDianxin表与infoSelf表一对多关系

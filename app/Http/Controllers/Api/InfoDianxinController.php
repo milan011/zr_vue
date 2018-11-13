@@ -45,8 +45,17 @@ class InfoDianxinController extends Controller
     public function index(Request $request)
     {
         // $request['status'] = '1';
+        $query_list = jsonToArray($request->input('query')); //获取搜索信息
+
+        // isset($query_list['withNoPage']) ? : false;
+
+        //$query_list['withNoPage'] = ($query_list['withNoPage']) ? true : false ;
+
+        $query_list['netin'] = $this->netinQuery($query_list['netin_year'], $query_list['netin_month']);
+
+        // dd($query_list);
         
-        $infos = $this->infoDianxin->getAllDianXinInfos($request);
+        $infos = $this->infoDianxin->getAllDianXinInfos($query_list);
         
         return new InfoDianxinResource($infos);
     }
@@ -78,9 +87,23 @@ class InfoDianxinController extends Controller
     public function store(Request $request)
     {
         // dd($request->all());
+
+        if($this->infoDianxin->isRepeat($request->return_telephone, $request->balance_month)){
+            return $this->baseFailed($message = '入网号码已存在');
+        }
+
         $info = $this->infoDianxin->create($request);
 
-        return redirect('infoDianxin/index')->withInput();
+        // $info->belongsToInfoSelf;
+        // $info->belongsToCreater;
+
+        // dd($info);
+
+        if($info){ //添加成功
+            return $this->baseSucceed($respond_data = $info, $message = '添加成功');
+        }else{  //添加失败
+            return $this->baseFailed($message = '内部错误');
+        } 
     }
 
     /**
@@ -136,9 +159,14 @@ class InfoDianxinController extends Controller
     {
         // dd($request->all());
 
-        $this->infoDianxin->update($request, $id);
+        $update_info = $this->infoDianxin->isRepeat($request->return_telephone, $request->balance_month);
+        if($update_info && ($update_info->id != $id)){
+            return $this->baseFailed($message = '您修改后的信息与现有信息冲突');
+        }
+
+        $info = $this->infoDianxin->update($request, $id);
         
-        return redirect('infoDianxin/index')->withInput();
+        return $this->baseSucceed($respond_data = $info, $message = '修改成功');
     }
 
     /**
@@ -181,6 +209,36 @@ class InfoDianxinController extends Controller
         return view('admin.errors.icon');
     }
 
+    //处理入网日期格式
+    protected function netinQuery($netin_year, $netin_month){
+
+        if(empty($netin_year) && empty($netin_month)){
+            $netin = '';
+        }else{
+            //有入网日期筛选
+            $current_date  = Carbon::now(); //当前日期
+            $current_year  = $current_date->year;  //当前年
+            $current_month = $current_date->month; //当前月
+
+            if(strlen($current_month) == 1){
+                $current_month = '0'.$current_month;
+            }
+
+            if(empty($netin_year)){
+                // p('no year');
+                $netin_year = (string)$current_year; 
+            }
+
+            if(empty($netin_month)){
+                // p('no month');
+                $netin_month = (string)$current_month; 
+            }
+
+            $netin = $netin_year . $netin_month;
+        }
+
+        return $netin;
+    }
     /**
      * Show the form for editing the specified resource.
      * 导入文件

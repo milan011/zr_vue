@@ -2,7 +2,7 @@
   <div class="app-container">
     <div class="filter-container">
       <el-input 
-        :placeholder="$t('info.new_telephone')"
+        :placeholder="$t('infoDianxin.return_telephone')"
         clearable 
         v-model="listQuery.selectTelephone"
         style="width: 150px;" 
@@ -16,9 +16,6 @@
       </el-select>
       <el-select v-if="isAdmin" style="width:100px;" :placeholder="$t('info.status')" clearable v-model="listQuery.status" class="filter-item">
         <el-option v-for="(item, key, index) in statusMap" :key="item" :label="item" :value="key"/>
-      </el-select>
-      <el-select v-if="isAdmin" clearable style="width:100px;" v-model="listQuery.creater_id" class="filter-item" filterable placeholder="销售">
-        <el-option v-for="user in userList" :key="user.id" :label="user.nick_name" :value="user.id"/>
       </el-select>
       <el-button v-waves class="filter-item" type="primary" icon="el-icon-search" @click="handleFilter">{{ $t('table.search') }}</el-button>
       <el-tooltip class="item" effect="dark" content="注意:默认只导出当月信息,如需导出其他月,请选择筛选条件" placement="top">
@@ -39,52 +36,42 @@
           <span>{{ scope.row.id }}</span>
         </template>
       </el-table-column>
-      <el-table-column :label="$t('info.project_name')" show-overflow-tooltip align="center">
+      <el-table-column :label="$t('infoDianxin.return_telephone')" show-overflow-tooltip align="center">
         <template slot-scope="scope">
-          <span>{{ scope.row.project_name }}</span>
+          <span>{{ scope.row.return_telephone }}</span>
         </template>
       </el-table-column>
-      <el-table-column :label="$t('info.new_telephone')" align="center" min-width="120%">
+      <el-table-column :label="$t('infoDianxin.refunds')" align="center">
         <template slot-scope="scope">
-          <span>{{ scope.row.new_telephone }}</span>
+          <span>{{ scope.row.refunds }}</span>
         </template>
       </el-table-column>
-      <el-table-column :label="$t('info.side_number_num')" align="center">
+      <el-table-column :label="$t('infoDianxin.balance_month')" align="center">
         <template slot-scope="scope">
-          <span>{{ scope.row.side_number_num }}</span>
+          <span>{{ scope.row.balance_month }}</span>
         </template>
       </el-table-column>
-      <el-table-column :label="$t('info.is_jituan')" show-overflow-tooltip align="center">
+      <!-- <el-table-column :label="$t('infoDianxin.netin')" align="center">
         <template slot-scope="scope">
-          <el-tag :type="scope.row.is_jituan | jituanStatusFilter">{{ jiTuanStatusMap[scope.row.is_jituan]}}</el-tag>
+          <span>{{ scope.row.netin }}</span>
         </template>
-      </el-table-column>
-      <el-table-column :label="$t('info.package')" align="center">
-        <template slot-scope="scope">
-          <span>{{ scope.row.has_one_package ? scope.row.has_one_package.name : '' }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column :label="$t('info.name')" align="center">
+      </el-table-column> -->
+      <el-table-column :label="$t('infoDianxin.name')" show-overflow-tooltip align="center">
         <template slot-scope="scope">
           <span>{{ scope.row.name }}</span>
         </template>
       </el-table-column>
-      <el-table-column :label="$t('info.user_telephone')" align="center" min-width="120%">
-        <template slot-scope="scope">
-          <span>{{ scope.row.user_telephone }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column :label="$t('info.netin')" align="center">
+      <el-table-column :label="$t('infoDianxin.netin')" align="center">
         <template slot-scope="scope">
           <span>{{ scope.row.netin || '' }}</span>
         </template>
       </el-table-column>
-      <el-table-column v-if="isAdmin" :label="$t('info.status')" align="center">
+      <el-table-column v-if="isAdmin" :label="$t('infoDianxin.status')" align="center">
         <template slot-scope="scope">
           <el-tag :type="scope.row.status | statusFilter">{{ statusMap[scope.row.status] }}</el-tag>
         </template>
       </el-table-column>
-      <el-table-column :label="$t('table.date')" width="150px" align="center">
+      <el-table-column :label="$t('infoDianxin.import')" width="150px" align="center">
         <template slot-scope="scope">
           <span>
             {{ scope.row.created_at | parseTime('{y}-{m}-{d}') }}
@@ -104,43 +91,6 @@
         </template>
       </el-table-column>
     </el-table>
-    <!-- <el-dialog title="搜索信息" :visible.sync="dialogSelectFormVisible">
-      <el-form :model="queryForm" style="width: 400px;">
-        <el-row style="margin-left: 80px;">
-          <el-col :span="24">
-            <el-form-item :label="$t('info.netin')">
-              <el-col :span="8">
-                <el-select clearable v-model="queryForm.netin_year" class="filter-item" placeholder="Please select">
-                  <el-option v-for="year in package_year" :key="year.key" :label="year.year" :value="year.year"/>
-                </el-select>
-              </el-col>
-              <el-col class="line" :span="1" style="text-align:center">-</el-col>
-              <el-col :span="8">
-                <el-select clearable v-model="queryForm.netin_month" class="filter-item" placeholder="Please select">
-                  <el-option v-for="month in package_month" :key="month.key" :label="month.month" :value="month.month"/>
-                </el-select>
-              </el-col>
-            </el-form-item>
-          </el-col>
-        </el-row>
-        <el-form-item :label="$t('info.new_telephone')" :label-width="formLabelWidth">
-          <el-input clearable v-model="queryForm.selectTelephone" autocomplete="off"></el-input>
-        </el-form-item>
-        <el-form-item :label="$t('info.status')" :label-width="formLabelWidth">
-          <el-select v-model="form.region" placeholder="请选择活动区域">
-            <el-option label="区域一" value="shanghai"></el-option>
-            <el-option label="区域二" value="beijing"></el-option>
-          </el-select>
-          <el-select clearable v-model="queryForm.status" class="filter-item">
-            <el-option v-for="(item, key, index) in statusMap" :key="item" :label="item" :value="key"/>
-          </el-select>
-        </el-form-item>
-      </el-form>
-      <div slot="footer" class="dialog-footer">
-        <el-button @click="resetQueryForm">取 消</el-button>
-        <el-button type="primary" @click="handleFilter">确 定</el-button>
-      </div>
-    </el-dialog> -->
     <div class="pagination-container">
       <el-pagination v-show="total>0" :current-page="listQuery.page" :total="total" background layout="total, prev, pager, next"  @current-change="handleCurrentChange"/>
     </div>
@@ -150,16 +100,14 @@
 </template>
 
 <script>
-// import { infoList, deleteInfo } from '@/api/infoSelf'
 import { infoDianxinList, deleteInfoDianxin } from '@/api/infoDianxin'
-import { userAll, } from '@/api/user'
 import waves from '@/directive/waves' // 水波纹指令
 import { parseTime } from '@/utils'
 import { isTelephone } from '@/utils/validate'
 import  ShowInfo  from './components/ShowInfo'
 import FormInfo from './components/FormInfo'
 import { export_table_to_excel, export_json_to_excel } from '@/vendor/Export2Excel.js'
-import { infoSelfStatus ,jituanStatus, oldBindStatus, package_year ,package_month, collections_type }  from '@/config.js'
+import { infoDianxinStatus, package_year ,package_month }  from '@/config.js'
 
 export default {
   name: 'infoSelfList',
@@ -170,8 +118,7 @@ export default {
   filters: {
     statusFilter(status) {
       const statusMap = {
-        3: 'success',
-        2: 'info',
+        2: 'success',
         1: 'danger'
       }
       return statusMap[status]
@@ -200,18 +147,13 @@ export default {
         withNoPage: false,
         netin_month: '',
         netin_year: '',
-        selectTelephone: '192',
-        creater_id: '',
+        selectTelephone: '',
         status: '',
       },
-      userList: [],
       isAdmin: false,
       package_year:package_year,
       package_month:package_month,
-      statusMap: infoSelfStatus,
-      jiTuanStatusMap: jituanStatus,
-      oldBindStatusMap: oldBindStatus,
-      collectionsTypeMap: collections_type,
+      statusMap: infoDianxinStatus,
       downloadLoading: false
     }
   },
@@ -219,7 +161,6 @@ export default {
   created() {
     Promise.all([
       this.getList(),
-      this.getUserList(),
       this.isAdminOrManager(),
       // console.log(this.$store.getters.roles)
     ])
@@ -235,13 +176,6 @@ export default {
         setTimeout(() => {
           this.listLoading = false
         }, 1.5 * 1000)
-      })
-    },
-    getUserList() {
-      userAll().then(response => {
-        // console.log(response.data)
-        // return false
-        this.userList = response.data
       })
     },
     isAdminOrManager() {
@@ -268,6 +202,7 @@ export default {
       }   
     },
     handleDownload() {
+      // this.handleFilter()
       this.downloadLoading = true
       
       if(this.listQuery.netin_year == '' && 
@@ -285,11 +220,11 @@ export default {
       console.log(this.listQuery)
       // return false
       this.listQuery.withNoPage = true
-      infoList(this.listQuery).then(response => {
+      infoDianxinList(this.listQuery).then(response => {
         this.listExport = response.data.data
         // console.log(this.listExport)
         // return false
-        Array.prototype.forEach.call(this.listExport, child => {
+        /*Array.prototype.forEach.call(this.listExport, child => {
           // console.log(child)
           if(child.side_number !== ''){
             let side_arr     = child.side_number.split("|")
@@ -322,13 +257,13 @@ export default {
           child.collectionsType  = this.collectionsTypeMap[child.collections_type]
           child.creater  = child.belongs_to_creater.nick_name
 
-        })
-        const tHeader = ['序号','日期','客户经理','电话','项目', '客户姓名', '新号码', 'UIM码', '集团卡', '绑老卡','副卡(UIM)','套餐标准', '联系方式', '收款', '收款方式', '销售人']
-        const filterVal = ['id','date','manage_name','manage_telephone','project_name', 'name', 'new_telephone', 'uim_number', 'isJituan', 'oldBind','side_info','package_id', 'user_telephone', 'collections', 'collectionsType', 'creater']
+        })*/
+        const tHeader  = ['套餐名称','返款号码','集团名称','返款金额','价款', '结算月', '客户经理', '佣金方案', '返还日期']
+        const filterVal = ['name','return_telephone','jituan','refunds','jiakuan', 'balance_month', 'manager', 'yongjin', 'netin']
         const data = this.formatJson(filterVal, this.listExport)
         // console.log(data)
         // return false
-        const tableName = '信息表'
+        const tableName = '电信信息表'
         export_json_to_excel({
           header: tHeader,
           data,
@@ -356,6 +291,7 @@ export default {
     },
     handleCurrentChange(val) {
       this.listQuery.page = val
+      this.listQuery.withNoPage = false
       // console.log(this.listQuery)
       // return false
       this.getList()
