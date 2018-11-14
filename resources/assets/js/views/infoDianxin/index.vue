@@ -21,6 +21,9 @@
       <el-tooltip class="item" effect="dark" content="注意:默认只导出当月信息,如需导出其他月,请选择筛选条件" placement="top">
         <el-button v-waves :loading="downloadLoading" class="filter-item" type="primary" icon="el-icon-download" @click="handleDownload">{{ $t('table.export') }}</el-button>
       </el-tooltip>
+      <upload-excel-component 
+        :on-success="handleSuccess" 
+        :before-upload="beforeUpload"/>
       <el-button class="filter-item" style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="handleCreate">{{ $t('table.add') }}</el-button>
     </div>
     <el-table
@@ -103,15 +106,16 @@
 import { infoDianxinList, deleteInfoDianxin } from '@/api/infoDianxin'
 import waves from '@/directive/waves' // 水波纹指令
 import { parseTime } from '@/utils'
-import { isTelephone } from '@/utils/validate'
+import { isTelephone, isReturnMonth, isBalanceMonth } from '@/utils/validate'
 import  ShowInfo  from './components/ShowInfo'
 import FormInfo from './components/FormInfo'
 import { export_table_to_excel, export_json_to_excel } from '@/vendor/Export2Excel.js'
 import { infoDianxinStatus, package_year ,package_month }  from '@/config.js'
+import UploadExcelComponent from '@/components/UploadExcel/upload.vue'
 
 export default {
   name: 'infoSelfList',
-  components: { FormInfo, ShowInfo },
+  components: { FormInfo, ShowInfo, UploadExcelComponent },
   directives: {
     waves
   },
@@ -201,22 +205,93 @@ export default {
         this.list.unshift(newInfo)
       }   
     },
+    showMessage(message){
+      this.$notify.error({
+        title: '注意',
+        message: message,
+        type: 'warning',
+        duration: 2000
+      })
+      return false
+    },
+    beforeUpload(file) {
+      const isLt1M = file.size / 1024 / 1024 < 1
+      // console.log(file)
+      if (isLt1M) {
+        return true
+      }
+
+      this.$message({
+        message: '导入的excel文件不能大于1MB',
+        type: 'warning'
+      })
+    },
+    /*uploadFail(err, file, fileList){
+      console.log(err)
+      console.log(file)
+      console.log(fileList)
+    },*/
+    handleSuccess({ results, header }) {
+      //console.log(results)
+      //console.log(header)
+      const allowHeader = ["套餐名称", "返款号码", "集团名称", "返款金额", "价款", "结算月", "客户经理", "佣金方案", "返还日期"]
+      
+      //console.log(header.toString() === allowHeader.toString())
+      if(header.toString() !== allowHeader.toString()){ //检查表头
+        this.showMessage('您导入到excel表头不符合标准,请下载标准表格')
+        return false
+      }
+      //检查每行数据,不能有空数据
+      //检查结算月是否符合
+      //检查返还电话是否符合
+      //检查返还日期是否符合
+      Array.prototype.forEach.call(results, (info, index) => {
+        //console.log(info.返款号码)
+        //console.log(!isTelephone(info.返款号码))
+        //console.log(isTelephone(info.返款号码))
+        //console.log(!isBalanceMonth(info.结算月))
+        //console.log(isBalanceMonth(info.结算月))
+        //console.log(!isReturnMonth(info.返还日期))
+        //console.log(isReturnMonth(info.返还日期))
+        // return false
+        /*if(!isTelephone(info.返款号码)){
+          console.log(index)
+          console.log(info.返款号码)
+        }*/
+        if(!isBalanceMonth(info.结算月)){
+          /*console.log(index)
+          console.log(info.结算月)*/
+        }
+        /*if(!isReturnMonth(info.返还日期)){
+          console.log(index)
+          console.log(info.返还日期)
+        }*/
+      })
+      // console.log(allowHeader)
+      this.tableData = results
+      this.tableHeader = header
+    },
     handleDownload() {
       // this.handleFilter()
       this.downloadLoading = true
       
-      if(this.listQuery.netin_year == '' && 
+      /*if(this.listQuery.netin_year == '' && 
           this.listQuery.netin_month == '' &&
           this.listQuery.selectTelephone == ''  &&
-          this.listQuery.status == '' &&
-          this.listQuery.creater == ''){ //没有任何搜索条件
+          this.listQuery.status == ''){ //没有任何搜索条件
         if(this.listQuery.netin_year == ''){
           this.listQuery.netin_year = new Date().getFullYear()
         } 
         if(this.listQuery.netin_month == ''){
           this.listQuery.netin_month = new Date().getMonth()+1
         }
-      }    
+      }  */
+      if(this.listQuery.netin_year == ''){
+        this.listQuery.netin_year = new Date().getFullYear()
+      } 
+      if(this.listQuery.netin_month == ''){
+        this.listQuery.netin_month = new Date().getMonth()+1
+      }  
       console.log(this.listQuery)
       // return false
       this.listQuery.withNoPage = true
@@ -303,7 +378,7 @@ export default {
         type: 'warning'
       }).then(() => {
         this.temp = Object.assign({}, row)
-        deleteInfo(this.temp).then((response) => {
+        deleteInfoDianxin(this.temp).then((response) => {
           // console.log(response.data);
           if(response.data.status === 0){
             this.$notify({

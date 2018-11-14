@@ -204,6 +204,8 @@ export default {
         status: '',
       },
       userList: [],
+      tableData: [],
+      tableHeader: [],
       isAdmin: false,
       package_year:package_year,
       package_month:package_month,
@@ -269,7 +271,7 @@ export default {
     handleDownload() {
       this.downloadLoading = true
       
-      if(this.listQuery.netin_year == '' && 
+      /*if(this.listQuery.netin_year == '' && 
           this.listQuery.netin_month == '' &&
           this.listQuery.selectTelephone == ''  &&
           this.listQuery.status == '' &&
@@ -280,6 +282,12 @@ export default {
         if(this.listQuery.netin_month == ''){
           this.listQuery.netin_month = new Date().getMonth()+1
         }
+      }*/
+      if(this.listQuery.netin_year == ''){
+          this.listQuery.netin_year = new Date().getFullYear()
+        } 
+      if(this.listQuery.netin_month == ''){
+        this.listQuery.netin_month = new Date().getMonth()+1
       }    
       console.log(this.listQuery)
       // return false

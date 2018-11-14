@@ -44,7 +44,7 @@ class InfoDianxinRepository implements InfoDianxinRepositoryInterface
             }
         }
 
-        // $query = $query->where('status','!=', '0');
+        $query = $query->where('status','!=', '0');
         $query = $query->with('belongsToCreater', 'belongsToInfoSelf');
         $query = $query->select($this->select_columns)->orderBy('created_at', 'desc');
 
@@ -82,6 +82,7 @@ class InfoDianxinRepository implements InfoDianxinRepositoryInterface
         $infoDianxin = new InfoDianxin();
 
         $requestData['creater_id'] = Auth::id();
+        $requestData['status']     = '1';
         $requestData['netin']      = $requestData['netin_year'].$requestData['netin_month'];
 
         unset($requestData['token']);
@@ -94,9 +95,36 @@ class InfoDianxinRepository implements InfoDianxinRepositoryInterface
         // $info = $infoDianxin->insertIgnore($input);
         // dd(lastSql());
         // dd($info);
-        $info = $infoDianxin->create($input);
-        // dd($info);
-        // Session::flash('sucess', '添加成功');
+        // $info = $infoDianxin->create($input);
+        
+        try {
+            $info = $infoDianxin->create($input);        
+        } catch (\Illuminate\Database\QueryException $e) {
+            // return false;
+            // dd($e->getMessage());
+            $info = InfoDianxin::select($this->select_columns)
+                               ->where('return_telephone', $requestData->return_telephone)
+                               ->where('balance_month', $requestData->balance_month)
+                               ->first();
+
+            if($info->status == '0'){
+                $info->name            = $requestData->name;
+                $info->yongjin         = $requestData->yongjin;
+                $info->refunds         = $requestData->refunds;
+                $info->jiakuan         = $requestData->jiakuan;
+                $info->jituan          = $requestData->jituan;
+                $info->manager         = $requestData->manager;
+                $info->balance_month   = $requestData->balance_month;
+                $info->netin           = $requestData->netin;
+                $info->status          = '1';
+
+                // dd($info);
+                $info->save();
+
+                return $info;
+            }
+        }
+
         return $info;     
     }
 
@@ -128,10 +156,11 @@ class InfoDianxinRepository implements InfoDianxinRepositoryInterface
             $info = InfoDianxin::findorFail($id);
             $info->status = '0';
             $info->save();
-            Session::flash('sucess', '删除信息成功');
+            
+            return $info;
            
         } catch (\Illuminate\Database\QueryException $e) {
-            Session()->flash('faill', '删除信息失败');
+            return false;
         }      
     } 
 

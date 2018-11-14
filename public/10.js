@@ -1,5 +1,166 @@
 webpackJsonp([10],{
 
+/***/ "./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}],[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 1%\",\"last 2 versions\",\"not ie <= 8\"]}}],\"stage-2\"],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}],\"transform-vue-jsx\",\"transform-runtime\"],\"env\":{\"development\":{\"plugins\":[\"dynamic-import-node\"]}}}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/assets/js/components/UploadExcel/upload.vue":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_promise__ = __webpack_require__("./node_modules/babel-runtime/core-js/promise.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_promise___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_promise__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_xlsx__ = __webpack_require__("./node_modules/xlsx/xlsx.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_xlsx___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_xlsx__);
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: {
+    beforeUpload: Function, // eslint-disable-line
+    onSuccess: Function, // eslint-disable-line
+    onError: Function // eslint-disable-line
+  },
+  data: function data() {
+    return {
+      loading: false,
+      excelData: {
+        header: null,
+        results: null
+      }
+    };
+  },
+
+  methods: {
+    generateData: function generateData(_ref) {
+      var header = _ref.header,
+          results = _ref.results;
+
+      this.excelData.header = header;
+      this.excelData.results = results;
+      this.onSuccess && this.onSuccess(this.excelData);
+    },
+    handleDrop: function handleDrop(e) {
+      alert('drop');
+      e.stopPropagation();
+      e.preventDefault();
+      if (this.loading) return;
+      var files = e.dataTransfer.files;
+      if (files.length !== 1) {
+        this.$message.error('只能导入一个文件');
+        return;
+      }
+      var rawFile = files[0]; // only use files[0]
+
+      if (!this.isExcel(rawFile)) {
+        this.$message.error('只能导入后缀名 .xlsx, .xls, .csv 的文件');
+        return false;
+      }
+      this.upload(rawFile);
+      e.stopPropagation();
+      e.preventDefault();
+    },
+    handleDragover: function handleDragover(e) {
+      alert('dragover');
+      e.stopPropagation();
+      e.preventDefault();
+      e.dataTransfer.dropEffect = 'copy';
+    },
+    handleUpload: function handleUpload() {
+      document.getElementById('excel-upload-input').click();
+    },
+    handleClick: function handleClick(e) {
+      var files = e.target.files;
+      var rawFile = files[0]; // only use files[0]
+      if (!rawFile) return;
+      this.upload(rawFile);
+    },
+    upload: function upload(rawFile) {
+      this.$refs['excel-upload-input'].value = null; // fix can't select the same excel
+      if (!this.beforeUpload) {
+        this.readerData(rawFile);
+        return;
+      }
+      var before = this.beforeUpload(rawFile);
+      if (before) {
+        this.readerData(rawFile);
+      }
+    },
+    readerData: function readerData(rawFile) {
+      var _this = this;
+
+      this.loading = true;
+      return new __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_promise___default.a(function (resolve, reject) {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+          // console.log(e)
+          var data = e.target.result;
+          var fixedData = _this.fixData(data);
+          try {
+            var workbook = __WEBPACK_IMPORTED_MODULE_1_xlsx___default.a.read(btoa(fixedData), { type: 'base64' });
+            var firstSheetName = workbook.SheetNames[0];
+            var worksheet = workbook.Sheets[firstSheetName];
+            var header = _this.getHeaderRow(worksheet);
+            var results = __WEBPACK_IMPORTED_MODULE_1_xlsx___default.a.utils.sheet_to_json(worksheet);
+            _this.generateData({ header: header, results: results });
+            _this.loading = false;
+            resolve();
+          } catch (e) {
+            console.log(e);
+            _this.$notify.error({
+              title: '注意',
+              message: '请确认您导入到文件确实为excel文件',
+              duration: 2000
+            });
+            _this.loading = false;
+            return false;
+          }
+          // const workbook = XLSX.read(btoa(fixedData), { type: 'base64' })      
+        };
+        reader.readAsArrayBuffer(rawFile);
+      });
+    },
+    fixData: function fixData(data) {
+      var o = '';
+      var l = 0;
+      var w = 10240;
+      for (; l < data.byteLength / w; ++l) {
+        o += String.fromCharCode.apply(null, new Uint8Array(data.slice(l * w, l * w + w)));
+      }o += String.fromCharCode.apply(null, new Uint8Array(data.slice(l * w)));
+      return o;
+    },
+    getHeaderRow: function getHeaderRow(sheet) {
+      var headers = [];
+      var range = __WEBPACK_IMPORTED_MODULE_1_xlsx___default.a.utils.decode_range(sheet['!ref']);
+      var C = void 0;
+      var R = range.s.r;
+      /* start in the first row */
+      for (C = range.s.c; C <= range.e.c; ++C) {
+        /* walk every column in the range */
+        var cell = sheet[__WEBPACK_IMPORTED_MODULE_1_xlsx___default.a.utils.encode_cell({ c: C, r: R })];
+        /* find the cell in the first row */
+        var hdr = 'UNKNOWN ' + C; // <-- replace with your desired default
+        if (cell && cell.t) hdr = __WEBPACK_IMPORTED_MODULE_1_xlsx___default.a.utils.format_cell(cell);
+        headers.push(hdr);
+      }
+      return headers;
+    },
+    isExcel: function isExcel(file) {
+      return (/\.(xlsx|xls|csv)$/.test(file.name)
+      );
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}],[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 1%\",\"last 2 versions\",\"not ie <= 8\"]}}],\"stage-2\"],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}],\"transform-vue-jsx\",\"transform-runtime\"],\"env\":{\"development\":{\"plugins\":[\"dynamic-import-node\"]}}}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/assets/js/views/infoDianxin/components/FormInfo.vue":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -112,7 +273,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     var validateTelephone = function validateTelephone(rule, value, callback) {
-      if (!Object(__WEBPACK_IMPORTED_MODULE_3__utils_validate__["a" /* isTelephone */])(value)) {
+      if (!Object(__WEBPACK_IMPORTED_MODULE_3__utils_validate__["b" /* isTelephone */])(value)) {
         callback(new Error('请输入正确格式手机号'));
       } else {
         callback();
@@ -265,9 +426,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 belongs_to_creater: {nick_name: this.$store.getters.nickName},
                 created_at: new Date()
               }*/
-              // console.log(newInfo)
+              /*console.log(resData)
+              return false*/
               //resData.netin_year    = resData.netin.substring(0,4)
-              //resData.netin_month   = resData.netin.substring(4,6)
+              // resData.belongs_to_creater   = resData.belongs_to_creater
               _this2.addInfoSelfList(resData);
               _this2.infoDianxinDialogFormVisible = false;
               _this2.$notify({
@@ -411,7 +573,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       this.$refs['dataForm'].validate(function (valid) {
         if (valid) {
           var tempData = __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_object_assign___default()({}, _this3.temp);
-          Object(__WEBPACK_IMPORTED_MODULE_2__api_infoDianxin__["c" /* updateInfoDianxin */])(tempData).then(function (response) {
+          Object(__WEBPACK_IMPORTED_MODULE_2__api_infoDianxin__["d" /* updateInfoDianxin */])(tempData).then(function (response) {
             if (response.data.status) {
               /*for (const v of this.list) {
                 if (v.id === this.temp.id) {
@@ -565,9 +727,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__components_FormInfo___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_8__components_FormInfo__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__vendor_Export2Excel_js__ = __webpack_require__("./resources/assets/js/vendor/Export2Excel.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__config_js__ = __webpack_require__("./resources/assets/js/config.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__components_UploadExcel_upload_vue__ = __webpack_require__("./resources/assets/js/components/UploadExcel/upload.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__components_UploadExcel_upload_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_11__components_UploadExcel_upload_vue__);
 
 
 
+//
+//
+//
 //
 //
 //
@@ -679,9 +846,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'infoSelfList',
-  components: { FormInfo: __WEBPACK_IMPORTED_MODULE_8__components_FormInfo___default.a, ShowInfo: __WEBPACK_IMPORTED_MODULE_7__components_ShowInfo___default.a },
+  components: { FormInfo: __WEBPACK_IMPORTED_MODULE_8__components_FormInfo___default.a, ShowInfo: __WEBPACK_IMPORTED_MODULE_7__components_ShowInfo___default.a, UploadExcelComponent: __WEBPACK_IMPORTED_MODULE_11__components_UploadExcel_upload_vue___default.a },
   directives: {
     waves: __WEBPACK_IMPORTED_MODULE_4__directive_waves__["a" /* default */]
   },
@@ -738,7 +906,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       var _this = this;
 
       this.listLoading = true;
-      Object(__WEBPACK_IMPORTED_MODULE_3__api_infoDianxin__["b" /* infoDianxinList */])(this.listQuery).then(function (response) {
+      Object(__WEBPACK_IMPORTED_MODULE_3__api_infoDianxin__["c" /* infoDianxinList */])(this.listQuery).then(function (response) {
         _this.list = response.data.data;
         _this.total = response.data.total;
 
@@ -791,25 +959,104 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         this.list.unshift(newInfo);
       }
     },
+    showMessage: function showMessage(message) {
+      this.$notify.error({
+        title: '注意',
+        message: message,
+        type: 'warning',
+        duration: 2000
+      });
+      return false;
+    },
+    beforeUpload: function beforeUpload(file) {
+      var isLt1M = file.size / 1024 / 1024 < 1;
+      // console.log(file)
+      if (isLt1M) {
+        return true;
+      }
+
+      this.$message({
+        message: '导入的excel文件不能大于1MB',
+        type: 'warning'
+      });
+    },
+
+    /*uploadFail(err, file, fileList){
+      console.log(err)
+      console.log(file)
+      console.log(fileList)
+    },*/
+    handleSuccess: function handleSuccess(_ref) {
+      var results = _ref.results,
+          header = _ref.header;
+
+      //console.log(results)
+      //console.log(header)
+      var allowHeader = ["套餐名称", "返款号码", "集团名称", "返款金额", "价款", "结算月", "客户经理", "佣金方案", "返还日期"];
+
+      //console.log(header.toString() === allowHeader.toString())
+      if (header.toString() !== allowHeader.toString()) {
+        //检查表头
+        this.showMessage('您导入到excel表头不符合标准,请下载标准表格');
+        return false;
+      }
+      //检查每行数据,不能有空数据
+      //检查结算月是否符合
+      //检查返还电话是否符合
+      //检查返还日期是否符合
+      Array.prototype.forEach.call(results, function (info, index) {
+        //console.log(info.返款号码)
+        //console.log(!isTelephone(info.返款号码))
+        //console.log(isTelephone(info.返款号码))
+        //console.log(!isBalanceMonth(info.结算月))
+        //console.log(isBalanceMonth(info.结算月))
+        //console.log(!isReturnMonth(info.返还日期))
+        //console.log(isReturnMonth(info.返还日期))
+        // return false
+        /*if(!isTelephone(info.返款号码)){
+          console.log(index)
+          console.log(info.返款号码)
+        }*/
+        if (!Object(__WEBPACK_IMPORTED_MODULE_6__utils_validate__["a" /* isBalanceMonth */])(info.结算月)) {}
+        /*console.log(index)
+        console.log(info.结算月)*/
+
+        /*if(!isReturnMonth(info.返还日期)){
+          console.log(index)
+          console.log(info.返还日期)
+        }*/
+      });
+      // console.log(allowHeader)
+      this.tableData = results;
+      this.tableHeader = header;
+    },
     handleDownload: function handleDownload() {
       var _this2 = this;
 
       // this.handleFilter()
       this.downloadLoading = true;
 
-      if (this.listQuery.netin_year == '' && this.listQuery.netin_month == '' && this.listQuery.selectTelephone == '' && this.listQuery.status == '' && this.listQuery.creater == '') {
-        //没有任何搜索条件
-        if (this.listQuery.netin_year == '') {
-          this.listQuery.netin_year = new Date().getFullYear();
+      /*if(this.listQuery.netin_year == '' && 
+          this.listQuery.netin_month == '' &&
+          this.listQuery.selectTelephone == ''  &&
+          this.listQuery.status == ''){ //没有任何搜索条件
+        if(this.listQuery.netin_year == ''){
+          this.listQuery.netin_year = new Date().getFullYear()
+        } 
+        if(this.listQuery.netin_month == ''){
+          this.listQuery.netin_month = new Date().getMonth()+1
         }
-        if (this.listQuery.netin_month == '') {
-          this.listQuery.netin_month = new Date().getMonth() + 1;
-        }
+      }  */
+      if (this.listQuery.netin_year == '') {
+        this.listQuery.netin_year = new Date().getFullYear();
+      }
+      if (this.listQuery.netin_month == '') {
+        this.listQuery.netin_month = new Date().getMonth() + 1;
       }
       console.log(this.listQuery);
       // return false
       this.listQuery.withNoPage = true;
-      Object(__WEBPACK_IMPORTED_MODULE_3__api_infoDianxin__["b" /* infoDianxinList */])(this.listQuery).then(function (response) {
+      Object(__WEBPACK_IMPORTED_MODULE_3__api_infoDianxin__["c" /* infoDianxinList */])(this.listQuery).then(function (response) {
         _this2.listExport = response.data.data;
         // console.log(this.listExport)
         // return false
@@ -890,7 +1137,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         type: 'warning'
       }).then(function () {
         _this3.temp = __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_object_assign___default()({}, row);
-        deleteInfo(_this3.temp).then(function (response) {
+        Object(__WEBPACK_IMPORTED_MODULE_3__api_infoDianxin__["b" /* deleteInfoDianxin */])(_this3.temp).then(function (response) {
           // console.log(response.data);
           if (response.data.status === 0) {
             _this3.$notify({
@@ -961,7 +1208,22 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* .fixed-width .el-button--mini {\n  padding: 10px 3px;\n  width: 70px;\n  margin-left: 0px;\n} */\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* .fixed-width .el-button--mini {\n  padding: 10px 3px;\n  width: 70px;\n  margin-left: 0px;\n} */\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-57166b1e\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/assets/js/components/UploadExcel/upload.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n#excel-upload-input[data-v-57166b1e]{\r\n  display: none;\r\n  z-index: -9999;\n}\r\n/* #drop{\r\n  border: 2px dashed #bbb;\r\n  width: 600px;\r\n  height: 160px;\r\n  line-height: 160px;\r\n  margin: 0 auto;\r\n  font-size: 24px;\r\n  border-radius: 5px;\r\n  text-align: center;\r\n  color: #bbb;\r\n  position: relative;\r\n} */\r\n", ""]);
 
 // exports
 
@@ -976,7 +1238,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* .fixed-width .el-button--mini {\n  padding: 10px 3px;\n  width: 70px;\n  margin-left: 0px;\n}\n.el-table--medium td, .el-table--medium th {\n  padding: 7px 0;\n}  */\n.el-dialog__body {\n  padding: 15px 15px;\n}\n.el-dialog__header {\n   padding-top: 10px;\n}\n.el-select {\n  display: inline;\n  position: relative;\n}\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* .fixed-width .el-button--mini {\n  padding: 10px 3px;\n  width: 70px;\n  margin-left: 0px;\n}\n.el-table--medium td, .el-table--medium th {\n  padding: 7px 0;\n}  */\n.el-dialog__body {\n  padding: 15px 15px;\n}\n.el-dialog__header {\n   padding-top: 10px;\n}\n.el-select {\n  display: inline;\n  position: relative;\n}\n", ""]);
 
 // exports
 
@@ -3491,6 +3753,13 @@ var render = function() {
             1
           ),
           _vm._v(" "),
+          _c("upload-excel-component", {
+            attrs: {
+              "on-success": _vm.handleSuccess,
+              "before-upload": _vm.beforeUpload
+            }
+          }),
+          _vm._v(" "),
           _c(
             "el-button",
             {
@@ -3784,6 +4053,65 @@ if (false) {
   module.hot.accept()
   if (module.hot.data) {
     require("vue-hot-reload-api")      .rerender("data-v-1735f506", module.exports)
+  }
+}
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-57166b1e\",\"hasScoped\":true,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/assets/js/components/UploadExcel/upload.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticStyle: { display: "inline" } }, [
+    _c("input", {
+      ref: "excel-upload-input",
+      attrs: { id: "excel-upload-input", type: "file", accept: ".xlsx, .xls" },
+      on: { change: _vm.handleClick }
+    }),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticStyle: { display: "inline" },
+        on: {
+          drop: _vm.handleDrop,
+          dragover: _vm.handleDragover,
+          dragenter: _vm.handleDragover
+        }
+      },
+      [
+        _c(
+          "el-button",
+          {
+            staticStyle: {
+              "margin-left": "16px",
+              position: "relative",
+              bottom: "6px"
+            },
+            attrs: {
+              loading: _vm.loading,
+              icon: "el-icon-upload2",
+              type: "primary"
+            },
+            on: { click: _vm.handleUpload }
+          },
+          [_vm._v(_vm._s(_vm.$t("table.import")))]
+        )
+      ],
+      1
+    )
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-57166b1e", module.exports)
   }
 }
 
@@ -4298,6 +4626,33 @@ if(false) {
  if(!content.locals) {
    module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-1735f506\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./index.vue", function() {
      var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-1735f506\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./index.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-57166b1e\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/assets/js/components/UploadExcel/upload.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__("./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-57166b1e\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/assets/js/components/UploadExcel/upload.vue");
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__("./node_modules/vue-loader/node_modules/vue-style-loader/lib/addStylesClient.js")("0fbdbeb6", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-57166b1e\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./upload.vue", function() {
+     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-57166b1e\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./upload.vue");
      if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
      update(newContent);
    });
@@ -34380,11 +34735,11 @@ var XLS = XLSX, ODS = XLSX;
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (immutable) */ __webpack_exports__["b"] = infoDianxinList;
+/* harmony export (immutable) */ __webpack_exports__["c"] = infoDianxinList;
 /* unused harmony export getInfoDianxin */
 /* harmony export (immutable) */ __webpack_exports__["a"] = createInfoDianxin;
-/* harmony export (immutable) */ __webpack_exports__["c"] = updateInfoDianxin;
-/* unused harmony export deleteInfoDianxin */
+/* harmony export (immutable) */ __webpack_exports__["d"] = updateInfoDianxin;
+/* harmony export (immutable) */ __webpack_exports__["b"] = deleteInfoDianxin;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils_request__ = __webpack_require__("./resources/assets/js/utils/request.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__utils_auth__ = __webpack_require__("./resources/assets/js/utils/auth.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__config_js__ = __webpack_require__("./resources/assets/js/config.js");
@@ -34465,6 +34820,58 @@ function deleteInfoDianxin(data) {
 function isEmpty(v) {
   return Array.isArray(v) && v.length == 0 || Object.prototype.isPrototypeOf(v) && __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_object_keys___default()(v).length == 0;
 }
+
+/***/ }),
+
+/***/ "./resources/assets/js/components/UploadExcel/upload.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__("./node_modules/vue-loader/node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-57166b1e\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/assets/js/components/UploadExcel/upload.vue")
+}
+var normalizeComponent = __webpack_require__("./node_modules/vue-loader/lib/component-normalizer.js")
+/* script */
+var __vue_script__ = __webpack_require__("./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}],[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 1%\",\"last 2 versions\",\"not ie <= 8\"]}}],\"stage-2\"],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}],\"transform-vue-jsx\",\"transform-runtime\"],\"env\":{\"development\":{\"plugins\":[\"dynamic-import-node\"]}}}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/assets/js/components/UploadExcel/upload.vue")
+/* template */
+var __vue_template__ = __webpack_require__("./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-57166b1e\",\"hasScoped\":true,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/assets/js/components/UploadExcel/upload.vue")
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = "data-v-57166b1e"
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/UploadExcel/upload.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-57166b1e", Component.options)
+  } else {
+    hotAPI.reload("data-v-57166b1e", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
 
 /***/ }),
 

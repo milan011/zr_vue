@@ -89,14 +89,17 @@ class InfoDianxinController extends Controller
         // dd($request->all());
 
         if($this->infoDianxin->isRepeat($request->return_telephone, $request->balance_month)){
-            return $this->baseFailed($message = '入网号码已存在');
+            return $this->baseFailed($message = '入网号码及返回月已存在');
         }
 
         $info = $this->infoDianxin->create($request);
-
+        // dd($info);
+        /*$creater = $info->belongsToCreater;
+        p(lastSql());
+        dd($creater);*/
         // $info->belongsToInfoSelf;
-        // $info->belongsToCreater;
-
+        // $info->belongsToCreater = $info->belongsToCreater;
+        $info->belongsToCreater;
         // dd($info);
 
         if($info){ //添加成功
@@ -182,8 +185,7 @@ class InfoDianxinController extends Controller
         // dd($id);
         $this->infoDianxin->destroy($id);
 
-        return redirect('infoDianxin/index');
-        // return redirect('order/index')->route('order.index');
+        return $this->baseSucceed($message = '修改成功');
     }
 
     // ajax修改商品价格

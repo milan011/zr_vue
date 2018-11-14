@@ -48,5 +48,28 @@ export function validateEmail(email) {
  */
 export function isTelephone(telephone) {
   const re = /^1[0-9]{10}$/
+  // console.log(telephone)
+  // return false
   return re.test(telephone)
+}
+
+/**
+ * 校验符合格式的返还日期
+ * @param email
+ * @returns {boolean}
+ */
+export function isBalanceMonth(balance_month) {
+  const res = /^\+?[1-9][0-9]*$/
+  console.log(res.test(balance_month))
+  return res.test(balance_month)
+}
+/**
+ * 校验符合格式的结算月
+ * @param email
+ * @returns {boolean}
+ */
+export function isReturnMonth(return_month) {
+  const remonth = /^\d{6}$/
+  console.log(remonth.test(return_month))
+  return remonth.test(return_month)
 }

@@ -4127,7 +4127,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       return __WEBPACK_IMPORTED_MODULE_0_path___default.a.resolve(this.basePath, routePath);
     },
     isExternalLink: function isExternalLink(routePath) {
-      return Object(__WEBPACK_IMPORTED_MODULE_2__utils_validate__["c" /* validateURL */])(routePath);
+      return Object(__WEBPACK_IMPORTED_MODULE_2__utils_validate__["d" /* validateURL */])(routePath);
     },
     clickLink: function clickLink(routePath, e) {
       if (!this.isExternalLink(routePath)) {
@@ -105925,6 +105925,7 @@ var _route;
     search: '搜索',
     add: '添加',
     export: '导出',
+    import: '导入',
     reviewer: '审核人',
     id: '序号',
     date: '创建',
@@ -107762,13 +107763,15 @@ function (error) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (immutable) */ __webpack_exports__["b"] = isvalidUsername;
-/* harmony export (immutable) */ __webpack_exports__["c"] = validateURL;
+/* harmony export (immutable) */ __webpack_exports__["c"] = isvalidUsername;
+/* harmony export (immutable) */ __webpack_exports__["d"] = validateURL;
 /* unused harmony export validateLowerCase */
 /* unused harmony export validateUpperCase */
 /* unused harmony export validateAlphabets */
 /* unused harmony export validateEmail */
-/* harmony export (immutable) */ __webpack_exports__["a"] = isTelephone;
+/* harmony export (immutable) */ __webpack_exports__["b"] = isTelephone;
+/* harmony export (immutable) */ __webpack_exports__["a"] = isBalanceMonth;
+/* unused harmony export isReturnMonth */
 /**
  * Created by jiachenpan on 16/11/18.
  */
@@ -107819,7 +107822,30 @@ function validateEmail(email) {
  */
 function isTelephone(telephone) {
   var re = /^1[0-9]{10}$/;
+  // console.log(telephone)
+  // return false
   return re.test(telephone);
+}
+
+/**
+ * 校验符合格式的返还日期
+ * @param email
+ * @returns {boolean}
+ */
+function isBalanceMonth(balance_month) {
+  var res = /^\+?[1-9][0-9]*$/;
+  console.log(res.test(balance_month));
+  return res.test(balance_month);
+}
+/**
+ * 校验符合格式的结算月
+ * @param email
+ * @returns {boolean}
+ */
+function isReturnMonth(return_month) {
+  var remonth = /^\d{6}$/;
+  console.log(remonth.test(return_month));
+  return remonth.test(return_month);
 }
 
 /***/ }),

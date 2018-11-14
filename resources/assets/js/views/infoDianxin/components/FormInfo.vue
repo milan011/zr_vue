@@ -255,9 +255,10 @@
                   belongs_to_creater: {nick_name: this.$store.getters.nickName},
                   created_at: new Date()
                 }*/
-                // console.log(newInfo)
+                /*console.log(resData)
+                return false*/
                 //resData.netin_year    = resData.netin.substring(0,4)
-                //resData.netin_month   = resData.netin.substring(4,6)
+                // resData.belongs_to_creater   = resData.belongs_to_creater
                 this.addInfoSelfList(resData)
                 this.infoDianxinDialogFormVisible = false
                 this.$notify({
