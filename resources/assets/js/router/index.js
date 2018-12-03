@@ -14,6 +14,7 @@ import managerRouter from './modules/manager'
 import packageRouter from './modules/package'
 import infoSelfRouter from './modules/infoSelf'
 import infoDianxinRouter from './modules/infoDianxin'
+import infoStatisticsRouter from './modules/infoStatistics'
 /*import componentsRouter from './modules/components'
 import chartsRouter from './modules/charts'
 import tableRouter from './modules/table'
@@ -97,14 +98,13 @@ export default new Router({
 })
 
 export const asyncRouterMap = [
-  
+  infoStatisticsRouter,
   infoDianxinRouter,
   userRouter,
   permissionRouter,
   roleRouter,
   managerRouter,
   packageRouter,
-  
 
   { path: '*', redirect: '/404', hidden: true }
 ]

@@ -30,12 +30,29 @@ export function createInfoDianxin(data, token = getToken()) {
   })
 }
 
+export function importInfoDianxin(data, token = getToken()) {
+  return request({
+    url: ROAST_CONFIG.API_URL + '/importInfoDianxin',
+    method: 'post',
+    data,
+    params: {token}
+  })
+}
+
 export function updateInfoDianxin(data, token = getToken()) {
   return request({
     url: ROAST_CONFIG.API_URL + '/infoDianxin/' + data.id,
     method: 'put',
     params: {token},
     data
+  })
+}
+
+export function dealInfoDianxin(token = getToken()) {
+  return request({
+    url: ROAST_CONFIG.API_URL + '/infoDianxin/' + 'dealWith',
+    method: 'get',
+    params: {token},
   })
 }
 

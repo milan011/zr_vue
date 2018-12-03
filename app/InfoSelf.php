@@ -68,28 +68,31 @@ class InfoSelf extends Model
             }
         }         
 
-        switch ($queryList['status']) {
-            case '3':
-                # 已返还全部金额
-                $query = $query->where('status', '3');
-                
+        if(!empty($queryList['status'])){
+            switch ($queryList['status']) {
+                case '3':
+                    # 已返还全部金额
+                    $query = $query->where('status', '3');
+                    
+                    break;
+                case '2':
+                    # 返还中...
+                    $query = $query->where('status', '2');
+                    
+                    $query = $query->where('old_bind', '0');
                 break;
-            case '2':
-                # 返还中...
-                $query = $query->where('status', '2');
-                
-                $query = $query->where('old_bind', '0');
-            break;
-            case '1':
-                # 尚未返还
-                $query = $query->where('status', '1');
-                
-                $query = $query->where('old_bind', '0');
-            break;
-            default:
-                // $query = $query->where('status', '1');
+                case '1':
+                    # 尚未返还
+                    $query = $query->where('status', '1');
+                    
+                    $query = $query->where('old_bind', '0');
                 break;
-        } 
+                default:
+                    // $query = $query->where('status', '1');
+                    break;
+            }
+        }
+         
 
         /*if(!empty($queryList['netin_year']) && !empty($queryList['netin_month'])){
             $netin = $queryList['netin_year'].'-'.$queryList['netin_month'];
@@ -102,6 +105,12 @@ class InfoSelf extends Model
 
         if(!empty($queryList['selectTelephone'])){
             $query = $query->where('new_telephone','like','%'.$queryList['selectTelephone'].'%');
+        }
+
+        if(isset($queryList['unPayed']) && ($queryList['unPayed'] == '1')){
+            $query = $query->whereIn('status', ['1','2']);
+            $query = $query->where('status','!=', '0');
+            $query = $query->where('old_bind', '0');
         }
        
         return $query;

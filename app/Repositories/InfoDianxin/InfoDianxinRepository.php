@@ -46,7 +46,7 @@ class InfoDianxinRepository implements InfoDianxinRepositoryInterface
 
         $query = $query->where('status','!=', '0');
         $query = $query->with('belongsToCreater', 'belongsToInfoSelf');
-        $query = $query->select($this->select_columns)->orderBy('created_at', 'desc');
+        $query = $query->select($this->select_columns)->orderBy('created_at', 'desc')->orderBy('id', 'desc');
 
         // $query = $query->where('car_status', $request->input('car_status', '1'));
 
@@ -57,6 +57,22 @@ class InfoDianxinRepository implements InfoDianxinRepositoryInterface
         }
     }
 
+    // 导入信息
+    public function createImport($info)
+    {   
+        
+        $infoDianxin = new InfoDianxin();
+
+        $info['creater_id'] = Auth::id();
+        $info['status']     = '1';
+
+        $input =  array_replace($info);
+        
+        // dd($input);
+        $info = $infoDianxin->create($input);
+        
+        return $info;     
+    }
     // 创建信息
     public function create($requestData)
     {   

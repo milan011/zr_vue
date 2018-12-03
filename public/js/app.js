@@ -29,7 +29,7 @@
 /******/
 /******/ 	// objects to store loaded and loading chunks
 /******/ 	var installedChunks = {
-/******/ 		9: 0
+/******/ 		11: 0
 /******/ 	};
 /******/
 /******/ 	// The require function
@@ -4127,7 +4127,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       return __WEBPACK_IMPORTED_MODULE_0_path___default.a.resolve(this.basePath, routePath);
     },
     isExternalLink: function isExternalLink(routePath) {
-      return Object(__WEBPACK_IMPORTED_MODULE_2__utils_validate__["d" /* validateURL */])(routePath);
+      return Object(__WEBPACK_IMPORTED_MODULE_2__utils_validate__["e" /* validateURL */])(routePath);
     },
     clickLink: function clickLink(routePath, e) {
       if (!this.isExternalLink(routePath)) {
@@ -105798,7 +105798,7 @@ var i18n = new __WEBPACK_IMPORTED_MODULE_2_vue_i18n__["a" /* default */]({
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty__);
 
 
-var _route;
+var _route, _infoStatistics;
 
 /* harmony default export */ __webpack_exports__["a"] = ({
   route: (_route = {
@@ -105869,7 +105869,7 @@ var _route;
     passwordReset: '重置密码',
     userUpdate: '修改用户',
     userDelete: '删除用户'
-  }, __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'permission', '权限管理'), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'permissionAdd', '添加权限'), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'permissionUpdate', '修改权限'), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'permissionDelete', '删除权限'), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'role', '角色管理'), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'roleAdd', '添加角色'), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'roleUpdate', '修改角色'), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'roleDelete', '删除角色'), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'package', '套餐管理'), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'packageAdd', '添加套餐'), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'packageUpdate', '修改套餐'), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'packageDelete', '删除套餐'), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'manager', '客户经理'), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'managerAdd', '添加客户经理'), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'managerUpdate', '修改客户经理'), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'managerDelete', '删除客户经理'), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'info', '信息管理'), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'infoAdd', '添加信息'), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'infoUpdate', '修改信息'), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'infoDelete', '删除信息'), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'infoDianXin', '电信信息'), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'infoDianXinAdd', '添加电信信息'), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'infoDianXinUpdate', '修改电信信息'), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'infoDianXinDelete', '删除电信信息'), _route),
+  }, __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'permission', '权限管理'), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'permissionAdd', '添加权限'), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'permissionUpdate', '修改权限'), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'permissionDelete', '删除权限'), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'role', '角色管理'), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'roleAdd', '添加角色'), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'roleUpdate', '修改角色'), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'roleDelete', '删除角色'), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'package', '套餐管理'), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'packageAdd', '添加套餐'), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'packageUpdate', '修改套餐'), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'packageDelete', '删除套餐'), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'manager', '客户经理'), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'managerAdd', '添加客户经理'), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'managerUpdate', '修改客户经理'), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'managerDelete', '删除客户经理'), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'info', '信息管理'), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'infoAdd', '添加信息'), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'infoUpdate', '修改信息'), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'infoDelete', '删除信息'), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'infoDianXin', '电信信息'), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'infoDianXinAdd', '添加电信信息'), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'infoDianXinUpdate', '修改电信信息'), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'infoDianXinDelete', '删除电信信息'), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'InfoStatistics', '信息统计'), _route),
   navbar: {
     logOut: '退出登录',
     passwordReset: '修改密码',
@@ -106060,7 +106060,7 @@ var _route;
     manager: '客户经理',
     jiakuan: '价款',
     refunds: '返款金额',
-    // return_telephone: '入网号码',
+    exampleExcelDown: '标准表下载',
     yongjin: '佣金方案',
     balance_month: '结算月',
     netin: '返还日期',
@@ -106068,8 +106068,15 @@ var _route;
     import: '导入日期',
     remark: '备注',
     status: '状态',
+    infoDeal: '信息处理',
     add: '添加'
-  }
+  },
+  infoStatistics: (_infoStatistics = {
+    name: '业务员',
+    info_nums_all: '主卡数(不绑老卡|绑老卡)',
+    old_bind: '绑老卡',
+    not_old_bind: '不绑老卡'
+  }, __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_infoStatistics, 'old_bind', '不绑老卡|绑老卡'), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_infoStatistics, 'side_nums_all', '副卡数(不绑老卡|绑老卡)'), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_infoStatistics, 'subtotal', '小计(不绑老卡|绑老卡)'), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_infoStatistics, 'total', '总数'), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_infoStatistics, 'netin', '入网日期'), _infoStatistics)
 });
 
 /***/ }),
@@ -106181,6 +106188,7 @@ __WEBPACK_IMPORTED_MODULE_1__router__["c" /* default */].afterEach(function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__modules_package__ = __webpack_require__("./resources/assets/js/router/modules/package.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__modules_infoSelf__ = __webpack_require__("./resources/assets/js/router/modules/infoSelf.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__modules_infoDianxin__ = __webpack_require__("./resources/assets/js/router/modules/infoDianxin.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__modules_infoStatistics__ = __webpack_require__("./resources/assets/js/router/modules/infoStatistics.js");
 
 
 
@@ -106190,6 +106198,7 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vue_
 
 
 /* Router Modules */
+
 
 
 
@@ -106224,7 +106233,7 @@ var constantRouterMap = [{
   name: 'login',
   path: '/login',
   component: function component(resolve) {
-    return void __webpack_require__.e/* require */(4).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__("./resources/assets/js/views/login/index.vue")]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
+    return void __webpack_require__.e/* require */(5).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__("./resources/assets/js/views/login/index.vue")]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
   }
   // hidden: true,
 }, {
@@ -106244,7 +106253,7 @@ var constantRouterMap = [{
   hidden: true,
   path: '/user/passwordReset',
   component: function component(resolve) {
-    return void __webpack_require__.e/* require */(8).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__("./resources/assets/js/views/user/passwordReset.vue")]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
+    return void __webpack_require__.e/* require */(10).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__("./resources/assets/js/views/user/passwordReset.vue")]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
   },
   name: 'userAdd',
   meta: { title: 'passwordReset' }
@@ -106258,7 +106267,7 @@ var constantRouterMap = [{
   routes: constantRouterMap
 }));
 
-var asyncRouterMap = [__WEBPACK_IMPORTED_MODULE_9__modules_infoDianxin__["a" /* default */], __WEBPACK_IMPORTED_MODULE_3__modules_user__["a" /* default */], __WEBPACK_IMPORTED_MODULE_4__modules_permission__["a" /* default */], __WEBPACK_IMPORTED_MODULE_5__modules_role__["a" /* default */], __WEBPACK_IMPORTED_MODULE_6__modules_manager__["a" /* default */], __WEBPACK_IMPORTED_MODULE_7__modules_package__["a" /* default */], { path: '*', redirect: '/404', hidden: true }];
+var asyncRouterMap = [__WEBPACK_IMPORTED_MODULE_10__modules_infoStatistics__["a" /* default */], __WEBPACK_IMPORTED_MODULE_9__modules_infoDianxin__["a" /* default */], __WEBPACK_IMPORTED_MODULE_3__modules_user__["a" /* default */], __WEBPACK_IMPORTED_MODULE_4__modules_permission__["a" /* default */], __WEBPACK_IMPORTED_MODULE_5__modules_role__["a" /* default */], __WEBPACK_IMPORTED_MODULE_6__modules_manager__["a" /* default */], __WEBPACK_IMPORTED_MODULE_7__modules_package__["a" /* default */], { path: '*', redirect: '/404', hidden: true }];
 
 /***/ }),
 
@@ -106284,7 +106293,7 @@ var infoDianxinRouter = {
   children: [{
     path: 'index',
     component: function component(resolve) {
-      return void __webpack_require__.e/* require */(10).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__("./resources/assets/js/views/infoDianxin/index.vue")]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
+      return void __webpack_require__.e/* require */(1).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__("./resources/assets/js/views/infoDianxin/index.vue")]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
     },
     name: 'infoDianxinList',
     meta: { title: 'infoDianXin' }
@@ -106316,13 +106325,46 @@ var infoSelfRouter = {
   children: [{
     path: 'index',
     component: function component(resolve) {
-      return void __webpack_require__.e/* require */(1).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__("./resources/assets/js/views/infoSelf/index.vue")]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
+      return void __webpack_require__.e/* require */(2).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__("./resources/assets/js/views/infoSelf/index.vue")]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
     },
     name: 'infoSelfList',
     meta: { title: 'info' }
   }]
 };
 /* harmony default export */ __webpack_exports__["a"] = (infoSelfRouter);
+
+/***/ }),
+
+/***/ "./resources/assets/js/router/modules/infoStatistics.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__views_layout_Layout__ = __webpack_require__("./resources/assets/js/views/layout/Layout.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__views_layout_Layout___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__views_layout_Layout__);
+
+//信息管理路由组
+
+
+var infoStatisticsRouter = {
+  path: '/infoStatistics',
+  component: __WEBPACK_IMPORTED_MODULE_0__views_layout_Layout___default.a,
+  redirect: '/infoSelf/index',
+  name: 'InfoStatistics',
+  meta: {
+    title: '',
+    roles: ['admin', 'manager'],
+    icon: 'edit'
+  },
+  children: [{
+    path: 'index',
+    component: function component(resolve) {
+      return void __webpack_require__.e/* require */(9).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__("./resources/assets/js/views/infoStatistics/index.vue")]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
+    },
+    name: 'infoStatistics',
+    meta: { title: 'InfoStatistics' }
+  }]
+};
+/* harmony default export */ __webpack_exports__["a"] = (infoStatisticsRouter);
 
 /***/ }),
 
@@ -106349,7 +106391,7 @@ var permissionRouter = {
   children: [{
     path: 'index',
     component: function component(resolve) {
-      return void __webpack_require__.e/* require */(7).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__("./resources/assets/js/views/manager/index.vue")]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
+      return void __webpack_require__.e/* require */(8).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__("./resources/assets/js/views/manager/index.vue")]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
     },
     name: 'managerList',
     meta: { title: 'manager' }
@@ -106382,7 +106424,7 @@ var permissionRouter = {
   children: [{
     path: 'index',
     component: function component(resolve) {
-      return void __webpack_require__.e/* require */(6).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__("./resources/assets/js/views/package/index.vue")]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
+      return void __webpack_require__.e/* require */(7).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__("./resources/assets/js/views/package/index.vue")]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
     },
     name: 'packageList',
     meta: { title: 'package' }
@@ -106415,7 +106457,7 @@ var permissionRouter = {
   children: [{
     path: 'index',
     component: function component(resolve) {
-      return void __webpack_require__.e/* require */(5).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__("./resources/assets/js/views/permissions/index.vue")]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
+      return void __webpack_require__.e/* require */(6).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__("./resources/assets/js/views/permissions/index.vue")]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
     },
     name: 'permissionList',
     meta: { title: 'permission' }
@@ -106448,7 +106490,7 @@ var roleRouter = {
   children: [{
     path: 'index',
     component: function component(resolve) {
-      return void __webpack_require__.e/* require */(3).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__("./resources/assets/js/views/role/index.vue")]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
+      return void __webpack_require__.e/* require */(4).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__("./resources/assets/js/views/role/index.vue")]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
     },
     name: 'roleList',
     meta: { title: 'role' }
@@ -106481,7 +106523,7 @@ var userRouter = {
   children: [{
     path: 'index',
     component: function component(resolve) {
-      return void __webpack_require__.e/* require */(2).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__("./resources/assets/js/views/user/index.vue")]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
+      return void __webpack_require__.e/* require */(3).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__("./resources/assets/js/views/user/index.vue")]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
     },
     name: 'userList',
     meta: { title: 'user' }
@@ -107763,15 +107805,15 @@ function (error) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (immutable) */ __webpack_exports__["c"] = isvalidUsername;
-/* harmony export (immutable) */ __webpack_exports__["d"] = validateURL;
+/* harmony export (immutable) */ __webpack_exports__["d"] = isvalidUsername;
+/* harmony export (immutable) */ __webpack_exports__["e"] = validateURL;
 /* unused harmony export validateLowerCase */
 /* unused harmony export validateUpperCase */
 /* unused harmony export validateAlphabets */
 /* unused harmony export validateEmail */
-/* harmony export (immutable) */ __webpack_exports__["b"] = isTelephone;
+/* harmony export (immutable) */ __webpack_exports__["c"] = isTelephone;
 /* harmony export (immutable) */ __webpack_exports__["a"] = isBalanceMonth;
-/* unused harmony export isReturnMonth */
+/* harmony export (immutable) */ __webpack_exports__["b"] = isReturnMonth;
 /**
  * Created by jiachenpan on 16/11/18.
  */
@@ -107834,7 +107876,7 @@ function isTelephone(telephone) {
  */
 function isBalanceMonth(balance_month) {
   var res = /^\+?[1-9][0-9]*$/;
-  console.log(res.test(balance_month));
+  // console.log(res.test(balance_month))
   return res.test(balance_month);
 }
 /**
@@ -107844,7 +107886,7 @@ function isBalanceMonth(balance_month) {
  */
 function isReturnMonth(return_month) {
   var remonth = /^\d{6}$/;
-  console.log(remonth.test(return_month));
+  // console.log(remonth.test(return_month))
   return remonth.test(return_month);
 }
 

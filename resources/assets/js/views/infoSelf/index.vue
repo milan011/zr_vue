@@ -199,7 +199,7 @@ export default {
         withNoPage: false,
         netin_month: '',
         netin_year: '',
-        selectTelephone: '192',
+        selectTelephone: '',
         creater_id: '',
         status: '',
       },

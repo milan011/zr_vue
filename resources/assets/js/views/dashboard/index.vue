@@ -1,6 +1,9 @@
 <template>
   <div class="dashboard-container">
-    <component :is="currentRole"/>
+    <!-- <component :is="currentRole"/> -->
+    <p style="text-align: center;margin-top: 10%;">
+      欢迎使用卓睿信息管理系统
+    </p>
   </div>
 </template>
 

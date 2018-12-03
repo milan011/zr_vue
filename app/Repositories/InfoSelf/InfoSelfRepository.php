@@ -306,11 +306,12 @@ class InfoSelfRepository implements InfoSelfRepositoryInterface
     }
 
     //处理信息
-    public function infoDeal($requestData){
+    public function infoDeal($queryList){
 
-        $infoSelfs_not_payed = $this->getAllInfos($requestData); //尚未返还完成信息
-        $info_chunk          = $infoSelfs_not_payed->chunk(10);
+        $infoSelfs_not_payed = $this->getAllInfos($queryList); //尚未返还完成信息
+        $info_chunk          = $infoSelfs_not_payed->chunk(1000);
         $info_deal_nums      = 0;
+        $info_payed_nums     = 0; //有多少号码已完成返款
 
         // dd($info_chunk);
 
@@ -361,11 +362,20 @@ class InfoSelfRepository implements InfoSelfRepositoryInterface
                 }
             }
         }
+
         // dd($info_deal_nums);
-        Session::flash('sucess', '信息处理成功,共处理'.$info_deal_nums.'条信息');
+        // Session::flash('sucess', '信息处理成功,共处理'.$info_deal_nums.'条信息');
+        // $be = time();
+        if($info_deal_nums == 0){
 
+            $info_payed_nums = $this->infoPayed();
+        }
+        // $af = time();
 
-        return true;
+        // dd($af - $be);
+        dd($info_payed_nums);
+
+        return $info_deal_nums;
     }
 
     //信息是否被匹对
@@ -415,31 +425,41 @@ class InfoSelfRepository implements InfoSelfRepositoryInterface
     }
 
     //已返还完成信息处理
-    public function infoPayed($requestData){
+    protected function infoPayed(){
 
         // dd($request->Plan_launch);
         // $query = Plan::query();  // 返回的是一个 QueryBuilder 实例
         $query = new InfoSelf();       // 返回的是一个Plan实例,两种方法均可
+        $count = 0;
 
-        $un_payed = $query->select($this->select_columns)
-                     ->where('status', '2')
-                     ->orderBy('created_at', 'DESC')
-                     ->get();
-        foreach ($un_payed->chunk(10) as $key => $value) {
+        $un_payed = $query->with('hasManyInfoDianxin')
+                          ->select($this->select_columns)
+                          ->where('status', '2')
+                          ->orderBy('created_at', 'DESC')
+                          ->get();
+        // dd($un_payed);
+        foreach ($un_payed as $k => $v) {
             # code...
-            foreach ($value as $k => $v) {
-                /*p($v->package_month);
-                dd($v->hasManyInfoDianxin);*/
-
-                if($v->package_month == $v->hasManyInfoDianxin()->count()){
-                    //已返还月符合套餐返还月数
-                    $v->status = '3';
-                    $v->save();
-                }
+            // dd($value);
+            // dd($v->hasManyInfoDianxin->count());
+            //p($v->package_month);
+            //dd($v->hasManyInfoDianxin->count());
+            // dd($v);
+            $package_months = $v->package_month;
+            $return_months  = $v->hasManyInfoDianxin->count();
+            // $return_months  = '2';
+            
+            if($package_months == $return_months){
+                //已返还月符合套餐返还月数
+                $v->status = '3';
+                $v->save();
+                $count++;
+                // array_push($count, $v->id);
             }
         }
+        dd($count);
         // dd($un_payed[0]->hasManyInfoDianxin()->count());
-        return true;
+        return $count;
     }
 
     //约车状态转换，暂时只有激活-废弃转换

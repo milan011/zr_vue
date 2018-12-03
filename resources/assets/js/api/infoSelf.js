@@ -21,6 +21,14 @@ export function getInfo(data, token = getToken()) {
   })
 }
 
+export function infoStatistics(query, token = getToken()) {
+  return request({
+    url: ROAST_CONFIG.API_URL + '/infoStatistics',
+    method: 'post',
+    params: {query, token},
+  })
+}
+
 export function createInfo(data, token = getToken()) {
   return request({
     url: ROAST_CONFIG.API_URL + '/infoSelf',

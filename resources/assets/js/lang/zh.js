@@ -91,6 +91,7 @@ export default {
     infoDianXinAdd:'添加电信信息',
     infoDianXinUpdate:'修改电信信息',
     infoDianXinDelete:'删除电信信息',
+    InfoStatistics: '信息统计'
   },
   navbar: {
     logOut: '退出登录',
@@ -282,7 +283,7 @@ export default {
     manager: '客户经理',
     jiakuan: '价款',
     refunds: '返款金额',
-    // return_telephone: '入网号码',
+    exampleExcelDown: '标准表下载',
     yongjin: '佣金方案',
     balance_month: '结算月',
     netin: '返还日期',   
@@ -290,6 +291,18 @@ export default {
     import: '导入日期',
     remark: '备注',
     status: '状态',
+    infoDeal: '信息处理',
     add: '添加',
+  },
+  infoStatistics: {
+    name: '业务员',
+    info_nums_all: '主卡数(不绑老卡|绑老卡)',
+    old_bind: '绑老卡',
+    not_old_bind: '不绑老卡',
+    old_bind: '不绑老卡|绑老卡',
+    side_nums_all: '副卡数(不绑老卡|绑老卡)',
+    subtotal: '小计(不绑老卡|绑老卡)',
+    total: '总数',
+    netin: '入网日期',   
   },
 }

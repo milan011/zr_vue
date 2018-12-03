@@ -422,51 +422,31 @@ class InfoSelfController extends Controller
     public function statistics(Request $request)
     {
         
-        // dd($request->isMethod('post'));
-        $infoSelfs           = $this->infoSelf->getAllInfos($request);
-        $salesmans           = $this->user->getAllUsersByRole('1');  //获取所有业务员
+        $users = $this->user->getusers();
+        // dd($users);
+        // dd($users);$user->hasRole('writer');
 
-        $salesmans = DB::table('zr_users')->where('status', '1')->where('id','!=', '1')->get();
-        $salesman_statistics = array();
-        
+        $salesmans = $users->filter(function ($value, $key) { //只获取销售顾问
+
+            return $value->hasRole('saler');
+        });       
+        // $salesmans = DB::table('zr_users')->where('status', '1')->where('id','!=', '1')->get();
         // dd($salesmans);
-
-        if($request->isMethod('post')){
-
-            $netin_year  = $request->netin_year; //入网年
-            $netin_month = $request->netin_month; //入网月
-            $netin  = $request->netin_year . '-' . $request->netin_month;
-        }else{
-
-            $dt = Carbon::now(); //当前日期
-
-            $netin_year  = $dt->year;  //当前年
-            $netin_month = $dt->month; //当前月
-            if(strlen($netin_month) == 1){
-                $netin_month = '0'.$netin_month;
-            }
-            $netin  = $netin_year . '-' . $netin_month;
-
-
-            // dd($netin_year);
-        }
-        
-        
-        
-
-        // dd($netin);
         foreach ($salesmans as $key => $value) {
             # 每个业务员统计
-            $salesman_list[$key]['id'] = $value->id;
-            $salesman_list[$key]['nick_name'] = $value->nick_name;
+            $salesman_list[$key-1]['id'] = $value->id;
+            $salesman_list[$key-1]['nick_name'] = $value->nick_name;
         }
 
-        // dd($salesman_list);
-        /*$salesman_list = [
-            ['id' => '1', 'nick_name'=>'wcg'],
-            ['id' => '2', 'nick_name'=>'mm'],
-        ];*/
+        $query_list = jsonToArray($request->input('query')); //获取搜索信息
 
+        // isset($query_list['withNoPage']) ? : false;
+
+        //$query_list['withNoPage'] = ($query_list['withNoPage']) ? true : false ;
+
+        $netin = $this->netinQuery($query_list['netin_year'], $query_list['netin_month']);
+        // dd($salesman_list);
+        // $netin = '2018-07';
         foreach ($salesman_list as $key => $value) {
             # 每个业务员统计
             $salesman_info      = $this->infoSelf->getSalesmanInfo($value['id'], $netin);
@@ -479,7 +459,7 @@ class InfoSelfController extends Controller
             foreach ($salesman_info as $k => $v) {
                 # 统计业务员副卡数目
                 
-                if($v->old_bind == 0){
+                if($v->old_bind == 1){
                     //绑老卡
                     if(!empty($v->side_number)){
 
@@ -537,9 +517,26 @@ class InfoSelfController extends Controller
             $total_num['total_all'] += $value['info_nums_all'] + $value['side_nums_all'];
         }
 
-        // dd($total_num);
+        // dd($salesman_statistics);
+        $total_arr = [
+            'nick_name'     => '总计',
+            'info_nums_all' => $total_num['info_nums_all_total'],
+            'info_nums_num' => $total_num['info_nums_num_total'],
+            'info_nums_old' => $total_num['info_nums_old_total'],
+            'side_nums_all' => $total_num['side_nums_all_total'],
+            'side_nums_num' => $total_num['side_nums_num_total'],
+            'side_nums_old' => $total_num['side_nums_old_total'],
+            'netin'         => $netin
+        ];
+
+        array_push($salesman_statistics, $total_arr);
+
+        return $salesman_statistics;
+        /*return response([
+                'data' => $salesman_statistics
+            ]); */
         
-        return view('admin.infoSelf.statistics', compact('salesman_statistics', 'netin', 'netin_year', 'netin_month', 'total_num'));
+        //return view('admin.infoSelf.statistics', compact('salesman_statistics', 'netin', 'netin_year', 'netin_month', 'total_num'));
     }
 
     //处理入网日期格式

@@ -60,7 +60,7 @@ export function isTelephone(telephone) {
  */
 export function isBalanceMonth(balance_month) {
   const res = /^\+?[1-9][0-9]*$/
-  console.log(res.test(balance_month))
+  // console.log(res.test(balance_month))
   return res.test(balance_month)
 }
 /**
@@ -70,6 +70,6 @@ export function isBalanceMonth(balance_month) {
  */
 export function isReturnMonth(return_month) {
   const remonth = /^\d{6}$/
-  console.log(remonth.test(return_month))
+  // console.log(remonth.test(return_month))
   return remonth.test(return_month)
 }

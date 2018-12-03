@@ -1222,6 +1222,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 
 
@@ -73464,14 +73467,22 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    { staticClass: "dashboard-container" },
-    [_c(_vm.currentRole, { tag: "component" })],
-    1
-  )
+  return _vm._m(0)
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "dashboard-container" }, [
+      _c(
+        "p",
+        { staticStyle: { "text-align": "center", "margin-top": "10%" } },
+        [_vm._v("\n    欢迎使用卓睿信息管理系统\n  ")]
+      )
+    ])
+  }
+]
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {

@@ -15,21 +15,24 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\InfoDianxin\InfoDianxinResource;
 use App\Http\Resources\InfoDianxin\InfoDianxinResourceCollection;
 use App\Repositories\InfoDianxin\InfoDianxinRepositoryInterface;
+use App\Repositories\InfoSelf\InfoSelfRepositoryInterface;
 
 
 class InfoDianxinController extends Controller
 {   
     protected $infoDianxin;
+    protected $infoSelf;
     
 
     public function __construct(
 
-        InfoDianxinRepositoryInterface $infoDianxin
-        /*BrandRepositoryContract $brands,
-        ShopRepositoryContract $shop*/
+        InfoDianxinRepositoryInterface $infoDianxin,
+        InfoSelfRepositoryInterface $infoSelf
+        // ShopRepositoryContract $shop
     ) {
     
         $this->infoDianxin = $infoDianxin;
+        $this->infoSelf    = $infoSelf;
         /*$this->brands = $brands;
         $this->shop = $shop;*/
 
@@ -173,6 +176,52 @@ class InfoDianxinController extends Controller
     }
 
     /**
+     * 信息处理
+     * 基本信息--商品信息
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function dealWith(Request $request)
+    {
+        /**
+        * 获取所有未返还完成信息,与电信导入表数据对比并处理
+        * 处理结果反馈至返还记录
+        * 若返还完成,则将信息状态设置为完成状态
+        * 
+        */
+   
+        // 获取全部尚未返还完成信息
+        $queryList['unPayed']      = '1';
+        $queryList['withNoPage']   = true; //获取全部数据
+        // $notPayed = true;
+        // dd($select_conditions);
+        // $be = time();
+        $infoDealNum = $this->infoSelf->infoDeal($queryList); //尚未返还完成信息
+        // $af = time();
+
+        // dd($af - $be);
+
+        // dd($infoDealNum);
+
+
+        //处理已经返还完成信息
+        /*if($infoSelfs_not_payed != 0){
+           $infoSelfs_payed = $this->infoSelf->infopayed(); 
+        }*/
+         
+        // dd('呵呵');
+        return $this->baseSucceed($respond_data = $infoDealNum, $message = '处理完成,本次共处理'.$infoDealNum.'条信息');
+
+        /*return response()->json(array(
+            'status'      => 1,
+            'msg'         => '处理完成',
+            'dealInfoNum' => $infoSelfs_not_payed,
+        ));*/
+        
+        // return redirect('infoSelf/notPayed')->withInput();
+    }
+
+    /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
@@ -247,161 +296,64 @@ class InfoDianxinController extends Controller
      * @param  
      * @return \Illuminate\Http\Response
      */
-    public function importExcel(Request $request)
+    public function importInfo(Request $request)
     {
-        // dd(session::get('file_name'));
-        // dd(public_path('uploads/dianxinExcel'));
-        // dd('xixi');
-        $filePath = public_path('uploads/dianxinExcel/').session::get('file_name');
-        $time_star = time();//得到当前时间戳，用来在最后计算文件导入完毕后的用时
-        /*dd($filePath);
-        dd('hehe');*/
-        // $filePath = public_path('uploads\dianxinExcel/').'test'.'.xls';
         
-        // $fielPath = "F:\phpStudy\WWW\www.zhuorui.net\public\uploads\dianxinExcel".'\\'.'test.xls';
-        // dd($filePath);
+        /*dd($request->post());
+        $collection = collect([1, 2, 3]);*/
+
+        $infoData = collect($request->post())->unique(); //获取数据并清除重复
+        // $infoData = $infoData->unique(); //清除重复数据
+
+        // dd($infoData);
+
+        $time_start = time();//得到当前时间戳，用来在最后计算文件导入完毕后的用时
         
         $info_count_before = DB::table('zr_info_dianxin')->count(); //插入前总数据量
-        
-        Excel::load($filePath, function($reader) {
-                
-            $tables = $reader->all();
-            // $table = $reader->getSheet(0)->toArray(); //只获取第一个sheet
-            // $table = $reader->toArray();
-            $table = $tables[0];
-            
-            // dd($table); //表是否为空
-            // 
-            $regexp_banlce_moth = '/^\+?[1-9][0-9]*$/'; //匹配只能是1或2位数字正则(结算月)
-            $regexp_return_moth = '/^\d{6}$/';   //匹配只能是6位数字正则(返还日期)
-            $regexp_tele        = '/^1[3|5|7|8|9]{1}[0-9]{9}$/';   //匹配电话号码
 
-            if($table->isEmpty()){
-                // p('hehe');exit;
-                throw new \App\Exceptions\ExcelException('您导入的表是空表');
-            }
+        $data          = []; //导入数据
+        $dataNotImport = []; //未导入数据
 
-            $table = $table->unique(); //清除重复数据
+        foreach ($infoData as $key => $value) { //遍历数据
+            $row["name"]             = trim($value['套餐名称']);//套餐名称
+            $row["return_telephone"] = (string)trim($value['返款号码']);//返款号码
+            $row["refunds"]          = trim($value['返款金额']);//返款金额
+            $row["yongjin"]          = trim($value['佣金方案']);//佣金方案
+            $row["balance_month"]    = (string)trim($value['结算月']);//结算月
+            $row["netin"]            = (string)trim($value['返还日期']);//返还日期
+            $row["jiakuan"]          = trim($value['价款']);//价款
+            $row["manager"]          = trim($value['客户经理']);//客户经理
+            $row["jituan"]           = trim($value['集团名称']);//
+            array_push($data, $row);
+        }
+        // dd($data);
+        $success_count = 0;
+        $un_success_count = 0;
 
-            //表title信息
-            $table_key = array("套餐名称","返款号码","返款金额","价款","结算月","佣金方案","返还日期",'客户经理', '集团名称');
-
-            foreach ($table_key as $key => $value) {
-                # 判断传入的表数据是否符合title
-                // dd($table[0]);
-                if(!$table[0]->has($value)){
-                    throw new \App\Exceptions\ExcelException('您导入的表头不符合要求,请下载标准表格');
-                }
-            }         
-
-            /*$p = '/apple/';
-            $str = "apple banna";
-            if (preg_match($p, $str)) {
-                echo 'matched';
-            } */ 
-            // dd($table);
-            foreach ($table as $key => $value) {
-                // dd($table);
-                // dd($value);
-                // 表每一行都必须有数据
-                foreach ($value as $k => $v) {
-                    p($k);
-                    p('--');
-                    p($v);
-                    p('<br>');
-                   if(empty($v)){
-                    dd($v);   
-                    throw new \App\Exceptions\ExcelException('您导入的表有空数据,请填写数据后导入,请检查第'.($key+2).'行');
-                   }
-                }
-                exit;
-                // p(preg_match($regexp_banlce_moth, 2));exit;
-
-                if (!preg_match($regexp_banlce_moth, $value['结算月'])) {
-                    /*p($key);
-                    p((integer)$value['结算月']);
-
-                    dd($value);*/
-                    throw new \App\Exceptions\ExcelException('结算月应为1-12之间数字,请检查第'.($key+2).'行');
-                }
-
-                if (!preg_match($regexp_return_moth, $value['返还日期'])) {
-                    /*p($key);
-                    p((integer)$value['返还日期']);
-
-                    dd($value);*/
-                    throw new \App\Exceptions\ExcelException('返还日期应为******格式,如201801,请检查第'.($key+2).'行');
-                }
-
-                if (!preg_match($regexp_tele, $value['返款号码'])) {
-                    throw new \App\Exceptions\ExcelException('返款号码非有效手机号码请检查第'.($key+2).'行');
-                }
-            }
-            // dd('done');
-            $table = $table->chunk(10); //循环处理数据每次处理10条
-            /*$num = (string)2.0;
-            dd($num);*/
-            // dd($table);
-            
-            $success_count = 0;         
-
-            // dd(lastSql());
-            // dd($info_count_before);*/
-
+        foreach($data as $k=>$d){
+            if(!$d)continue;
             try {
-
-                foreach ($table as $key => $value) {
-                    $data = [];
-
-                    foreach ($value as $k => $v) {
-
-                        $row["name"]             = trim($v['套餐名称']);//套餐名称
-                        $row["return_telephone"] = (string)trim($v['返款号码']);//返款号码
-                        $row["refunds"]          = trim($v['返款金额']);//返款金额
-                        $row["yongjin"]          = trim($v['佣金方案']);//佣金方案
-                        $row["balance_month"]    = (string)trim($v['结算月']);//结算月
-                        $row["netin"]            = (string)trim($v['返还日期']);//返还日期
-                        $row["jiakuan"]          = trim($v['价款']);//价款
-                        $row["manager"]          = trim($v['客户经理']);//客户经理
-                        $row["jituan"]           = trim($v['集团名称']);//集团名称
-
-                        array_push($data, $row);
-                    }
-                    // dd($data);
-                    //插入
-                    foreach($data as $d){
-                        if(!$d)continue;
-                        // $d = collect($d);
-                        // dd($d);
-                        $infoDianxin = $this->infoDianxin->create($d);
-    
-                        /*DB::transaction(function ()use($d) {//一些导入操作
-                            $insert_id = DB::table("zr_info_dianx")->insertGetId($d);
-                            //一些数据库操作
-                        });*/
-                        /*p('hehe');
-                        dd(lastSql());*/
-                        $success_count++;
-                    }
-                }
-                
-                
-
-                /*return Response::json(["success" => true, "message" => "本次共导入 ".($success_count+$err_count).' 条数据 , 其中失败 '.$err_count.' 条 。 ','download'=>$download,'time'=>($time_end-$time_star)]);*/
-                // $message = "本次共导入 ".($info_count_after - $info_count_before).' 条数据';
-                //p('4');
-                //p($message);
-                // return redirect()->back();
-                // dd(redirect()->route('infoDianxin.index')->setTargetUrl($_SERVER['HTTP_REFERER']));
-                
-                //p('ful');               
-                //return redirect()->route('infoDianxin.index')->setTargetUrl($_SERVER['HTTP_REFERER']);
-                // return redirect('/infoDianxin/index')->with('message', $message);
-
+                $infoDianxin = $this->infoDianxin->createImport($d);
+                $success_count++;
             } catch (\Exception $e) {
-                return redirect()->route('infoDianxin.error');
-            }          
-        });
+                /*p($e->getMessage());
+                p($k);
+                dd($d);*/
+                array_push($dataNotImport, $d);
+                $un_success_count++;
+            }  
+            
+            /*DB::transaction(function ()use($d) {//一些导入操作
+                $insert_id = DB::table("zr_info_dianx")->insertGetId($d);
+                //一些数据库操作
+            });*/
+            /*p('hehe');
+            dd(lastSql());*/   
+        }
+        
+        /*p($success_count);
+        p($un_success_count);
+        dd($dataNotImport);*/
 
         /*try{
             //导入执行代码              
@@ -411,12 +363,20 @@ class InfoDianxinController extends Controller
         }*/ 
         $info_count_after = DB::table('zr_info_dianxin')->count(); //插入前总数据量
         $info_nums = $info_count_after - $info_count_before;
+        $time_end = time();//得到当前时间戳，用来在最后计算文件导入完毕后的用时
+        $time_use = $time_end - $time_start;
 
         $message = "本次共导入 ".$info_nums.' 条数据.'.'若导入数据数目跟您表格中数目不相符,说明您表格中某些数据系统中已经存在';
         
-        Session::flash('sucess', $message);
-
-        return redirect()->route('infoDianxin.index');
+        return response()->json(array(
+            'status' => 1,
+            'success_count'    => $success_count,
+            'un_success_count' => $un_success_count,
+            'dataNotImport'    => $dataNotImport,
+            /*'time_start'         => $time_start,
+            'time_end'         => $time_end,
+            'time_use'         => $time_use,*/
+        ));
     }
 
     public function exampleExcelDownload()

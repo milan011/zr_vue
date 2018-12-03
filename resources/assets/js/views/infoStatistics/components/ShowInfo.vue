@@ -93,13 +93,13 @@
       <el-row>
         <div v-for="(info, info_index) in temp.has_many_info_dianxin" :key="info_index">
           <el-col :span="8"><div class="grid-content bg-purple self-style">
-          {{ $t('infoDianxin.refunds') }}:<span>{{info.refunds}}</span>
+          {{ $t('infoDianXin.refunds') }}:<span>{{info.refunds}}</span>
           </div></el-col>
           <el-col :span="8"><div class="grid-content bg-purple self-style">
-            {{ $t('infoDianxin.balance_month') }}:<span>{{info.balance_month}}</span></div>
+            {{ $t('infoDianXin.balance_month') }}:<span>{{info.balance_month}}</span></div>
           </el-col>
           <el-col :span="8"><div class="grid-content bg-purple self-style">
-            {{ $t('infoDianxin.netin') }}:<span>{{info.netin}}</span></div>
+            {{ $t('infoDianXin.netin') }}:<span>{{info.netin}}</span></div>
           </el-col>
         </div>      
       </el-row>

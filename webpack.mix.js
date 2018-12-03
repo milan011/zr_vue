@@ -22,7 +22,7 @@ let config = {
 }
 
 
-console.log(path.resolve("resources/assets/js"));
+// console.log(path.resolve("resources/assets/js"));
 
 mix.webpackConfig(config);
 

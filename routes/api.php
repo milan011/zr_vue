@@ -69,11 +69,16 @@ Route::group([
     Route::get('getInfo/{id}', 'InfoSelfController@getInfo');
     Route::put('infoSelf/{id}', 'InfoSelfController@update');
     Route::delete('infoSelf/{id}', 'InfoSelfController@destroy');
+    Route::match(['get', 'post'], 'infoStatistics', 'InfoSelfController@statistics');
 
     //InfoDianxin
     Route::get('infoDianxinList', 'InfoDianxinController@index');
     // Route::get('infoDianxinAll', 'InfoDianxinController@infoDianxinAll'); //所有信息列表,无分页
     Route::post('infoDianxin', 'InfoDianxinController@store');
+    Route::post('importInfoDianxin', 'InfoDianxinController@importInfo');
+    Route::get('infoDianxin/exampleExcelDownload', 'InfoDianxinController@exampleExcelDownload');
+    // Route::post('infoDianxin/dealWith', 'InfoDianxinController@dealWith')->middleware('throttle:20');
+    Route::get('infoDianxin/dealWith', 'InfoDianxinController@dealWith');
     Route::put('infoDianxin/{id}', 'InfoDianxinController@update');
     Route::delete('infoDianxin/{id}', 'InfoDianxinController@destroy');
 
