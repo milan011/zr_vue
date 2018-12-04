@@ -373,7 +373,7 @@ class InfoSelfRepository implements InfoSelfRepositoryInterface
         // $af = time();
 
         // dd($af - $be);
-        dd($info_payed_nums);
+        // dd($info_payed_nums);
 
         return $info_deal_nums;
     }
@@ -438,26 +438,30 @@ class InfoSelfRepository implements InfoSelfRepositoryInterface
                           ->orderBy('created_at', 'DESC')
                           ->get();
         // dd($un_payed);
-        foreach ($un_payed as $k => $v) {
+        $unPayedInfos = $un_payed->chunk(500);
+        foreach ($unPayedInfos as $key => $value) {
             # code...
             // dd($value);
             // dd($v->hasManyInfoDianxin->count());
             //p($v->package_month);
             //dd($v->hasManyInfoDianxin->count());
             // dd($v);
-            $package_months = $v->package_month;
-            $return_months  = $v->hasManyInfoDianxin->count();
-            // $return_months  = '2';
-            
-            if($package_months == $return_months){
-                //已返还月符合套餐返还月数
-                $v->status = '3';
-                $v->save();
-                $count++;
-                // array_push($count, $v->id);
+            foreach ($value as $k => $v) {
+                # code...
+                $package_months = $v->package_month;
+                $return_months  = $v->hasManyInfoDianxin->count();
+                // $return_months  = '2';
+                
+                if($package_months == $return_months){
+                    //已返还月符合套餐返还月数
+                    $v->status = '3';
+                    $v->save();
+                    $count++;
+                    // array_push($count, $v->id);
+                }
             }
         }
-        dd($count);
+        // dd($count);
         // dd($un_payed[0]->hasManyInfoDianxin()->count());
         return $count;
     }

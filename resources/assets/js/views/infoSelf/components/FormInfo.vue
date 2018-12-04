@@ -284,10 +284,10 @@
       return {
         temp: {
           id: undefined,
-          name: '阿宝',
-          new_telephone: '13731080174',
-          user_telephone: '13731080174',
-          uim_number: '8986111804311020036',
+          name: '',
+          new_telephone: '',
+          user_telephone: '',
+          uim_number: '',
           remark: ' ',
           netin_year: new Date().getFullYear(),
           netin_month: new Date().getMonth()+1,
@@ -298,7 +298,7 @@
           collections: 200,
           newPackageName: '',
           side_numbers: [
-            {side_number:'13731080174', uim: '8986111804311020036', add: true}, 
+            {side_number:'', uim: '', add: true}, 
           ],
           collections_type: 1,
           old_bind: '0',
@@ -476,7 +476,7 @@
                 })
               }           
             }).catch((error) => {
-              console.log(error)
+              // console.log(error)
               switch (error.response.status) {
                 case 422:
                   let errMessage = error.response.data.errors
@@ -581,8 +581,8 @@
           }*/
       this.temp = Object.assign({}, row) // copy obj
       //this.temp.timestamp = new Date(this.temp.timestamp)
-      console.log(row)
-      console.log(this.temp)
+      // console.log(row)
+      // console.log(this.temp)
       this.dialogStatus = 'update'
       this.infoNewTelephoneDisabled = true,
       this.infoDialogFormVisible = true 
@@ -603,13 +603,14 @@
                   break
                 }
               }*/
-              console.log(this.temp.newPackageName)
+              // console.log(this.temp.newPackageName)
               console.log(this.temp)
               this.temp.update = true
               this.temp.has_one_package = response.data.data.has_one_package
               this.temp.side_number = response.data.data.side_number
               this.temp.side_number_num = response.data.data.side_number_num
               this.temp.is_jituan = response.data.data.is_jituan
+              this.temp.netin = response.data.data.netin
               this.addInfoSelfList(this.temp)
               this.infoDialogFormVisible = false
               this.$notify({
