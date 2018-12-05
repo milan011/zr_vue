@@ -361,12 +361,12 @@ export default {
           this.listQuery.netin_month = new Date().getMonth()+1
         }
       }  */
-      if(this.listQuery.netin_year == ''){
+      /*if(this.listQuery.netin_year == ''){
         this.listQuery.netin_year = new Date().getFullYear()
       } 
       if(this.listQuery.netin_month == ''){
         this.listQuery.netin_month = new Date().getMonth()+1
-      }  
+      }*/  
       // console.log(this.listQuery)
       // return false
       this.listQuery.withNoPage = true

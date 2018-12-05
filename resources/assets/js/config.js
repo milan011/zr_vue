@@ -3,6 +3,8 @@
  */
 var api_url = 'http://www.myvue.net/api';
 var app_url = 'http://www.myvue.net';
+/*var api_url = 'http://www.hebeitaochele.com/api';
+var app_url = 'http://www.hebeitaochele.com';*/
 /*var gaode_maps_js_api_key = '33c20882595f1fecc2d31c8c73a38da7';
 
 switch( process.env.NODE_ENV ){

@@ -12,6 +12,7 @@
 
 <script>
 import { Navbar, Sidebar, AppMain, TagsView } from './components'
+import  { isChorme }  from '@/common.js'
 import ResizeMixin from './mixin/ResizeHandler'
 
 export default {
@@ -23,8 +24,12 @@ export default {
     TagsView
   },
   mixins: [ResizeMixin],
+  created() {
+    this.isChormeBrowser()
+  },
   computed: {
     sidebar() {
+
       return this.$store.state.app.sidebar
     },
     device() {
@@ -42,6 +47,11 @@ export default {
   methods: {
     handleClickOutside() {
       this.$store.dispatch('closeSideBar', { withoutAnimation: false })
+    },
+    isChormeBrowser(){
+      if(!isChorme()){
+        this.$router.push({ name: 'chormeDownLoad'})
+      }
     }
   }
 }

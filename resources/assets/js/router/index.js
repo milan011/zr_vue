@@ -47,6 +47,12 @@ export const constantRouterMap = [
     // hidden: true,
   },
   {
+    name:'chormeDownLoad',
+    path: '/chormeDownLoad',
+    component: resolve => void(require(['@/views/chormeDownLoad/index'], resolve))
+    // hidden: true,
+  },
+  {
     path: '/',
     component: Layout,
     redirect: 'dashboard',

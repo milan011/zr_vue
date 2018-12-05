@@ -82,6 +82,8 @@ Route::group([
     Route::put('infoDianxin/{id}', 'InfoDianxinController@update');
     Route::delete('infoDianxin/{id}', 'InfoDianxinController@destroy');
 
+    Route::get('infoDianxin/chormeBroswerDown', 'InfoDianxinController@chormeBroswerDown');
+    
     /*
     Route::get('all_roles', 'RolesController@allRoles');
     Route::delete('roles/{role}', 'RolesController@destroy');*/

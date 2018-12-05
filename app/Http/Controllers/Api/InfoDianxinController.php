@@ -379,8 +379,15 @@ class InfoDianxinController extends Controller
         ));
     }
 
+    //下载标准表格
     public function exampleExcelDownload()
     {
         return response()->download(realpath(public_path('uploads/example.xlsx')));
+    }
+
+    //下载谷歌浏览器
+    public function chormeBroswerDown()
+    {
+        return response()->download(realpath(public_path('uploads/ChromeSetup_32.exe')));
     }
 }
