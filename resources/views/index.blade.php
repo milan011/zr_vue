@@ -6,6 +6,7 @@
     <meta http-equiv="cache-control" content="no-cache,no-store, must-revalidate" />
 	<meta http-equiv="pragma" content="no-cache" />
 	<meta http-equiv="Expires" content="0" />
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
     <title>卓睿信息管理系统</title>
     <!-- <script src="//upyun1.codercto.com/images/1x1.png" data-original="//cdn.bootcss.com/vue/2.5.13/vue.min.js"></script>
     

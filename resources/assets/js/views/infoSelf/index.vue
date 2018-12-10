@@ -294,8 +294,8 @@ export default {
       this.listQuery.withNoPage = true
       infoList(this.listQuery).then(response => {
         this.listExport = response.data.data
-        // console.log(this.listExport)
-        // return false
+        /*console.log(this.listExport)
+        return false*/
         Array.prototype.forEach.call(this.listExport, child => {
           // console.log(child)
           if(child.side_number !== ''){
@@ -326,12 +326,13 @@ export default {
           child.isJituan = this.jiTuanStatusMap[child.is_jituan]
           child.oldBind  = this.oldBindStatusMap[child.old_bind]
           child.packageName  = child.has_one_package.name
-          child.collectionsType  = this.collectionsTypeMap[child.collections_type]
+          child.collectionsType  = this.collectionsTypeMap[child.collections_type - 1]
           child.creater  = child.belongs_to_creater.nick_name
+          child.package_price = child.has_one_package.package_price
 
         })
         const tHeader = ['序号','日期','客户经理','电话','项目', '客户姓名', '新号码', 'UIM码', '集团卡', '绑老卡','副卡(UIM)','套餐标准', '联系方式', '收款', '收款方式', '销售人']
-        const filterVal = ['id','date','manage_name','manage_telephone','project_name', 'name', 'new_telephone', 'uim_number', 'isJituan', 'oldBind','side_info','package_id', 'user_telephone', 'collections', 'collectionsType', 'creater']
+        const filterVal = ['id','date','manage_name','manage_telephone','project_name', 'name', 'new_telephone', 'uim_number', 'isJituan', 'oldBind','side_info','package_price', 'user_telephone', 'collections', 'collectionsType', 'creater']
         const data = this.formatJson(filterVal, this.listExport)
         // console.log(data)
         // return false

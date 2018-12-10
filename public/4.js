@@ -1,1 +1,1348 @@
-webpackJsonp([4],{1032:function(n,e,t){var i=t(3)(t(597),t(603),!1,function(n){t(595)},null,null);n.exports=i.exports},386:function(n,e,t){"use strict";var i=t(83),a=t.n(i),s=(t(387),{bind:function(n,e){n.addEventListener("click",function(t){var i=a()({},e.value),s=a()({ele:n,type:"hit",color:"rgba(0, 0, 0, 0.15)"},i),o=s.ele;if(o){o.style.position="relative",o.style.overflow="hidden";var r=o.getBoundingClientRect(),l=o.querySelector(".waves-ripple");switch(l?l.className="waves-ripple":((l=document.createElement("span")).className="waves-ripple",l.style.height=l.style.width=Math.max(r.width,r.height)+"px",o.appendChild(l)),s.type){case"center":l.style.top=r.height/2-l.offsetHeight/2+"px",l.style.left=r.width/2-l.offsetWidth/2+"px";break;default:l.style.top=(t.pageY-r.top-l.offsetHeight/2-document.documentElement.scrollTop||document.body.scrollTop)+"px",l.style.left=(t.pageX-r.left-l.offsetWidth/2-document.documentElement.scrollLeft||document.body.scrollLeft)+"px"}return l.style.backgroundColor=s.color,l.className="waves-ripple z-active",!1}},!1)}}),o=function(n){n.directive("waves",s)};window.Vue&&(window.waves=s,Vue.use(o)),s.install=o;e.a=s},387:function(n,e,t){var i=t(388);"string"==typeof i&&(i=[[n.i,i,""]]);var a={transform:void 0};t(40)(i,a);i.locals&&(n.exports=i.locals)},388:function(n,e,t){(n.exports=t(2)(!1)).push([n.i,".waves-ripple {\r\n    position: absolute;\r\n    border-radius: 100%;\r\n    background-color: rgba(0, 0, 0, 0.15);\r\n    background-clip: padding-box;\r\n    pointer-events: none;\r\n    -webkit-user-select: none;\r\n    -moz-user-select: none;\r\n    -ms-user-select: none;\r\n    user-select: none;\r\n    -webkit-transform: scale(0);\r\n    -ms-transform: scale(0);\r\n    transform: scale(0);\r\n    opacity: 1;\r\n}\r\n\r\n.waves-ripple.z-active {\r\n    opacity: 0;\r\n    -webkit-transform: scale(2);\r\n    -ms-transform: scale(2);\r\n    transform: scale(2);\r\n    -webkit-transition: opacity 1.2s ease-out, -webkit-transform 0.6s ease-out;\r\n    transition: opacity 1.2s ease-out, -webkit-transform 0.6s ease-out;\r\n    transition: opacity 1.2s ease-out, transform 0.6s ease-out;\r\n    transition: opacity 1.2s ease-out, transform 0.6s ease-out, -webkit-transform 0.6s ease-out;\r\n}",""])},441:function(n,e,t){"use strict";e.c=function(n){var e=arguments.length>1&&void 0!==arguments[1]?arguments[1]:Object(a.a)();return Object(i.a)({url:s.a.API_URL+"/roleList",method:"get",params:{query:n,token:e,page:n.page}})},e.a=function(n){var e=arguments.length>1&&void 0!==arguments[1]?arguments[1]:Object(a.a)();return Object(i.a)({url:s.a.API_URL+"/role",method:"post",data:n,params:{token:e}})},e.g=function(n){var e=arguments.length>1&&void 0!==arguments[1]?arguments[1]:Object(a.a)();return Object(i.a)({url:s.a.API_URL+"/role/"+n.id,method:"put",params:{token:e},data:n})},e.b=function(n){var e=arguments.length>1&&void 0!==arguments[1]?arguments[1]:Object(a.a)();return Object(i.a)({url:s.a.API_URL+"/role/"+n.id,method:"delete",params:{token:e},data:n})},e.e=function(n){var e=arguments.length>1&&void 0!==arguments[1]?arguments[1]:Object(a.a)();return Object(i.a)({url:s.a.API_URL+"/role/"+n.id+"/permissions",method:"get",params:{token:e},data:n})},e.f=function(n){var e=arguments.length>1&&void 0!==arguments[1]?arguments[1]:Object(a.a)();return Object(i.a)({url:s.a.API_URL+"/giveRole/"+n.id+"/permissions",method:"post",params:{token:e},data:n})},e.d=function(){var n=arguments.length>0&&void 0!==arguments[0]?arguments[0]:Object(a.a)();return Object(i.a)({url:s.a.API_URL+"/permissionAll",method:"get",params:{token:n}})};var i=t(118),a=t(46),s=t(117);Object(a.a)()},595:function(n,e,t){var i=t(596);"string"==typeof i&&(i=[[n.i,i,""]]),i.locals&&(n.exports=i.locals);t(6)("ce7eb9b4",i,!0,{})},596:function(n,e,t){(n.exports=t(2)(!1)).push([n.i,"\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* .fixed-width .el-button--mini {\n  padding: 10px 3px;\n  width: 70px;\n  margin-left: 0px;\n} */\n",""])},597:function(n,e,t){"use strict";Object.defineProperty(e,"__esModule",{value:!0});var i=t(47),a=t.n(i),s=t(83),o=t.n(s),r=t(39),l=t.n(r),c=t(441),u=t(386),d=(t(119),t(598)),p=t.n(d),m=[{key:"web",display_name:"web"},{key:"api",display_name:"api"}],f=m.reduce(function(n,e){return n[e.key]=e.display_name,n},{});e.default={name:"roleList",components:{SwitchRoles:p.a},directives:{waves:u.a},filters:{statusFilter:function(n){return{published:"success",draft:"info",deleted:"danger"}[n]},typeFilter:function(n){return f[n]}},data:function(){return{tableKey:0,list:null,permissionList:null,total:null,listLoading:!0,listQuery:{page:1,importance:void 0,name:void 0,guard_name:void 0},calendarTypeOptions:m,showReviewer:!1,temp:{id:void 0,name:"",guard_name:"",description:""},dialogFormVisible:!1,dialogStatus:"",textMap:{update:"编辑角色",create:"新增角色"},pvData:[],rules:{guard_name:[{required:!0,message:"请选择标识",trigger:"change"}],name:[{required:!0,message:"请输入名称",trigger:"blur"}],description:[{required:!0,message:"请输入描述",trigger:"blur"}]},downloadLoading:!1}},created:function(){l.a.all([this.getList()])},methods:{getList:function(){var n=this;this.listLoading=!0,Object(c.c)(this.listQuery).then(function(e){n.list=e.data.data,n.total=e.data.total,setTimeout(function(){n.listLoading=!1},1500)})},handleFilter:function(){this.listQuery.page=1,this.getList()},handleSizeChange:function(n){this.listQuery.limit=n,this.getList()},handleCurrentChange:function(n){this.listQuery.page=n,this.getList()},handleModifyStatus:function(n,e){var t=this;this.$confirm("确定要删除?","提示",{confirmButtonText:"确定",cancelButtonText:"取消",type:"warning"}).then(function(){t.temp=o()({},n),Object(c.b)(t.temp).then(function(e){if(0===e.data.status)t.$notify({title:"失败",message:"删除失败",type:"warning",duration:2e3});else{var i=t.list.indexOf(n);t.list.splice(i,1),t.dialogFormVisible=!1,t.$notify({title:"成功",message:"删除成功",type:"success",duration:2e3})}})}).catch(function(){t.$message({type:"info",message:"已取消删除"})})},resetTemp:function(){this.temp={id:void 0,name:"",guard_name:"",description:""}},handleCreate:function(){var n=this;this.resetTemp(),this.dialogStatus="create",this.dialogFormVisible=!0,this.$nextTick(function(){n.$refs.dataForm.clearValidate()})},createData:function(){var n=this;this.$refs.dataForm.validate(function(e){e&&Object(c.a)(n.temp).then(function(e){n.temp.id=e.data.id,n.list.unshift(n.temp),n.dialogFormVisible=!1,n.$notify({title:"成功",message:"创建成功",type:"success",duration:2e3})})})},handleUpdate:function(n){var e=this;this.temp=o()({},n),this.dialogStatus="update",this.dialogFormVisible=!0,this.$nextTick(function(){e.$refs.dataForm.clearValidate()})},updateData:function(){var n=this;this.$refs.dataForm.validate(function(e){if(e){var t=o()({},n.temp);Object(c.g)(t).then(function(){var e=!0,t=!1,i=void 0;try{for(var s,o=a()(n.list);!(e=(s=o.next()).done);e=!0){var r=s.value;if(r.id===n.temp.id){var l=n.list.indexOf(r);n.list.splice(l,1,n.temp);break}}}catch(n){t=!0,i=n}finally{try{!e&&o.return&&o.return()}finally{if(t)throw i}}n.dialogFormVisible=!1,n.$notify({title:"成功",message:"更新成功",type:"success",duration:2e3})})}})},handleDelete:function(n){this.$notify({title:"成功",message:"删除成功",type:"success",duration:2e3});var e=this.list.indexOf(n);this.list.splice(e,1)},handleSetPermission:function(n){this.$refs.roleChild.handlePermission(n)},giveRolePermissions:function(){this.$refs.roleChild.givePermissions()}}}},598:function(n,e,t){var i=t(3)(t(601),t(602),!1,function(n){t(599)},"data-v-33b284fa",null);n.exports=i.exports},599:function(n,e,t){var i=t(600);"string"==typeof i&&(i=[[n.i,i,""]]),i.locals&&(n.exports=i.locals);t(6)("2f8bbbc6",i,!0,{})},600:function(n,e,t){(n.exports=t(2)(!1)).push([n.i,"",""])},601:function(n,e,t){"use strict";Object.defineProperty(e,"__esModule",{value:!0});var i=t(39),a=t.n(i),s=t(441);e.default={data:function(){return{permissionTemp:{id:null,permissions:[]},rolePermission:"权限编辑",permissionDialogFormVisible:!1,checkList:["user_list","role_list"],permissions:[]}},created:function(){a.a.all([this.getPermissionList()])},methods:{getPermissionList:function(){var n=this;Object(s.d)().then(function(e){n.permissions=e.data.data})},handlePermission:function(n){var e=this;Object(s.e)(n).then(function(t){e.checkList=t.data,e.permissionTemp.id=n.id,e.permissionDialogFormVisible=!0})},givePermissions:function(){var n=this;this.permissionTemp.permissions=this.checkList,Object(s.f)(this.permissionTemp).then(function(e){n.permissionDialogFormVisible=!1,n.$notify({title:"成功",message:"创建成功",type:"success",duration:2e3})})}}}},602:function(n,e){n.exports={render:function(){var n=this,e=n.$createElement,t=n._self._c||e;return t("div",[t("el-dialog",{attrs:{title:n.rolePermission,visible:n.permissionDialogFormVisible},on:{"update:visible":function(e){n.permissionDialogFormVisible=e}}},[t("el-form",{ref:"permissionDForm",attrs:{model:n.permissionTemp,"label-position":"left","label-width":"100px"}},n._l(n.permissions,function(e,i){return t("el-checkbox-group",{key:i,model:{value:n.checkList,callback:function(e){n.checkList=e},expression:"checkList"}},[t("div",{staticStyle:{"margin-bottom":"12px"}},[t("span",{staticStyle:{"font-size":"16px","margin-right":"5px"}},[n._v(n._s(i)+":")]),n._v(" "),n._l(e,function(e){return t("el-checkbox",{key:e.id,attrs:{border:"",size:"medium",label:e.name}},[n._v("\r\n              "+n._s(e.description)+"\r\n            ")])})],2)])})),n._v(" "),t("div",{staticClass:"dialog-footer",attrs:{slot:"footer"},slot:"footer"},[t("el-button",{on:{click:function(e){n.permissionDialogFormVisible=!1}}},[n._v(n._s(n.$t("table.cancel")))]),n._v(" "),t("el-button",{attrs:{type:"primary"},on:{click:n.givePermissions}},[n._v(n._s(n.$t("table.confirm")))])],1)],1)],1)},staticRenderFns:[]}},603:function(n,e){n.exports={render:function(){var n=this,e=n.$createElement,t=n._self._c||e;return t("div",{staticClass:"app-container"},[t("div",{staticClass:"filter-container"},[t("el-button",{staticClass:"filter-item",staticStyle:{"margin-left":"10px"},attrs:{type:"primary",icon:"el-icon-edit"},on:{click:n.handleCreate}},[n._v("\n      "+n._s(n.$t("table.add"))+"\n    ")])],1),n._v(" "),t("el-table",{directives:[{name:"loading",rawName:"v-loading",value:n.listLoading,expression:"listLoading"}],key:n.tableKey,staticStyle:{width:"100%"},attrs:{data:n.list,border:"",fit:"","highlight-current-row":""}},[t("el-table-column",{attrs:{label:n.$t("table.id"),align:"center"},scopedSlots:n._u([{key:"default",fn:function(e){return[t("span",[n._v(n._s(e.row.id))])]}}])}),n._v(" "),t("el-table-column",{attrs:{label:n.$t("role.name"),align:"center"},scopedSlots:n._u([{key:"default",fn:function(e){return[t("span",[n._v(n._s(e.row.name))])]}}])}),n._v(" "),t("el-table-column",{attrs:{label:n.$t("role.guard_name"),align:"center"},scopedSlots:n._u([{key:"default",fn:function(e){return[t("span",[n._v(n._s(e.row.guard_name))])]}}])}),n._v(" "),t("el-table-column",{attrs:{label:n.$t("role.description"),align:"center"},scopedSlots:n._u([{key:"default",fn:function(e){return[t("span",[n._v(n._s(e.row.description))])]}}])}),n._v(" "),t("el-table-column",{attrs:{label:n.$t("table.actions"),align:"center","show-overflow-tooltip":"","class-name":"small-padding fixed-width"},scopedSlots:n._u([{key:"default",fn:function(e){return[t("el-button",{attrs:{type:"primary",size:"mini"},on:{click:function(t){n.handleUpdate(e.row)}}},[n._v(n._s(n.$t("table.edit")))]),n._v(" "),t("el-button",{attrs:{type:"success",size:"mini"},on:{click:function(t){n.handleSetPermission(e.row)}}},[n._v(n._s(n.$t("table.editPermissions")))]),n._v(" "),"deleted"!=e.row.status?t("el-button",{attrs:{size:"mini",type:"danger"},on:{click:function(t){n.handleModifyStatus(e.row,"deleted")}}},[n._v(n._s(n.$t("table.delete"))+"\n        ")]):n._e()]}}])})],1),n._v(" "),t("div",{staticClass:"pagination-container"},[t("el-pagination",{directives:[{name:"show",rawName:"v-show",value:n.total>0,expression:"total>0"}],attrs:{"current-page":n.listQuery.page,total:n.total,background:"",layout:"total, prev, pager, next"},on:{"current-change":n.handleCurrentChange}})],1),n._v(" "),t("el-dialog",{attrs:{title:n.textMap[n.dialogStatus],visible:n.dialogFormVisible},on:{"update:visible":function(e){n.dialogFormVisible=e}}},[t("el-form",{ref:"dataForm",staticStyle:{width:"400px"},attrs:{rules:n.rules,model:n.temp,"label-position":"left","label-width":"100px"}},[t("el-form-item",{attrs:{label:n.$t("role.name"),prop:"name"}},[t("el-input",{model:{value:n.temp.name,callback:function(e){n.$set(n.temp,"name",e)},expression:"temp.name"}})],1),n._v(" "),t("el-form-item",{attrs:{label:n.$t("role.description"),prop:"description"}},[t("el-input",{model:{value:n.temp.description,callback:function(e){n.$set(n.temp,"description",e)},expression:"temp.description"}})],1),n._v(" "),t("el-form-item",{attrs:{label:n.$t("role.guard_name"),prop:"guard_name"}},[t("el-select",{staticClass:"filter-item",attrs:{placeholder:"请选择标识"},model:{value:n.temp.guard_name,callback:function(e){n.$set(n.temp,"guard_name",e)},expression:"temp.guard_name"}},n._l(n.calendarTypeOptions,function(n){return t("el-option",{key:n.key,attrs:{label:n.display_name,value:n.key}})}))],1)],1),n._v(" "),t("div",{staticClass:"dialog-footer",attrs:{slot:"footer"},slot:"footer"},[t("el-button",{on:{click:function(e){n.dialogFormVisible=!1}}},[n._v(n._s(n.$t("table.cancel")))]),n._v(" "),"create"==n.dialogStatus?t("el-button",{attrs:{type:"primary"},on:{click:n.createData}},[n._v(n._s(n.$t("table.confirm")))]):t("el-button",{attrs:{type:"primary"},on:{click:n.updateData}},[n._v(n._s(n.$t("table.confirm")))])],1)],1),n._v(" "),t("switch-roles",{ref:"roleChild"})],1)},staticRenderFns:[]}}});
+webpackJsonp([4],{
+
+/***/ 423:
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(659)
+}
+var normalizeComponent = __webpack_require__(4)
+/* script */
+var __vue_script__ = __webpack_require__(661)
+/* template */
+var __vue_template__ = __webpack_require__(667)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/views/role/index.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-7ceb1b6c", Component.options)
+  } else {
+    hotAPI.reload("data-v-7ceb1b6c", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+
+/***/ 448:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__waves__ = __webpack_require__(449);
+
+
+var install = function install(Vue) {
+  Vue.directive('waves', __WEBPACK_IMPORTED_MODULE_0__waves__["a" /* default */]);
+};
+
+if (window.Vue) {
+  window.waves = __WEBPACK_IMPORTED_MODULE_0__waves__["a" /* default */];
+  Vue.use(install); // eslint-disable-line
+}
+
+__WEBPACK_IMPORTED_MODULE_0__waves__["a" /* default */].install = install;
+/* harmony default export */ __webpack_exports__["a"] = (__WEBPACK_IMPORTED_MODULE_0__waves__["a" /* default */]);
+
+/***/ }),
+
+/***/ 449:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_object_assign__ = __webpack_require__(85);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_object_assign___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_object_assign__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__waves_css__ = __webpack_require__(450);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__waves_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__waves_css__);
+
+
+
+/* harmony default export */ __webpack_exports__["a"] = ({
+  bind: function bind(el, binding) {
+    el.addEventListener('click', function (e) {
+      var customOpts = __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_object_assign___default()({}, binding.value);
+      var opts = __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_object_assign___default()({
+        ele: el, // 波纹作用元素
+        type: 'hit', // hit 点击位置扩散 center中心点扩展
+        color: 'rgba(0, 0, 0, 0.15)' // 波纹颜色
+      }, customOpts);
+      var target = opts.ele;
+      if (target) {
+        target.style.position = 'relative';
+        target.style.overflow = 'hidden';
+        var rect = target.getBoundingClientRect();
+        var ripple = target.querySelector('.waves-ripple');
+        if (!ripple) {
+          ripple = document.createElement('span');
+          ripple.className = 'waves-ripple';
+          ripple.style.height = ripple.style.width = Math.max(rect.width, rect.height) + 'px';
+          target.appendChild(ripple);
+        } else {
+          ripple.className = 'waves-ripple';
+        }
+        switch (opts.type) {
+          case 'center':
+            ripple.style.top = rect.height / 2 - ripple.offsetHeight / 2 + 'px';
+            ripple.style.left = rect.width / 2 - ripple.offsetWidth / 2 + 'px';
+            break;
+          default:
+            ripple.style.top = (e.pageY - rect.top - ripple.offsetHeight / 2 - document.documentElement.scrollTop || document.body.scrollTop) + 'px';
+            ripple.style.left = (e.pageX - rect.left - ripple.offsetWidth / 2 - document.documentElement.scrollLeft || document.body.scrollLeft) + 'px';
+        }
+        ripple.style.backgroundColor = opts.color;
+        ripple.className = 'waves-ripple z-active';
+        return false;
+      }
+    }, false);
+  }
+});
+
+/***/ }),
+
+/***/ 450:
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(451);
+if(typeof content === 'string') content = [[module.i, content, '']];
+// Prepare cssTransformation
+var transform;
+
+var options = {}
+options.transform = transform
+// add the styles to the DOM
+var update = __webpack_require__(42)(content, options);
+if(content.locals) module.exports = content.locals;
+// Hot Module Replacement
+if(false) {
+	// When the styles change, update the <style> tags
+	if(!content.locals) {
+		module.hot.accept("!!../../../../../node_modules/css-loader/index.js!./waves.css", function() {
+			var newContent = require("!!../../../../../node_modules/css-loader/index.js!./waves.css");
+			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+			update(newContent);
+		});
+	}
+	// When the module is disposed, remove the <style> tags
+	module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+
+/***/ 451:
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(3)(false);
+// imports
+
+
+// module
+exports.push([module.i, ".waves-ripple {\r\n    position: absolute;\r\n    border-radius: 100%;\r\n    background-color: rgba(0, 0, 0, 0.15);\r\n    background-clip: padding-box;\r\n    pointer-events: none;\r\n    -webkit-user-select: none;\r\n    -moz-user-select: none;\r\n    -ms-user-select: none;\r\n    user-select: none;\r\n    -webkit-transform: scale(0);\r\n    -ms-transform: scale(0);\r\n    transform: scale(0);\r\n    opacity: 1;\r\n}\r\n\r\n.waves-ripple.z-active {\r\n    opacity: 0;\r\n    -webkit-transform: scale(2);\r\n    -ms-transform: scale(2);\r\n    transform: scale(2);\r\n    -webkit-transition: opacity 1.2s ease-out, -webkit-transform 0.6s ease-out;\r\n    transition: opacity 1.2s ease-out, -webkit-transform 0.6s ease-out;\r\n    transition: opacity 1.2s ease-out, transform 0.6s ease-out;\r\n    transition: opacity 1.2s ease-out, transform 0.6s ease-out, -webkit-transform 0.6s ease-out;\r\n}", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ 504:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["c"] = fetchList;
+/* harmony export (immutable) */ __webpack_exports__["a"] = createRole;
+/* harmony export (immutable) */ __webpack_exports__["g"] = updateRole;
+/* harmony export (immutable) */ __webpack_exports__["b"] = deleteRole;
+/* harmony export (immutable) */ __webpack_exports__["e"] = getRolePermissions;
+/* harmony export (immutable) */ __webpack_exports__["f"] = giveRolePermissions;
+/* harmony export (immutable) */ __webpack_exports__["d"] = getPermissions;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils_request__ = __webpack_require__(121);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__utils_auth__ = __webpack_require__(48);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__config_js__ = __webpack_require__(120);
+
+
+
+
+var token = Object(__WEBPACK_IMPORTED_MODULE_1__utils_auth__["a" /* getToken */])();
+
+function fetchList(query) {
+  var token = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : Object(__WEBPACK_IMPORTED_MODULE_1__utils_auth__["a" /* getToken */])();
+
+  return Object(__WEBPACK_IMPORTED_MODULE_0__utils_request__["a" /* default */])({
+    // url: '/user/list',
+    url: __WEBPACK_IMPORTED_MODULE_2__config_js__["a" /* ROAST_CONFIG */].API_URL + '/roleList',
+    method: 'get',
+    params: { query: query, token: token, page: query.page }
+  });
+}
+
+function createRole(data) {
+  var token = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : Object(__WEBPACK_IMPORTED_MODULE_1__utils_auth__["a" /* getToken */])();
+
+  return Object(__WEBPACK_IMPORTED_MODULE_0__utils_request__["a" /* default */])({
+    url: __WEBPACK_IMPORTED_MODULE_2__config_js__["a" /* ROAST_CONFIG */].API_URL + '/role',
+    method: 'post',
+    data: data,
+    params: { token: token }
+  });
+}
+
+function updateRole(data) {
+  var token = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : Object(__WEBPACK_IMPORTED_MODULE_1__utils_auth__["a" /* getToken */])();
+
+  return Object(__WEBPACK_IMPORTED_MODULE_0__utils_request__["a" /* default */])({
+    url: __WEBPACK_IMPORTED_MODULE_2__config_js__["a" /* ROAST_CONFIG */].API_URL + '/role/' + data.id,
+    method: 'put',
+    params: { token: token },
+    data: data
+  });
+}
+
+function deleteRole(data) {
+  var token = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : Object(__WEBPACK_IMPORTED_MODULE_1__utils_auth__["a" /* getToken */])();
+
+  return Object(__WEBPACK_IMPORTED_MODULE_0__utils_request__["a" /* default */])({
+    url: __WEBPACK_IMPORTED_MODULE_2__config_js__["a" /* ROAST_CONFIG */].API_URL + '/role/' + data.id,
+    method: 'delete',
+    params: { token: token },
+    data: data
+  });
+}
+
+function getRolePermissions(data) {
+  var token = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : Object(__WEBPACK_IMPORTED_MODULE_1__utils_auth__["a" /* getToken */])();
+
+  return Object(__WEBPACK_IMPORTED_MODULE_0__utils_request__["a" /* default */])({
+    url: __WEBPACK_IMPORTED_MODULE_2__config_js__["a" /* ROAST_CONFIG */].API_URL + '/role/' + data.id + '/permissions',
+    method: 'get',
+    params: { token: token },
+    data: data
+  });
+}
+
+function giveRolePermissions(data) {
+  var token = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : Object(__WEBPACK_IMPORTED_MODULE_1__utils_auth__["a" /* getToken */])();
+
+  return Object(__WEBPACK_IMPORTED_MODULE_0__utils_request__["a" /* default */])({
+    url: __WEBPACK_IMPORTED_MODULE_2__config_js__["a" /* ROAST_CONFIG */].API_URL + '/giveRole/' + data.id + '/permissions',
+    method: 'post',
+    params: { token: token },
+    data: data
+  });
+}
+
+function getPermissions() {
+  var token = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : Object(__WEBPACK_IMPORTED_MODULE_1__utils_auth__["a" /* getToken */])();
+
+  return Object(__WEBPACK_IMPORTED_MODULE_0__utils_request__["a" /* default */])({
+    url: __WEBPACK_IMPORTED_MODULE_2__config_js__["a" /* ROAST_CONFIG */].API_URL + '/permissionAll',
+    method: 'get',
+    params: { token: token }
+  });
+}
+
+/***/ }),
+
+/***/ 659:
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(660);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(7)("a36fe452", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-7ceb1b6c\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./index.vue", function() {
+     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-7ceb1b6c\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./index.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+
+/***/ 660:
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(3)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* .fixed-width .el-button--mini {\n  padding: 10px 3px;\n  width: 70px;\n  margin-left: 0px;\n} */\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ 661:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_get_iterator__ = __webpack_require__(49);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_get_iterator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_get_iterator__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_babel_runtime_core_js_object_assign__ = __webpack_require__(85);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_babel_runtime_core_js_object_assign___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_babel_runtime_core_js_object_assign__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_babel_runtime_core_js_promise__ = __webpack_require__(41);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_babel_runtime_core_js_promise___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_babel_runtime_core_js_promise__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__api_role__ = __webpack_require__(504);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__directive_waves__ = __webpack_require__(448);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__utils__ = __webpack_require__(122);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_Permission__ = __webpack_require__(662);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_Permission___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6__components_Permission__);
+
+
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+ // 水波纹指令
+
+
+// import SwitchRoles from './components/RolePermission'
+
+var calendarTypeOptions = [{ key: 'web', display_name: 'web' }, { key: 'api', display_name: 'api' }];
+
+// arr to obj ,such as { web : "web", api : "api" }
+var calendarTypeKeyValue = calendarTypeOptions.reduce(function (acc, cur) {
+  acc[cur.key] = cur.display_name;
+  return acc;
+}, {});
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: 'roleList',
+  components: { SwitchRoles: __WEBPACK_IMPORTED_MODULE_6__components_Permission___default.a },
+  directives: {
+    waves: __WEBPACK_IMPORTED_MODULE_4__directive_waves__["a" /* default */]
+  },
+  filters: {
+    statusFilter: function statusFilter(status) {
+      var statusMap = {
+        published: 'success',
+        draft: 'info',
+        deleted: 'danger'
+      };
+      return statusMap[status];
+    },
+    typeFilter: function typeFilter(type) {
+      return calendarTypeKeyValue[type];
+    }
+  },
+  data: function data() {
+    return {
+      tableKey: 0,
+      list: null,
+      permissionList: null,
+      total: null,
+      listLoading: true,
+      listQuery: {
+        page: 1,
+        importance: undefined,
+        name: undefined,
+        guard_name: undefined
+      },
+      calendarTypeOptions: calendarTypeOptions,
+      showReviewer: false,
+      temp: {
+        id: undefined,
+        name: '',
+        guard_name: '',
+        description: ''
+      },
+      // permissionTemp: {},
+      dialogFormVisible: false,
+      /*permissionDialogFormVisible: false,*/
+      dialogStatus: '',
+      textMap: {
+        update: '编辑角色',
+        create: '新增角色'
+      },
+      // rolePermission:'权限编辑',
+      // dialogPvVisible: false,
+      pvData: [],
+      rules: {
+        guard_name: [{ required: true, message: '请选择标识', trigger: 'change' }],
+        name: [{ required: true, message: '请输入名称', trigger: 'blur' }],
+        description: [{ required: true, message: '请输入描述', trigger: 'blur' }]
+      },
+      downloadLoading: false
+    };
+  },
+  created: function created() {
+    // this.getList()
+    __WEBPACK_IMPORTED_MODULE_2_babel_runtime_core_js_promise___default.a.all([this.getList()]
+    // this.getPermissionList()
+    );
+  },
+
+  methods: {
+    getList: function getList() {
+      var _this = this;
+
+      this.listLoading = true;
+      Object(__WEBPACK_IMPORTED_MODULE_3__api_role__["c" /* fetchList */])(this.listQuery).then(function (response) {
+        _this.list = response.data.data;
+        _this.total = response.data.total;
+
+        // Just to simulate the time of the request
+        setTimeout(function () {
+          _this.listLoading = false;
+        }, 1.5 * 1000);
+      });
+    },
+    handleFilter: function handleFilter() {
+      this.listQuery.page = 1;
+      this.getList();
+    },
+    handleSizeChange: function handleSizeChange(val) {
+      this.listQuery.limit = val;
+      this.getList();
+    },
+    handleCurrentChange: function handleCurrentChange(val) {
+      this.listQuery.page = val;
+      this.getList();
+    },
+    handleModifyStatus: function handleModifyStatus(row, status) {
+      var _this2 = this;
+
+      this.$confirm('确定要删除?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(function () {
+        _this2.temp = __WEBPACK_IMPORTED_MODULE_1_babel_runtime_core_js_object_assign___default()({}, row);
+        Object(__WEBPACK_IMPORTED_MODULE_3__api_role__["b" /* deleteRole */])(_this2.temp).then(function (response) {
+          // console.log(response.data);
+          if (response.data.status === 0) {
+            _this2.$notify({
+              title: '失败',
+              message: '删除失败',
+              type: 'warning',
+              duration: 2000
+            });
+          } else {
+            var index = _this2.list.indexOf(row);
+            _this2.list.splice(index, 1);
+            _this2.dialogFormVisible = false;
+            _this2.$notify({
+              title: '成功',
+              message: '删除成功',
+              type: 'success',
+              duration: 2000
+            });
+          }
+        });
+      }).catch(function () {
+        _this2.$message({
+          type: 'info',
+          message: '已取消删除'
+        });
+      });
+    },
+    resetTemp: function resetTemp() {
+      this.temp = {
+        id: undefined,
+        name: '',
+        guard_name: '',
+        description: ''
+      };
+    },
+    handleCreate: function handleCreate() {
+      var _this3 = this;
+
+      this.resetTemp();
+      this.dialogStatus = 'create';
+      this.dialogFormVisible = true;
+      this.$nextTick(function () {
+        _this3.$refs['dataForm'].clearValidate();
+      });
+    },
+    createData: function createData() {
+      var _this4 = this;
+
+      this.$refs['dataForm'].validate(function (valid) {
+        if (valid) {
+          Object(__WEBPACK_IMPORTED_MODULE_3__api_role__["a" /* createRole */])(_this4.temp).then(function (response) {
+            // console.log(response.data);
+            _this4.temp.id = response.data.id;
+            _this4.list.unshift(_this4.temp);
+            _this4.dialogFormVisible = false;
+            _this4.$notify({
+              title: '成功',
+              message: '创建成功',
+              type: 'success',
+              duration: 2000
+            });
+          });
+        }
+      });
+    },
+    handleUpdate: function handleUpdate(row) {
+      var _this5 = this;
+
+      this.temp = __WEBPACK_IMPORTED_MODULE_1_babel_runtime_core_js_object_assign___default()({}, row); // copy obj
+      this.dialogStatus = 'update';
+      this.dialogFormVisible = true;
+      this.$nextTick(function () {
+        _this5.$refs['dataForm'].clearValidate();
+      });
+    },
+    updateData: function updateData() {
+      var _this6 = this;
+
+      this.$refs['dataForm'].validate(function (valid) {
+        if (valid) {
+          var tempData = __WEBPACK_IMPORTED_MODULE_1_babel_runtime_core_js_object_assign___default()({}, _this6.temp);
+          Object(__WEBPACK_IMPORTED_MODULE_3__api_role__["g" /* updateRole */])(tempData).then(function () {
+            var _iteratorNormalCompletion = true;
+            var _didIteratorError = false;
+            var _iteratorError = undefined;
+
+            try {
+              for (var _iterator = __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_get_iterator___default()(_this6.list), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+                var v = _step.value;
+
+                if (v.id === _this6.temp.id) {
+                  var index = _this6.list.indexOf(v);
+                  _this6.list.splice(index, 1, _this6.temp);
+                  break;
+                }
+              }
+            } catch (err) {
+              _didIteratorError = true;
+              _iteratorError = err;
+            } finally {
+              try {
+                if (!_iteratorNormalCompletion && _iterator.return) {
+                  _iterator.return();
+                }
+              } finally {
+                if (_didIteratorError) {
+                  throw _iteratorError;
+                }
+              }
+            }
+
+            _this6.dialogFormVisible = false;
+            _this6.$notify({
+              title: '成功',
+              message: '更新成功',
+              type: 'success',
+              duration: 2000
+            });
+          });
+        }
+      });
+    },
+    handleDelete: function handleDelete(row) {
+      this.$notify({
+        title: '成功',
+        message: '删除成功',
+        type: 'success',
+        duration: 2000
+      });
+      var index = this.list.indexOf(row);
+      this.list.splice(index, 1);
+    },
+    handleSetPermission: function handleSetPermission(row) {
+      this.$refs.roleChild.handlePermission(row);
+    },
+    giveRolePermissions: function giveRolePermissions() {
+      this.$refs.roleChild.givePermissions();
+    }
+  }
+});
+
+/***/ }),
+
+/***/ 662:
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(663)
+}
+var normalizeComponent = __webpack_require__(4)
+/* script */
+var __vue_script__ = __webpack_require__(665)
+/* template */
+var __vue_template__ = __webpack_require__(666)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = "data-v-2b37abbc"
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/views/role/components/Permission.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-2b37abbc", Component.options)
+  } else {
+    hotAPI.reload("data-v-2b37abbc", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+
+/***/ 663:
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(664);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(7)("2c8256cd", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../../../node_modules/css-loader/index.js!../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-2b37abbc\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../../node_modules/sass-loader/lib/loader.js!../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Permission.vue", function() {
+     var newContent = require("!!../../../../../../node_modules/css-loader/index.js!../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-2b37abbc\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../../node_modules/sass-loader/lib/loader.js!../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Permission.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+
+/***/ 664:
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(3)(false);
+// imports
+
+
+// module
+exports.push([module.i, "", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ 665:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_promise__ = __webpack_require__(41);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_promise___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_promise__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__api_role__ = __webpack_require__(504);
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+// const cityOptions = ['上海', '北京', '广州', '深圳'];
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      permissionTemp: {
+        id: null,
+        permissions: []
+      },
+      rolePermission: '权限编辑',
+      // dialogFormVisible: false,
+      permissionDialogFormVisible: false,
+      checkList: ['user_list', 'role_list'],
+      permissions: []
+    };
+  },
+  created: function created() {
+    __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_promise___default.a.all([this.getPermissionList()]);
+  },
+
+  methods: {
+    getPermissionList: function getPermissionList() {
+      var _this = this;
+
+      Object(__WEBPACK_IMPORTED_MODULE_1__api_role__["d" /* getPermissions */])().then(function (response) {
+        _this.permissions = response.data.data;
+      });
+    },
+    handlePermission: function handlePermission(row) {
+      var _this2 = this;
+
+      /*row参数为点击的角色信息对象*/
+      Object(__WEBPACK_IMPORTED_MODULE_1__api_role__["e" /* getRolePermissions */])(row).then(function (response) {
+        _this2.checkList = response.data;
+        _this2.permissionTemp.id = row.id;
+        _this2.permissionDialogFormVisible = true;
+      });
+
+      // this.permissionDialogFormVisible = true
+      /*this.$nextTick(() => {
+        this.$refs['permissionDForm'].clearValidate()
+      })*/
+    },
+    givePermissions: function givePermissions() {
+      var _this3 = this;
+
+      this.permissionTemp.permissions = this.checkList;
+      // console.log(this.checkList)
+      // console.log(this.permissionTemp)
+      // return false
+      Object(__WEBPACK_IMPORTED_MODULE_1__api_role__["f" /* giveRolePermissions */])(this.permissionTemp).then(function (response) {
+        _this3.permissionDialogFormVisible = false;
+        _this3.$notify({
+          title: '成功',
+          message: '创建成功',
+          type: 'success',
+          duration: 2000
+        });
+      });
+    }
+  }
+});
+
+/***/ }),
+
+/***/ 666:
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    [
+      _c(
+        "el-dialog",
+        {
+          attrs: {
+            title: _vm.rolePermission,
+            visible: _vm.permissionDialogFormVisible
+          },
+          on: {
+            "update:visible": function($event) {
+              _vm.permissionDialogFormVisible = $event
+            }
+          }
+        },
+        [
+          _c(
+            "el-form",
+            {
+              ref: "permissionDForm",
+              attrs: {
+                model: _vm.permissionTemp,
+                "label-position": "left",
+                "label-width": "100px"
+              }
+            },
+            _vm._l(_vm.permissions, function(per, group_index) {
+              return _c(
+                "el-checkbox-group",
+                {
+                  key: group_index,
+                  model: {
+                    value: _vm.checkList,
+                    callback: function($$v) {
+                      _vm.checkList = $$v
+                    },
+                    expression: "checkList"
+                  }
+                },
+                [
+                  _c(
+                    "div",
+                    { staticStyle: { "margin-bottom": "12px" } },
+                    [
+                      _c(
+                        "span",
+                        {
+                          staticStyle: {
+                            "font-size": "16px",
+                            "margin-right": "5px"
+                          }
+                        },
+                        [_vm._v(_vm._s(group_index) + ":")]
+                      ),
+                      _vm._v(" "),
+                      _vm._l(per, function(p) {
+                        return _c(
+                          "el-checkbox",
+                          {
+                            key: p.id,
+                            attrs: { border: "", size: "medium", label: p.name }
+                          },
+                          [
+                            _vm._v(
+                              "\r\n              " +
+                                _vm._s(p.description) +
+                                "\r\n            "
+                            )
+                          ]
+                        )
+                      })
+                    ],
+                    2
+                  )
+                ]
+              )
+            })
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              staticClass: "dialog-footer",
+              attrs: { slot: "footer" },
+              slot: "footer"
+            },
+            [
+              _c(
+                "el-button",
+                {
+                  on: {
+                    click: function($event) {
+                      _vm.permissionDialogFormVisible = false
+                    }
+                  }
+                },
+                [_vm._v(_vm._s(_vm.$t("table.cancel")))]
+              ),
+              _vm._v(" "),
+              _c(
+                "el-button",
+                {
+                  attrs: { type: "primary" },
+                  on: { click: _vm.givePermissions }
+                },
+                [_vm._v(_vm._s(_vm.$t("table.confirm")))]
+              )
+            ],
+            1
+          )
+        ],
+        1
+      )
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-2b37abbc", module.exports)
+  }
+}
+
+/***/ }),
+
+/***/ 667:
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "app-container" },
+    [
+      _c(
+        "div",
+        { staticClass: "filter-container" },
+        [
+          _c(
+            "el-button",
+            {
+              staticClass: "filter-item",
+              staticStyle: { "margin-left": "10px" },
+              attrs: { type: "primary", icon: "el-icon-edit" },
+              on: { click: _vm.handleCreate }
+            },
+            [_vm._v("\n      " + _vm._s(_vm.$t("table.add")) + "\n    ")]
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "el-table",
+        {
+          directives: [
+            {
+              name: "loading",
+              rawName: "v-loading",
+              value: _vm.listLoading,
+              expression: "listLoading"
+            }
+          ],
+          key: _vm.tableKey,
+          staticStyle: { width: "100%" },
+          attrs: {
+            data: _vm.list,
+            border: "",
+            fit: "",
+            "highlight-current-row": ""
+          }
+        },
+        [
+          _c("el-table-column", {
+            attrs: { label: _vm.$t("table.id"), align: "center" },
+            scopedSlots: _vm._u([
+              {
+                key: "default",
+                fn: function(scope) {
+                  return [_c("span", [_vm._v(_vm._s(scope.row.id))])]
+                }
+              }
+            ])
+          }),
+          _vm._v(" "),
+          _c("el-table-column", {
+            attrs: { label: _vm.$t("role.name"), align: "center" },
+            scopedSlots: _vm._u([
+              {
+                key: "default",
+                fn: function(scope) {
+                  return [_c("span", [_vm._v(_vm._s(scope.row.name))])]
+                }
+              }
+            ])
+          }),
+          _vm._v(" "),
+          _c("el-table-column", {
+            attrs: { label: _vm.$t("role.guard_name"), align: "center" },
+            scopedSlots: _vm._u([
+              {
+                key: "default",
+                fn: function(scope) {
+                  return [_c("span", [_vm._v(_vm._s(scope.row.guard_name))])]
+                }
+              }
+            ])
+          }),
+          _vm._v(" "),
+          _c("el-table-column", {
+            attrs: { label: _vm.$t("role.description"), align: "center" },
+            scopedSlots: _vm._u([
+              {
+                key: "default",
+                fn: function(scope) {
+                  return [_c("span", [_vm._v(_vm._s(scope.row.description))])]
+                }
+              }
+            ])
+          }),
+          _vm._v(" "),
+          _c("el-table-column", {
+            attrs: {
+              label: _vm.$t("table.actions"),
+              align: "center",
+              "show-overflow-tooltip": "",
+              "class-name": "small-padding fixed-width"
+            },
+            scopedSlots: _vm._u([
+              {
+                key: "default",
+                fn: function(scope) {
+                  return [
+                    _c(
+                      "el-button",
+                      {
+                        attrs: { type: "primary", size: "mini" },
+                        on: {
+                          click: function($event) {
+                            _vm.handleUpdate(scope.row)
+                          }
+                        }
+                      },
+                      [_vm._v(_vm._s(_vm.$t("table.edit")))]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "el-button",
+                      {
+                        attrs: { type: "success", size: "mini" },
+                        on: {
+                          click: function($event) {
+                            _vm.handleSetPermission(scope.row)
+                          }
+                        }
+                      },
+                      [_vm._v(_vm._s(_vm.$t("table.editPermissions")))]
+                    ),
+                    _vm._v(" "),
+                    scope.row.status != "deleted"
+                      ? _c(
+                          "el-button",
+                          {
+                            attrs: { size: "mini", type: "danger" },
+                            on: {
+                              click: function($event) {
+                                _vm.handleModifyStatus(scope.row, "deleted")
+                              }
+                            }
+                          },
+                          [
+                            _vm._v(
+                              _vm._s(_vm.$t("table.delete")) + "\n        "
+                            )
+                          ]
+                        )
+                      : _vm._e()
+                  ]
+                }
+              }
+            ])
+          })
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "pagination-container" },
+        [
+          _c("el-pagination", {
+            directives: [
+              {
+                name: "show",
+                rawName: "v-show",
+                value: _vm.total > 0,
+                expression: "total>0"
+              }
+            ],
+            attrs: {
+              "current-page": _vm.listQuery.page,
+              total: _vm.total,
+              background: "",
+              layout: "total, prev, pager, next"
+            },
+            on: { "current-change": _vm.handleCurrentChange }
+          })
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "el-dialog",
+        {
+          attrs: {
+            title: _vm.textMap[_vm.dialogStatus],
+            visible: _vm.dialogFormVisible
+          },
+          on: {
+            "update:visible": function($event) {
+              _vm.dialogFormVisible = $event
+            }
+          }
+        },
+        [
+          _c(
+            "el-form",
+            {
+              ref: "dataForm",
+              staticStyle: { width: "400px" },
+              attrs: {
+                rules: _vm.rules,
+                model: _vm.temp,
+                "label-position": "left",
+                "label-width": "100px"
+              }
+            },
+            [
+              _c(
+                "el-form-item",
+                { attrs: { label: _vm.$t("role.name"), prop: "name" } },
+                [
+                  _c("el-input", {
+                    model: {
+                      value: _vm.temp.name,
+                      callback: function($$v) {
+                        _vm.$set(_vm.temp, "name", $$v)
+                      },
+                      expression: "temp.name"
+                    }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "el-form-item",
+                {
+                  attrs: {
+                    label: _vm.$t("role.description"),
+                    prop: "description"
+                  }
+                },
+                [
+                  _c("el-input", {
+                    model: {
+                      value: _vm.temp.description,
+                      callback: function($$v) {
+                        _vm.$set(_vm.temp, "description", $$v)
+                      },
+                      expression: "temp.description"
+                    }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "el-form-item",
+                {
+                  attrs: {
+                    label: _vm.$t("role.guard_name"),
+                    prop: "guard_name"
+                  }
+                },
+                [
+                  _c(
+                    "el-select",
+                    {
+                      staticClass: "filter-item",
+                      attrs: { placeholder: "请选择标识" },
+                      model: {
+                        value: _vm.temp.guard_name,
+                        callback: function($$v) {
+                          _vm.$set(_vm.temp, "guard_name", $$v)
+                        },
+                        expression: "temp.guard_name"
+                      }
+                    },
+                    _vm._l(_vm.calendarTypeOptions, function(item) {
+                      return _c("el-option", {
+                        key: item.key,
+                        attrs: { label: item.display_name, value: item.key }
+                      })
+                    })
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              staticClass: "dialog-footer",
+              attrs: { slot: "footer" },
+              slot: "footer"
+            },
+            [
+              _c(
+                "el-button",
+                {
+                  on: {
+                    click: function($event) {
+                      _vm.dialogFormVisible = false
+                    }
+                  }
+                },
+                [_vm._v(_vm._s(_vm.$t("table.cancel")))]
+              ),
+              _vm._v(" "),
+              _vm.dialogStatus == "create"
+                ? _c(
+                    "el-button",
+                    {
+                      attrs: { type: "primary" },
+                      on: { click: _vm.createData }
+                    },
+                    [_vm._v(_vm._s(_vm.$t("table.confirm")))]
+                  )
+                : _c(
+                    "el-button",
+                    {
+                      attrs: { type: "primary" },
+                      on: { click: _vm.updateData }
+                    },
+                    [_vm._v(_vm._s(_vm.$t("table.confirm")))]
+                  )
+            ],
+            1
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c("switch-roles", { ref: "roleChild" })
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-7ceb1b6c", module.exports)
+  }
+}
+
+/***/ })
+
+});
