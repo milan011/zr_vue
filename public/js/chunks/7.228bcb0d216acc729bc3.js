@@ -902,7 +902,7 @@ var render = function() {
               {
                 key: "default",
                 fn: function(scope) {
-                  return [_c("span", [_vm._v(_vm._s(scope.row.name) + "s")])]
+                  return [_c("span", [_vm._v(_vm._s(scope.row.name))])]
                 }
               }
             ])

@@ -198,7 +198,7 @@ export default {
       let userRole = this.$store.getters.roles
       //console.log(userRole.indexOf('admin'))
       //console.log(userRole.indexOf('manager'))
-      if((userRole.indexOf('admin') >= 0) || (indexOf('manager') >= 0)){
+      if((userRole.indexOf('admin') >= 0) || (userRole.indexOf('manager') >= 0)){
         this.isAdmin = true
       }
     

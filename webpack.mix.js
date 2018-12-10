@@ -18,6 +18,10 @@ let config = {
       // 'vendor': path.resolve('resources/assets/js/vendor'),
     },
   },
+  output: {
+    filename:'js/app.js',
+    chunkFilename: 'js/chunks/[name].[chunkhash].js',
+  },
   /*externals: {//配置不打包的选项
         'element-ui': 'Element',
         'axios': 'axios', 
@@ -68,8 +72,18 @@ let config = {
 
 mix.webpackConfig(config);
 
+/*mix.js('resources/assets/js/app.js', 'public/js')
+   .sass('resources/assets/sass/app.scss', 'public/css').version();*/
+
 mix.js('resources/assets/js/app.js', 'public/js')
-   // .sass('resources/assets/sass/app.scss', 'public/css').version();
    .sass('resources/assets/sass/app.scss', 'public/css');
 
+/**
+ * 发布时文件名打上 hash 以强制客户端更新
+ */
 
+if (mix.inProduction()) {
+  mix.version()
+} else {
+  mix.disableNotifications()
+}

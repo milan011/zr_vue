@@ -2,7 +2,7 @@
   <div style="display:inline">
     <input id="excel-upload-input" ref="excel-upload-input" type="file" accept=".xlsx, .xls" @change="handleClick">
     <div style="display:inline" @drop="handleDrop" @dragover="handleDragover" @dragenter="handleDragover">
-      <el-button :loading="loading" icon="el-icon-upload2" style="margin-left:16px;position:relative;bottom: 6px;" type="primary" @click="handleUpload">{{ $t('table.import') }}</el-button>
+      <el-button :loading="loading" icon="el-icon-upload2" style="margin-left:16px;position:relative;bottom: 4px;" type="primary" @click="handleUpload">{{ $t('table.import') }}</el-button>
     </div>
   </div>
 </template>
