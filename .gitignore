@@ -4,6 +4,5 @@ Homestead.yaml
 Homestead.json
 .env
 bower_components
-/public/uploads
-/public/js/chunks
+/public
 /storage
