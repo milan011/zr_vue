@@ -91,7 +91,13 @@ export default {
     infoDianXinAdd:'添加电信信息',
     infoDianXinUpdate:'修改电信信息',
     infoDianXinDelete:'删除电信信息',
-    InfoStatistics: '信息统计'
+    InfoStatistics: '信息统计',
+    goods: '商品管理',
+    service: '业务管理',
+    inventory: '库存管理',
+    inventoryDetail: '库存明细',
+    serviceDetail: '业务明细',
+
   },
   navbar: {
     logOut: '退出登录',
@@ -304,5 +310,17 @@ export default {
     subtotal: '小计(不绑老卡|绑老卡)',
     total: '总数',
     netin: '入网日期',   
+  },
+  goods: {
+    name: '名称',
+    brand: '品牌',
+    goods_from: '进货单位',
+    type: '类别',
+    in_price: '进价',
+    goods_spec: '规格',
+    goods_unit: '单位',
+    is_food: '食品类',  
+    bottom_price: '底价',  
+    remark: '备注',  
   },
 }

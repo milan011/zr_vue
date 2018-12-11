@@ -10,7 +10,7 @@ const infoStatisticsRouter = {
     meta: {
       title: '',
       roles: ['admin', 'manager'],
-      icon: 'edit'
+      icon: 'star'
     },
     children: [
       {

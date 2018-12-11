@@ -84,6 +84,41 @@ Route::group([
 
     Route::get('infoDianxin/chormeBroswerDown', 'InfoDianxinController@chormeBroswerDown');
     
+    //Goods
+    Route::get('goodsList', 'GoodsController@index');
+    Route::post('goods', 'GoodsController@store');
+    Route::get('getGoodsInfo/{id}', 'GoodsController@getInfo');
+    Route::put('goods/{id}', 'GoodsController@update');
+    Route::delete('goods/{id}', 'GoodsController@destroy');
+
+    //Service
+    /*Route::get('serviceList', 'ServiceController@index');
+    Route::post('service', 'ServiceController@store');
+    Route::get('getServiceInfo/{id}', 'ServiceController@getInfo');
+    Route::put('service/{id}', 'ServiceController@update');
+    Route::delete('service/{id}', 'ServiceController@destroy');*/
+
+    //ServiceDetail
+    /*Route::get('serviceDetailList', 'ServiceDetailController@index');
+    Route::post('serviceDetail', 'ServiceDetailController@store');
+    Route::get('getServiceDetailInfo/{id}', 'ServiceDetailController@getInfo');
+    Route::put('serviceDetail/{id}', 'ServiceDetailController@update');
+    Route::delete('serviceDetail/{id}', 'ServiceDetailController@destroy');*/
+
+    //Inventory
+    /*Route::get('inventoryList', 'InventoryController@index');
+    Route::post('inventory', 'InventoryController@store');
+    Route::get('getInventoryInfo/{id}', 'InventoryController@getInfo');
+    Route::put('inventory/{id}', 'InventoryController@update');
+    Route::delete('inventory/{id}', 'InventoryController@destroy');*/
+
+    //InventoryDetail
+    /*Route::get('inventoryDetailList', 'InventoryDetailController@index');
+    Route::post('inventoryDetail', 'InventoryDetailController@store');
+    Route::get('getInventoryDetailInfo/{id}', 'InventoryDetailController@getInfo');
+    Route::put('inventoryDetail/{id}', 'InventoryDetailController@update');
+    Route::delete('inventoryDetail/{id}', 'InventoryDetailController@destroy');*/
+
     /*
     Route::get('all_roles', 'RolesController@allRoles');
     Route::delete('roles/{role}', 'RolesController@destroy');*/

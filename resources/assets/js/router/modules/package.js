@@ -2,7 +2,7 @@
 //权限管理路由组
 import Layout from '@/views/layout/Layout'
 
-const permissionRouter = {
+const packageRouter = {
     path: '/package',
     component: Layout,
     redirect: '/package/index',
@@ -21,4 +21,4 @@ const permissionRouter = {
       }
     ]
 }
-export default permissionRouter
+export default packageRouter
