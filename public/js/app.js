@@ -86,7 +86,7 @@
 /******/ 		if (__webpack_require__.nc) {
 /******/ 			script.setAttribute("nonce", __webpack_require__.nc);
 /******/ 		}
-/******/ 		script.src = __webpack_require__.p + "js/chunks/" + ({}[chunkId]||chunkId) + "." + {"0":"8cc3a9563d490e64bc84","1":"811a6d17009e5c7c4f45","2":"636030d4a68b9c6f7afa","3":"ffe8eab2e1815e10cdc5","4":"8ca11db15f1be396159f","5":"b0dfa3618cdf16f4df02","6":"a18eb18cebaa3472e3be","7":"caf76c400d35a4d5a316","8":"226b3e3182d90e15b499","9":"3e117c15d5b95431fd80","10":"635385d5963177db0bab","11":"4e557a5a7a929cc5253f","12":"b31d5752c1581a8448c4","13":"c729a1781933e303230f","14":"6481033458c612d8e25c"}[chunkId] + ".js";
+/******/ 		script.src = __webpack_require__.p + "js/chunks/" + ({}[chunkId]||chunkId) + "." + {"0":"0c6f20050b4b8f1bb408","1":"811a6d17009e5c7c4f45","2":"636030d4a68b9c6f7afa","3":"ffe8eab2e1815e10cdc5","4":"8ca11db15f1be396159f","5":"a5b7add59875cb21f9da","6":"f5eda678ccf5a5e473e0","7":"e46d45d4751f523dc69a","8":"ff5b02ab1218b39602f4","9":"6b2889be902852a4043f","10":"03b92cf126b2bceffdc0","11":"4e557a5a7a929cc5253f","12":"b31d5752c1581a8448c4","13":"55912fe676a98b9558f1","14":"c54595db8f01fe614947"}[chunkId] + ".js";
 /******/ 		var timeout = setTimeout(onScriptComplete, 120000);
 /******/ 		script.onerror = script.onload = onScriptComplete;
 /******/ 		function onScriptComplete() {
@@ -103714,7 +103714,7 @@ var permissionRouter = {
   children: [{
     path: 'index',
     component: function component(resolve) {
-      return void __webpack_require__.e/* require */(6).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(425)]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
+      return void __webpack_require__.e/* require */(7).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(425)]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
     },
     name: 'permissionList',
     meta: { title: 'permission' }
@@ -103810,7 +103810,7 @@ var packageRouter = {
   children: [{
     path: 'index',
     component: function component(resolve) {
-      return void __webpack_require__.e/* require */(8).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(428)]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
+      return void __webpack_require__.e/* require */(9).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(428)]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
     },
     name: 'packageList',
     meta: { title: 'package' }
@@ -103936,7 +103936,7 @@ var goodsRouter = {
   children: [{
     path: 'index',
     component: function component(resolve) {
-      return void __webpack_require__.e/* require */(10).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(432)]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
+      return void __webpack_require__.e/* require */(6).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(432)]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
     },
     name: 'goodsList',
     meta: { title: 'goods' }
@@ -103968,7 +103968,7 @@ var serviceRouter = {
   children: [{
     path: 'index',
     component: function component(resolve) {
-      return void __webpack_require__.e/* require */(7).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(433)]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
+      return void __webpack_require__.e/* require */(8).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(433)]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
     },
     name: 'serviceList',
     meta: { title: 'service' }
@@ -104000,7 +104000,7 @@ var inventoryRouter = {
   children: [{
     path: 'index',
     component: function component(resolve) {
-      return void __webpack_require__.e/* require */(9).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(434)]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
+      return void __webpack_require__.e/* require */(10).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(434)]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
     },
     name: 'inventoryList',
     meta: { title: 'inventory' }
