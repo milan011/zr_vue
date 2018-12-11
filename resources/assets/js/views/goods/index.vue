@@ -125,6 +125,8 @@
                 <el-switch
                   v-model="temp.is_food"
                   active-color="#13ce66"
+                  active-value="1"
+                  inactive-value="0"
                   inactive-color="#ff4949">
                 </el-switch>
               </el-form-item>
@@ -227,26 +229,17 @@ export default {
       calendarTypeOptions,
       showReviewer: false,
       return_moon_price: true,
-      returnMonths: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12',],
       temp: {
         id: undefined,
         name: '',
-        package_price: '',
-        month_nums: '12',
-        return_moon_price_list: [
-          {'key': '1', 'price': null},
-          {'key': '2', 'price': null},
-          {'key': '3', 'price': null},
-          {'key': '4', 'price': null},
-          {'key': '5', 'price': null},
-          {'key': '6', 'price': null},
-          {'key': '7', 'price': null},
-          {'key': '8', 'price': null},
-          {'key': '9', 'price': null},
-          {'key': '10', 'price': null},
-          {'key': '11', 'price': null},
-          {'key': '12', 'price': null},
-        ],
+        brand: '',
+        goods_from: '',
+        type: '',
+        bottom_price: '',
+        in_price: '',
+        goods_spec: '',
+        goods_unit: '',  
+        is_food: '1'          
       },
       dialogFormVisible: false,
       dialogInfoVisible: false,
@@ -351,23 +344,15 @@ export default {
     resetTemp() {
       this.temp = {
         id: undefined,
-        name: '',
-        package_price: '',
-        month_nums: '12',
-        return_moon_price_list: [
-          {'key': '1', 'price': null},
-          {'key': '2', 'price': null},
-          {'key': '3', 'price': null},
-          {'key': '4', 'price': null},
-          {'key': '5', 'price': null},
-          {'key': '6', 'price': null},
-          {'key': '7', 'price': null},
-          {'key': '8', 'price': null},
-          {'key': '9', 'price': null},
-          {'key': '10', 'price': null},
-          {'key': '11', 'price': null},
-          {'key': '12', 'price': null},
-        ],
+        name: '试试',
+        brand: '',
+        goods_from: '',
+        type: '',
+        bottom_price: '',
+        in_price: '',
+        goods_spec: '',
+        goods_unit: '',  
+        is_food: '1' 
       }
     },
     handleCreate() {
