@@ -8,7 +8,7 @@ const inventoryRouter = {
     redirect: '/inventory/index',
     name: 'inventory',
     meta: {
-      title: '',
+      title: 'inventory',
       icon: 'component',
       roles: ['admin', 'manager']
     },
@@ -17,7 +17,13 @@ const inventoryRouter = {
         path: 'index',
         component: resolve => void(require(['@/views/inventory/index'], resolve)),
         name: 'inventoryList',
-        meta: { title: 'inventory' }
+        meta: { title: 'inventoryList' }
+      },
+      {
+        path: 'detail',
+        component: resolve => void(require(['@/views/service/index'], resolve)),
+        name: 'inventoryDetail',
+        meta: { title: 'inventoryDetail' }
       }
     ]
 }

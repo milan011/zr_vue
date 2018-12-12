@@ -72,10 +72,11 @@ class GoodsController extends Controller
     {
         // dd($goodsRequest->all());
         if($this->goods->isRepeat($goodsRequest)){
-            return $this->baseFailed($message = '该套餐已存在');
+            return $this->baseFailed($message = '该商品已存在');
         }
 
         $new_goods = $this->goods->create($goodsRequest);
+        $new_goods->belongsToCreater;
 
         if($new_goods){ //添加成功
             return $this->baseSucceed($respond_data = $new_goods, $message = '添加成功');

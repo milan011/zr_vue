@@ -86,7 +86,7 @@
 /******/ 		if (__webpack_require__.nc) {
 /******/ 			script.setAttribute("nonce", __webpack_require__.nc);
 /******/ 		}
-/******/ 		script.src = __webpack_require__.p + "js/chunks/" + ({}[chunkId]||chunkId) + "." + {"0":"0c6f20050b4b8f1bb408","1":"811a6d17009e5c7c4f45","2":"636030d4a68b9c6f7afa","3":"ffe8eab2e1815e10cdc5","4":"8ca11db15f1be396159f","5":"a5b7add59875cb21f9da","6":"f5eda678ccf5a5e473e0","7":"e46d45d4751f523dc69a","8":"ff5b02ab1218b39602f4","9":"6b2889be902852a4043f","10":"03b92cf126b2bceffdc0","11":"4e557a5a7a929cc5253f","12":"b31d5752c1581a8448c4","13":"55912fe676a98b9558f1","14":"c54595db8f01fe614947"}[chunkId] + ".js";
+/******/ 		script.src = __webpack_require__.p + "js/chunks/" + ({}[chunkId]||chunkId) + ".js";
 /******/ 		var timeout = setTimeout(onScriptComplete, 120000);
 /******/ 		script.onerror = script.onload = onScriptComplete;
 /******/ 		function onScriptComplete() {
@@ -52238,13 +52238,14 @@ module.exports = function (it, TYPE) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ROAST_CONFIG; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return infoSelfStatus; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return jituanStatus; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return package_year; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return package_month; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return infoSelfStatus; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return jituanStatus; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "i", function() { return package_year; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return package_month; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return collections_type; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return oldBindStatus; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return infoDianxinStatus; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return oldBindStatus; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return infoDianxinStatus; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return foodStatus; });
 /**
  * Defines the API route we are using.
  */
@@ -52292,6 +52293,13 @@ var oldBindStatus = {
     0: '否',
     1: '是'
 };
+
+//是否食品
+var foodStatus = {
+    0: '否',
+    1: '是'
+};
+
 //入网年
 var package_year = [{ 'key': '1', 'year': '2018' }, { 'key': '2', 'year': '2019' }, { 'key': '3', 'year': '2020' }, { 'key': '4', 'year': '2021' }, { 'key': '5', 'year': '2022' }, { 'key': '6', 'year': '2023' }, { 'key': '7', 'year': '2024' }, { 'key': '8', 'year': '2025' }, { 'key': '9', 'year': '2026' }];
 
@@ -98216,7 +98224,7 @@ exports = module.exports = __webpack_require__(3)(false);
 
 
 // module
-exports.push([module.i, "\n.navbar[data-v-57a3be57] {\n  height: 50px;\n  line-height: 50px;\n  border-radius: 0px !important;\n}\n.navbar .hamburger-container[data-v-57a3be57] {\n    line-height: 58px;\n    height: 50px;\n    float: left;\n    padding: 0 10px;\n}\n.navbar .breadcrumb-container[data-v-57a3be57] {\n    float: left;\n}\n.navbar .errLog-container[data-v-57a3be57] {\n    display: inline-block;\n    vertical-align: top;\n}\n.navbar .right-menu[data-v-57a3be57] {\n    float: right;\n    height: 100%;\n}\n.navbar .right-menu[data-v-57a3be57]:focus {\n      outline: none;\n}\n.navbar .right-menu .right-menu-item[data-v-57a3be57] {\n      display: inline-block;\n      margin: 0 8px;\n}\n.navbar .right-menu .screenfull[data-v-57a3be57] {\n      height: 20px;\n}\n.navbar .right-menu .international[data-v-57a3be57] {\n      vertical-align: top;\n}\n.navbar .right-menu .theme-switch[data-v-57a3be57] {\n      vertical-align: 15px;\n}\n.navbar .right-menu .avatar-container[data-v-57a3be57] {\n      height: 50px;\n      margin-right: 30px;\n}\n.navbar .right-menu .avatar-container .avatar-wrapper[data-v-57a3be57] {\n        cursor: pointer;\n        margin-top: 5px;\n        position: relative;\n}\n.navbar .right-menu .avatar-container .avatar-wrapper .user-avatar[data-v-57a3be57] {\n          width: 40px;\n          height: 40px;\n          border-radius: 10px;\n}\n.navbar .right-menu .avatar-container .avatar-wrapper .el-icon-caret-bottom[data-v-57a3be57] {\n          position: absolute;\n          right: -20px;\n          top: 25px;\n          font-size: 12px;\n}\n", ""]);
+exports.push([module.i, "\n.navbar[data-v-57a3be57] {\n  height: 50px;\n  line-height: 50px;\n  border-radius: 0px !important;\n  margin-bottom: 5px;\n}\n.navbar .hamburger-container[data-v-57a3be57] {\n    line-height: 58px;\n    height: 50px;\n    float: left;\n    padding: 0 10px;\n}\n.navbar .breadcrumb-container[data-v-57a3be57] {\n    float: left;\n}\n.navbar .errLog-container[data-v-57a3be57] {\n    display: inline-block;\n    vertical-align: top;\n}\n.navbar .right-menu[data-v-57a3be57] {\n    float: right;\n    height: 100%;\n}\n.navbar .right-menu[data-v-57a3be57]:focus {\n      outline: none;\n}\n.navbar .right-menu .right-menu-item[data-v-57a3be57] {\n      display: inline-block;\n      margin: 0 8px;\n}\n.navbar .right-menu .screenfull[data-v-57a3be57] {\n      height: 20px;\n}\n.navbar .right-menu .international[data-v-57a3be57] {\n      vertical-align: top;\n}\n.navbar .right-menu .theme-switch[data-v-57a3be57] {\n      vertical-align: 15px;\n}\n.navbar .right-menu .avatar-container[data-v-57a3be57] {\n      height: 50px;\n      margin-right: 30px;\n}\n.navbar .right-menu .avatar-container .avatar-wrapper[data-v-57a3be57] {\n        cursor: pointer;\n        margin-top: 5px;\n        position: relative;\n}\n.navbar .right-menu .avatar-container .avatar-wrapper .user-avatar[data-v-57a3be57] {\n          width: 40px;\n          height: 40px;\n          border-radius: 10px;\n}\n.navbar .right-menu .avatar-container .avatar-wrapper .el-icon-caret-bottom[data-v-57a3be57] {\n          position: absolute;\n          right: -20px;\n          top: 25px;\n          font-size: 12px;\n}\n", ""]);
 
 // exports
 
@@ -101657,7 +101665,7 @@ exports = module.exports = __webpack_require__(3)(false);
 
 
 // module
-exports.push([module.i, "\n.app-main[data-v-527adf43] {\r\n  /*84 = navbar + tags-view = 50 +34 */\r\n  min-height: calc(100vh - 84px);\r\n  width: 100%;\r\n  position: relative;\r\n  overflow: hidden;\n}\r\n", ""]);
+exports.push([module.i, "\n.app-main[data-v-527adf43] {\r\n  /*84 = navbar + tags-view = 50 +34 */\r\n  min-height: calc(100vh - 100px);\r\n  width: 100%;\r\n  position: relative;\r\n  overflow: hidden;\n}\r\n", ""]);
 
 // exports
 
@@ -103961,17 +103969,24 @@ var serviceRouter = {
   redirect: '/service/index',
   name: 'Service',
   meta: {
-    title: '',
+    title: 'service',
     icon: 'money',
     roles: ['admin', 'manager']
   },
   children: [{
     path: 'index',
     component: function component(resolve) {
-      return void __webpack_require__.e/* require */(8).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(433)]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
+      return void __webpack_require__.e/* require */(16/* duplicate */).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(433)]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
     },
     name: 'serviceList',
-    meta: { title: 'service' }
+    meta: { title: 'serviceList' }
+  }, {
+    path: 'detail',
+    component: function component(resolve) {
+      return void __webpack_require__.e/* require */(16/* duplicate */).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(433)]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
+    },
+    name: 'serviceDetail',
+    meta: { title: 'serviceDetail' }
   }]
 };
 /* harmony default export */ __webpack_exports__["a"] = (serviceRouter);
@@ -103993,17 +104008,24 @@ var inventoryRouter = {
   redirect: '/inventory/index',
   name: 'inventory',
   meta: {
-    title: '',
+    title: 'inventory',
     icon: 'component',
     roles: ['admin', 'manager']
   },
   children: [{
     path: 'index',
     component: function component(resolve) {
-      return void __webpack_require__.e/* require */(10).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(434)]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
+      return void __webpack_require__.e/* require */(8).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(434)]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
     },
     name: 'inventoryList',
-    meta: { title: 'inventory' }
+    meta: { title: 'inventoryList' }
+  }, {
+    path: 'detail',
+    component: function component(resolve) {
+      return void __webpack_require__.e/* require */(16/* duplicate */).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(433)]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
+    },
+    name: 'inventoryDetail',
+    meta: { title: 'inventoryDetail' }
   }]
 };
 /* harmony default export */ __webpack_exports__["a"] = (inventoryRouter);
@@ -105954,78 +105976,54 @@ exports.default = {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty__);
 
 
-var _route, _infoStatistics;
+var _infoStatistics;
 
 /* harmony default export */ __webpack_exports__["a"] = ({
-  route: (_route = {
+  route: {
     dashboard: '首页',
-    introduction: '简述',
-    documentation: '文档',
-    guide: '引导页',
-    permission: '权限测试页',
-    pagePermission: '页面权限',
-    directivePermission: '指令权限',
-    icons: '图标',
-    components: '组件',
-    componentIndex: '介绍',
-    tinymce: '富文本编辑器',
-    markdown: 'Markdown',
-    jsonEditor: 'JSON编辑器',
-    dndList: '列表拖拽',
-    splitPane: 'Splitpane',
-    avatarUpload: '头像上传',
-    dropzone: 'Dropzone',
-    sticky: 'Sticky',
-    countTo: 'CountTo',
-    componentMixin: '小组件',
-    backToTop: '返回顶部',
-    dragDialog: '拖拽 Dialog',
-    dragKanban: '可拖拽看板',
-    charts: '图表',
-    keyboardChart: '键盘图表',
-    lineChart: '折线图',
-    mixChart: '混合图表',
-    example: '综合实例',
-    nested: '路由嵌套',
-    menu1: '菜单1',
-    'menu1-1': '菜单1-1',
-    'menu1-2': '菜单1-2',
-    'menu1-2-1': '菜单1-2-1',
-    'menu1-2-2': '菜单1-2-2',
-    'menu1-3': '菜单1-3',
-    menu2: '菜单2',
-    Table: 'Table',
-    dynamicTable: '动态Table',
-    dragTable: '拖拽Table',
-    inlineEditTable: 'Table内编辑',
-    complexTable: '综合Table',
-    treeTable: '树形表格',
-    customTreeTable: '自定义树表',
-    tab: 'Tab',
     form: '表单',
-    createArticle: '创建文章',
-    editArticle: '编辑文章',
-    articleList: '文章列表',
     errorPages: '错误页面',
     page401: '401',
     page404: '404',
-    errorLog: '错误日志',
-    excel: 'Excel',
-    exportExcel: 'Export Excel',
-    selectExcel: 'Export Selected',
-    uploadExcel: 'Upload Excel',
-    zip: 'Zip',
-    exportZip: 'Export Zip',
-    theme: '换肤',
-    clipboardDemo: 'Clipboard',
-    i18n: '国际化',
-    externalLink: '外链',
     user: '用户管理',
     userCreate: '添加用户',
     passwordReset: '重置密码',
     userUpdate: '修改用户',
-    userDelete: '删除用户'
-  }, __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'permission', '权限管理'), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'permissionAdd', '添加权限'), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'permissionUpdate', '修改权限'), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'permissionDelete', '删除权限'), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'role', '角色管理'), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'roleAdd', '添加角色'), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'roleUpdate', '修改角色'), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'roleDelete', '删除角色'), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'package', '套餐管理'), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'packageAdd', '添加套餐'), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'packageUpdate', '修改套餐'), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'packageDelete', '删除套餐'), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'manager', '客户经理'), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'managerAdd', '添加客户经理'), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'managerUpdate', '修改客户经理'), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'managerDelete', '删除客户经理'), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'info', '信息管理'), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'infoAdd', '添加信息'), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'infoUpdate', '修改信息'), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'infoDelete', '删除信息'), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'infoDianXin', '电信信息'), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'infoDianXinAdd', '添加电信信息'), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'infoDianXinUpdate', '修改电信信息'), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'infoDianXinDelete', '删除电信信息'), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'InfoStatistics', '信息统计'), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'goods', '商品管理'), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'service', '业务管理'), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'inventory', '库存管理'), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'inventoryDetail', '库存明细'), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_route, 'serviceDetail', '业务明细'), _route),
+    userDelete: '删除用户',
+    permission: '权限管理',
+    permissionAdd: '添加权限',
+    permissionUpdate: '修改权限',
+    permissionDelete: '删除权限',
+    role: '角色管理',
+    roleAdd: '添加角色',
+    roleUpdate: '修改角色',
+    roleDelete: '删除角色',
+    package: '套餐管理',
+    packageAdd: '添加套餐',
+    packageUpdate: '修改套餐',
+    packageDelete: '删除套餐',
+    manager: '客户经理',
+    managerAdd: '添加客户经理',
+    managerUpdate: '修改客户经理',
+    managerDelete: '删除客户经理',
+    info: '信息管理',
+    infoAdd: '添加信息',
+    infoUpdate: '修改信息',
+    infoDelete: '删除信息',
+    infoDianXin: '电信信息',
+    infoDianXinAdd: '添加电信信息',
+    infoDianXinUpdate: '修改电信信息',
+    infoDianXinDelete: '删除电信信息',
+    InfoStatistics: '信息统计',
+    goods: '商品管理',
+    service: '业务管理',
+    inventory: '库存管理',
+    inventoryList: '库存列表',
+    inventoryDetail: '库存明细',
+    serviceList: '业务列表',
+    serviceDetail: '业务明细'
+
+  },
   navbar: {
     logOut: '退出登录',
     passwordReset: '修改密码',

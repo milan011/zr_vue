@@ -8,7 +8,7 @@ const serviceRouter = {
     redirect: '/service/index',
     name: 'Service',
     meta: {
-      title: '',
+      title: 'service',
       icon: 'money',
       roles: ['admin', 'manager']
     },
@@ -17,7 +17,13 @@ const serviceRouter = {
         path: 'index',
         component: resolve => void(require(['@/views/service/index'], resolve)),
         name: 'serviceList',
-        meta: { title: 'service' }
+        meta: { title: 'serviceList' }
+      },
+      {
+        path: 'detail',
+        component: resolve => void(require(['@/views/service/index'], resolve)),
+        name: 'serviceDetail',
+        meta: { title: 'serviceDetail' }
       }
     ]
 }

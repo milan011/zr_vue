@@ -20,7 +20,7 @@ let config = {
   },
   output: {
     filename:'js/app.js',
-    chunkFilename: 'js/chunks/[name].[chunkhash].js',
+    chunkFilename: 'js/chunks/[name].js',
   },
   /*externals: {//配置不打包的选项
         'element-ui': 'Element',

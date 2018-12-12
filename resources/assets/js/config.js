@@ -45,6 +45,13 @@ const oldBindStatus = {
     0: '否',
     1: '是',
 };
+
+//是否食品
+const foodStatus = {
+    0: '否',
+    1: '是',
+};
+
 //入网年
 const package_year = [
     {'key': '1', 'year': '2018'},
@@ -85,6 +92,7 @@ export {
     collections_type,
     oldBindStatus,
     infoDianxinStatus,
+    foodStatus,
 }
 
 /*export const zrConfig = {
