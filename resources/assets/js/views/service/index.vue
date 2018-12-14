@@ -19,49 +19,24 @@
           <span>{{ scope.row.id }}</span>
         </template>
       </el-table-column>
-      <el-table-column :label="$t('goods.name')" show-overflow-tooltip align="center">
+      <el-table-column :label="$t('service.name')" show-overflow-tooltip align="center">
         <template slot-scope="scope">
           <span>{{ scope.row.name }}</span>
         </template>
       </el-table-column>
-      <el-table-column :label="$t('goods.brand')" show-overflow-tooltip align="center">
+      <el-table-column :label="$t('service.type')" show-overflow-tooltip align="center">
         <template slot-scope="scope">
-          <span>{{ scope.row.brand }}</span>
+          <el-tag :type="scope.row.type | serviceTypeFilter">{{ serviceTypeMap[scope.row.type] }}</el-tag>
         </template>
       </el-table-column>
-      <el-table-column :label="$t('goods.goods_from')" show-overflow-tooltip align="center">
+      <el-table-column :label="$t('service.return_price')" show-overflow-tooltip align="center">
         <template slot-scope="scope">
-          <span>{{ scope.row.goods_from }}</span>
+          <span>{{ scope.row.return_price }}</span>
         </template>
       </el-table-column>
-      <el-table-column :label="$t('goods.type')" show-overflow-tooltip align="center">
+      <el-table-column :label="$t('service.return_ratio')" show-overflow-tooltip align="center">
         <template slot-scope="scope">
-          <span>{{ scope.row.type }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column :label="$t('goods.bottom_price')" align="center">
-        <template slot-scope="scope">
-          <span>{{ scope.row.bottom_price }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column :label="$t('goods.in_price')" align="center">
-        <template slot-scope="scope">
-          <span>{{ scope.row.in_price }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column :label="$t('goods.goods_spec')" align="center">
-        <template slot-scope="scope">
-          <span>{{ scope.row.goods_spec }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column :label="$t('goods.goods_unit')" width="50%" align="center">
-        <template slot-scope="scope">
-          <span>{{ scope.row.goods_unit }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column :label="$t('goods.is_food')" width="80%" align="center">
-        <template slot-scope="scope">
-          <el-tag :type="scope.row.is_food | foodStatusFilter">{{ foodStatusMap[scope.row.is_food]}}</el-tag>
+          <span>{{ scope.row.return_ratio }}%</span>
         </template>
       </el-table-column>
       <el-table-column :label="$t('table.date')" width="150px" align="center">
@@ -77,7 +52,7 @@
       </el-table-column>
       <el-table-column :label="$t('table.actions')" align="center" width="230" class-name="small-padding fixed-width">
         <template slot-scope="scope">
-          <el-button type="success" size="mini" @click="handleShow(scope.row)">{{ $t('table.show') }}</el-button>
+          <!-- <el-button type="success" size="mini" @click="handleShow(scope.row)">{{ $t('table.show') }}</el-button> -->
           <el-button type="primary" size="mini" @click="handleUpdate(scope.row)">{{ $t('table.edit') }}</el-button>
           <el-button v-if="scope.row.status!='deleted'" size="mini" type="danger" @click="handleModifyStatus(scope.row,'deleted')">{{ $t('table.delete') }}
           </el-button>
@@ -89,7 +64,7 @@
       <el-pagination v-show="total>0" :current-page="listQuery.page" :total="total" background layout="total, prev, pager, next"  @current-change="handleCurrentChange"/>
     </div>
 
-    <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible">
+    <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible" style="min-width: 550px;" >
       <el-form 
         ref="dataForm" 
         :rules="rules" 
@@ -98,40 +73,23 @@
         label-position="right" 
         label-width="100px" 
         style="width: 100%;">
-        <el-form-item :label="$t('goods.name')" prop="name">
+        <el-form-item :label="$t('service.name')" prop="name">
           <el-input v-model="temp.name"/>
         </el-form-item>
-        <el-form-item :label="$t('goods.brand')" prop="brand">
-          <el-input v-model="temp.brand"/>
+        <el-form-item :label="$t('service.type')" prop="type">
+          <el-select @change="typeChange" v-model="temp.type" class="filter-item">
+            <el-option v-for="(item, index) in serviceType" :key="item" :label="item" :value="index"/>
+          </el-select>
         </el-form-item>
-        <el-form-item :label="$t('goods.goods_from')" prop="goods_from">
-          <el-input v-model="temp.goods_from"/>
+        <el-form-item :label="$t('service.return_price')" prop="return_price">
+          <el-input v-model.number="temp.return_price" :disabled="priceVisible" />
         </el-form-item>
-        <el-form-item :label="$t('goods.type')" prop="type">
-          <el-input v-model="temp.type"/>
+        <el-tooltip class="item" effect="dark" content="填写100以内整数" placement="top">
+        <el-form-item :label="$t('service.return_ratio')" prop="return_ratio">
+          <el-input v-model.number="temp.return_ratio" :disabled="ratioVisible" placeholder="不超过100的数字" />
         </el-form-item>
-        <el-form-item :label="$t('goods.bottom_price')" prop="bottom_price">
-          <el-input v-model.number="temp.bottom_price"/>
-        </el-form-item>
-        <el-form-item :label="$t('goods.in_price')" prop="in_price">
-          <el-input v-model.number="temp.in_price"/>
-        </el-form-item>
-        <el-form-item :label="$t('goods.goods_spec')" prop="goods_spec">
-          <el-input v-model="temp.goods_spec"/>
-        </el-form-item>
-        <el-form-item :label="$t('goods.goods_unit')" prop="goods_unit">
-          <el-input v-model="temp.goods_unit"/>
-        </el-form-item>
-        <el-form-item :label="$t('goods.is_food')" style="width:38%">
-                <el-switch
-                  v-model="temp.is_food"
-                  active-color="#13ce66"
-                  active-value="1"
-                  inactive-value="0"
-                  inactive-color="#ff4949">
-                </el-switch>
-              </el-form-item>
-        <el-form-item :label="$t('goods.remark')">
+        </el-tooltip>
+        <el-form-item :label="$t('service.remark')">
           <el-input :autosize="{ minRows: 2, maxRows: 4}" v-model="temp.remark" type="textarea" placeholder="备注"/>
         </el-form-item>
       </el-form>
@@ -143,44 +101,29 @@
     </el-dialog>
     <el-dialog  :visible.sync="dialogInfoVisible">
       <el-row>
-        <el-col :span="24"><div class="grid-content bg-purple-dark self-style"><span>商品详情</span></div></el-col>
+        <el-col :span="24"><div class="grid-content bg-purple-dark self-style"><span>业务详情</span></div></el-col>
       </el-row>
       <el-row>
         <el-col :span="6"><div class="grid-content bg-purple self-style">
-          {{ $t('goods.name') }}:<span>{{temp.name}}</span></div>
+          {{ $t('service.name') }}:<span>{{temp.name}}</span></div>
         </el-col>
         <el-col :span="6"><div class="grid-content bg-purple-light self-style">
-          {{ $t('goods.brand') }}:<span>{{temp.brand}}</span>
+          {{ $t('service.type') }}:<span>{{temp.type}}</span>
         </div></el-col>
         <el-col :span="6"><div class="grid-content bg-purple-light self-style">
-          {{ $t('goods.goods_from') }}:<span>{{temp.goods_from}}</span>
+          {{ $t('service.return_price') }}:<span>{{temp.return_price}}</span>
         </div></el-col>
         <el-col :span="6"><div class="grid-content bg-purple-light self-style">
-          {{ $t('goods.goods_spec') }}:<span>{{temp.goods_spec}}</span>
+          {{ $t('service.return_ratio') }}:<span>{{temp.return_ratio}}</span>
         </div></el-col>   
       </el-row>
       <el-row>
         <el-col :span="6"><div class="grid-content bg-purple self-style">
-          {{ $t('goods.type') }}:<span>{{temp.type}}</span></div>
-        </el-col>
-        <el-col :span="6"><div class="grid-content bg-purple-light self-style">
-          {{ $t('goods.bottom_price') }}:<span>{{temp.bottom_price}}</span>
-        </div></el-col>
-        <el-col :span="6"><div class="grid-content bg-purple-light self-style">
-          {{ $t('goods.in_price') }}:<span>{{temp.in_price}}</span>
-        </div></el-col>
-        <el-col :span="6"><div class="grid-content bg-purple self-style">
           {{ $t('table.date') }}:<span>{{temp.created_at | parseTime('{y}-{m}-{d}') }}</span>
-        </div></el-col>    
-      </el-row>
-      <el-row>
-        <el-col :span="6"><div class="grid-content bg-purple self-style">
-          {{ $t('goods.is_food') }}:<span>{{ foodStatusMap[temp.is_food] }}</span></div>
-        </el-col>
+        </div></el-col>  
         <el-col :span="6"><div class="grid-content bg-purple-light self-style">
-          {{ $t('goods.remark') }}:<span>{{temp.remark}}</span>
-        </div></el-col>
-            
+          {{ $t('service.remark') }}:<span>{{temp.remark}}</span>
+        </div></el-col>  
       </el-row>
     </el-dialog>
   </div>
@@ -190,10 +133,10 @@
 
 // import { fetchList, fetchPv, createPermission, updatePermission, deletePermission } from '@/api/permission'
 // import { packageList, createPackage, getPackage, updatePackage, deletePackage } from '@/api/package'
-import { goodsList, createGoods, getGoods, updateGoods, deleteGoods } from '@/api/goods'
+import { serviceList, createService, getService, updateService, deleteService } from '@/api/service'
 import waves from '@/directive/waves' // 水波纹指令
 import { parseTime } from '@/utils'
-import { foodStatus }  from '@/config.js'
+import { serviceReturnType }  from '@/config.js'
 
 const calendarTypeOptions = [
   { key: 'web', display_name: 'web' },
@@ -207,12 +150,12 @@ const calendarTypeKeyValue = calendarTypeOptions.reduce((acc, cur) => {
 }, {})
 
 export default {
-  name: 'goodsList',
+  name: 'serviceList',
   directives: {
     waves
   },
   filters: {
-    foodStatusFilter(status) {
+    serviceTypeFilter(status) {
       const statusMap = {
         1: 'success',
         0: 'danger'
@@ -237,55 +180,51 @@ export default {
         page: 1,
       },
       calendarTypeOptions,
+      serviceTypeMap: serviceReturnType,
       showReviewer: false,
       temp: {
         id: undefined,
         name: '',
-        brand: '',
-        goods_from: '',
-        type: '',
-        bottom_price: '',
-        in_price: '',
-        goods_spec: '',
-        goods_unit: '',  
-        remark: ' ',
-        is_food: '1'          
+        return_price: 0,
+        type: '1',
+        return_ratio: 0, 
+        remark: ' ',        
+      },
+      serviceType: {
+        1: '按比例',
+        2: '按金额',
       },
       dialogFormVisible: false,
-      foodStatusMap: foodStatus,
       dialogInfoVisible: false,
+      priceVisible: false,
+      ratioVisible: true,
       dialogStatus: '',
       textMap: {
-        update: '编辑商品',
-        create: '新增商品'
+        update: '编辑业务',
+        create: '新增业务'
       },
       rules: {
-        bottom_price: [
-          { required: true, message: '请输入底价' },
+        return_price: [
+          { required: true, message: '请输入返还金额' },
           { type: 'number',  message: '价格应为数字' },
         ],
-        in_price: [
-          { required: true, message: '请输入进价' },
+        return_ratio: [
+          { required: true, message: '请输入返还比例' },
           { type: 'number',  message: '价格应为数字' },
         ],
         name: [{ required: true, message: '请输入名称', trigger: 'blur' }],
-        brand: [{ required: true, message: '请输入品牌', trigger: 'blur' }],
-        goods_from: [{ required: true, message: '请输入进货地', trigger: 'blur' }],
-        type: [{ required: true, message: '请输入类别', trigger: 'blur' }],
-        goods_spec: [{ required: true, message: '请输入规格', trigger: 'blur' }],
-        goods_unit: [{ required: true, message: '请输入单位', trigger: 'blur' }],
       },
       downloadLoading: false
     }
   },
   created() {
-    this.getGoodsList()
+    this.getServiceList()
 
   },
   methods: {
-    getGoodsList() {
+    getServiceList() {
       this.listLoading = true
-      goodsList(this.listQuery).then(response => {
+      serviceList(this.listQuery).then(response => {
         this.list = response.data.data
         this.total = response.data.total
         // console.log(this.list)
@@ -295,33 +234,22 @@ export default {
         }, 1.5 * 1000)
       })
     },
+    typeChange(val){
+      if(val == '1'){ //按比例
+        this.priceVisible = true
+        this.ratioVisible = false
+      }else{
+        this.priceVisible = false
+        this.ratioVisible = true
+      }
+    },
     handleFilter() {
       this.listQuery.page = 1
-      this.getGoodsList()
-    },
-    handleSizeChange(val) {
-      this.listQuery.limit = val
-      this.getGoodsList()
+      this.getServiceList()
     },
     handleCurrentChange(val) {
       this.listQuery.page = val
-      this.getGoodsList()
-    },
-    month_change(val){
-      var list = []
-      
-      for (let i = 1; i <= val; i++) {
-        let priceObj = {}
-        priceObj.key   = i
-        priceObj.price = null
-        // console.log(priceObj)
-        list.push(priceObj)
-      }
-
-      // console.log(list)
-
-      this.temp.return_moon_price_list = list
-
+      this.getServiceList()
     },
     handleModifyStatus(row, status) {
       this.$confirm('确定要删除?', '提示', {
@@ -330,7 +258,7 @@ export default {
         type: 'warning'
       }).then(() => {
         this.temp = Object.assign({}, row)
-        deleteGoods(this.temp).then((response) => {
+        deleteService(this.temp).then((response) => {
           // console.log(response.data);
           if(response.data.status === 0){
             this.$notify({
@@ -359,32 +287,16 @@ export default {
       });
     },
     resetTemp() {
-      /*this.temp = {
-        id: undefined,
-        name: '鲁花高油酸花生油',
-        brand: '鲁花',
-        goods_from: '山东鲁花集团商贸有限公司石家庄分公司',
-        type: '高油酸花生油',
-        bottom_price: 129,
-        in_price: 108,
-        goods_spec: '750ml*2',
-        goods_unit: '盒',  
-        is_food: '1',
-        remark: ' ' 
-      }*/
       this.temp = {
         id: undefined,
         name: '',
-        brand: '',
-        goods_from: '',
-        type: '',
-        bottom_price: 0,
-        in_price: 0,
-        goods_spec: '',
-        goods_unit: '',  
-        is_food: '1',
-        remark: ' ' 
+        return_price: 0,
+        type: '2',
+        return_ratio: 0, 
+        remark: ' ', 
       }
+      this.priceVisible = false
+      this.ratioVisible = true
     },
     handleCreate() {
       this.resetTemp()
@@ -399,23 +311,23 @@ export default {
       return false*/
       this.$refs['dataForm'].validate((valid) => {
         if (valid) {
-          createGoods(this.temp).then((response) => {
+          createService(this.temp).then((response) => {
           //console.log(response.data.data);
           // console.log(this.temp)
           //return false
             if(response.data.status){
-              let goodsData = response.data.data
+              let serviceData = response.data.data
 
-              // goodsData.is_food = goodsData.is_food
-              /*let newGoods = {
-                id: goodsData.id,
-                month_nums: goodsData.month_nums,
-                package_price: goodsData.package_price,
+              // serviceData.is_food = serviceData.is_food
+              /*let newService = {
+                id: serviceData.id,
+                month_nums: serviceData.month_nums,
+                package_price: serviceData.package_price,
                 created_at: new Date()
               }*/
               /*this.temp.id = response.data.data.scalar.id
               this.temp.created_at = response.data.data.scalar.created_at | parseTime('{y}-{m}-{d}')*/
-              this.list.unshift(goodsData)
+              this.list.unshift(serviceData)
               this.dialogFormVisible = false
               this.$notify({
                 title: '成功',
@@ -442,8 +354,8 @@ export default {
  
     },
     handleUpdate(row) {
-        row.bottom_price   = parseInt(row.bottom_price)
-        row.in_price       = parseInt(row.in_price)
+        row.return_price   = parseInt(row.return_price)
+        row.return_ratio   = parseInt(row.return_ratio)
         this.temp = Object.assign({}, row) // copy obj
         this.dialogStatus = 'update'
         this.dialogFormVisible = true
@@ -455,7 +367,7 @@ export default {
       this.$refs['dataForm'].validate((valid) => {
         if (valid) {        
           const tempData = Object.assign({}, this.temp)         
-            updateGoods(tempData).then((response) => {
+            updateService(tempData).then((response) => {
               // console.log(response)
               if(response.data.status){
                 for (const v of this.list) {

@@ -56,9 +56,8 @@ export default {
   }
 }
 </script>
-
-<style rel="stylesheet/scss" lang="scss" scoped>
-  @import "@/styles/mixin.scss";
+<style rel="stylesheet/scss" type="sass" scop>
+  /*@import "@/styles/mixin.scss";*/
   .app-wrapper {
     @include clearfix;
     position: relative;
@@ -77,5 +76,13 @@ export default {
     height: 100%;
     position: absolute;
     z-index: 999;
+  }
+
+  .el-dialog{
+    min-width: 550px;
+  }
+
+  .el-form-item {
+     margin-bottom: 15px; 
   }
 </style>

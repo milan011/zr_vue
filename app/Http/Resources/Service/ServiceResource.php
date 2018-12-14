@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Resources\Goods;
+namespace App\Http\Resources\Service;
 
 use Illuminate\Http\Resources\Json\Resource;
 
-class GoodsResource extends Resource
+class ServiceResource extends Resource
 {
     /**
      * Transform the resource into an array.
@@ -14,16 +14,6 @@ class GoodsResource extends Resource
      */
     public function toArray($request)
     {
-        // dd($this);
-
-        /*return [
-            'id' => $this->id,
-            'name' => $this->name,
-            'month_nums' => $this->month_nums,
-            'package_price' => $this->package_price,
-            'remark' => $this->remark,       
-            'created_at' => $this->created_at,       
-        ];*/
         return parent::toArray($request);
     }
 

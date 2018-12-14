@@ -19,19 +19,50 @@
           <span>{{ scope.row.id }}</span>
         </template>
       </el-table-column>
-      <el-table-column :label="$t('package.name')" align="center">
+      <el-table-column :label="$t('serviceDetail.customer')" align="center">
+        <template slot-scope="scope">
+          <span>{{ scope.row.customer }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column :label="$t('serviceDetail.customer_telephone')" align="center">
+        <template slot-scope="scope">
+          <span>{{ scope.row.customer_telephone }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column :label="$t('serviceDetail.serviceName')" align="center">
         <template slot-scope="scope">
           <span>{{ scope.row.name }}</span>
         </template>
       </el-table-column>
-      <el-table-column :label="$t('package.package_price')" align="center">
+      <el-table-column :label="$t('serviceDetail.charge_price')" align="center">
         <template slot-scope="scope">
-          <span>{{ scope.row.package_price }}</span>
+          <span>{{ scope.row.charge_price }}</span>
         </template>
       </el-table-column>
-      <el-table-column :label="$t('package.month_nums')" align="center">
+      <el-table-column :label="$t('serviceDetail.goods_num')" align="center">
         <template slot-scope="scope">
-          <span>{{ scope.row.month_nums }}</span>
+          <span>{{ scope.row.goods_num }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column :label="$t('serviceDetail.goods_cost')" align="center">
+        <template slot-scope="scope">
+          <span>{{ scope.row.goods_cost }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column :label="$t('serviceDetail.inventory_profit')" align="center">
+        <template slot-scope="scope">
+          <span>{{ scope.row.inventory_profit }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column :label="$t('serviceDetail.inventory_percentage')" align="center">
+        <template slot-scope="scope">
+          <span>{{ scope.row.inventory_percentage }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column :label="$t('serviceDetail.inventoryer')" align="center">
+        <template slot-scope="scope">
+          <span v-if="scope.row.belongs_to_creater">{{scope.row.belongs_to_creater.nick_name}}</span>
+          <span v-else></span>
         </template>
       </el-table-column>
       <el-table-column :label="$t('table.date')" width="150px" align="center">
@@ -54,24 +85,95 @@
     </div>
 
     <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible">
-      <el-form ref="dataForm" :rules="rules" :model="temp" label-position="left" label-width="100px" style="width: 400px;">
-        <el-form-item :label="$t('package.name')" prop="name">
-          <el-input v-model="temp.name"/>
-        </el-form-item>
-        <el-form-item :label="$t('package.package_price')" prop="package_price">
-          <el-input v-model.number="temp.package_price"/>
-        </el-form-item>
-        <el-form-item :label="$t('package.month_nums')">
-          <el-select @change="month_change" v-model="temp.month_nums" class="filter-item" placeholder="请选择返款期数">
-            <el-option v-for="item in returnMonths" :key="item" :label="item" :value="item"/>
-          </el-select>
-        </el-form-item>
-        <el-form-item :label="$t('package.return_moon_price')">
-          <el-input style="margin-bottom:5px;" v-for="(p, group_index) in temp.return_moon_price_list" :key="p.key" :value="p.price" v-model.number="p.price" :placeholder="p.key" />
-        </el-form-item>
-        <el-form-item :label="$t('package.remark')">
-          <el-input :autosize="{ minRows: 2, maxRows: 4}" v-model="temp.remark" type="textarea" placeholder="备注"/>
-        </el-form-item>
+      <el-form 
+        ref="dataForm" 
+        :rules="rules" 
+        :model="temp" 
+        :inline="false"
+        label-position="right" 
+        label-width="100px" 
+        style="margin-left:0px;margin-right: 60px;">
+        <div class="createPost-main-container">
+          <el-row>
+            <el-col :span="12">
+              <el-form-item :label="$t('serviceDetail.serviceName')" align="center" prop="service_id">         
+                <el-select v-model="temp.service_id" class="filter-item" filterable placeholder="输入业务搜索">
+                  <el-option v-for="ser in allService" :key="ser.id" :label="ser.name" :value="ser.id"/>
+                </el-select> 
+              </el-form-item>
+            </el-col>   
+            <el-col :span="12">
+              <el-form-item :label="$t('serviceDetail.charge_price')" prop="charge_price">
+                <el-input v-model.number="temp.charge_price"   />
+              </el-form-item>
+            </el-col> 
+          </el-row>
+          <el-row>
+            <el-col :span="12">
+              <el-form-item :label="$t('serviceDetail.customer')" prop="customer">
+                <el-input v-model="temp.customer"  />
+              </el-form-item>
+            </el-col>   
+            <el-col :span="12">
+              <el-form-item :label="$t('serviceDetail.customer_telephone')" prop="customer_telephone">
+                <el-input v-model="temp.customer_telephone"  />
+              </el-form-item>
+            </el-col> 
+          </el-row>
+          <el-row>
+            <el-col :span="24">
+              <el-form-item :label="$t('serviceDetail.goodsList')">
+              <div style="float:left;" v-model="temp.goodsIdList" v-for="(goods, goods_index) in temp.goodsIdList" :key="goods_index" >
+                <el-col :span="12">
+                  <el-select style="margin-bottom:5px;" v-model="goods.goodsId" class="filter-item" filterable placeholder="输入商品搜索">
+                      <el-option v-for="goo in allGoods" :key="goo.id" :label="goo.name" :value="goo.id"/>
+                  </el-select>
+                </el-col>
+                <el-col :span="9">
+                  <!-- <el-input style="margin-bottom:5px;" placeholder="数量" v-model="goods.num"/> -->
+                  <el-input-number 
+                    v-model="goods.num" 
+                    size="small" 
+                    style="margin-bottom:5px;" 
+                    :min="1" 
+                    :max="100" 
+                    label="数量">
+                  </el-input-number>
+                </el-col>
+                <el-col :span="2">
+                  <el-button 
+                    v-if="goods.add" 
+                    @click="goodsAdd" 
+                    style="margin-left:5px;" 
+                    type="success" >
+                    {{ $t('serviceDetail.goodsAdd') }}
+                  </el-button>
+                  <el-button 
+                    v-else  
+                    @click="goodsRemove($event)" 
+                    style="margin-left:5px;" 
+                    type="danger" 
+                    :dataIndex="goods_index">
+                    {{ $t('serviceDetail.goodsRemove') }}
+                  </el-button>
+                </el-col>
+              </div>
+            </el-form-item>
+            </el-col>
+          </el-row>
+          <el-row>
+            <el-col :span="12">
+              <el-form-item :label="$t('serviceDetail.charge_price')" prop="charge_price">
+                <el-input v-model.number="temp.charge_price"   />
+              </el-form-item>
+            </el-col>   
+            <el-col :span="12">
+              <el-form-item :label="$t('serviceDetail.remark')">
+                <el-input :autosize="{ minRows: 2, maxRows: 4}" v-model="temp.remark" type="textarea" placeholder="备注"/>
+              </el-form-item>
+            </el-col> 
+          </el-row>
+        </div>       
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="dialogFormVisible = false">{{ $t('table.cancel') }}</el-button>
@@ -85,13 +187,13 @@
       </el-row>
       <el-row>
         <el-col :span="6"><div class="grid-content bg-purple self-style">
-          {{ $t('package.name') }}:<span>{{temp.name}}</span></div>
+          {{ $t('serviceDetail.serviceName') }}:<span>{{temp.name}}</span></div>
         </el-col>
         <el-col :span="6"><div class="grid-content bg-purple-light self-style">
-          {{ $t('package.package_price') }}:<span>{{temp.package_price}}元</span>
+          {{ $t('serviceDetail.customer') }}:<span>{{temp.customer}}元</span>
         </div></el-col>
         <el-col :span="6"><div class="grid-content bg-purple-light self-style">
-          {{ $t('package.month_nums') }}:<span>{{temp.month_nums}}</span>
+          {{ $t('serviceDetail.goods_num') }}:<span>{{temp.goods_num}}</span>
         </div></el-col>
         <el-col :span="6"><div class="grid-content bg-purple self-style">
           {{ $t('table.date') }}:<span>{{temp.created_at | parseTime('{y}-{m}-{d}') }}</span>
@@ -99,7 +201,7 @@
       </el-row>
       <el-row>
         <el-col :span="6"><div class="grid-content bg-purple self-style">
-          {{ $t('package.remark') }}:<span>{{temp.remark}}</span></div>
+          {{ $t('serviceDetail.remark') }}:<span>{{temp.remark}}</span></div>
         </el-col>
       </el-row>
       <el-row>
@@ -117,8 +219,9 @@
 
 <script>
 
-// import { fetchList, fetchPv, createPermission, updatePermission, deletePermission } from '@/api/permission'
-import { packageList, createPackage, getPackage, updatePackage, deletePackage } from '@/api/package'
+import { goodsAll } from '@/api/goods'
+import { serviceAll } from '@/api/service'
+import { serviceDetailList, createServiceDetail, getServiceDetail, updateServiceDetail, deleteServiceDetail } from '@/api/serviceDetail'
 import waves from '@/directive/waves' // 水波纹指令
 import { parseTime } from '@/utils'
 
@@ -134,7 +237,7 @@ const calendarTypeKeyValue = calendarTypeOptions.reduce((acc, cur) => {
 }, {})
 
 export default {
-  name: 'packageList',
+  name: 'serviceDetailList',
   directives: {
     waves
   },
@@ -166,42 +269,34 @@ export default {
       },
       calendarTypeOptions,
       showReviewer: false,
-      return_moon_price: true,
-      returnMonths: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12',],
       temp: {
         id: undefined,
-        name: '',
-        package_price: '',
-        month_nums: '12',
-        return_moon_price_list: [
-          {'key': '1', 'price': null},
-          {'key': '2', 'price': null},
-          {'key': '3', 'price': null},
-          {'key': '4', 'price': null},
-          {'key': '5', 'price': null},
-          {'key': '6', 'price': null},
-          {'key': '7', 'price': null},
-          {'key': '8', 'price': null},
-          {'key': '9', 'price': null},
-          {'key': '10', 'price': null},
-          {'key': '11', 'price': null},
-          {'key': '12', 'price': null},
+        serviceName: '',
+        service_id: '',
+        customer: '',
+        customer_telephone: '',
+        charge_price: '',
+        goodsIdList: [
+          {goodsId:'', num: '1',  add: true}, 
         ],
+        remark: '',
       },
       dialogFormVisible: false,
       dialogInfoVisible: false,
       dialogStatus: '',
       textMap: {
-        update: '编辑套餐',
-        create: '新增套餐'
+        update: '编辑',
+        create: '新增'
       },
+      allGoods: [],
+      allService: [],
       rules: {
-        package_price: [
+        customer: [
           { required: true, message: '请输入套餐价格' },
           { type: 'number',  message: '价格应为数字' },
         ],
         name: [{ required: true, message: '请输入名称', trigger: 'blur' }],
-        month_nums: [{ required: true, message: '请选择返款期数', trigger: 'blur' }],
+        goods_num: [{ required: true, message: '请选择返款期数', trigger: 'blur' }],
         /*return_month_price: [
           { required: true, message: '请输入金额', trigger: 'blur' }, 
         ]*/
@@ -212,10 +307,14 @@ export default {
   created() {
     this.getList()
   },
+  mounted(){
+    this.getAllGoods()
+    this.getAllService()
+  },
   methods: {
     getList() {
       this.listLoading = true
-      packageList(this.listQuery).then(response => {
+      serviceDetailList(this.listQuery).then(response => {
         this.list = response.data.data
         this.total = response.data.total
 
@@ -224,6 +323,13 @@ export default {
           this.listLoading = false
         }, 1.5 * 1000)
       })
+    },
+    goodsAdd(){ //添加礼品
+        let newGoods = {goodsId:'', num: '1', add: false}
+        this.temp.goodsIdList.push(newGoods)
+    },
+    goodsRemove(event){ //删除副卡
+      this.temp.goodsIdList.splice(event.currentTarget.getAttribute('dataIndex'),1)
     },
     handleFilter() {
       this.listQuery.page = 1
@@ -237,21 +343,19 @@ export default {
       this.listQuery.page = val
       this.getList()
     },
-    month_change(val){
-      var list = []
-      
-      for (let i = 1; i <= val; i++) {
-        let priceObj = {}
-        priceObj.key   = i
-        priceObj.price = null
-        // console.log(priceObj)
-        list.push(priceObj)
-      }
-
-      // console.log(list)
-
-      this.temp.return_moon_price_list = list
-
+    getAllGoods() {
+      goodsAll().then(response => {
+        /*console.log(response.data.data)
+        return false*/
+        this.allGoods = response.data.data
+      })
+    },
+    getAllService() {
+      serviceAll().then(response => {
+        /*console.log(response.data.data)
+        return false*/
+        this.allService = response.data.data
+      })
     },
     handleModifyStatus(row, status) {
       this.$confirm('确定要删除?', '提示', {
@@ -260,7 +364,7 @@ export default {
         type: 'warning'
       }).then(() => {
         this.temp = Object.assign({}, row)
-        deletePackage(this.temp).then((response) => {
+        deleteServiceDetail(this.temp).then((response) => {
           // console.log(response.data);
           if(response.data.status === 0){
             this.$notify({
@@ -291,23 +395,15 @@ export default {
     resetTemp() {
       this.temp = {
         id: undefined,
-        name: '',
-        package_price: '',
-        month_nums: '12',
-        return_moon_price_list: [
-          {'key': '1', 'price': null},
-          {'key': '2', 'price': null},
-          {'key': '3', 'price': null},
-          {'key': '4', 'price': null},
-          {'key': '5', 'price': null},
-          {'key': '6', 'price': null},
-          {'key': '7', 'price': null},
-          {'key': '8', 'price': null},
-          {'key': '9', 'price': null},
-          {'key': '10', 'price': null},
-          {'key': '11', 'price': null},
-          {'key': '12', 'price': null},
+        serviceName: '',
+        service_id: '',
+        customer: '',
+        customer_telephone: '',
+        charge_price: '',
+        goodsIdList: [
+          {goodsId:'', num: '1',  add: true}, 
         ],
+        remark: '',
       }
     },
     handleCreate() {
@@ -319,96 +415,48 @@ export default {
       })
     },
     createData() {
-      // console.log(this.temp.return_moon_price_list)
-        /*var name = ['张三', '李四', '王五'];
-        name.foreach(function(v,k) { 
-            console.log(v); //这样就会分别将name遍历出来
-        });*/
-      this.return_moon_price = true
-      const parent = this.temp.return_moon_price_list
-      const regex = /^([1-9][0-9]*)+(.[0-9]{1,2})?$/ //验证数字
-      // console.log(parent);
-      Array.prototype.forEach.call(parent, child => {
-        if(!regex.test(child.price)){
-          //console.log(child.key)
-          //console.log(child.price)
-          this.return_moon_price = false
-        }
-        /*console.log(child.key)
-        console.log(child.price)
-        console.log(!child.price)
-        console.log(typeof child.price === "undefined")
-        console.log(child.price === '')
-        console.log(child.price === 0)
-        if((!child.price) || (typeof child.price === "undefined") || (child.price === '') || (child.price === 0)){
-          this.return_moon_price = false
-        }*/
-      });
-      /*Array.prototype.forEach.call(parent, child => {
-        //console.log(child.key)
-        //console.log(child.price)
-        if(!child.price && typeof child.price != "undefined" && child.price != 0){
-          this.$notify.error({
-            title: '注意',
-            message: '请填写返还金额',
-            duration: 2000
-          })
-        }
-      });*/
-      /*this.temp.return_moon_price_list.foreach(function(v,k) { 
-        console.log(v); //这样就会分别将name遍历出来
-      });*/
-      // return false
       this.$refs['dataForm'].validate((valid) => {
         if (valid) {
-          // console.log(this.return_moon_price)
-          if(this.return_moon_price){
-            createPackage(this.temp).then((response) => {
-            //console.log(response.data.data.scalar);
-            // return false
-              if(response.data.status){
-                let managerData = response.data.data.scalar
-                let newManager = {
-                  id: managerData.id,
-                  name: managerData.name,
-                  month_nums: managerData.month_nums,
-                  package_price: managerData.package_price,
-                  // created_at: managerData.created_at | parseTime('{y}-{m}-{d} {h}:{i}')
-                  created_at: new Date()
-                }
-                /*this.temp.id = response.data.data.scalar.id
-                this.temp.created_at = response.data.data.scalar.created_at | parseTime('{y}-{m}-{d}')*/
-                this.list.unshift(newManager)
-                this.dialogFormVisible = false
-                this.$notify({
-                  title: '成功',
-                  message: response.data.message,
-                  type: 'success',
-                  duration: 2000
-                })
-              }else{
-                this.$notify.error({
-                  title: '注意',
-                  message: response.data.message,
-                  duration: 2000
-                })
-              }           
-            })
-          }else{
-            this.$notify.error({
-              title: '注意',
-              message: '请填写返还金额(金额应为数字)',
-              duration: 2000
-            })
-          }        
+          createServiceDetail(this.temp).then((response) => {
+          //console.log(response.data.data);
+          // console.log(this.temp)
+          //return false
+            if(response.data.status){
+              let goodsData = response.data.data
+
+              // goodsData.is_food = goodsData.is_food
+              /*let newGoods = {
+                id: goodsData.id,
+                month_nums: goodsData.month_nums,
+                package_price: goodsData.package_price,
+                created_at: new Date()
+              }*/
+              /*this.temp.id = response.data.data.scalar.id
+              this.temp.created_at = response.data.data.scalar.created_at | parseTime('{y}-{m}-{d}')*/
+              this.list.unshift(goodsData)
+              this.dialogFormVisible = false
+              this.$notify({
+                title: '成功',
+                message: response.data.message,
+                type: 'success',
+                duration: 2000
+              })
+            }else{
+              this.$notify.error({
+                title: '失败',
+                message: response.data.message,
+                duration: 2000
+              })
+            }           
+          })
         }
       })
     },
     handleShow(row) {
-      // console.log(row.has_many_package_info)
-      getPackage(row).then((response) => {
+      // console.log(row.has_many_serviceDetail_info)
+      getServiceDetail(row).then((response) => {
         row.return_moon_price_list = []
-        Array.prototype.forEach.call(response.data.data.has_many_package_info, child => {
+        Array.prototype.forEach.call(response.data.data.has_many_serviceDetail_info, child => {
           //console.log(child.return_month)
           //console.log(child.return_price)
           let obj = {key:child.return_month,price:parseFloat(child.return_price)} 
@@ -420,10 +468,10 @@ export default {
       })   
     },
     handleUpdate(row) {
-      // console.log(row.has_many_package_info)
-      getPackage(row).then((response) => {
+      // console.log(row.has_many_serviceDetail_info)
+      getServiceDetail(row).then((response) => {
         row.return_moon_price_list = []
-        Array.prototype.forEach.call(response.data.data.has_many_package_info, child => {
+        Array.prototype.forEach.call(response.data.data.has_many_serviceDetail_info, child => {
           //console.log(child.return_month)
           //console.log(child.return_price)
           let obj = {key:child.return_month,price:parseFloat(child.return_price)} 
@@ -463,7 +511,7 @@ export default {
           });
           // console.log(tempData)
           if(this.return_moon_price){
-            updatePackage(tempData).then((response) => {
+            updateServiceDetail(tempData).then((response) => {
               // console.log(response)
               if(response.data.status){
                 for (const v of this.list) {

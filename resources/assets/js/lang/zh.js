@@ -62,10 +62,6 @@ export default {
     thirdparty: '第三方登录',
     thirdpartyTips: '本地不能模拟，请结合自己业务进行模拟！！！'
   },
-  documentation: {
-    documentation: '文档',
-    github: 'Github 地址'
-  },
   permission: {
     roles: '你的权限',
     switchRoles: '切换权限',
@@ -74,10 +70,7 @@ export default {
     description: '权限描述',
     group: '分组',
   },
-  guide: {
-    description: '引导页对于一些第一次进入项目的人很有用，你可以简单介绍下项目的功能。本 Demo 是基于',
-    button: '打开引导'
-  },
+
   components: {
     documentation: '文档',
     tinymceTips: '富文本是管理后台一个核心的功能，但同时又是一个有很多坑的地方。在选择富文本的过程中我也走了不少的弯路，市面上常见的富文本都基本用过了，最终权衡了一下选择了Tinymce。更详细的富文本比较和介绍见',
@@ -267,5 +260,41 @@ export default {
     is_food: '食品类',  
     bottom_price: '底价',  
     remark: '备注',  
+  },
+  service:{
+    name: '业务名称',
+    type: '返还方式',
+    return_price: '返还金额',
+    return_ratio: '返还比例',
+    remark: '备注',
+  },
+  serviceDetail:{
+    serviceName: '业务名称',
+    goodsList: '赠送礼品',
+    customer: '客户',
+    goodsAdd: '添加',
+    goodsRemove: '删除',
+    customer_telephone: '客户电话',
+    charge_price: '收费金额',
+    goods_num: '赠品数量',
+    goods_cost: '赠品金额',
+    inventory_percentage: '业务提成',
+    inventory_profit: '利润',
+    inventoryer: '业务员',
+    remark: '备注',
+  },
+  inventory:{
+    name: '业务名称',
+    type: '返还方式',
+    return_price: '返还金额',
+    return_ratio: '返还比例',
+    remark: '备注',
+  },
+  inventoryDetail:{
+    name: '业务名称',
+    type: '返还方式',
+    return_price: '返还金额',
+    return_ratio: '返还比例',
+    remark: '备注',
   },
 }

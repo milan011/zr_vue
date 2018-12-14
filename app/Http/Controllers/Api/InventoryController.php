@@ -3,25 +3,25 @@
 namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
-// use App\GoodsPrice;
+// use App\InventoryPrice;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use App\Repositories\Goods\GoodsRepositoryInterface;
-use App\Http\Resources\Goods\GoodsResource;
-use App\Http\Resources\Goods\GoodsResourceCollection;
-//use App\Http\Requests\Goods\UpdateGoodsRequest;
+use App\Repositories\Inventory\InventoryRepositoryInterface;
+use App\Http\Resources\Inventory\InventoryResource;
+use App\Http\Resources\Inventory\InventoryResourceCollection;
+//use App\Http\Requests\Inventory\UpdateInventoryRequest;
 //use App\Http\Requests\Package\StorePackageRequest;
 
-class GoodsController extends Controller
+class InventoryController extends Controller
 {
-    protected $goods;
+    protected $inventory;
 
     public function __construct(
 
-        GoodsRepositoryInterface $goods
+        InventoryRepositoryInterface $inventory
     ) {
     
-        $this->goods = $goods;
+        $this->inventory = $inventory;
         // $this->middleware('brand.create', ['only' => ['create']]);
     }
 
@@ -34,10 +34,10 @@ class GoodsController extends Controller
     {
         // dd($request->all());
 
-        $goodss = $this->goods->getAllGoods();
+        $inventorys = $this->inventory->getAllInventory();
 
-        // dd($goodss);
-        return new GoodsResource($goodss);
+        // dd($inventorys);
+        return new InventoryResource($inventorys);
     }
 
     /**
@@ -45,11 +45,11 @@ class GoodsController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function goodsAll(Request $request)
-    {  
-        $goodss = $this->goods->getGoodss();
+    public function inventoryAll(Request $request)
+    {
+        $inventorys = $this->inventory->getInventorys();
 
-        return new GoodsResource($goodss);
+        return new InventoryResource($inventorys);
     }
 
     /**
@@ -59,7 +59,7 @@ class GoodsController extends Controller
      */
     public function create()
     {
-        return view('admin.goods.create');
+        return view('admin.inventory.create');
     }
 
     /**
@@ -68,18 +68,18 @@ class GoodsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $goodsRequest)
+    public function store(Request $inventoryRequest)
     {
-        // dd($goodsRequest->all());
-        if($this->goods->isRepeat($goodsRequest)){
+        // dd($inventoryRequest->all());
+        if($this->inventory->isRepeat($inventoryRequest)){
             return $this->baseFailed($message = '该商品已存在');
         }
 
-        $new_goods = $this->goods->create($goodsRequest);
-        $new_goods->belongsToCreater;
+        $new_inventory = $this->inventory->create($inventoryRequest);
+        $new_inventory->belongsToCreater;
 
-        if($new_goods){ //添加成功
-            return $this->baseSucceed($respond_data = $new_goods, $message = '添加成功');
+        if($new_inventory){ //添加成功
+            return $this->baseSucceed($respond_data = $new_inventory, $message = '添加成功');
         }else{  //添加失败
             return $this->baseFailed($message = '内部错误');
         }   
@@ -91,12 +91,12 @@ class GoodsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function getGoods($id)
+    public function getInventory($id)
     {
-        $goods = $this->goods->find($id);
-        $goods->hasManyGoodsInfo;
+        $inventory = $this->inventory->find($id);
+        $inventory->hasManyInventoryInfo;
 
-        return $this->baseSucceed($respond_data = $goods, $message = '');
+        return $this->baseSucceed($respond_data = $inventory, $message = '');
     }
 
     /**
@@ -107,12 +107,12 @@ class GoodsController extends Controller
      */
     public function edit($id)
     {
-        $goods      = $this->goods->find($id); //套餐详情
-        $goods_info = $goods->hasManyGoodsInfo->toJson(); //套餐返还详情
+        $inventory      = $this->inventory->find($id); //套餐详情
+        $inventory_info = $inventory->hasManyInventoryInfo->toJson(); //套餐返还详情
 
-        // dd($goods);
-        // dd($goods_info);
-        return view('admin.goods.edit', compact('goods', 'goods_info'));
+        // dd($inventory);
+        // dd($inventory_info);
+        return view('admin.inventory.edit', compact('inventory', 'inventory_info'));
     }
 
     /**
@@ -122,16 +122,16 @@ class GoodsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $goodsRequest, $id)
+    public function update(Request $inventoryRequest, $id)
     {
-        // dd($goodsRequest->all());
-        $update_goods = $this->goods->isRepeat($goodsRequest);
-        if($update_goods && ($update_goods->id != $id)){
+        // dd($inventoryRequest->all());
+        $update_inventory = $this->inventory->isRepeat($inventoryRequest);
+        if($update_inventory && ($update_inventory->id != $id)){
             return $this->baseFailed($message = '您修改后的套餐信息与现有套餐冲突');
         }
-        $goods = $this->goods->update($goodsRequest, $id);
-        // dd(redirect()->route('goods.index'));
-        return $this->baseSucceed($respond_data = $goods, $message = '修改成功');
+        $inventory = $this->inventory->update($inventoryRequest, $id);
+        // dd(redirect()->route('inventory.index'));
+        return $this->baseSucceed($respond_data = $inventory, $message = '修改成功');
     }
 
     /**
@@ -143,7 +143,7 @@ class GoodsController extends Controller
     public function destroy($id)
     {   
         // dd('删了');
-        $this->goods->destroy($id);        
+        $this->inventory->destroy($id);        
         return $this->baseSucceed($message = '修改成功');
     }
 

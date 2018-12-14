@@ -21,7 +21,7 @@ const serviceRouter = {
       },
       {
         path: 'detail',
-        component: resolve => void(require(['@/views/service/index'], resolve)),
+        component: resolve => void(require(['@/views/serviceDetail/index'], resolve)),
         name: 'serviceDetail',
         meta: { title: 'serviceDetail' }
       }

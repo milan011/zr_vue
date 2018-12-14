@@ -86,24 +86,26 @@ Route::group([
     
     //Goods
     Route::get('goodsList', 'GoodsController@index');
+    Route::get('goodsAll', 'GoodsController@goodsAll'); //所有礼品列表,无分页
     Route::post('goods', 'GoodsController@store');
     Route::get('getGoodsInfo/{id}', 'GoodsController@getInfo');
     Route::put('goods/{id}', 'GoodsController@update');
     Route::delete('goods/{id}', 'GoodsController@destroy');
 
     //Service
-    /*Route::get('serviceList', 'ServiceController@index');
+    Route::get('serviceList', 'ServiceController@index');
+    Route::get('serviceAll', 'ServiceController@serviceAll'); //所有礼品列表,无分页
     Route::post('service', 'ServiceController@store');
     Route::get('getServiceInfo/{id}', 'ServiceController@getInfo');
     Route::put('service/{id}', 'ServiceController@update');
-    Route::delete('service/{id}', 'ServiceController@destroy');*/
+    Route::delete('service/{id}', 'ServiceController@destroy');
 
     //ServiceDetail
-    /*Route::get('serviceDetailList', 'ServiceDetailController@index');
+    Route::get('serviceDetailList', 'ServiceDetailController@index');
     Route::post('serviceDetail', 'ServiceDetailController@store');
     Route::get('getServiceDetailInfo/{id}', 'ServiceDetailController@getInfo');
     Route::put('serviceDetail/{id}', 'ServiceDetailController@update');
-    Route::delete('serviceDetail/{id}', 'ServiceDetailController@destroy');*/
+    Route::delete('serviceDetail/{id}', 'ServiceDetailController@destroy');
 
     //Inventory
     /*Route::get('inventoryList', 'InventoryController@index');

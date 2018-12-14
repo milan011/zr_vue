@@ -69,8 +69,8 @@ class Service extends Model
                   ->orderBy('return_month', 'DESC');
     }
 
-    // 定义User表与Package表一对多关系
-    public function belongsToUser(){
+    // 定义User表与Service表一对多关系
+    public function belongsToCreater(){
 
       return $this->belongsTo('App\User', 'creater_id', 'id')->select('id', 'nick_name', 'telephone');
     }

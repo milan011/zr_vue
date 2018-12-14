@@ -19,7 +19,7 @@ class GoodsRepository implements GoodsRepositoryInterface
 {
 
     //默认查询数据
-    protected $select_columns = ['id', 'bloc', 'name', 'month_nums','goods_price', 'netin', 'status', 'remark', 'creater_id', 'created_at', 'updated_at'];
+    protected $select_columns = ['id','name', 'brand', 'goods_from', 'type', 'bottom_price', 'in_price', 'goods_spec', 'goods_unit', 'is_food', 'status', 'creater_id', 'remark', 'created_at', 'updated_at'];
 
     // 根据ID获得商品信息
     public function find($id)
@@ -43,7 +43,6 @@ class GoodsRepository implements GoodsRepositoryInterface
         return Goods::select($this->select_columns)
                     ->with('belongsToCreater')
                     ->where('status', '1')
-                    ->orderBy('goods_price')
                     ->get();
     }
 

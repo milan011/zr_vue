@@ -52,6 +52,12 @@ const foodStatus = {
     1: '是',
 };
 
+//serviceReturnType
+const serviceReturnType = {
+    1: '按比例',
+    2: '按金额',
+};
+
 //入网年
 const package_year = [
     {'key': '1', 'year': '2018'},
@@ -93,6 +99,7 @@ export {
     oldBindStatus,
     infoDianxinStatus,
     foodStatus,
+    serviceReturnType
 }
 
 /*export const zrConfig = {

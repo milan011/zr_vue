@@ -19,17 +19,17 @@
           <span>{{ scope.row.id }}</span>
         </template>
       </el-table-column>
-      <el-table-column :label="$t('package.name')" align="center">
+      <el-table-column :label="$t('serviceDetail.name')" align="center">
         <template slot-scope="scope">
           <span>{{ scope.row.name }}</span>
         </template>
       </el-table-column>
-      <el-table-column :label="$t('package.package_price')" align="center">
+      <el-table-column :label="$t('serviceDetail.serviceDetail_price')" align="center">
         <template slot-scope="scope">
-          <span>{{ scope.row.package_price }}</span>
+          <span>{{ scope.row.serviceDetail_price }}</span>
         </template>
       </el-table-column>
-      <el-table-column :label="$t('package.month_nums')" align="center">
+      <el-table-column :label="$t('serviceDetail.month_nums')" align="center">
         <template slot-scope="scope">
           <span>{{ scope.row.month_nums }}</span>
         </template>
@@ -55,21 +55,21 @@
 
     <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible">
       <el-form ref="dataForm" :rules="rules" :model="temp" label-position="left" label-width="100px" style="width: 400px;">
-        <el-form-item :label="$t('package.name')" prop="name">
+        <el-form-item :label="$t('serviceDetail.name')" prop="name">
           <el-input v-model="temp.name"/>
         </el-form-item>
-        <el-form-item :label="$t('package.package_price')" prop="package_price">
-          <el-input v-model.number="temp.package_price"/>
+        <el-form-item :label="$t('serviceDetail.serviceDetail_price')" prop="serviceDetail_price">
+          <el-input v-model.number="temp.serviceDetail_price"/>
         </el-form-item>
-        <el-form-item :label="$t('package.month_nums')">
+        <el-form-item :label="$t('serviceDetail.month_nums')">
           <el-select @change="month_change" v-model="temp.month_nums" class="filter-item" placeholder="请选择返款期数">
             <el-option v-for="item in returnMonths" :key="item" :label="item" :value="item"/>
           </el-select>
         </el-form-item>
-        <el-form-item :label="$t('package.return_moon_price')">
+        <el-form-item :label="$t('serviceDetail.return_moon_price')">
           <el-input style="margin-bottom:5px;" v-for="(p, group_index) in temp.return_moon_price_list" :key="p.key" :value="p.price" v-model.number="p.price" :placeholder="p.key" />
         </el-form-item>
-        <el-form-item :label="$t('package.remark')">
+        <el-form-item :label="$t('serviceDetail.remark')">
           <el-input :autosize="{ minRows: 2, maxRows: 4}" v-model="temp.remark" type="textarea" placeholder="备注"/>
         </el-form-item>
       </el-form>
@@ -85,13 +85,13 @@
       </el-row>
       <el-row>
         <el-col :span="6"><div class="grid-content bg-purple self-style">
-          {{ $t('package.name') }}:<span>{{temp.name}}</span></div>
+          {{ $t('serviceDetail.name') }}:<span>{{temp.name}}</span></div>
         </el-col>
         <el-col :span="6"><div class="grid-content bg-purple-light self-style">
-          {{ $t('package.package_price') }}:<span>{{temp.package_price}}元</span>
+          {{ $t('serviceDetail.serviceDetail_price') }}:<span>{{temp.serviceDetail_price}}元</span>
         </div></el-col>
         <el-col :span="6"><div class="grid-content bg-purple-light self-style">
-          {{ $t('package.month_nums') }}:<span>{{temp.month_nums}}</span>
+          {{ $t('serviceDetail.month_nums') }}:<span>{{temp.month_nums}}</span>
         </div></el-col>
         <el-col :span="6"><div class="grid-content bg-purple self-style">
           {{ $t('table.date') }}:<span>{{temp.created_at | parseTime('{y}-{m}-{d}') }}</span>
@@ -99,7 +99,7 @@
       </el-row>
       <el-row>
         <el-col :span="6"><div class="grid-content bg-purple self-style">
-          {{ $t('package.remark') }}:<span>{{temp.remark}}</span></div>
+          {{ $t('serviceDetail.remark') }}:<span>{{temp.remark}}</span></div>
         </el-col>
       </el-row>
       <el-row>
@@ -118,7 +118,7 @@
 <script>
 
 // import { fetchList, fetchPv, createPermission, updatePermission, deletePermission } from '@/api/permission'
-import { packageList, createPackage, getPackage, updatePackage, deletePackage } from '@/api/package'
+import { serviceDetailList, createServiceDetail, getServiceDetail, updateServiceDetail, deleteServiceDetail } from '@/api/serviceDetail'
 import waves from '@/directive/waves' // 水波纹指令
 import { parseTime } from '@/utils'
 
@@ -134,7 +134,7 @@ const calendarTypeKeyValue = calendarTypeOptions.reduce((acc, cur) => {
 }, {})
 
 export default {
-  name: 'packageList',
+  name: 'serviceDetailList',
   directives: {
     waves
   },
@@ -171,7 +171,7 @@ export default {
       temp: {
         id: undefined,
         name: '',
-        package_price: '',
+        serviceDetail_price: '',
         month_nums: '12',
         return_moon_price_list: [
           {'key': '1', 'price': null},
@@ -196,7 +196,7 @@ export default {
         create: '新增套餐'
       },
       rules: {
-        package_price: [
+        serviceDetail_price: [
           { required: true, message: '请输入套餐价格' },
           { type: 'number',  message: '价格应为数字' },
         ],
@@ -215,7 +215,7 @@ export default {
   methods: {
     getList() {
       this.listLoading = true
-      packageList(this.listQuery).then(response => {
+      serviceDetailList(this.listQuery).then(response => {
         this.list = response.data.data
         this.total = response.data.total
 
@@ -260,7 +260,7 @@ export default {
         type: 'warning'
       }).then(() => {
         this.temp = Object.assign({}, row)
-        deletePackage(this.temp).then((response) => {
+        deleteServiceDetail(this.temp).then((response) => {
           // console.log(response.data);
           if(response.data.status === 0){
             this.$notify({
@@ -292,7 +292,7 @@ export default {
       this.temp = {
         id: undefined,
         name: '',
-        package_price: '',
+        serviceDetail_price: '',
         month_nums: '12',
         return_moon_price_list: [
           {'key': '1', 'price': null},
@@ -363,7 +363,7 @@ export default {
         if (valid) {
           // console.log(this.return_moon_price)
           if(this.return_moon_price){
-            createPackage(this.temp).then((response) => {
+            createServiceDetail(this.temp).then((response) => {
             //console.log(response.data.data.scalar);
             // return false
               if(response.data.status){
@@ -372,7 +372,7 @@ export default {
                   id: managerData.id,
                   name: managerData.name,
                   month_nums: managerData.month_nums,
-                  package_price: managerData.package_price,
+                  serviceDetail_price: managerData.serviceDetail_price,
                   // created_at: managerData.created_at | parseTime('{y}-{m}-{d} {h}:{i}')
                   created_at: new Date()
                 }
@@ -405,10 +405,10 @@ export default {
       })
     },
     handleShow(row) {
-      // console.log(row.has_many_package_info)
-      getPackage(row).then((response) => {
+      // console.log(row.has_many_serviceDetail_info)
+      getServiceDetail(row).then((response) => {
         row.return_moon_price_list = []
-        Array.prototype.forEach.call(response.data.data.has_many_package_info, child => {
+        Array.prototype.forEach.call(response.data.data.has_many_serviceDetail_info, child => {
           //console.log(child.return_month)
           //console.log(child.return_price)
           let obj = {key:child.return_month,price:parseFloat(child.return_price)} 
@@ -420,10 +420,10 @@ export default {
       })   
     },
     handleUpdate(row) {
-      // console.log(row.has_many_package_info)
-      getPackage(row).then((response) => {
+      // console.log(row.has_many_serviceDetail_info)
+      getServiceDetail(row).then((response) => {
         row.return_moon_price_list = []
-        Array.prototype.forEach.call(response.data.data.has_many_package_info, child => {
+        Array.prototype.forEach.call(response.data.data.has_many_serviceDetail_info, child => {
           //console.log(child.return_month)
           //console.log(child.return_price)
           let obj = {key:child.return_month,price:parseFloat(child.return_price)} 
@@ -463,7 +463,7 @@ export default {
           });
           // console.log(tempData)
           if(this.return_moon_price){
-            updatePackage(tempData).then((response) => {
+            updateServiceDetail(tempData).then((response) => {
               // console.log(response)
               if(response.data.status){
                 for (const v of this.list) {

@@ -19,25 +19,25 @@ class ServiceDetailRepository implements ServiceDetailRepositoryInterface
 {
 
     //默认查询数据
-    protected $select_columns = ['id', 'bloc', 'name', 'month_nums','package_price', 'netin', 'status', 'remark', 'creater_id', 'created_at', 'updated_at'];
+    protected $select_columns = ['id','customer', 'service_id', 'charge_price', 'status', 'goods_num', 'customer_telephone', 'remark', 'creater_id', 'created_at', 'updated_at'];
 
     // 根据ID获得套餐信息
     public function find($id)
     {
-        return Package::select($this->select_columns)
+        return ServiceDetail::select($this->select_columns)
                        ->findOrFail($id);
     }
 
     // 获得套餐列表
     public function getAllServiceDetail()
     {   
-        return Package::where('status', '1')->orderBy('package_price')->orderBy('created_at', 'DESC')->paginate(10);
+        return ServiceDetail::where('status', '1')->orderBy('package_price')->orderBy('created_at', 'DESC')->paginate(10);
     }
 
     // 获得所有套餐
-    public function getPackages()
+    public function getServiceDetails()
     {   
-        return Package::select($this->select_columns)
+        return ServiceDetail::select($this->select_columns)
                        ->where('status', '1')
                        ->orderBy('package_price')
                        ->get();
@@ -56,7 +56,7 @@ class ServiceDetailRepository implements ServiceDetailRepositoryInterface
 
             // dd($requestData->all());
             
-            $package = new Package();
+            $package = new ServiceDetail();
             $input =  array_replace($requestData->all());
             $package->fill($input);
 
@@ -66,7 +66,7 @@ class ServiceDetailRepository implements ServiceDetailRepositoryInterface
            
             foreach ($requestData->return_moon_price_list as $key => $price) {
 
-                $package_info = new PackageInfo(); //套餐信息对象
+                $package_info = new ServiceDetailInfo(); //套餐信息对象
 
                 $package_info->pid           = $package->id;
                 $package_info->nums          = $package->month_nums;
@@ -90,14 +90,14 @@ class ServiceDetailRepository implements ServiceDetailRepositoryInterface
 
 
             // dd($requestData->all());
-            $package  = Package::findorFail($id);
+            $package  = ServiceDetail::findorFail($id);
             $input    =  array_replace($requestData->all());
 
             // dd($package);
-            // dd($package->hasManyPackageInfo);
+            // dd($package->hasManyServiceDetailInfo);
             $package->fill($input)->save();
-            // dd($package->hasManyPackageInfo);
-            foreach ($package->hasManyPackageInfo as $key => $value) {
+            // dd($package->hasManyServiceDetailInfo);
+            foreach ($package->hasManyServiceDetailInfo as $key => $value) {
                 //删除原有套餐月返还信息
                 $value->status = '0';
                 $value->save();
@@ -106,7 +106,7 @@ class ServiceDetailRepository implements ServiceDetailRepositoryInterface
             
             foreach ($requestData->return_moon_price_list as $key => $price) {
                 //新建套餐月返还信息
-                $package_info = new PackageInfo(); //套餐信息对象
+                $package_info = new ServiceDetailInfo(); //套餐信息对象
 
                 $package_info->pid          = $package->id;
                 $package_info->nums         = $package->month_nums;
@@ -124,7 +124,7 @@ class ServiceDetailRepository implements ServiceDetailRepositoryInterface
     public function destroy($id)
     {
         try {
-            $package = Package::findorFail($id);
+            $package = ServiceDetail::findorFail($id);
             $package->status = '0';
             $package->save();
 
@@ -138,7 +138,7 @@ class ServiceDetailRepository implements ServiceDetailRepositoryInterface
     //判断套餐是否重复
     public function isRepeat($requestData){
 
-        $package = Package::select('id', 'name')
+        $package = ServiceDetail::select('id', 'name')
                         ->where('name', $requestData->name)
                         ->where('package_price', $requestData->package_price)
                         ->where('month_nums', $requestData->month_nums)
