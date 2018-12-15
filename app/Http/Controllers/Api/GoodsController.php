@@ -41,7 +41,7 @@ class GoodsController extends Controller
     }
 
     /**
-     * 所有套餐列表(无分页)
+     * 所有商品列表(无分页)
      *
      * @return \Illuminate\Http\JsonResponse
      */
@@ -107,8 +107,8 @@ class GoodsController extends Controller
      */
     public function edit($id)
     {
-        $goods      = $this->goods->find($id); //套餐详情
-        $goods_info = $goods->hasManyGoodsInfo->toJson(); //套餐返还详情
+        $goods      = $this->goods->find($id); //商品详情
+        $goods_info = $goods->hasManyGoodsInfo->toJson(); //商品返还详情
 
         // dd($goods);
         // dd($goods_info);
@@ -127,7 +127,7 @@ class GoodsController extends Controller
         // dd($goodsRequest->all());
         $update_goods = $this->goods->isRepeat($goodsRequest);
         if($update_goods && ($update_goods->id != $id)){
-            return $this->baseFailed($message = '您修改后的套餐信息与现有套餐冲突');
+            return $this->baseFailed($message = '您修改后的商品信息与现有商品冲突');
         }
         $goods = $this->goods->update($goodsRequest, $id);
         // dd(redirect()->route('goods.index'));

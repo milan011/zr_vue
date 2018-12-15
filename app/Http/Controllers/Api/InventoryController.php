@@ -35,8 +35,23 @@ class InventoryController extends Controller
         // dd($request->all());
 
         $inventorys = $this->inventory->getAllInventory();
+        // dd($inventorys[1]);
 
-        // dd($inventorys);
+        /*foreach ($inventorys as $key => $value) {
+            if(empty($value->belongsToGoods)){
+                return $value;
+            }
+        }
+
+        */
+       // dd($inventorys);
+        /*$inventorys = $inventorys->filter(function ($value, $key) {
+            if(!empty($value->belongsToGoods)){
+                return $value;
+            }
+        });
+
+        dd($inventorys);*/
         return new InventoryResource($inventorys);
     }
 
@@ -70,7 +85,7 @@ class InventoryController extends Controller
      */
     public function store(Request $inventoryRequest)
     {
-        // dd($inventoryRequest->all());
+        dd($inventoryRequest->all());
         if($this->inventory->isRepeat($inventoryRequest)){
             return $this->baseFailed($message = '该商品已存在');
         }

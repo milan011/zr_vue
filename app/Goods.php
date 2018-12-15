@@ -24,7 +24,7 @@ class Goods extends Model
      * 定义可批量赋值字段
      * @var array
      */
-    protected $fillable = ['id','name', 'brand', 'goods_from', 'type', 'bottom_price', 'in_price', 'goods_spec', 'goods_unit', 'is_food', 'status', 'creater_id', 'remark', 'created_at', 'updated_at'];
+    protected $fillable = ['id','name', 'brand', 'goods_from', 'type', 'goods_spec', 'goods_unit', 'is_food', 'status', 'creater_id', 'remark', 'created_at', 'updated_at'];
 
     /**
      * The attributes excluded from the model's JSON form.
@@ -60,13 +60,11 @@ class Goods extends Model
       return $this->belongsTo('App\InfoSelf', 'id', 'package_id');
     }
 
-    // 定义Package表与PackageInfo表一对多关系
-    public function hasManyPackageInfo(){
+    // 定义Goods表与Inventory表一对多关系
+    public function hasManyInventory(){
 
-      return $this->hasMany('App\PackageInfo', 'pid', 'id')
-                  ->select('return_month', 'return_price', 'status', 'id')
-                  ->where('status', '1')
-                  ->orderBy('return_month', 'DESC');
+      // return $this->hasMany('App\Inventory', 'goods_id', 'id')->where('status', '1');
+      return $this->hasMany('App\Inventory', 'goods_id', 'id');
     }
 
     // 定义User表与Goods表一对多关系

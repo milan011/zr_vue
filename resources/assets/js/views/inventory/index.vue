@@ -1,9 +1,14 @@
 <template>
   <div class="app-container">
     <div class="filter-container">       
-      <el-button class="filter-item" style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="handleCreate">
-        {{ $t('table.add') }}
-      </el-button>
+      <el-input 
+        :placeholder="$t('infoDianxin.return_telephone')"
+        clearable 
+        v-model="listQuery.selectTelephone"
+        style="width: 150px;" 
+        class="filter-item">
+      </el-input>
+      <el-button v-waves class="filter-item" type="primary" icon="el-icon-search" @click="handleFilter">{{ $t('table.search') }}</el-button>
     </div>
 
     <el-table
@@ -19,68 +24,23 @@
           <span>{{ scope.row.id }}</span>
         </template>
       </el-table-column>
-      <el-table-column :label="$t('goods.name')" show-overflow-tooltip align="center">
+      <el-table-column :label="$t('inventory.goodsName')" show-overflow-tooltip align="center">
         <template slot-scope="scope">
-          <span>{{ scope.row.name }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column :label="$t('goods.brand')" show-overflow-tooltip align="center">
-        <template slot-scope="scope">
-          <span>{{ scope.row.brand }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column :label="$t('goods.goods_from')" show-overflow-tooltip align="center">
-        <template slot-scope="scope">
-          <span>{{ scope.row.goods_from }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column :label="$t('goods.type')" show-overflow-tooltip align="center">
-        <template slot-scope="scope">
-          <span>{{ scope.row.type }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column :label="$t('goods.bottom_price')" align="center">
-        <template slot-scope="scope">
-          <span>{{ scope.row.bottom_price }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column :label="$t('goods.in_price')" align="center">
-        <template slot-scope="scope">
-          <span>{{ scope.row.in_price }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column :label="$t('goods.goods_spec')" align="center">
-        <template slot-scope="scope">
-          <span>{{ scope.row.goods_spec }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column :label="$t('goods.goods_unit')" width="50%" align="center">
-        <template slot-scope="scope">
-          <span>{{ scope.row.goods_unit }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column :label="$t('goods.is_food')" width="80%" align="center">
-        <template slot-scope="scope">
-          <el-tag :type="scope.row.is_food | foodStatusFilter">{{ foodStatusMap[scope.row.is_food]}}</el-tag>
-        </template>
-      </el-table-column>
-      <el-table-column :label="$t('table.date')" width="150px" align="center">
-        <template slot-scope="scope">
-          <span>
-            {{ scope.row.created_at | parseTime('{y}-{m}-{d}') }}
-            |
-            <!-- {{ scope.row.belongs_to_creater ? scope.row.belongs_to_creater.nick_name : '' }} -->
-            <span v-if="scope.row.belongs_to_creater">{{scope.row.belongs_to_creater.nick_name}}</span>
+          <span v-if="scope.row.belongs_to_goods">{{scope.row.belongs_to_goods.name}}</span>
             <span v-else></span>
-          </span>
+        </template>
+      </el-table-column>
+      <el-table-column :label="$t('inventory.inventoryNow')" show-overflow-tooltip align="center">
+        <template slot-scope="scope">
+          <span>{{ scope.row.inventory_now }}</span>
         </template>
       </el-table-column>
       <el-table-column :label="$t('table.actions')" align="center" width="230" class-name="small-padding fixed-width">
         <template slot-scope="scope">
-          <el-button type="success" size="mini" @click="handleShow(scope.row)">{{ $t('table.show') }}</el-button>
-          <el-button type="primary" size="mini" @click="handleUpdate(scope.row)">{{ $t('table.edit') }}</el-button>
+          <el-button type="success" size="mini" @click="handleCreate(scope.row)">{{ $t('table.add') }}</el-button>
+          <!-- <el-button type="primary" size="mini" @click="handleUpdate(scope.row)">{{ $t('table.edit') }}</el-button>
           <el-button v-if="scope.row.status!='deleted'" size="mini" type="danger" @click="handleModifyStatus(scope.row,'deleted')">{{ $t('table.delete') }}
-          </el-button>
+          </el-button> -->
         </template>
       </el-table-column>
     </el-table>
@@ -89,8 +49,8 @@
       <el-pagination v-show="total>0" :current-page="listQuery.page" :total="total" background layout="total, prev, pager, next"  @current-change="handleCurrentChange"/>
     </div>
 
-    <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible">
-      <el-form 
+    <el-dialog title="添加库存" :visible.sync="dialogFormVisible">
+      <!-- <el-form 
         ref="dataForm" 
         :rules="rules" 
         :model="temp" 
@@ -98,8 +58,8 @@
         label-position="right" 
         label-width="100px" 
         style="width: 100%;">
-        <el-form-item :label="$t('goods.name')" prop="name">
-          <el-input v-model="temp.name"/>
+        <el-form-item :label="$t('goods.name')" prop="goods_name">
+          <el-input v-model="temp.goods_name"/>
         </el-form-item>
         <el-form-item :label="$t('goods.brand')" prop="brand">
           <el-input v-model="temp.brand"/>
@@ -134,63 +94,62 @@
         <el-form-item :label="$t('goods.remark')">
           <el-input :autosize="{ minRows: 2, maxRows: 4}" v-model="temp.remark" type="textarea" placeholder="备注"/>
         </el-form-item>
+      </el-form> -->
+      <el-form 
+        ref="dataForm" 
+        :rules="rules" 
+        :model="temp" 
+        :inline="false"
+        label-position="right" 
+        label-width="100px" 
+        style="margin-left:0px;margin-right: 60px;">
+        <div class="createPost-main-container">
+          <el-row>
+            <el-col :span="12">
+              <el-form-item :label="$t('goods.name')">
+                <el-input :disabled="true" v-model="temp.goods_name"/>
+              </el-form-item>
+            </el-col>   
+            <el-col :span="12">
+              <el-form-item :label="$t('goods.goods_num')">
+                <el-input-number 
+                  v-model="temp.goods_num" 
+                  @change="numChange"
+                  size="small" 
+                  style="margin-bottom:5px;" 
+                  :min="1" 
+                  :max="100" 
+                  label="数量">
+                </el-input-number>
+              </el-form-item>
+            </el-col> 
+          </el-row>
+          <el-row>
+            <el-col :span="12">
+              <el-form-item :label="$t('goods.in_price')" prop="goods_in_price">
+                <el-input @change="inPriceChange" v-model.number="temp.goods_in_price"/>
+              </el-form-item>
+            </el-col>   
+            <el-col :span="12">
+              <el-form-item :label="$t('goods.ruku_price')" prop="ruku_price">
+                <el-input :disabled="true" v-model.number="temp.ruku_price"/>
+              </el-form-item>
+            </el-col> 
+          </el-row>
+        </div>       
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="dialogFormVisible = false">{{ $t('table.cancel') }}</el-button>
-        <el-button v-if="dialogStatus=='create'" type="primary" @click="createData">{{ $t('table.confirm') }}</el-button>
-        <el-button v-else type="primary" @click="updateData">{{ $t('table.confirm') }}</el-button>
+        <el-button  type="primary" @click="createData">{{ $t('table.confirm') }}</el-button>
       </div>
-    </el-dialog>
-    <el-dialog  :visible.sync="dialogInfoVisible">
-      <el-row>
-        <el-col :span="24"><div class="grid-content bg-purple-dark self-style"><span>商品详情</span></div></el-col>
-      </el-row>
-      <el-row>
-        <el-col :span="6"><div class="grid-content bg-purple self-style">
-          {{ $t('goods.name') }}:<span>{{temp.name}}</span></div>
-        </el-col>
-        <el-col :span="6"><div class="grid-content bg-purple-light self-style">
-          {{ $t('goods.brand') }}:<span>{{temp.brand}}</span>
-        </div></el-col>
-        <el-col :span="6"><div class="grid-content bg-purple-light self-style">
-          {{ $t('goods.goods_from') }}:<span>{{temp.goods_from}}</span>
-        </div></el-col>
-        <el-col :span="6"><div class="grid-content bg-purple-light self-style">
-          {{ $t('goods.goods_spec') }}:<span>{{temp.goods_spec}}</span>
-        </div></el-col>   
-      </el-row>
-      <el-row>
-        <el-col :span="6"><div class="grid-content bg-purple self-style">
-          {{ $t('goods.type') }}:<span>{{temp.type}}</span></div>
-        </el-col>
-        <el-col :span="6"><div class="grid-content bg-purple-light self-style">
-          {{ $t('goods.bottom_price') }}:<span>{{temp.bottom_price}}</span>
-        </div></el-col>
-        <el-col :span="6"><div class="grid-content bg-purple-light self-style">
-          {{ $t('goods.in_price') }}:<span>{{temp.in_price}}</span>
-        </div></el-col>
-        <el-col :span="6"><div class="grid-content bg-purple self-style">
-          {{ $t('table.date') }}:<span>{{temp.created_at | parseTime('{y}-{m}-{d}') }}</span>
-        </div></el-col>    
-      </el-row>
-      <el-row>
-        <el-col :span="6"><div class="grid-content bg-purple self-style">
-          {{ $t('goods.is_food') }}:<span>{{ foodStatusMap[temp.is_food] }}</span></div>
-        </el-col>
-        <el-col :span="6"><div class="grid-content bg-purple-light self-style">
-          {{ $t('goods.remark') }}:<span>{{temp.remark}}</span>
-        </div></el-col>
-            
-      </el-row>
     </el-dialog>
   </div>
 </template>
 
 <script>
 
-// import { fetchList, fetchPv, createPermission, updatePermission, deletePermission } from '@/api/permission'
-// import { packageList, createPackage, getPackage, updatePackage, deletePackage } from '@/api/package'
-import { goodsList, createGoods, getGoods, updateGoods, deleteGoods } from '@/api/goods'
+// import { goodsAll } from '@/api/goods'
+import { inventoryList, createInventory } from '@/api/inventory'
 import waves from '@/directive/waves' // 水波纹指令
 import { parseTime } from '@/utils'
 import { foodStatus }  from '@/config.js'
@@ -207,7 +166,7 @@ const calendarTypeKeyValue = calendarTypeOptions.reduce((acc, cur) => {
 }, {})
 
 export default {
-  name: 'goodsList',
+  name: 'inventoryList',
   directives: {
     waves
   },
@@ -240,52 +199,31 @@ export default {
       showReviewer: false,
       temp: {
         id: undefined,
-        name: '',
-        brand: '',
-        goods_from: '',
-        type: '',
-        bottom_price: '',
-        in_price: '',
-        goods_spec: '',
-        goods_unit: '',  
-        remark: ' ',
-        is_food: '1'          
+        goods_id: '',
+        goods_name: '',
+        goods_num: 0,
+        goods_in_price: 0,
+        ruku_price: 0,
+        inventory_type: '1',
+        inventory_now: '',         
       },
       dialogFormVisible: false,
-      foodStatusMap: foodStatus,
-      dialogInfoVisible: false,
-      dialogStatus: '',
-      textMap: {
-        update: '编辑商品',
-        create: '新增商品'
-      },
       rules: {
-        bottom_price: [
-          { required: true, message: '请输入底价' },
-          { type: 'number',  message: '价格应为数字' },
-        ],
-        in_price: [
+        goods_in_price: [
           { required: true, message: '请输入进价' },
           { type: 'number',  message: '价格应为数字' },
         ],
-        name: [{ required: true, message: '请输入名称', trigger: 'blur' }],
-        brand: [{ required: true, message: '请输入品牌', trigger: 'blur' }],
-        goods_from: [{ required: true, message: '请输入进货地', trigger: 'blur' }],
-        type: [{ required: true, message: '请输入类别', trigger: 'blur' }],
-        goods_spec: [{ required: true, message: '请输入规格', trigger: 'blur' }],
-        goods_unit: [{ required: true, message: '请输入单位', trigger: 'blur' }],
       },
-      downloadLoading: false
     }
   },
   created() {
-    this.getGoodsList()
+    this.getInventoryList()
 
   },
   methods: {
-    getGoodsList() {
+    getInventoryList() {
       this.listLoading = true
-      goodsList(this.listQuery).then(response => {
+      inventoryList(this.listQuery).then(response => {
         this.list = response.data.data
         this.total = response.data.total
         // console.log(this.list)
@@ -297,98 +235,34 @@ export default {
     },
     handleFilter() {
       this.listQuery.page = 1
-      this.getGoodsList()
-    },
-    handleSizeChange(val) {
-      this.listQuery.limit = val
-      this.getGoodsList()
+      this.getInventoryList()
     },
     handleCurrentChange(val) {
       this.listQuery.page = val
-      this.getGoodsList()
+      this.getInventoryList()
     },
-    month_change(val){
-      var list = []
-      
-      for (let i = 1; i <= val; i++) {
-        let priceObj = {}
-        priceObj.key   = i
-        priceObj.price = null
-        // console.log(priceObj)
-        list.push(priceObj)
-      }
-
-      // console.log(list)
-
-      this.temp.return_moon_price_list = list
-
+    inPriceChange(val){
+      this.temp.ruku_price = this.temp.goods_num * this.temp.goods_in_price
     },
-    handleModifyStatus(row, status) {
-      this.$confirm('确定要删除?', '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning'
-      }).then(() => {
-        this.temp = Object.assign({}, row)
-        deleteGoods(this.temp).then((response) => {
-          // console.log(response.data);
-          if(response.data.status === 0){
-            this.$notify({
-              title: '失败',
-              message: '删除失败',
-              type: 'warning',
-              duration: 2000
-            })
-          }else{
-            const index = this.list.indexOf(row)
-            this.list.splice(index, 1)
-            this.dialogFormVisible = false
-            this.$notify({
-              title: '成功',
-              message: '删除成功',
-              type: 'success',
-              duration: 2000
-            })
-          }   
-        })
-      }).catch(() => {
-        this.$message({
-          type: 'info',
-          message: '已取消删除'
-        });          
-      });
+    numChange(val){
+      this.temp.ruku_price = this.temp.goods_num * this.temp.goods_in_price
     },
-    resetTemp() {
-      /*this.temp = {
-        id: undefined,
-        name: '鲁花高油酸花生油',
-        brand: '鲁花',
-        goods_from: '山东鲁花集团商贸有限公司石家庄分公司',
-        type: '高油酸花生油',
-        bottom_price: 129,
-        in_price: 108,
-        goods_spec: '750ml*2',
-        goods_unit: '盒',  
-        is_food: '1',
-        remark: ' ' 
-      }*/
+    resetTemp(row) {
       this.temp = {
-        id: undefined,
-        name: '',
-        brand: '',
-        goods_from: '',
-        type: '',
-        bottom_price: 0,
-        in_price: 0,
-        goods_spec: '',
-        goods_unit: '',  
-        is_food: '1',
-        remark: ' ' 
+        id: row.id,
+        goods_id: row.goods_id,
+        goods_name: row.belongs_to_goods.name,
+        goods_num: 1,
+        ruku_price: 0,
+        goods_in_price: 0,
+        inventory_type: '1',
+        inventory_now: row.inventory_now,
       }
     },
-    handleCreate() {
-      this.resetTemp()
-      this.dialogStatus = 'create'
+    handleCreate(row) {
+      // console.log(row)
+      // return false
+      this.resetTemp(row)
       this.dialogFormVisible = true
       this.$nextTick(() => {
         this.$refs['dataForm'].clearValidate()
@@ -399,10 +273,11 @@ export default {
       return false*/
       this.$refs['dataForm'].validate((valid) => {
         if (valid) {
-          createGoods(this.temp).then((response) => {
+          /*console.log(this.temp)
+          return false*/
+          createInventory(this.temp).then((response) => {
           //console.log(response.data.data);
-          // console.log(this.temp)
-          //return false
+          
             if(response.data.status){
               let goodsData = response.data.data
 
@@ -431,55 +306,6 @@ export default {
               })
             }           
           })
-        }
-      })
-    },
-    handleShow(row) {
-      // console.log(row.has_many_package_info)
-      this.temp = Object.assign({}, row) // copy obj
-      console.log(this.temp)
-      this.dialogInfoVisible = true       
- 
-    },
-    handleUpdate(row) {
-        row.bottom_price   = parseInt(row.bottom_price)
-        row.in_price       = parseInt(row.in_price)
-        this.temp = Object.assign({}, row) // copy obj
-        this.dialogStatus = 'update'
-        this.dialogFormVisible = true
-        this.$nextTick(() => {
-          this.$refs['dataForm'].clearValidate()
-        })        
-    },
-    updateData() {
-      this.$refs['dataForm'].validate((valid) => {
-        if (valid) {        
-          const tempData = Object.assign({}, this.temp)         
-            updateGoods(tempData).then((response) => {
-              // console.log(response)
-              if(response.data.status){
-                for (const v of this.list) {
-                  if (v.id === this.temp.id) {
-                    const index = this.list.indexOf(v)
-                    this.list.splice(index, 1, this.temp)
-                    break
-                  }
-                }
-                this.dialogFormVisible = false
-                this.$notify({
-                  title: '成功',
-                  message: '更新成功',
-                  type: 'success',
-                  duration: 2000
-                })
-              }else{
-                this.$notify.error({
-                  title: '失败',
-                  message: response.data.message,
-                  duration: 2000
-                })
-              }              
-           })      
         }
       })
     },

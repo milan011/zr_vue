@@ -19,7 +19,7 @@ class GoodsRepository implements GoodsRepositoryInterface
 {
 
     //默认查询数据
-    protected $select_columns = ['id','name', 'brand', 'goods_from', 'type', 'bottom_price', 'in_price', 'goods_spec', 'goods_unit', 'is_food', 'status', 'creater_id', 'remark', 'created_at', 'updated_at'];
+    protected $select_columns = ['id','name', 'brand', 'goods_from', 'type', 'goods_spec', 'goods_unit', 'is_food', 'status', 'creater_id', 'remark', 'created_at', 'updated_at'];
 
     // 根据ID获得商品信息
     public function find($id)

@@ -74,4 +74,11 @@ class Inventory extends Model
 
       return $this->belongsTo('App\User', 'creater_id', 'id')->select('id', 'nick_name', 'telephone');
     }
+
+    // 定义Goods表与Inventory表一对多关系
+    public function belongsToGoods(){
+
+      return $this->belongsTo('App\Goods', 'goods_id', 'id')->where('status', '1')->select('id', 'brand', 'goods_from', 'goods_spec', 'goods_unit', 'name');
+      /*return $this->belongsTo('App\Goods', 'goods_id', 'id')->select('id', 'brand', 'goods_from', 'goods_spec', 'goods_unit', 'name', 'status');*/
+    }
 }
