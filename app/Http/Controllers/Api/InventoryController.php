@@ -85,14 +85,10 @@ class InventoryController extends Controller
      */
     public function store(Request $inventoryRequest)
     {
-        dd($inventoryRequest->all());
-        if($this->inventory->isRepeat($inventoryRequest)){
-            return $this->baseFailed($message = '该商品已存在');
-        }
-
+        // dd($inventoryRequest->all());
         $new_inventory = $this->inventory->create($inventoryRequest);
-        $new_inventory->belongsToCreater;
-
+        // $new_inventory->belongsToCreater;
+        // dd($new_inventory);
         if($new_inventory){ //添加成功
             return $this->baseSucceed($respond_data = $new_inventory, $message = '添加成功');
         }else{  //添加失败

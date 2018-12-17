@@ -2,6 +2,7 @@
 namespace App\Repositories\Inventory;
 
 use App\Inventory;
+use App\InventoryDetail;
 use App\Goods;
 use Session;
 use Illuminate\Http\Request;
@@ -66,7 +67,50 @@ class InventoryRepository implements InventoryRepositoryInterface
     public function create($requestData)
     {   
         // dd($requestData->all());
-        $package_obj = (object) '';
+        DB::beginTransaction();
+        try {
+            //库存添加
+
+            $inventory = Inventory::findorFail($requestData->id);
+            
+            $inventory->goods_id      = $requestData->goods_id;
+            $inventory->inventory_now = $requestData->inventory_now + $requestData->goods_num;
+
+            $inventory->save();
+            /*p('22');
+            dd($newInventory);*/
+
+            $newInventoryDetail = new InventoryDetail();
+
+            //入库单号
+            $date = (string) (time());
+            $date = substr($date, 1);
+            if($requestData->inventory_type == '1'){
+                $code = 'I-'.$date;
+            }else{
+                $code = 'O-'.$date;
+            }
+            
+            $newInventoryDetail->goods_id        = $requestData->goods_id;
+            $newInventoryDetail->inventory_code  = $code;
+            $newInventoryDetail->inventory_price = $requestData->goods_in_price;
+            $newInventoryDetail->goods_nums      = $requestData->goods_num;
+            $newInventoryDetail->creater_id      = Auth::id();
+
+            $detail = $newInventoryDetail->save();
+
+
+            //出入库明细添加
+
+            DB::commit();
+            return $inventory;
+        } catch (\Exception $e) {
+            throw $e;
+            DB::rollBack();
+            return false;
+        }
+        // dd($requestData->all());
+        /*$package_obj = (object) '';
         DB::transaction(function() use ($requestData, $package_obj){
 
             $requestData['creater_id']    = Auth::id();
@@ -98,7 +142,7 @@ class InventoryRepository implements InventoryRepositoryInterface
             }
             $package_obj->scalar = $package;         
         });
-        return $package_obj;
+        return $package_obj;*/
     }
 
     // 修改库存
@@ -152,18 +196,5 @@ class InventoryRepository implements InventoryRepositoryInterface
         } catch (\Illuminate\Database\QueryException $e) {
             return false;
         }      
-    }
-
-    //判断库存是否重复
-    public function isRepeat($requestData){
-
-        $package = Inventory::select('id', 'name')
-                        ->where('name', $requestData->name)
-                        ->where('package_price', $requestData->package_price)
-                        ->where('month_nums', $requestData->month_nums)
-                        ->where('status', '1')
-                        ->first();
-        // dd(isset($cate));
-        return $package;
     }
 }

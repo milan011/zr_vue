@@ -37,7 +37,7 @@
       </el-table-column>
       <el-table-column :label="$t('table.actions')" align="center" width="230" class-name="small-padding fixed-width">
         <template slot-scope="scope">
-          <el-button type="success" size="mini" @click="handleCreate(scope.row)">{{ $t('table.add') }}</el-button>
+          <el-button type="success" size="mini" @click="handleCreate(scope.row)">{{ $t('inventory.inventoryAdd') }}</el-button>
           <!-- <el-button type="primary" size="mini" @click="handleUpdate(scope.row)">{{ $t('table.edit') }}</el-button>
           <el-button v-if="scope.row.status!='deleted'" size="mini" type="danger" @click="handleModifyStatus(scope.row,'deleted')">{{ $t('table.delete') }}
           </el-button> -->
@@ -205,7 +205,10 @@ export default {
         goods_in_price: 0,
         ruku_price: 0,
         inventory_type: '1',
-        inventory_now: '',         
+        inventory_now: '',
+        belongs_to_goods:{
+          name: '',
+        }         
       },
       dialogFormVisible: false,
       rules: {
@@ -257,6 +260,9 @@ export default {
         goods_in_price: 0,
         inventory_type: '1',
         inventory_now: row.inventory_now,
+        belongs_to_goods:{
+          name: '',
+        }  
       }
     },
     handleCreate(row) {
@@ -276,21 +282,20 @@ export default {
           /*console.log(this.temp)
           return false*/
           createInventory(this.temp).then((response) => {
-          //console.log(response.data.data);
-          
-            if(response.data.status){
-              let goodsData = response.data.data
+            console.log(response.data.data);
+            console.log(this.temp);
+            // return false
+            this.temp.inventory_now = response.data.data.inventory_now
+            this.temp.belongs_to_goods.name = this.temp.goods_name
 
-              // goodsData.is_food = goodsData.is_food
-              /*let newGoods = {
-                id: goodsData.id,
-                month_nums: goodsData.month_nums,
-                package_price: goodsData.package_price,
-                created_at: new Date()
-              }*/
-              /*this.temp.id = response.data.data.scalar.id
-              this.temp.created_at = response.data.data.scalar.created_at | parseTime('{y}-{m}-{d}')*/
-              this.list.unshift(goodsData)
+            if(response.data.status){
+              for (const v of this.list) {
+                if (v.id === this.temp.id) {
+                  const index = this.list.indexOf(v)
+                  this.list.splice(index, 1, this.temp)
+                  break
+                }
+              }
               this.dialogFormVisible = false
               this.$notify({
                 title: '成功',

@@ -288,6 +288,7 @@ export default {
   inventory:{
     goodsName: '礼品',
     inventoryNow: '当前库存',
+    inventoryAdd: '添加库存',
   },
   inventoryDetail:{
     goodsName: '礼品',

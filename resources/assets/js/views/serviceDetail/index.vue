@@ -237,7 +237,7 @@ const calendarTypeKeyValue = calendarTypeOptions.reduce((acc, cur) => {
 }, {})
 
 export default {
-  name: 'serviceDetailList',
+  name: 'serviceDetail',
   directives: {
     waves
   },
