@@ -161,12 +161,7 @@
             </el-form-item>
             </el-col>
           </el-row>
-          <el-row>
-            <el-col :span="12">
-              <el-form-item :label="$t('serviceDetail.charge_price')" prop="charge_price">
-                <el-input v-model.number="temp.charge_price"   />
-              </el-form-item>
-            </el-col>   
+          <el-row>   
             <el-col :span="12">
               <el-form-item :label="$t('serviceDetail.remark')">
                 <el-input :autosize="{ minRows: 2, maxRows: 4}" v-model="temp.remark" type="textarea" placeholder="备注"/>
@@ -221,6 +216,7 @@
 
 import { goodsAll } from '@/api/goods'
 import { serviceAll } from '@/api/service'
+import { isTelephone } from '@/utils/validate'
 import { serviceDetailList, createServiceDetail, getServiceDetail, updateServiceDetail, deleteServiceDetail } from '@/api/serviceDetail'
 import waves from '@/directive/waves' // 水波纹指令
 import { parseTime } from '@/utils'
@@ -255,10 +251,13 @@ export default {
     }
   },
   data() {
-    const validateReturnMonthPrice = (rule, value, callback) => { /*密码确认校验*/
-      console.log(value)
-      return false
-    };
+    const validateTelephone = (rule, value, callback) => {
+      if (!isTelephone(value)) {
+        callback(new Error('请输入正确格式手机号'))
+      } else {
+        callback()
+      }
+    }
     return {
       tableKey: 0,
       list: null,
@@ -291,12 +290,15 @@ export default {
       allGoods: [],
       allService: [],
       rules: {
-        customer: [
+        charge_price: [
           { required: true, message: '请输入套餐价格' },
           { type: 'number',  message: '价格应为数字' },
         ],
-        name: [{ required: true, message: '请输入名称', trigger: 'blur' }],
-        goods_num: [{ required: true, message: '请选择返款期数', trigger: 'blur' }],
+        customer: [{ required: true, message: '请输入客户', trigger: 'blur' }],
+        customer_telephone: [
+          { required: true, message: '请输入有效手机号', trigger: 'blur' }, 
+          { validator: validateTelephone, trigger: 'change' }     
+        ],
         /*return_month_price: [
           { required: true, message: '请输入金额', trigger: 'blur' }, 
         ]*/
@@ -397,9 +399,9 @@ export default {
         id: undefined,
         serviceName: '',
         service_id: '',
-        customer: '',
-        customer_telephone: '',
-        charge_price: '',
+        customer: '阿宝',
+        customer_telephone: '13731080174',
+        charge_price: 1200,
         goodsIdList: [
           {goodsId:'', num: '1',  add: true}, 
         ],
