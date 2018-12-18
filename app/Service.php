@@ -74,4 +74,11 @@ class Service extends Model
 
       return $this->belongsTo('App\User', 'creater_id', 'id')->select('id', 'nick_name', 'telephone');
     }
+
+    // 定义Sevice表与SeviceDetail表一对多关系
+    public function hasManySeviceDetail(){
+
+      // return $this->hasMany('App\Inventory', 'goods_id', 'id')->where('status', '1');
+      return $this->hasMany('App\SeviceDetail', 'service_id', 'id');
+    }
 }

@@ -90,9 +90,13 @@ class InventoryRepository implements InventoryRepositoryInterface
             }else{
                 $code = 'O-'.$date;
             }
+
+            // dd($requestData->inventory_type);
+            // dd($requestData->$inventory_type);
             
             $newInventoryDetail->goods_id        = $requestData->goods_id;
             $newInventoryDetail->inventory_code  = $code;
+            $newInventoryDetail->inventory_type  = $requestData->inventory_type;
             $newInventoryDetail->inventory_price = $requestData->goods_in_price;
             $newInventoryDetail->goods_nums      = $requestData->goods_num;
             $newInventoryDetail->creater_id      = Auth::id();
@@ -196,5 +200,20 @@ class InventoryRepository implements InventoryRepositoryInterface
         } catch (\Illuminate\Database\QueryException $e) {
             return false;
         }      
+    }
+
+    public function isEnoughInventory($goodsList){
+
+        // dd($goodsList);
+
+        foreach ($goodsList as $key => $value) {
+            $inventoryInfo = Inventory::findorFail($value['goodsId']);
+            // dd($inventoryInfo);
+            if($value['num'] > $inventoryInfo->inventory_now){
+                return false;
+            }
+        }
+
+        return true;
     }
 }

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Repositories\ServiceDetail\ServiceDetailRepositoryInterface;
+use App\Repositories\Inventory\InventoryRepositoryInterface;
 use App\Http\Resources\ServiceDetail\ServiceDetailResource;
 use App\Http\Resources\ServiceDetail\ServiceDetailResourceCollection;
 //use App\Http\Requests\ServiceDetail\UpdateServiceDetailRequest;
@@ -18,10 +19,12 @@ class ServiceDetailController extends Controller
 
     public function __construct(
 
-        ServiceDetailRepositoryInterface $serviceDetail
+        ServiceDetailRepositoryInterface $serviceDetail,
+        InventoryRepositoryInterface $inventory
     ) {
     
         $this->serviceDetail = $serviceDetail;
+        $this->inventory     = $inventory;
         // $this->middleware('brand.create', ['only' => ['create']]);
     }
 
@@ -71,11 +74,12 @@ class ServiceDetailController extends Controller
     public function store(Request $serviceDetailRequest)
     {
         // dd($serviceDetailRequest->all());
-        if($this->serviceDetail->isRepeat($serviceDetailRequest)){
-            return $this->baseFailed($message = '该业务已存在');
+        if(!$this->inventory->isEnoughInventory($serviceDetailRequest->goodsIdList)){
+            // dd('已没有足够赠品可供挥霍');
+            return $this->baseFailed($message = '已没有足够赠品可供挥霍-_-');
         }
-
         $new_serviceDetail = $this->serviceDetail->create($serviceDetailRequest);
+        dd($new_serviceDetail);
         $new_serviceDetail->belongsToCreater;
 
         if($new_serviceDetail){ //添加成功

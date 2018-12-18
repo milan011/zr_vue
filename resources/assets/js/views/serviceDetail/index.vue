@@ -125,7 +125,7 @@
               <el-form-item :label="$t('serviceDetail.goodsList')">
               <div style="float:left;" v-model="temp.goodsIdList" v-for="(goods, goods_index) in temp.goodsIdList" :key="goods_index" >
                 <el-col :span="12">
-                  <el-select style="margin-bottom:5px;" v-model="goods.goodsId" class="filter-item" filterable placeholder="输入商品搜索">
+                  <el-select style="margin-bottom:5px;" clearable v-model="goods.goodsId" class="filter-item" filterable placeholder="输入商品搜索">
                       <el-option v-for="goo in allGoods" :key="goo.id" :label="goo.name" :value="goo.id"/>
                   </el-select>
                 </el-col>
@@ -291,10 +291,11 @@ export default {
       allService: [],
       rules: {
         charge_price: [
-          { required: true, message: '请输入套餐价格' },
+          { required: true, message: '请输入套餐价格', trigger: 'change' },
           { type: 'number',  message: '价格应为数字' },
         ],
         customer: [{ required: true, message: '请输入客户', trigger: 'blur' }],
+        service_id: [{ required: true, message: '请选择业务', trigger: 'blur' }],
         customer_telephone: [
           { required: true, message: '请输入有效手机号', trigger: 'blur' }, 
           { validator: validateTelephone, trigger: 'change' }     
@@ -419,6 +420,35 @@ export default {
     createData() {
       this.$refs['dataForm'].validate((valid) => {
         if (valid) {
+          //判断是否有重复商品
+          // console.log(this.temp.goodsIdList)
+          const goodsIdList = []
+          Array.prototype.forEach.call(this.temp.goodsIdList, child => {
+            // console.log(child.goodsId)
+            goodsIdList.push(child.goodsId)
+          });
+          // console.log(goodsIdList)
+          Array.prototype.deduplication = function () {
+            const o = {},
+            len = this.length
+            const result = [];
+            for (let i = 0; i < len; i ++) {
+            if (!o[this[i]]) {
+            o[this[i]] = 1
+            result[result.length] = this[i]
+            }
+            }
+            return result;
+          }
+          const goodsIdList2 = goodsIdList.deduplication()
+          /*console.log(goodsIdList2)
+          console.log(goodsIdList.length)
+          console.log(goodsIdList2.length)*/
+          if(goodsIdList.length != goodsIdList2.length){
+            alert('您选择的赠品有重复')
+            return false
+          }
+          
           createServiceDetail(this.temp).then((response) => {
           //console.log(response.data.data);
           // console.log(this.temp)

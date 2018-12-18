@@ -24,7 +24,7 @@ class Goods extends Model
      * 定义可批量赋值字段
      * @var array
      */
-    protected $fillable = ['id','name', 'brand', 'goods_from', 'type', 'goods_spec', 'goods_unit', 'is_food', 'status', 'creater_id', 'remark', 'created_at', 'updated_at'];
+    protected $fillable = ['id','name', 'brand', 'goods_from', 'type', 'in_price', 'goods_spec', 'goods_unit', 'is_food', 'status', 'creater_id', 'remark', 'created_at', 'updated_at'];
 
     /**
      * The attributes excluded from the model's JSON form.

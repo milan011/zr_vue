@@ -73,9 +73,9 @@ class User extends Authenticatable
         return $this->hasMany('App\Service', 'creater_id', 'id');
     }
 
-    // 定义User表与InfoDianxin表一对多关系
-    public function hasManyCreaterInfoDianxin() {
+    // 定义User表与ServiceDetail表一对多关系
+    public function hasManyCreaterServiceDetail() {
 
-        return $this->hasMany('App\InfoDianxin', 'creater_id', 'id');
+        return $this->hasMany('App\ServiceDetail', 'creater_id', 'id');
     }
 }

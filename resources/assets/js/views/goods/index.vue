@@ -43,12 +43,12 @@
         <template slot-scope="scope">
           <span>{{ scope.row.bottom_price }}</span>
         </template>
-      </el-table-column>
+      </el-table-column> -->
       <el-table-column :label="$t('goods.in_price')" align="center">
         <template slot-scope="scope">
           <span>{{ scope.row.in_price }}</span>
         </template>
-      </el-table-column> -->
+      </el-table-column>
       <el-table-column :label="$t('goods.goods_spec')" align="center">
         <template slot-scope="scope">
           <span>{{ scope.row.goods_spec }}</span>
@@ -112,10 +112,10 @@
         </el-form-item>
         <!-- <el-form-item :label="$t('goods.bottom_price')" prop="bottom_price">
           <el-input v-model.number="temp.bottom_price"/>
-        </el-form-item>
+        </el-form-item> -->
         <el-form-item :label="$t('goods.in_price')" prop="in_price">
           <el-input v-model.number="temp.in_price"/>
-        </el-form-item> -->
+        </el-form-item> 
         <el-form-item :label="$t('goods.goods_spec')" prop="goods_spec">
           <el-input v-model="temp.goods_spec"/>
         </el-form-item>
@@ -165,10 +165,10 @@
         </el-col>
         <!-- <el-col :span="6"><div class="grid-content bg-purple-light self-style">
           {{ $t('goods.bottom_price') }}:<span>{{temp.bottom_price}}</span>
-        </div></el-col>
+        </div></el-col> -->
         <el-col :span="6"><div class="grid-content bg-purple-light self-style">
           {{ $t('goods.in_price') }}:<span>{{temp.in_price}}</span>
-        </div></el-col> -->
+        </div></el-col> 
         <el-col :span="6"><div class="grid-content bg-purple self-style">
           {{ $t('table.date') }}:<span>{{temp.created_at | parseTime('{y}-{m}-{d}') }}</span>
         </div></el-col>    
@@ -245,7 +245,7 @@ export default {
         goods_from: '',
         type: '',
         //bottom_price: '',
-        //in_price: '',
+        in_price: '',
         goods_spec: '',
         goods_unit: '',  
         remark: ' ',
@@ -263,11 +263,11 @@ export default {
         /*bottom_price: [
           { required: true, message: '请输入底价' },
           { type: 'number',  message: '价格应为数字' },
-        ],
+        ],*/
         in_price: [
           { required: true, message: '请输入进价' },
           { type: 'number',  message: '价格应为数字' },
-        ],*/
+        ],
         name: [{ required: true, message: '请输入名称', trigger: 'blur' }],
         brand: [{ required: true, message: '请输入品牌', trigger: 'blur' }],
         goods_from: [{ required: true, message: '请输入进货地', trigger: 'blur' }],
@@ -379,7 +379,7 @@ export default {
         goods_from: '',
         type: '',
         //bottom_price: 0,
-        //in_price: 0,
+        in_price: 0,
         goods_spec: '',
         goods_unit: '',  
         is_food: '1',
@@ -443,7 +443,7 @@ export default {
     },
     handleUpdate(row) {
         //row.bottom_price   = parseInt(row.bottom_price)
-        //row.in_price       = parseInt(row.in_price)
+        row.in_price       = parseInt(row.in_price)
         this.temp = Object.assign({}, row) // copy obj
         this.dialogStatus = 'update'
         this.dialogFormVisible = true
