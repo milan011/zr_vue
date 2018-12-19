@@ -50,51 +50,6 @@
     </div>
 
     <el-dialog title="添加库存" :visible.sync="dialogFormVisible">
-      <!-- <el-form 
-        ref="dataForm" 
-        :rules="rules" 
-        :model="temp" 
-        :inline="true"
-        label-position="right" 
-        label-width="100px" 
-        style="width: 100%;">
-        <el-form-item :label="$t('goods.name')" prop="goods_name">
-          <el-input v-model="temp.goods_name"/>
-        </el-form-item>
-        <el-form-item :label="$t('goods.brand')" prop="brand">
-          <el-input v-model="temp.brand"/>
-        </el-form-item>
-        <el-form-item :label="$t('goods.goods_from')" prop="goods_from">
-          <el-input v-model="temp.goods_from"/>
-        </el-form-item>
-        <el-form-item :label="$t('goods.type')" prop="type">
-          <el-input v-model="temp.type"/>
-        </el-form-item>
-        <el-form-item :label="$t('goods.bottom_price')" prop="bottom_price">
-          <el-input v-model.number="temp.bottom_price"/>
-        </el-form-item>
-        <el-form-item :label="$t('goods.in_price')" prop="in_price">
-          <el-input v-model.number="temp.in_price"/>
-        </el-form-item>
-        <el-form-item :label="$t('goods.goods_spec')" prop="goods_spec">
-          <el-input v-model="temp.goods_spec"/>
-        </el-form-item>
-        <el-form-item :label="$t('goods.goods_unit')" prop="goods_unit">
-          <el-input v-model="temp.goods_unit"/>
-        </el-form-item>
-        <el-form-item :label="$t('goods.is_food')" style="width:38%">
-                <el-switch
-                  v-model="temp.is_food"
-                  active-color="#13ce66"
-                  active-value="1"
-                  inactive-value="0"
-                  inactive-color="#ff4949">
-                </el-switch>
-              </el-form-item>
-        <el-form-item :label="$t('goods.remark')">
-          <el-input :autosize="{ minRows: 2, maxRows: 4}" v-model="temp.remark" type="textarea" placeholder="备注"/>
-        </el-form-item>
-      </el-form> -->
       <el-form 
         ref="dataForm" 
         :rules="rules" 
@@ -125,16 +80,16 @@
             </el-col> 
           </el-row>
           <el-row>
-            <el-col :span="12">
-              <el-form-item :label="$t('goods.in_price')" prop="goods_in_price">
-                <el-input @change="inPriceChange" v-model.number="temp.goods_in_price"/>
-              </el-form-item>
-            </el-col>   
-            <el-col :span="12">
-              <el-form-item :label="$t('goods.ruku_price')" prop="ruku_price">
-                <el-input :disabled="true" v-model.number="temp.ruku_price"/>
-              </el-form-item>
-            </el-col> 
+            <!-- <el-col :span="12">
+                 <el-form-item :label="$t('goods.in_price')" prop="goods_in_price">
+                   <el-input @change="inPriceChange" v-model.number="temp.goods_in_price"/>
+                 </el-form-item>
+               </el-col> -->   
+            <!-- <el-col :span="12">
+               <el-form-item :label="$t('goods.ruku_price')" prop="ruku_price">
+                 <el-input :disabled="true" v-model.number="temp.ruku_price"/>
+               </el-form-item>
+             </el-col> --> 
           </el-row>
         </div>       
       </el-form>
@@ -202,8 +157,8 @@ export default {
         goods_id: '',
         goods_name: '',
         goods_num: 0,
-        goods_in_price: 0,
-        ruku_price: 0,
+        // goods_in_price: 0,
+        // ruku_price: 0,
         inventory_type: '1',
         inventory_now: '',
         belongs_to_goods:{
@@ -212,10 +167,10 @@ export default {
       },
       dialogFormVisible: false,
       rules: {
-        goods_in_price: [
+        /*goods_in_price: [
           { required: true, message: '请输入进价' },
           { type: 'number',  message: '价格应为数字' },
-        ],
+        ],*/
       },
     }
   },
@@ -244,20 +199,20 @@ export default {
       this.listQuery.page = val
       this.getInventoryList()
     },
-    inPriceChange(val){
+    /*inPriceChange(val){
       this.temp.ruku_price = this.temp.goods_num * this.temp.goods_in_price
-    },
-    numChange(val){
+    },*/
+    /*numChange(val){
       this.temp.ruku_price = this.temp.goods_num * this.temp.goods_in_price
-    },
+    },*/
     resetTemp(row) {
       this.temp = {
         id: row.id,
         goods_id: row.goods_id,
         goods_name: row.belongs_to_goods.name,
         goods_num: 1,
-        ruku_price: 0,
-        goods_in_price: 0,
+        // ruku_price: 0,
+        // goods_in_price: 0,
         inventory_type: '1',
         inventory_now: row.inventory_now,
         belongs_to_goods:{

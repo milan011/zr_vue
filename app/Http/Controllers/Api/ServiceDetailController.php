@@ -79,7 +79,7 @@ class ServiceDetailController extends Controller
             return $this->baseFailed($message = '已没有足够赠品可供挥霍-_-');
         }
         $new_serviceDetail = $this->serviceDetail->create($serviceDetailRequest);
-        dd($new_serviceDetail);
+        // dd($new_serviceDetail);
         $new_serviceDetail->belongsToCreater;
 
         if($new_serviceDetail){ //添加成功

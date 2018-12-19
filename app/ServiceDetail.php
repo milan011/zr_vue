@@ -24,7 +24,7 @@ class ServiceDetail extends Model
      * 定义可批量赋值字段
      * @var array
      */
-    protected $fillable = ['id','customer', 'service_id', 'charge_price', 'status', 'goods_num', 'customer_telephone', 'remark', 'creater_id', 'created_at', 'updated_at'];
+    protected $fillable = ['id', 'name', 'customer', 'service_id', 'charge_price', 'inventory_percentage','inventory_profit', 'goods_cost',  'status', 'goods_num', 'customer_telephone', 'remark', 'creater_id', 'created_at', 'updated_at'];
 
     /**
      * The attributes excluded from the model's JSON form.

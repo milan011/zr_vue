@@ -24,12 +24,12 @@
           <span>{{ scope.row.customer }}</span>
         </template>
       </el-table-column>
-      <el-table-column :label="$t('serviceDetail.customer_telephone')" align="center">
+      <el-table-column :label="$t('serviceDetail.customer_telephone')" width="120%" show-overflow-tooltip align="center">
         <template slot-scope="scope">
           <span>{{ scope.row.customer_telephone }}</span>
         </template>
       </el-table-column>
-      <el-table-column :label="$t('serviceDetail.serviceName')" align="center">
+      <el-table-column :label="$t('serviceDetail.serviceName')" width="150%" show-overflow-tooltip align="center">
         <template slot-scope="scope">
           <span>{{ scope.row.name }}</span>
         </template>
@@ -70,10 +70,10 @@
           <span>{{ scope.row.created_at | parseTime('{y}-{m}-{d}') }}</span>
         </template>
       </el-table-column>
-      <el-table-column :label="$t('table.actions')" align="center" class-name="small-padding fixed-width">
+      <el-table-column :label="$t('table.actions')" align="center" width="230" class-name="small-padding fixed-width">
         <template slot-scope="scope">
           <el-button type="success" size="mini" @click="handleShow(scope.row)">{{ $t('table.show') }}</el-button>
-          <el-button type="primary" size="mini" @click="handleUpdate(scope.row)">{{ $t('table.edit') }}</el-button>
+          <!-- <el-button type="primary" size="mini" @click="handleUpdate(scope.row)">{{ $t('table.edit') }}</el-button> -->
           <el-button v-if="scope.row.status!='deleted'" size="mini" type="danger" @click="handleModifyStatus(scope.row,'deleted')">{{ $t('table.delete') }}
           </el-button>
         </template>

@@ -16,7 +16,7 @@ class ServiceDetailGoods extends Model
      * @var string
      */
     // protected $table = 'users';
-    protected $table = 'zr_service_detail_doods';
+    protected $table = 'zr_service_detail_goods';
     protected $primaryKey ='id';
 
     /**

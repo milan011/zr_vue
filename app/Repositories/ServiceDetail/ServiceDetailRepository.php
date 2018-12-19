@@ -5,6 +5,7 @@ use App\ServiceDetail;
 use App\ServiceDetailGoods;
 use App\Service;
 use App\Inventory;
+use App\InventoryDetail;
 use App\Goods;
 use Session;
 use Illuminate\Http\Request;
@@ -24,7 +25,7 @@ class ServiceDetailRepository implements ServiceDetailRepositoryInterface
 {
     use BaseResponseTrait;
     //默认查询数据
-    protected $select_columns = ['id','customer', 'service_id', 'charge_price', 'status', 'goods_num', 'customer_telephone', 'remark', 'creater_id', 'created_at', 'updated_at'];
+    protected $select_columns = ['id', 'name', 'customer', 'service_id', 'charge_price', 'inventory_percentage','inventory_profit', 'goods_cost',  'status', 'goods_num', 'customer_telephone', 'remark', 'creater_id', 'created_at', 'updated_at'];
 
     // 根据ID获得业务信息
     public function find($id)
@@ -36,7 +37,10 @@ class ServiceDetailRepository implements ServiceDetailRepositoryInterface
     // 获得业务列表
     public function getAllServiceDetail()
     {   
-        return ServiceDetail::where('status', '1')->orderBy('created_at', 'DESC')->paginate(10);
+        return ServiceDetail::where('status', '1')
+                            ->with('belongsToCreater')
+                            ->orderBy('created_at', 'DESC')
+                            ->paginate(10);
     }
 
     // 获得所有业务
@@ -50,9 +54,8 @@ class ServiceDetailRepository implements ServiceDetailRepositoryInterface
     // 创建业务
     public function create($requestData)
     {   
-        // dd($requestData->all());
-        $sevice_obj = (object) '';
-        DB::transaction(function() use ($requestData, $sevice_obj){
+        DB::beginTransaction();
+        try {
             /**
             *1.业务细节处理
             *2.业务礼品处理
@@ -75,30 +78,35 @@ class ServiceDetailRepository implements ServiceDetailRepositoryInterface
                     $goodsInfo = Goods::findorFail($value['goodsId']);
                     // dd($value);
                     $goods_cost += ($goodsInfo->in_price) * ($value['num']);
-                    $goodsList[] = $value['goodsId'];
+                    $goodsList[$key]['goodsId'] = $value['goodsId'];
                     $allGoodsNum += $value['num'];
-                    $g_list[$key]['goods_price'] = $goods_cost;
+                    $goodsList[$key]['goods_price'] = $goods_cost;
+                    $goodsList[$key]['goods_num']   = $value['num'];
                     // dd($g_list);
                 }
             }
 
             $inventory_profit = $requestData->charge_price - $goods_cost;
 
-            p($inventory_profit);
+           /* p($inventory_profit);
             p($goods_cost);
             p($allGoodsNum);
             p($requestData->goodsIdList);
-            dd($goodsList);
+            dd($goodsList);*/
 
             
 
-            if($serviceInfo->inventory_type == '1'){
+            if($serviceInfo->type == '1'){
                 //按比例
                 $inventory_percentage = $requestData->charge_price * $serviceInfo->return_ratio;
             }else{
                 //按金额
                 $inventory_percentage = $serviceInfo->return_price;
             }
+
+
+            // dd($serviceInfo);
+            // dd($inventory_percentage);
 
             $requestData['creater_id']            = Auth::id();
             $requestData['status']                = '1';
@@ -108,30 +116,57 @@ class ServiceDetailRepository implements ServiceDetailRepositoryInterface
             $requestData['inventory_profit']      = $inventory_profit;
             $requestData['goods_cost']            = $goods_cost;
             
-            $sevice_obj = new ServiceDetail();
+            $new_sevice = new ServiceDetail();
             $input =  array_replace($requestData->all());
-            $sevice_obj->fill($input);
+            $new_sevice->fill($input);
 
-            $sevice_obj = $sevice_obj->create($input);
+            $new_sevice = $new_sevice->create($input);
             // dd($sevice_obj);
             // dd($requestData->month_price);
            
-            foreach ($g_list as $key => $g) {
+            foreach ($goodsList as $key => $g) {
+                //添加业务赠品详情,对应赠品库存处理(减库存)
+                $sevice_goods_info      = new ServiceDetailGoods(); //业务信息赠品对象
+                $sevice_goods_inventory = Inventory::findorFail($g['goodsId']); //业务信息赠品库存对象
+                $out_inventory          = new InventoryDetail(); //出库明细
 
-                $sevice_goods_info = new ServiceDetailGoods(); //业务信息赠品对象
-
+                //业务赠品处理
                 $sevice_goods_info->goods_id           = $g['goodsId'];
-                $sevice_goods_info->service_detail_id  = $sevice_obj->id;
+                $sevice_goods_info->service_detail_id  = $new_sevice->id;
                 $sevice_goods_info->creater_id         = Auth::id();
-                $sevice_goods_info->goods_num          = $g['num'];
+                $sevice_goods_info->goods_num          = $g['goods_num'];
                 $sevice_goods_info->goods_price        = $g['goods_price'];
                 $sevice_goods_info->save();
 
-                // dd($sevice_obj_info);
+                //业务赠品库存处理
+                $sevice_goods_inventory->inventory_now -= $g['goods_num'];
+                $sevice_goods_inventory->save();
+
+                //出库单号
+                $date = (string) (time());
+                $date = substr($date, 1);
+                $code = 'O-'.$date;
+
+                $out_inventory->inventory_type = '2';
+                $out_inventory->inventory_code = $code;
+                $out_inventory->creater_id     = Auth::id();
+                $out_inventory->goods_id       = $g['goodsId'];
+                $out_inventory->goods_nums     = $g['goods_num'];
+                $out_inventory->save();
+
+
+                // dd($sevice_goods_info);
+                // dd($sevice_goods_inventory);
             }
-            $sevice_obj->scalar = $sevice_obj;         
-        });
-        return $sevice_obj;
+            //出入库明细添加
+
+            DB::commit();
+            return $new_sevice;
+        } catch (\Exception $e) {
+            throw $e;
+            DB::rollBack();
+            return false;
+        }
     }
 
     // 修改业务

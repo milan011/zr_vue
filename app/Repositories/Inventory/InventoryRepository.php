@@ -97,7 +97,7 @@ class InventoryRepository implements InventoryRepositoryInterface
             $newInventoryDetail->goods_id        = $requestData->goods_id;
             $newInventoryDetail->inventory_code  = $code;
             $newInventoryDetail->inventory_type  = $requestData->inventory_type;
-            $newInventoryDetail->inventory_price = $requestData->goods_in_price;
+            // $newInventoryDetail->inventory_price = $requestData->goods_in_price;
             $newInventoryDetail->goods_nums      = $requestData->goods_num;
             $newInventoryDetail->creater_id      = Auth::id();
 
@@ -207,13 +207,14 @@ class InventoryRepository implements InventoryRepositoryInterface
         // dd($goodsList);
 
         foreach ($goodsList as $key => $value) {
-            $inventoryInfo = Inventory::findorFail($value['goodsId']);
-            // dd($inventoryInfo);
-            if($value['num'] > $inventoryInfo->inventory_now){
-                return false;
+            if(!empty($value['goodsId'])){
+                $inventoryInfo = Inventory::findorFail($value['goodsId']);
+                // dd($inventoryInfo);
+                if($value['num'] > $inventoryInfo->inventory_now){
+                    return false;
+                }
             }
         }
-
         return true;
     }
 }
