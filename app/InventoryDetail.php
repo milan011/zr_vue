@@ -54,24 +54,31 @@ class InventoryDetail extends Model
             ') values (?'.str_repeat(',?',count($array) - 1).')',array_values($array));
     }
 
-    // 定义套餐表与信息表一对多关系
-    public function belongsToInfoSelf(){
 
-      return $this->belongsTo('App\InfoSelf', 'id', 'package_id');
+    // 定义ServiecDetail表与InventoryDetail表一对多关系
+    public function belongsToServiceDetail(){
+
+      return $this->belongsTo('App\ServiceDetail', 'service_detail_id', 'id')
+                  ->withDefault([
+                        'name' => '管理员入库',
+                    ]);
     }
 
-    // 定义Package表与PackageInfo表一对多关系
-    public function hasManyPackageInfo(){
+    // 定义User表与InventoryDetail表一对多关系
+    public function belongsToGoods(){
 
-      return $this->hasMany('App\PackageInfo', 'pid', 'id')
-                  ->select('return_month', 'return_price', 'status', 'id')
-                  ->where('status', '1')
-                  ->orderBy('return_month', 'DESC');
+      return $this->belongsTo('App\Goods', 'goods_id', 'id')->select('id', 'name');
     }
 
-    // 定义User表与Package表一对多关系
-    public function belongsToUser(){
+    // 定义User表与InventoryDetail表一对多关系
+    public function belongsToCreater(){
 
       return $this->belongsTo('App\User', 'creater_id', 'id')->select('id', 'nick_name', 'telephone');
+    }
+
+    // 定义Inventorys表与InventoryDetail表一对多关系
+    public function belongsToInventory(){
+
+      return $this->belongsTo('App\Inventory', 'goods_id', 'goods_id');
     }
 }

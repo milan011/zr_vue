@@ -25,13 +25,15 @@ class ServiceDetailRepository implements ServiceDetailRepositoryInterface
 {
     use BaseResponseTrait;
     //默认查询数据
-    protected $select_columns = ['id', 'name', 'customer', 'service_id', 'charge_price', 'inventory_percentage','inventory_profit', 'goods_cost',  'status', 'goods_num', 'customer_telephone', 'remark', 'creater_id', 'created_at', 'updated_at'];
+    protected $select_columns = ['id', 'name', 'customer', 'service_id', 'charge_price', 'inventory_percentage','inventory_profit', 'goods_cost', 'inventer_ticheng', 'status', 'goods_num', 'customer_telephone', 'remark', 'creater_id', 'created_at', 'updated_at'];
 
     // 根据ID获得业务信息
     public function find($id)
     {
         return ServiceDetail::select($this->select_columns)
-                       ->findOrFail($id);
+                            ->with('hasManyInventoryDetail')
+                            ->with('hasManyServiceDetailGoods')
+                            ->findOrFail($id);
     }
 
     // 获得业务列表
@@ -39,6 +41,7 @@ class ServiceDetailRepository implements ServiceDetailRepositoryInterface
     {   
         return ServiceDetail::where('status', '1')
                             ->with('belongsToCreater')
+                            ->with('hasManyServiceDetailGoods')
                             ->orderBy('created_at', 'DESC')
                             ->paginate(10);
     }
@@ -72,38 +75,41 @@ class ServiceDetailRepository implements ServiceDetailRepositoryInterface
             $inventory_profit     = 0; //利润
             $goodsList            = []; //赠品列表
             $allGoodsNum          = 0; //赠品总数
+            $inventer_ticheng     = 0; //提成
+
             foreach ( $g_list as $key => $value) {
                 // 处理业务礼品/赠品,获取商品库存,判断是否有赠品及赠品数量是否足够
+                // $goods_cost = 0;
                 if(!empty($value['goodsId'])){
                     $goodsInfo = Goods::findorFail($value['goodsId']);
                     // dd($value);
-                    $goods_cost += ($goodsInfo->in_price) * ($value['num']);
+                    $goods_p = ($goodsInfo->in_price) * ($value['num']); //当前赠品价格小计
+                    $goods_cost += $goods_p;
                     $goodsList[$key]['goodsId'] = $value['goodsId'];
                     $allGoodsNum += $value['num'];
-                    $goodsList[$key]['goods_price'] = $goods_cost;
+                    $goodsList[$key]['goods_price'] = $goods_p;
                     $goodsList[$key]['goods_num']   = $value['num'];
+                    $goodsList[$key]['goods_name']  = $goodsInfo->name;
                     // dd($g_list);
                 }
-            }
-
-            $inventory_profit = $requestData->charge_price - $goods_cost;
+            }         
 
            /* p($inventory_profit);
             p($goods_cost);
             p($allGoodsNum);
             p($requestData->goodsIdList);
-            dd($goodsList);*/
-
-            
+            dd($goodsList);*/    
 
             if($serviceInfo->type == '1'){
                 //按比例
-                $inventory_percentage = $requestData->charge_price * $serviceInfo->return_ratio;
+                $inventory_percentage = ($requestData->charge_price * $serviceInfo->return_ratio)/100;
             }else{
                 //按金额
                 $inventory_percentage = $serviceInfo->return_price;
             }
 
+            $inventory_profit = $inventory_percentage - $goods_cost;
+            $inventer_ticheng = $inventory_profit*30/100;
 
             // dd($serviceInfo);
             // dd($inventory_percentage);
@@ -115,6 +121,7 @@ class ServiceDetailRepository implements ServiceDetailRepositoryInterface
             $requestData['inventory_percentage']  = $inventory_percentage;
             $requestData['inventory_profit']      = $inventory_profit;
             $requestData['goods_cost']            = $goods_cost;
+            $requestData['inventer_ticheng']      = $inventer_ticheng;
             
             $new_sevice = new ServiceDetail();
             $input =  array_replace($requestData->all());
@@ -136,6 +143,7 @@ class ServiceDetailRepository implements ServiceDetailRepositoryInterface
                 $sevice_goods_info->creater_id         = Auth::id();
                 $sevice_goods_info->goods_num          = $g['goods_num'];
                 $sevice_goods_info->goods_price        = $g['goods_price'];
+                $sevice_goods_info->goods_name         = $g['goods_name'];
                 $sevice_goods_info->save();
 
                 //业务赠品库存处理
@@ -147,11 +155,12 @@ class ServiceDetailRepository implements ServiceDetailRepositoryInterface
                 $date = substr($date, 1);
                 $code = 'O-'.$date;
 
-                $out_inventory->inventory_type = '2';
-                $out_inventory->inventory_code = $code;
-                $out_inventory->creater_id     = Auth::id();
-                $out_inventory->goods_id       = $g['goodsId'];
-                $out_inventory->goods_nums     = $g['goods_num'];
+                $out_inventory->inventory_type    = '2';
+                $out_inventory->service_detail_id = $new_sevice->id;
+                $out_inventory->inventory_code    = $code;
+                $out_inventory->creater_id        = Auth::id();
+                $out_inventory->goods_id          = $g['goodsId'];
+                $out_inventory->goods_nums        = $g['goods_num'];
                 $out_inventory->save();
 
 
@@ -169,69 +178,41 @@ class ServiceDetailRepository implements ServiceDetailRepositoryInterface
         }
     }
 
-    // 修改业务
-    public function update($requestData, $id)
-    {   
-        $sevice_obj = (object) '';
-        DB::transaction(function() use ($requestData,$id,$sevice_obj_obj){
-
-
-            // dd($requestData->all());
-            $sevice_obj  = ServiceDetail::findorFail($id);
-            $input    =  array_replace($requestData->all());
-
-            // dd($sevice_obj);
-            // dd($sevice_obj->hasManyServiceDetailInfo);
-            $sevice_obj->fill($input)->save();
-            // dd($sevice_obj->hasManyServiceDetailInfo);
-            foreach ($sevice_obj->hasManyServiceDetailInfo as $key => $value) {
-                //删除原有业务月返还信息
-                $value->status = '0';
-                $value->save();
-                // dd(lastSql());
-            }
-            
-            foreach ($requestData->return_moon_price_list as $key => $price) {
-                //新建业务月返还信息
-                $sevice_obj_info = new ServiceDetailInfo(); //业务信息对象
-
-                $sevice_obj_info->pid          = $sevice_obj->id;
-                $sevice_obj_info->nums         = $sevice_obj->month_nums;
-                $sevice_obj_info->creater_id   = Auth::id();
-                $sevice_obj_info->return_month = $price['key'];
-                $sevice_obj_info->return_price = $price['price'];
-                $sevice_obj_info->save();
-            }
-            $sevice_obj_obj->scalar = $sevice_obj;
-        });
-        return $sevice_obj_obj;
-    }
-
     // 删除业务
     public function destroy($id)
     {
+        // dd($id);
+        // 业务删除,出库明细废弃,赠品回库
+        DB::beginTransaction();
         try {
-            $sevice_obj = ServiceDetail::findorFail($id);
+            // $sevice_obj = ServiceDetail::findorFail($id);
+            $sevice_obj = $this->find($id);
             $sevice_obj->status = '0';
             $sevice_obj->save();
+            // dd($sevice_obj->hasManyInventoryDetail->count());
+            if($sevice_obj->hasManyInventoryDetail->count() > 0){
+                foreach ($sevice_obj->hasManyInventoryDetail as $key => $value) {
+                    //明细废弃
+                    /*dd($value);
+                    dd($value->belongsToInventory);*/
+                    $value->status = '0';
 
+                    $value->save();
+
+                    //库存添加
+                    $inentoryGoods = $value->belongsToInventory; //对应库存商品信息
+                    $inentoryGoods->inventory_now = $inentoryGoods->inventory_now + $value->goods_nums;
+                    // $inentoryGoods->inventory_now = 22;
+                    // dd($value->goods_nums);
+                    // dd($inentoryGoods);
+                    $inentoryGoods->save();
+                }
+            }
+            DB::commit();
             return $sevice_obj;
            
         } catch (\Illuminate\Database\QueryException $e) {
             return false;
         }      
-    }
-
-    //判断业务是否重复
-    public function isRepeat($requestData){
-
-        $sevice_obj = ServiceDetail::select('id', 'name')
-                        ->where('name', $requestData->name)
-                        ->where('sevice_obj_price', $requestData->sevice_obj_price)
-                        ->where('month_nums', $requestData->month_nums)
-                        ->where('status', '1')
-                        ->first();
-        // dd(isset($cate));
-        return $sevice_obj;
     }
 }

@@ -19,7 +19,7 @@
           <span>{{ scope.row.id }}</span>
         </template>
       </el-table-column>
-      <el-table-column :label="$t('serviceDetail.customer')" align="center">
+      <el-table-column :label="$t('serviceDetail.customer')" show-overflow-tooltip align="center">
         <template slot-scope="scope">
           <span>{{ scope.row.customer }}</span>
         </template>
@@ -39,6 +39,11 @@
           <span>{{ scope.row.charge_price }}</span>
         </template>
       </el-table-column>
+      <el-table-column :label="$t('serviceDetail.inventory_percentage')" align="center">
+        <template slot-scope="scope">
+          <span>{{ scope.row.inventory_percentage }}</span>
+        </template>
+      </el-table-column>
       <el-table-column :label="$t('serviceDetail.goods_num')" align="center">
         <template slot-scope="scope">
           <span>{{ scope.row.goods_num }}</span>
@@ -51,30 +56,29 @@
       </el-table-column>
       <el-table-column :label="$t('serviceDetail.inventory_profit')" align="center">
         <template slot-scope="scope">
-          <span>{{ scope.row.inventory_profit }}</span>
+          <el-tag :type="scope.row.inventory_profit | profitFilter">{{ scope.row.inventory_profit }}</el-tag>
         </template>
       </el-table-column>
-      <el-table-column :label="$t('serviceDetail.inventory_percentage')" align="center">
+      <el-table-column :label="$t('serviceDetail.inventer_ticheng')" align="center">
         <template slot-scope="scope">
-          <span>{{ scope.row.inventory_percentage }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column :label="$t('serviceDetail.inventoryer')" align="center">
-        <template slot-scope="scope">
-          <span v-if="scope.row.belongs_to_creater">{{scope.row.belongs_to_creater.nick_name}}</span>
-          <span v-else></span>
+          <el-tag :type="scope.row.inventory_profit | profitFilter">{{ scope.row.inventer_ticheng }}</el-tag>
         </template>
       </el-table-column>
       <el-table-column :label="$t('table.date')" width="150px" align="center">
         <template slot-scope="scope">
-          <span>{{ scope.row.created_at | parseTime('{y}-{m}-{d}') }}</span>
+          <span v-if="scope.row.belongs_to_creater">
+            {{scope.row.belongs_to_creater.nick_name}}
+            |
+            {{ scope.row.created_at | parseTime('{y}-{m}-{d}') }}
+          </span>
+          <span v-else></span>
         </template>
       </el-table-column>
-      <el-table-column :label="$t('table.actions')" align="center" width="230" class-name="small-padding fixed-width">
+      <el-table-column :label="$t('table.actions')" align="center" width="200" class-name="small-padding fixed-width">
         <template slot-scope="scope">
           <el-button type="success" size="mini" @click="handleShow(scope.row)">{{ $t('table.show') }}</el-button>
           <!-- <el-button type="primary" size="mini" @click="handleUpdate(scope.row)">{{ $t('table.edit') }}</el-button> -->
-          <el-button v-if="scope.row.status!='deleted'" size="mini" type="danger" @click="handleModifyStatus(scope.row,'deleted')">{{ $t('table.delete') }}
+          <el-button v-if="isAdmin" size="mini" type="danger" @click="handleModifyStatus(scope.row,'deleted')">{{ $t('table.delete') }}
           </el-button>
         </template>
       </el-table-column>
@@ -172,39 +176,69 @@
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="dialogFormVisible = false">{{ $t('table.cancel') }}</el-button>
-        <el-button v-if="dialogStatus=='create'" type="primary" @click="createData">{{ $t('table.confirm') }}</el-button>
-        <el-button v-else type="primary" @click="updateData">{{ $t('table.confirm') }}</el-button>
+        <el-button type="primary" @click="createData">{{ $t('table.confirm') }}</el-button>
       </div>
     </el-dialog>
     <el-dialog  :visible.sync="dialogInfoVisible">
       <el-row>
-        <el-col :span="24"><div class="grid-content bg-purple-dark self-style"><span>套餐详情</span></div></el-col>
+        <el-col :span="24"><div class="grid-content bg-purple self-style">
+          {{ $t('serviceDetail.serviceName') }}:<span>{{temp.name}}</span></div>
+        </el-col> 
+      </el-row>
+      <el-row>
+        <el-col :span="12"><div class="grid-content bg-purple-light self-style">
+          {{ $t('serviceDetail.customer') }}:<span>{{temp.customer}}</span>
+        </div></el-col> 
+        <el-col :span="12"><div class="grid-content bg-purple-light self-style">
+          {{ $t('serviceDetail.customer_telephone') }}:<span>{{temp.customer_telephone}}</span>
+        </div></el-col> 
       </el-row>
       <el-row>
         <el-col :span="6"><div class="grid-content bg-purple self-style">
-          {{ $t('serviceDetail.serviceName') }}:<span>{{temp.name}}</span></div>
+          {{ $t('serviceDetail.charge_price') }}:<span>{{temp.charge_price}}</span></div>
         </el-col>
-        <el-col :span="6"><div class="grid-content bg-purple-light self-style">
-          {{ $t('serviceDetail.customer') }}:<span>{{temp.customer}}元</span>
-        </div></el-col>
         <el-col :span="6"><div class="grid-content bg-purple-light self-style">
           {{ $t('serviceDetail.goods_num') }}:<span>{{temp.goods_num}}</span>
         </div></el-col>
         <el-col :span="6"><div class="grid-content bg-purple self-style">
-          {{ $t('table.date') }}:<span>{{temp.created_at | parseTime('{y}-{m}-{d}') }}</span>
-        </div></el-col>    
+          {{ $t('serviceDetail.goods_cost') }}:<span>{{temp.goods_cost}}</span></div>
+        </el-col>
+        <el-col :span="6"><div class="grid-content bg-purple-light self-style">
+          {{ $t('serviceDetail.inventory_percentage') }}:<span>{{temp.inventory_percentage}}元</span>
+        </div></el-col>
       </el-row>
       <el-row>
+        <el-col :span="6"><div class="grid-content bg-purple self-style">
+          {{ $t('serviceDetail.inventory_profit') }}:<span>{{temp.inventory_profit}}</span></div>
+        </el-col>
+        <el-col :span="6"><div class="grid-content bg-purple self-style">
+          {{ $t('serviceDetail.inventer_ticheng') }}:<span>{{temp.inventer_ticheng}}</span></div>
+        </el-col>
+        <el-col :span="6"><div class="grid-content bg-purple self-style">
+          {{ $t('table.date') }}:<span>{{temp.created_at | parseTime('{y}-{m}-{d}') }}</span>
+        </div></el-col> 
         <el-col :span="6"><div class="grid-content bg-purple self-style">
           {{ $t('serviceDetail.remark') }}:<span>{{temp.remark}}</span></div>
         </el-col>
       </el-row>
       <el-row>
-        <el-col :span="24"><div class="grid-content bg-purple-dark self-style"><span>返还标准</span></div></el-col>
+        <el-col :span="24"><div class="grid-content bg-purple-dark self-style"><span>赠品详情</span></div></el-col>
       </el-row>
-      <el-row>
-        <el-col :span="6" v-for="(month, group_index) in temp.return_moon_price_list" :key="month.key"><div class="grid-content bg-purple self-style">
-          第{{ month.key }}月:<span>{{month.price}}元</span></div>
+      <el-row v-for="(goods, group_index) in temp.has_many_service_detail_goods" :key="goods.key">
+        <el-col :span="12" >
+          <div class="grid-content bg-purple self-style">
+            <span>{{goods.goods_name}}</span>
+          </div>
+        </el-col>
+        <el-col :span="6" >
+          <div class="grid-content bg-purple self-style">
+            {{ $t('serviceDetail.goods_num') }}:<span>{{goods.goods_num}}</span>
+          </div>
+        </el-col>
+        <el-col :span="6" >
+          <div class="grid-content bg-purple self-style">
+            <span>{{goods.goods_price}}元</span>
+          </div>
         </el-col>
       </el-row>
       </el-row>
@@ -238,13 +272,12 @@ export default {
     waves
   },
   filters: {
-    statusFilter(status) {
-      const statusMap = {
-        published: 'success',
-        draft: 'info',
-        deleted: 'danger'
+    profitFilter(profit) {
+      if(profit <= 0){
+        return 'danger'
+      }else{
+        return 'success'
       }
-      return statusMap[status]
     },
     typeFilter(type) {
       return calendarTypeKeyValue[type]
@@ -266,6 +299,7 @@ export default {
       listQuery: {
         page: 1,
       },
+      isAdmin: false,
       calendarTypeOptions,
       showReviewer: false,
       temp: {
@@ -309,6 +343,7 @@ export default {
   },
   created() {
     this.getList()
+    this.isAdminOrManager()
   },
   mounted(){
     this.getAllGoods()
@@ -327,8 +362,14 @@ export default {
         }, 1.5 * 1000)
       })
     },
+    isAdminOrManager() {
+      let userRole = this.$store.getters.roles
+      if((userRole.indexOf('admin') >= 0) || (userRole.indexOf('manager') >= 0)){
+        this.isAdmin = true
+      }
+    },
     goodsAdd(){ //添加礼品
-        let newGoods = {goodsId:'', num: '1', add: false}
+        let newGoods = {goodsId:'', num: '1',  add: false}
         this.temp.goodsIdList.push(newGoods)
     },
     goodsRemove(event){ //删除副卡
@@ -486,7 +527,7 @@ export default {
     },
     handleShow(row) {
       // console.log(row.has_many_serviceDetail_info)
-      getServiceDetail(row).then((response) => {
+      /*getServiceDetail(row).then((response) => {
         row.return_moon_price_list = []
         Array.prototype.forEach.call(response.data.data.has_many_serviceDetail_info, child => {
           //console.log(child.return_month)
@@ -494,89 +535,11 @@ export default {
           let obj = {key:child.return_month,price:parseFloat(child.return_price)} 
           row.return_moon_price_list.unshift(obj)
         })  
-        this.temp = Object.assign({}, row) // copy obj
-        console.log(this.temp)
-        this.dialogInfoVisible = true       
-      })   
-    },
-    handleUpdate(row) {
-      // console.log(row.has_many_serviceDetail_info)
-      getServiceDetail(row).then((response) => {
-        row.return_moon_price_list = []
-        Array.prototype.forEach.call(response.data.data.has_many_serviceDetail_info, child => {
-          //console.log(child.return_month)
-          //console.log(child.return_price)
-          let obj = {key:child.return_month,price:parseFloat(child.return_price)} 
-          row.return_moon_price_list.unshift(obj)
-        })  
-        this.temp = Object.assign({}, row) // copy obj
-        this.dialogStatus = 'update'
-        this.dialogFormVisible = true
-        this.$nextTick(() => {
-          this.$refs['dataForm'].clearValidate()
-        })        
-      })   
-    },
-    updateData() {
-      this.$refs['dataForm'].validate((valid) => {
-        if (valid) {        
-          const tempData = Object.assign({}, this.temp)
-          this.return_moon_price = true
-          const parent = this.temp.return_moon_price_list
-          const regex = /^([1-9][0-9]*)+(.[0-9]{1,2})?$/ //验证数字
-          // console.log(parent);
-          Array.prototype.forEach.call(parent, child => {
-            if(!regex.test(child.price)){
-              //console.log(child.key)
-              //console.log(child.price)
-              this.return_moon_price = false
-            }
-            /*console.log(child.key)
-            console.log(child.price)
-            console.log(!child.price)
-            console.log(typeof child.price === "undefined")
-            console.log(child.price === '')
-            console.log(child.price === 0)
-            if((!child.price) || (typeof child.price === "undefined") || (child.price === '') || (child.price === 0)){
-              this.return_moon_price = false
-            }*/
-          });
-          // console.log(tempData)
-          if(this.return_moon_price){
-            updateServiceDetail(tempData).then((response) => {
-              // console.log(response)
-              if(response.data.status){
-                for (const v of this.list) {
-                  if (v.id === this.temp.id) {
-                    const index = this.list.indexOf(v)
-                    this.list.splice(index, 1, this.temp)
-                    break
-                  }
-                }
-                this.dialogFormVisible = false
-                this.$notify({
-                  title: '成功',
-                  message: '更新成功',
-                  type: 'success',
-                  duration: 2000
-                })
-              }else{
-                this.$notify.error({
-                  title: '失败',
-                  message: response.data.message,
-                  duration: 2000
-                })
-              }              
-           })
-          }else{
-            this.$notify.error({
-              title: '注意',
-              message: '请填写返还金额(金额应为数字)',
-              duration: 2000
-            })
-          }      
-        }
-      })
+               
+      }) */ 
+      this.temp = Object.assign({}, row) // copy obj
+      console.log(this.temp)
+      this.dialogInfoVisible = true 
     },
     handleDelete(row) {
       this.$notify({

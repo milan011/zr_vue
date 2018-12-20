@@ -10,7 +10,7 @@ interface ServiceDetailRepositoryInterface
 
     public function create($requestData);
 
-    public function update($id, $requestData);
+    // public function update($id, $requestData);
 
     public function destroy($id);
 

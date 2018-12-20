@@ -21,7 +21,7 @@ const inventoryRouter = {
       },
       {
         path: 'detail',
-        component: resolve => void(require(['@/views/service/index'], resolve)),
+        component: resolve => void(require(['@/views/inventoryDetail/index'], resolve)),
         name: 'inventoryDetail',
         meta: { title: 'inventoryDetail' }
       }

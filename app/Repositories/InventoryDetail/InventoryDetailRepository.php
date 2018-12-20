@@ -19,27 +19,39 @@ class InventoryDetailRepository implements InventoryDetailRepositoryInterface
 {
 
     //默认查询数据
-    protected $select_columns = ['id', 'bloc', 'name', 'month_nums','package_price', 'netin', 'status', 'remark', 'creater_id', 'created_at', 'updated_at'];
+    protected $select_columns = ['id','goods_id', 'inventory_code', 'inventory_type', 'inventory_price', 'goods_nums', 'remark', 'creater_id', 'created_at', 'updated_at'];
 
     // 根据ID获得套餐信息
     public function find($id)
     {
         return InventoryDetail::select($this->select_columns)
-                       ->findOrFail($id);
+                              ->with('belongsToCreater')
+                              ->with('belongsToGoods')
+                              ->with('belongsToServiceDetail')
+                              // ->with('belongsToServiecDetail')
+                              ->findOrFail($id);
     }
 
     // 获得套餐列表
     public function getAllInventoryDetail()
     {   
-        return InventoryDetail::where('status', '1')->orderBy('package_price')->orderBy('created_at', 'DESC')->paginate(10);
+        return InventoryDetail::where('status', '1')
+                              ->with('belongsToCreater')
+                              ->with('belongsToGoods')
+                              ->with('belongsToServiceDetail')
+                              ->orderBy('created_at', 'DESC')
+                              ->paginate(10);
     }
 
     // 获得所有套餐
     public function getInventoryDetails()
     {   
         return InventoryDetail::select($this->select_columns)
+                       ->with('belongsToCreater')
+                       ->with('belongsToGoods')
+                       ->with('belongsToServiceDetail')
+                       // ->with('belongsToServiecDetail')
                        ->where('status', '1')
-                       ->orderBy('package_price')
                        ->get();
     }
 

@@ -10,14 +10,13 @@ const serviceRouter = {
     meta: {
       title: 'service',
       icon: 'money',
-      roles: ['admin', 'manager']
     },
     children: [
       {
         path: 'index',
         component: resolve => void(require(['@/views/service/index'], resolve)),
         name: 'serviceList',
-        meta: { title: 'serviceList' }
+        meta: { title: 'serviceList', roles: ['admin', 'manager'] }
       },
       {
         path: 'detail',

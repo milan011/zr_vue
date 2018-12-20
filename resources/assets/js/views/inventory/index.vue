@@ -69,7 +69,6 @@
               <el-form-item :label="$t('goods.goods_num')">
                 <el-input-number 
                   v-model="temp.goods_num" 
-                  @change="numChange"
                   size="small" 
                   style="margin-bottom:5px;" 
                   :min="1" 

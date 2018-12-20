@@ -52,6 +52,12 @@ const foodStatus = {
     1: '是',
 };
 
+//出/入库
+const inventoryStatus = {
+    1: '入库',
+    2: '出库',
+};
+
 //serviceReturnType
 const serviceReturnType = {
     1: '按比例',
@@ -99,7 +105,8 @@ export {
     oldBindStatus,
     infoDianxinStatus,
     foodStatus,
-    serviceReturnType
+    serviceReturnType,
+    inventoryStatus
 }
 
 /*export const zrConfig = {

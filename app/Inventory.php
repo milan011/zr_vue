@@ -60,13 +60,10 @@ class Inventory extends Model
       return $this->belongsTo('App\InfoSelf', 'id', 'package_id');
     }
 
-    // 定义Package表与PackageInfo表一对多关系
-    public function hasManyPackageInfo(){
+    // 定义Inventory表与InventoryDetail表一对多关系
+    public function hasManyInventoryDetail(){
 
-      return $this->hasMany('App\PackageInfo', 'pid', 'id')
-                  ->select('return_month', 'return_price', 'status', 'id')
-                  ->where('status', '1')
-                  ->orderBy('return_month', 'DESC');
+      return $this->hasMany('App\InventoryDetail', 'goods_id', 'goods_id');
     }
 
     // 定义User表与Inventory表一对多关系

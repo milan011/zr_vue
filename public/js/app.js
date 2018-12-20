@@ -105332,14 +105332,15 @@ module.exports = Component.exports
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ROAST_CONFIG; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return infoSelfStatus; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return jituanStatus; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "i", function() { return package_year; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return package_month; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return jituanStatus; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "j", function() { return package_year; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "i", function() { return package_month; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return collections_type; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return oldBindStatus; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return oldBindStatus; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return infoDianxinStatus; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return foodStatus; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "j", function() { return serviceReturnType; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "k", function() { return serviceReturnType; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return inventoryStatus; });
 /**
  * Defines the API route we are using.
  */
@@ -105392,6 +105393,12 @@ var oldBindStatus = {
 var foodStatus = {
     0: '否',
     1: '是'
+};
+
+//出/入库
+var inventoryStatus = {
+    1: '入库',
+    2: '出库'
 };
 
 //serviceReturnType
@@ -106074,9 +106081,10 @@ var _infoStatistics;
     charge_price: '收费金额',
     goods_num: '赠品数量',
     goods_cost: '赠品金额',
-    inventory_percentage: '业务提成',
+    inventory_percentage: '返佣',
     inventory_profit: '利润',
     inventoryer: '业务员',
+    inventer_ticheng: '提成',
     remark: '备注'
   },
   inventory: {
@@ -106085,10 +106093,10 @@ var _infoStatistics;
     inventoryAdd: '添加库存'
   },
   inventoryDetail: {
+    serviceName: '名称',
     goodsName: '礼品',
-    type: '返还方式',
-    return_price: '返还金额',
-    return_ratio: '返还比例',
+    type: '出/入库',
+    inventory_num: '数量',
     remark: '备注'
   }
 });
@@ -106458,7 +106466,7 @@ var inventoryRouter = {
   }, {
     path: 'detail',
     component: function component(resolve) {
-      return void __webpack_require__.e/* require */(0/* duplicate */).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__("./resources/assets/js/views/service/index.vue")]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
+      return void __webpack_require__.e/* require */(0).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__("./resources/assets/js/views/inventoryDetail/index.vue")]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
     },
     name: 'inventoryDetail',
     meta: { title: 'inventoryDetail' }
@@ -106617,16 +106625,15 @@ var serviceRouter = {
   name: 'Service',
   meta: {
     title: 'service',
-    icon: 'money',
-    roles: ['admin', 'manager']
+    icon: 'money'
   },
   children: [{
     path: 'index',
     component: function component(resolve) {
-      return void __webpack_require__.e/* require */(0/* duplicate */).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__("./resources/assets/js/views/service/index.vue")]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
+      return void __webpack_require__.e/* require */(17/* duplicate */).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__("./resources/assets/js/views/service/index.vue")]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
     },
     name: 'serviceList',
-    meta: { title: 'serviceList' }
+    meta: { title: 'serviceList', roles: ['admin', 'manager'] }
   }, {
     path: 'detail',
     component: function component(resolve) {

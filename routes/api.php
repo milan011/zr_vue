@@ -103,7 +103,7 @@ Route::group([
     //ServiceDetail
     Route::get('serviceDetailList', 'ServiceDetailController@index');
     Route::post('serviceDetail', 'ServiceDetailController@store');
-    Route::get('getServiceDetailInfo/{id}', 'ServiceDetailController@getInfo');
+    Route::get('getServiceDetail/{id}', 'ServiceDetailController@getInfo');
     Route::put('serviceDetail/{id}', 'ServiceDetailController@update');
     Route::delete('serviceDetail/{id}', 'ServiceDetailController@destroy');
 
@@ -115,11 +115,11 @@ Route::group([
     Route::delete('inventory/{id}', 'InventoryController@destroy');
 
     //InventoryDetail
-    /*Route::get('inventoryDetailList', 'InventoryDetailController@index');
+    Route::get('inventoryDetailList', 'InventoryDetailController@index');
     Route::post('inventoryDetail', 'InventoryDetailController@store');
     Route::get('getInventoryDetailInfo/{id}', 'InventoryDetailController@getInfo');
     Route::put('inventoryDetail/{id}', 'InventoryDetailController@update');
-    Route::delete('inventoryDetail/{id}', 'InventoryDetailController@destroy');*/
+    Route::delete('inventoryDetail/{id}', 'InventoryDetailController@destroy');
 
     /*
     Route::get('all_roles', 'RolesController@allRoles');

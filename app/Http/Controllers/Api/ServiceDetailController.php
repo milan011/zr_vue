@@ -81,6 +81,7 @@ class ServiceDetailController extends Controller
         $new_serviceDetail = $this->serviceDetail->create($serviceDetailRequest);
         // dd($new_serviceDetail);
         $new_serviceDetail->belongsToCreater;
+        $new_serviceDetail->hasManyServiceDetailGoods;
 
         if($new_serviceDetail){ //添加成功
             return $this->baseSucceed($respond_data = $new_serviceDetail, $message = '添加成功');
@@ -148,6 +149,6 @@ class ServiceDetailController extends Controller
     {   
         // dd('删了');
         $this->serviceDetail->destroy($id);        
-        return $this->baseSucceed($message = '修改成功');
+        return $this->baseSucceed($message = '删除成功');
     }
 }

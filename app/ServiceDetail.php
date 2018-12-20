@@ -24,7 +24,7 @@ class ServiceDetail extends Model
      * 定义可批量赋值字段
      * @var array
      */
-    protected $fillable = ['id', 'name', 'customer', 'service_id', 'charge_price', 'inventory_percentage','inventory_profit', 'goods_cost',  'status', 'goods_num', 'customer_telephone', 'remark', 'creater_id', 'created_at', 'updated_at'];
+    protected $fillable = ['id', 'name', 'customer', 'service_id', 'charge_price', 'inventory_percentage','inventory_profit', 'goods_cost', 'inventer_ticheng', 'status', 'goods_num', 'customer_telephone', 'remark', 'creater_id', 'created_at', 'updated_at'];
 
     /**
      * The attributes excluded from the model's JSON form.
@@ -60,13 +60,15 @@ class ServiceDetail extends Model
       return $this->belongsTo('App\InfoSelf', 'id', 'package_id');
     }
 
-    // 定义Package表与PackageInfo表一对多关系
-    public function hasManyPackageInfo(){
+    // 定义ServiceDetail表与ServiceDetailGoods表一对多关系
+    public function hasManyServiceDetailGoods(){
 
-      return $this->hasMany('App\PackageInfo', 'pid', 'id')
-                  ->select('return_month', 'return_price', 'status', 'id')
-                  ->where('status', '1')
-                  ->orderBy('return_month', 'DESC');
+      return $this->hasMany('App\ServiceDetailGoods', 'service_detail_id', 'id');
+    }
+
+    // 定义ServiceDetail表与InventoryDetail表一对多关系
+    public function hasOneInventoryDetail(){
+        return $this->hasOne('App\InventoryDetail', 'service_detail_id', 'id');
     }
 
     // 定义User表与ServiceDetail表一对多关系

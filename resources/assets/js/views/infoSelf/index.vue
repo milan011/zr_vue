@@ -56,7 +56,7 @@
       </el-table-column>
       <el-table-column :label="$t('info.is_jituan')" show-overflow-tooltip align="center">
         <template slot-scope="scope">
-          <el-tag :type="scope.row.is_jituan | jituanStatusFilter">{{ jiTuanStatusMap[scope.row.is_jituan]}}</el-tag>
+          <el-tag :type="scope.row.is_jituan | jituanStatusFilter">{{ jiTuanStatusMap[scope.row.is_jituan] }}</el-tag>
         </template>
       </el-table-column>
       <el-table-column :label="$t('info.package')" align="center">
@@ -253,7 +253,6 @@ export default {
       if((userRole.indexOf('admin') >= 0) || (userRole.indexOf('manager') >= 0)){
         this.isAdmin = true
       }
-    
     },
     addList(newInfo){
       // console.log(newInfo)

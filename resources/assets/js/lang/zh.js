@@ -280,9 +280,10 @@ export default {
     charge_price: '收费金额',
     goods_num: '赠品数量',
     goods_cost: '赠品金额',
-    inventory_percentage: '业务提成',
+    inventory_percentage: '返佣',
     inventory_profit: '利润',
     inventoryer: '业务员',
+    inventer_ticheng: '提成',
     remark: '备注',
   },
   inventory:{
@@ -291,10 +292,10 @@ export default {
     inventoryAdd: '添加库存',
   },
   inventoryDetail:{
+    serviceName: '名称',
     goodsName: '礼品',
-    type: '返还方式',
-    return_price: '返还金额',
-    return_ratio: '返还比例',
+    type: '出/入库',
+    inventory_num: '数量',
     remark: '备注',
   },
 }

@@ -24,7 +24,7 @@ class ServiceDetailGoods extends Model
      * 定义可批量赋值字段
      * @var array
      */
-    protected $fillable = ['id','goods_id', 'service_detail_id', 'goods_num',  'goods_price','creater_id', 'created_at', 'updated_at'];
+    protected $fillable = ['id','goods_id', 'goods_name', 'service_detail_id', 'goods_num',  'goods_price','creater_id', 'created_at', 'updated_at'];
 
     /**
      * The attributes excluded from the model's JSON form.
@@ -56,22 +56,17 @@ class ServiceDetailGoods extends Model
 
     // 定义套餐表与信息表一对多关系
     public function belongsToInfoSelf(){
-
       return $this->belongsTo('App\InfoSelf', 'id', 'package_id');
     }
 
-    // 定义Package表与PackageInfo表一对多关系
-    public function hasManyPackageInfo(){
-
-      return $this->hasMany('App\PackageInfo', 'pid', 'id')
-                  ->select('return_month', 'return_price', 'status', 'id')
-                  ->where('status', '1')
-                  ->orderBy('return_month', 'DESC');
+    // 定义SeviceDetailGoods表与SeviceDetail表一对多关系
+    public function belongsToSeviceDetail(){
+      return $this->belongsTo('App\SeviceDetail', 'service_detail_id', 'id');
     }
 
     // 定义User表与Package表一对多关系
-    public function belongsToUser(){
+    /*public function belongsToUser(){
 
       return $this->belongsTo('App\User', 'creater_id', 'id')->select('id', 'nick_name', 'telephone');
-    }
+    }*/
 }

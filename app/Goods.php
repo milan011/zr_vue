@@ -67,6 +67,13 @@ class Goods extends Model
       return $this->hasMany('App\Inventory', 'goods_id', 'id');
     }
 
+    // 定义Goods表与InventoryDetail表一对多关系
+    public function hasManyInventoryDetail(){
+
+      // return $this->hasMany('App\Inventory', 'goods_id', 'id')->where('status', '1');
+      return $this->hasMany('App\InventoryDetail', 'goods_id', 'id');
+    }
+
     // 定义User表与Goods表一对多关系
     public function belongsToCreater(){
 

@@ -19,7 +19,7 @@ class ServiceDetailGoodsRepository implements ServiceDetailGoodsRepositoryInterf
 {
 
     //默认查询数据
-    protected $select_columns = ['id', 'bloc', 'name', 'month_nums','package_price', 'netin', 'status', 'remark', 'creater_id', 'created_at', 'updated_at'];
+    protected $select_columns = ['id','goods_id', 'goods_name', 'service_detail_id', 'goods_num',  'goods_price','creater_id', 'created_at', 'updated_at'];
 
     // 根据ID获得套餐信息
     public function find($id)
