@@ -105332,15 +105332,14 @@ module.exports = Component.exports
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ROAST_CONFIG; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return infoSelfStatus; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return jituanStatus; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "j", function() { return package_year; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "i", function() { return package_month; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return jituanStatus; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "i", function() { return package_year; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return package_month; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return collections_type; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return oldBindStatus; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return oldBindStatus; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return infoDianxinStatus; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return foodStatus; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "k", function() { return serviceReturnType; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return inventoryStatus; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "j", function() { return serviceReturnType; });
 /**
  * Defines the API route we are using.
  */
@@ -105393,12 +105392,6 @@ var oldBindStatus = {
 var foodStatus = {
     0: '否',
     1: '是'
-};
-
-//出/入库
-var inventoryStatus = {
-    1: '入库',
-    2: '出库'
 };
 
 //serviceReturnType
@@ -106093,7 +106086,7 @@ var _infoStatistics;
     inventoryAdd: '添加库存'
   },
   inventoryDetail: {
-    serviceName: '名称',
+    serviceName: '业务',
     goodsName: '礼品',
     type: '出/入库',
     inventory_num: '数量',
@@ -106461,7 +106454,7 @@ var inventoryRouter = {
     component: function component(resolve) {
       return void __webpack_require__.e/* require */(11).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__("./resources/assets/js/views/inventory/index.vue")]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
     },
-    name: 'inventoryList',
+    name: 'inventoryGoodsList',
     meta: { title: 'inventoryList' }
   }, {
     path: 'detail',

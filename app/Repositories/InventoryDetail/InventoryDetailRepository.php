@@ -39,7 +39,7 @@ class InventoryDetailRepository implements InventoryDetailRepositoryInterface
                               ->with('belongsToCreater')
                               ->with('belongsToGoods')
                               ->with('belongsToServiceDetail')
-                              ->orderBy('created_at', 'DESC')
+                              ->orderBy('id', 'DESC')
                               ->paginate(10);
     }
 

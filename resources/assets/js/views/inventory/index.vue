@@ -120,7 +120,7 @@ const calendarTypeKeyValue = calendarTypeOptions.reduce((acc, cur) => {
 }, {})
 
 export default {
-  name: 'inventoryList',
+  name: 'inventoryGoodsList',
   directives: {
     waves
   },

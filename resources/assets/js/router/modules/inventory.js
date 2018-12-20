@@ -16,7 +16,7 @@ const inventoryRouter = {
       {
         path: 'index',
         component: resolve => void(require(['@/views/inventory/index'], resolve)),
-        name: 'inventoryList',
+        name: 'inventoryGoodsList',
         meta: { title: 'inventoryList' }
       },
       {

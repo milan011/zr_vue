@@ -18,7 +18,7 @@
       fit
       highlight-current-row
       style="width: 100%;">
-      <el-table-column :label="$t('table.id')" align="center">
+      <el-table-column :label="$t('table.id')" width="80%" align="center">
         <template slot-scope="scope">
           <span>{{ scope.row.id }}</span>
         </template>
@@ -28,17 +28,17 @@
           <span>{{scope.row.belongs_to_service_detail.name}}</span>
         </template>
       </el-table-column>
-      <el-table-column :label="$t('inventoryDetail.goodsName')" show-overflow-tooltip align="center">
+      <el-table-column :label="$t('inventoryDetail.goodsName')"  show-overflow-tooltip align="center">
         <template slot-scope="scope">
           <span>{{scope.row.belongs_to_goods.name}}</span>
         </template>
       </el-table-column>
-      <el-table-column :label="$t('inventoryDetail.type')" align="center">
+      <el-table-column :label="$t('inventoryDetail.type')" width="80%" align="center">
         <template slot-scope="scope">
           <el-tag :type="scope.row.inventory_type | inventoryTypeFilter">{{ typeStatusMap[scope.row.inventory_type] }}</el-tag>
         </template>
       </el-table-column>
-      <el-table-column :label="$t('inventoryDetail.inventory_num')" align="center">
+      <el-table-column :label="$t('inventoryDetail.inventory_num')" width="50%" align="center">
         <template slot-scope="scope">
           <span>{{ scope.row.goods_nums }}</span>
         </template>
@@ -53,7 +53,7 @@
           <span v-else></span>
         </template>
       </el-table-column>
-      <el-table-column :label="$t('table.actions')" align="center" class-name="small-padding fixed-width">
+      <el-table-column :label="$t('table.actions')" align="center" width="90%" class-name="small-padding fixed-width">
         <template slot-scope="scope">
           <el-button type="success" size="mini" @click="handleShow(scope.row)">{{ $t('table.show') }}</el-button>
         </template>
@@ -101,17 +101,20 @@
 
 <script>
 
-// import { fetchList, fetchPv, createPermission, updatePermission, deletePermission } from '@/api/permission'
-// import { inventoryDetailList, createInventoryDetail, getInventoryDetail, updateInventoryDetail, deleteInventoryDetail } from '@/api/inventoryDetail'
 import { inventoryDetailList, createInventoryDetail, getInventoryDetail, updateInventoryDetail, deleteInventoryDetail } from '@/api/inventoryDetail'
 import waves from '@/directive/waves' // 水波纹指令
 import { parseTime } from '@/utils'
-import { inventoryStatus }  from '@/config.js'
 
 const calendarTypeOptions = [
   { key: 'web', display_name: 'web' },
   { key: 'api', display_name: 'api' },
 ]
+
+//出/入库
+const chuRuKu = {
+  1: '入库',
+  2: '出库',
+};
 
 // arr to obj ,such as { CN : "China", US : "USA" }
 const calendarTypeKeyValue = calendarTypeOptions.reduce((acc, cur) => {
@@ -137,10 +140,6 @@ export default {
     }
   },
   data() {
-    const validateReturnMonthPrice = (rule, value, callback) => { /*密码确认校验*/
-      console.log(value)
-      return false
-    };
     return {
       tableKey: 0,
       list: null,
@@ -153,18 +152,15 @@ export default {
       temp: {
         id: undefined,
         name: '',
-        inventoryDetail_price: '',
-        month_nums: '12',
       },
-      // typeStatusMap: infoSelfStatus,
-      typeStatusMap: inventoryStatus,
+      typeStatusMap: chuRuKu,
       dialogInfoVisible: false,
       dialogStatus: '',
     }
   },
   created() {
     this.getList()
-    console.log(inventoryStatus)
+    console.log(chuRuKu)
     console.log(this.typeStatusMap)
   },
   methods: {

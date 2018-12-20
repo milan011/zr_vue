@@ -292,7 +292,7 @@ export default {
     inventoryAdd: '添加库存',
   },
   inventoryDetail:{
-    serviceName: '名称',
+    serviceName: '业务',
     goodsName: '礼品',
     type: '出/入库',
     inventory_num: '数量',

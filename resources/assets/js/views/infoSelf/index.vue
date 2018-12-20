@@ -222,7 +222,7 @@ export default {
       this.getList(),
       this.getUserList(),
       this.isAdminOrManager(),
-      // console.log(this.$store.getters.roles)
+      // console.log(infoSelfStatus)
     ])
   },
   methods: {

@@ -308,7 +308,7 @@ export default {
         service_id: '',
         customer: '',
         customer_telephone: '',
-        charge_price: '',
+        charge_price: 0,
         goodsIdList: [
           {goodsId:'', num: '1',  add: true}, 
         ],

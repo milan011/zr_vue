@@ -67,8 +67,8 @@ class ServiceDetail extends Model
     }
 
     // 定义ServiceDetail表与InventoryDetail表一对多关系
-    public function hasOneInventoryDetail(){
-        return $this->hasOne('App\InventoryDetail', 'service_detail_id', 'id');
+    public function hasManyInventoryDetail(){
+        return $this->hasMany('App\InventoryDetail', 'service_detail_id', 'id');
     }
 
     // 定义User表与ServiceDetail表一对多关系
