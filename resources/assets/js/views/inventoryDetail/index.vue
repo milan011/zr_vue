@@ -65,35 +65,80 @@
     </div>
     <el-dialog  :visible.sync="dialogInfoVisible">
       <el-row>
-        <el-col :span="24"><div class="grid-content bg-purple-dark self-style"><span>套餐详情</span></div></el-col>
-      </el-row>
-      <el-row>
-        <el-col :span="6"><div class="grid-content bg-purple self-style">
-          {{ $t('inventoryDetail.serviceName') }}:<span>{{temp.name}}</span></div>
+        <el-col :span="8"><div class="grid-content bg-purple self-style">
+          {{ $t('inventoryDetail.goodsName') }}:<span>{{ temp.belongs_to_goods.name }}</span></div>
         </el-col>
-        <el-col :span="6"><div class="grid-content bg-purple-light self-style">
-          {{ $t('inventoryDetail.serviceName') }}:<span>{{temp.inventoryDetail_price}}元</span>
+        <el-col :span="8"><div class="grid-content bg-purple-light self-style">
+          <span>{{typeStatusMap[temp.inventory_type]}}</span>
         </div></el-col>
-        <el-col :span="6"><div class="grid-content bg-purple-light self-style">
-          {{ $t('inventoryDetail.serviceName') }}:<span>{{temp.month_nums}}</span>
-        </div></el-col>
-        <el-col :span="6"><div class="grid-content bg-purple self-style">
-          {{ $t('table.date') }}:<span>{{temp.created_at | parseTime('{y}-{m}-{d}') }}</span>
-        </div></el-col>    
+        <el-col :span="8"><div class="grid-content bg-purple-light self-style">
+          {{ $t('inventoryDetail.inventory_num') }}:<span>{{temp.goods_nums}}</span>
+        </div></el-col>   
       </el-row>
-      <el-row>
-        <el-col :span="6"><div class="grid-content bg-purple self-style">
-          {{ $t('inventoryDetail.remark') }}:<span>{{temp.remark}}</span></div>
+      <div v-if="temp.inventory_type == 2">
+        <el-row >
+        <el-col :span="24"><div class="grid-content bg-purple-dark self-style"><span>业务详情</span></div></el-col>
+        </el-row>
+        <el-row  
+          v-for="(goods, group_index) in temp.has_many_service_detail_goods" 
+          :key="goods.key">
+          <el-col :span="12" >
+            <div class="grid-content bg-purple self-style">
+              <span>{{goods.goods_name}}</span>
+            </div>
+          </el-col>
+          <el-col :span="6" >
+            <div class="grid-content bg-purple self-style">
+              {{ $t('serviceDetail.goods_num') }}:<span>{{goods.goods_num}}</span>
+            </div>
+          </el-col>
+          <el-col :span="6" >
+            <div class="grid-content bg-purple self-style">
+              <span>{{goods.goods_price}}元</span>
+            </div>
+          </el-col>
+        </el-row>
+        <el-row >
+          <el-col :span="24"><div class="grid-content bg-purple-dark self-style"><span>礼品列表</span></div></el-col>
+        </el-row>
+        <el-row  
+          v-for="(goods, group_index) in temp.has_many_service_detail_goods" 
+          :key="goods.key">
+          <el-col :span="12" >
+            <div class="grid-content bg-purple self-style">
+              <span>{{goods.goods_name}}</span>
+            </div>
+          </el-col>
+          <el-col :span="6" >
+            <div class="grid-content bg-purple self-style">
+              {{ $t('serviceDetail.goods_num') }}:<span>{{goods.goods_num}}</span>
+            </div>
+          </el-col>
+          <el-col :span="6" >
+            <div class="grid-content bg-purple self-style">
+              <span>{{goods.goods_price}}元</span>
+            </div>
+          </el-col>
+        </el-row>
+      </div>
+      <el-row  
+        v-for="(goods, group_index) in temp.has_many_service_detail_goods" 
+        :key="goods.key">
+        <el-col :span="12" >
+          <div class="grid-content bg-purple self-style">
+            <span>{{goods.goods_name}}</span>
+          </div>
         </el-col>
-      </el-row>
-      <el-row>
-        <el-col :span="24"><div class="grid-content bg-purple-dark self-style"><span>返还标准</span></div></el-col>
-      </el-row>
-      <el-row>
-        <el-col :span="6" v-for="(month, group_index) in temp.return_moon_price_list" :key="month.key"><div class="grid-content bg-purple self-style">
-          第{{ month.key }}月:<span>{{month.price}}元</span></div>
+        <el-col :span="6" >
+          <div class="grid-content bg-purple self-style">
+            {{ $t('serviceDetail.goods_num') }}:<span>{{goods.goods_num}}</span>
+          </div>
         </el-col>
-      </el-row>
+        <el-col :span="6" >
+          <div class="grid-content bg-purple self-style">
+            <span>{{goods.goods_price}}元</span>
+          </div>
+        </el-col>
       </el-row>
     </el-dialog>
   </div>
@@ -149,9 +194,8 @@ export default {
         page: 1,
       },
       calendarTypeOptions,
-      temp: {
-        id: undefined,
-        name: '',
+      temp: { 
+        belongs_to_goods: {},
       },
       typeStatusMap: chuRuKu,
       dialogInfoVisible: false,
@@ -160,8 +204,8 @@ export default {
   },
   created() {
     this.getList()
-    console.log(chuRuKu)
-    console.log(this.typeStatusMap)
+    /*console.log(chuRuKu)
+    console.log(this.typeStatusMap)*/
   },
   methods: {
     getList() {
