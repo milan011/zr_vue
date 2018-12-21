@@ -1,6 +1,21 @@
 <template>
   <div class="app-container">
-    <div class="filter-container">       
+    <div class="filter-container"> 
+      <el-date-picker
+      v-model="listQuery.selectDate"
+      type="daterange"
+      range-separator="至"
+      start-placeholder="开始日期"
+      end-placeholder="结束日期"
+      value-format="yyyy-MM-dd HH-mm-ss">
+      </el-date-picker>
+      <el-select v-if="isAdmin" clearable style="width:100px;" v-model="listQuery.creater_id" class="filter-item" filterable placeholder="销售">
+        <el-option v-for="user in userList" :key="user.id" :label="user.nick_name" :value="user.id"/>
+      </el-select>
+      <el-select  clearable style="width:100px;" v-model="listQuery.service_id" class="filter-item" filterable placeholder="业务">
+        <el-option v-for="ser in allService" :key="ser.id" :label="ser.name" :value="ser.id"/>
+      </el-select>
+      <el-button v-waves class="filter-item" type="primary" icon="el-icon-search" @click="handleFilter">{{ $t('table.search') }}</el-button>      
       <el-button class="filter-item" style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="handleCreate">
         {{ $t('table.add') }}
       </el-button>
@@ -249,6 +264,7 @@
 <script>
 
 import { goodsAll } from '@/api/goods'
+import { userAll, } from '@/api/user'
 import { serviceAll } from '@/api/service'
 import { isTelephone } from '@/utils/validate'
 import { serviceDetailList, createServiceDetail, getServiceDetail, updateServiceDetail, deleteServiceDetail } from '@/api/serviceDetail'
@@ -298,6 +314,10 @@ export default {
       listLoading: true,
       listQuery: {
         page: 1,
+        selectDate: '',
+        creater_id: '',
+        service_id: '',
+        goods_id: '',
       },
       isAdmin: false,
       calendarTypeOptions,
@@ -321,6 +341,7 @@ export default {
         update: '编辑',
         create: '新增'
       },
+      userList: [],
       allGoods: [],
       allService: [],
       rules: {
@@ -344,6 +365,7 @@ export default {
   created() {
     this.getList()
     this.isAdminOrManager()
+    this.getUserList()
   },
   mounted(){
     this.getAllGoods()
@@ -360,6 +382,13 @@ export default {
         setTimeout(() => {
           this.listLoading = false
         }, 1.5 * 1000)
+      })
+    },
+    getUserList() {
+      userAll().then(response => {
+        // console.log(response.data)
+        // return false
+        this.userList = response.data
       })
     },
     isAdminOrManager() {
@@ -599,5 +628,11 @@ export default {
     text-align: -webkit-center;
     font-size: 20px;
     padding: 10px 0px;
+  }
+  .el-date-editor .el-range-separator{
+    padding:0px;
+  }
+  .filter-container .filter-item {
+    margin-bottom: 5px;
   }
 </style>

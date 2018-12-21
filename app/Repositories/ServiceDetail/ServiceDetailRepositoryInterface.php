@@ -6,7 +6,7 @@ interface ServiceDetailRepositoryInterface
     
     public function find($id);
     
-    public function getAllServiceDetail();
+    public function getAllServiceDetail($qurey_list);
 
     public function create($requestData);
 

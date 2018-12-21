@@ -32,18 +32,18 @@ class InventoryDetailController extends Controller
      */
     public function index(Request $request)
     {
-        // dd($request->all());
+        $query_list = jsonToArray($request->input('query')); //获取搜索信息
 
-        $inventorys = $this->inventory->getAllInventoryDetail();
-        // dd($inventorys[1]);
+        // dd($query_list);
 
-        /*foreach ($inventorys as $key => $value) {
-            if(empty($value->belongsToGoods)){
-                return $value;
-            }
+        $inventorys = $this->inventory->getAllInventoryDetail($query_list);
+        // dd($inventorys[1]->belongsToServiceDetail->hasManyServiceDetailGoods);       
+
+        foreach ($inventorys as $key => $value) {
+            $value->belongsToServiceDetail->hasManyServiceDetailGoods;
         }
 
-        */
+        
        // dd($inventorys);
         /*$inventorys = $inventorys->filter(function ($value, $key) {
             if(!empty($value->belongsToGoods)){

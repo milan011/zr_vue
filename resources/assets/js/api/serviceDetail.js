@@ -9,7 +9,7 @@ export function serviceDetailList(query, token = getToken()) {
     // url: '/user/list',
     url: ROAST_CONFIG.API_URL + '/serviceDetailList',
     method: 'get',
-    params: {token, page:query.page}
+    params: {token, query, page:query.page}
   })
 }
 

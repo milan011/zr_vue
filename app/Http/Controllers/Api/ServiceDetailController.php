@@ -36,8 +36,8 @@ class ServiceDetailController extends Controller
     public function index(Request $request)
     {
         // dd($request->all());
-
-        $serviceDetails = $this->serviceDetail->getAllServiceDetail();
+        $query_list = jsonToArray($request->input('query')); //获取搜索信息
+        $serviceDetails = $this->serviceDetail->getAllServiceDetail($query_list);
 
         // dd($serviceDetails);
         return new ServiceDetailResource($serviceDetails);

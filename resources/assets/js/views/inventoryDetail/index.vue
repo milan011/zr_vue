@@ -1,13 +1,23 @@
 <template>
   <div class="app-container">
     <div class="filter-container">       
-      <el-input 
-        :placeholder="$t('infoDianxin.return_telephone')"
-        clearable 
-        v-model="listQuery.selectTelephone"
-        style="width: 150px;" 
-        class="filter-item">
-      </el-input>
+      <el-date-picker
+      v-model="listQuery.selectDate"
+      type="daterange"
+      range-separator="至"
+      start-placeholder="开始日期"
+      end-placeholder="结束日期"
+      value-format="yyyy-MM-dd HH-mm-ss">
+      </el-date-picker>
+      <el-select  style="width:100px;" :placeholder="$t('info.status')" clearable v-model="listQuery.inventory_type" class="filter-item">
+        <el-option v-for="(item, key, index) in typeStatusMap" :key="item" :label="item" :value="key"/>
+      </el-select>
+      <el-select  clearable style="width:100px;" v-model="listQuery.creater_id" class="filter-item" filterable placeholder="销售">
+        <el-option v-for="user in userList" :key="user.id" :label="user.nick_name" :value="user.id"/>
+      </el-select>
+      <el-select  clearable style="width:100px;" v-model="listQuery.goods_id" class="filter-item" filterable placeholder="礼品">
+        <el-option v-for="goods in goodsList" :key="goods.id" :label="goods.name" :value="goods.id"/>
+      </el-select>
       <el-button v-waves class="filter-item" type="primary" icon="el-icon-search" @click="handleFilter">{{ $t('table.search') }}</el-button>
     </div>
     <el-table
@@ -23,9 +33,15 @@
           <span>{{ scope.row.id }}</span>
         </template>
       </el-table-column>
+      <el-table-column :label="$t('inventoryDetail.inventory_code')" align="center">
+        <template slot-scope="scope">
+          <span>{{scope.row.inventory_code}}</span>
+        </template>
+      </el-table-column>
       <el-table-column :label="$t('inventoryDetail.serviceName')" align="center">
         <template slot-scope="scope">
           <span>{{scope.row.belongs_to_service_detail.name}}</span>
+          <span v-if="scope.row.inventory_type == 2" >[{{scope.row.belongs_to_service_detail.id}}]</span>
         </template>
       </el-table-column>
       <el-table-column :label="$t('inventoryDetail.goodsName')"  show-overflow-tooltip align="center">
@@ -63,7 +79,7 @@
     <div class="pagination-container">
       <el-pagination v-show="total>0" :current-page="listQuery.page" :total="total" background layout="total, prev, pager, next"  @current-change="handleCurrentChange"/>
     </div>
-    <el-dialog  :visible.sync="dialogInfoVisible">
+    <el-dialog :visible.sync="dialogInfoVisible">
       <el-row>
         <el-col :span="8"><div class="grid-content bg-purple self-style">
           {{ $t('inventoryDetail.goodsName') }}:<span>{{ temp.belongs_to_goods.name }}</span></div>
@@ -77,32 +93,58 @@
       </el-row>
       <div v-if="temp.inventory_type == 2">
         <el-row >
-        <el-col :span="24"><div class="grid-content bg-purple-dark self-style"><span>业务详情</span></div></el-col>
-        </el-row>
-        <el-row  
-          v-for="(goods, group_index) in temp.has_many_service_detail_goods" 
-          :key="goods.key">
-          <el-col :span="12" >
+          <el-col :span="24">
             <div class="grid-content bg-purple self-style">
-              <span>{{goods.goods_name}}</span>
-            </div>
-          </el-col>
-          <el-col :span="6" >
-            <div class="grid-content bg-purple self-style">
-              {{ $t('serviceDetail.goods_num') }}:<span>{{goods.goods_num}}</span>
-            </div>
-          </el-col>
-          <el-col :span="6" >
-            <div class="grid-content bg-purple self-style">
-              <span>{{goods.goods_price}}元</span>
+              {{ $t('serviceDetail.serviceName') }}:<span>{{temp.belongs_to_service_detail.name}}</span>
             </div>
           </el-col>
         </el-row>
-        <el-row >
+        <el-row>
+          <el-col :span="12"><div class="grid-content bg-purple-light self-style">
+            {{ $t('serviceDetail.customer') }}:<span>{{temp.belongs_to_service_detail.customer}}</span>
+          </div></el-col> 
+          <el-col :span="12"><div class="grid-content bg-purple-light self-style">
+            {{ $t('serviceDetail.customer_telephone') }}:<span>{{temp.belongs_to_service_detail.customer_telephone}}</span>
+          </div></el-col> 
+        </el-row>
+        <el-row>
+          <el-col :span="6"><div class="grid-content bg-purple self-style">
+            {{ $t('serviceDetail.charge_price') }}:<span>{{temp.belongs_to_service_detail.charge_price}}</span></div>
+          </el-col>
+          <el-col :span="6"><div class="grid-content bg-purple-light self-style">
+            {{ $t('serviceDetail.goods_num') }}:<span>{{temp.belongs_to_service_detail.goods_num}}</span>
+          </div></el-col>
+          <el-col :span="6"><div class="grid-content bg-purple self-style">
+            {{ $t('serviceDetail.goods_cost') }}:<span>{{temp.belongs_to_service_detail.goods_cost}}</span></div>
+          </el-col>
+          <el-col :span="6"><div class="grid-content bg-purple-light self-style">
+            {{ $t('serviceDetail.inventory_percentage') }}:<span>{{temp.belongs_to_service_detail.inventory_percentage}}元</span>
+          </div></el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="6"><div class="grid-content bg-purple self-style">
+            {{ $t('serviceDetail.inventory_profit') }}:<span>{{temp.belongs_to_service_detail.inventory_profit}}</span></div>
+          </el-col>
+          <el-col :span="6"><div class="grid-content bg-purple self-style">
+            {{ $t('serviceDetail.inventer_ticheng') }}:<span>{{temp.belongs_to_service_detail.inventer_ticheng}}</span></div>
+          </el-col>
+          <el-col :span="6"><div class="grid-content bg-purple self-style">
+            {{ $t('table.date') }}:<span>{{temp.created_at | parseTime('{y}-{m}-{d}') }}</span>
+          </div></el-col> 
+          <el-col :span="6">
+            <div class="grid-content bg-purple self-style">
+              {{ $t('serviceDetail.remark') }}:
+              <span>
+                {{temp.belongs_to_service_detail.remark}}
+              </span>
+            </div>
+          </el-col>
+        </el-row>
+        <el-row>
           <el-col :span="24"><div class="grid-content bg-purple-dark self-style"><span>礼品列表</span></div></el-col>
         </el-row>
         <el-row  
-          v-for="(goods, group_index) in temp.has_many_service_detail_goods" 
+          v-for="(goods, group_index) in temp.belongs_to_service_detail.has_many_service_detail_goods" 
           :key="goods.key">
           <el-col :span="12" >
             <div class="grid-content bg-purple self-style">
@@ -121,25 +163,6 @@
           </el-col>
         </el-row>
       </div>
-      <el-row  
-        v-for="(goods, group_index) in temp.has_many_service_detail_goods" 
-        :key="goods.key">
-        <el-col :span="12" >
-          <div class="grid-content bg-purple self-style">
-            <span>{{goods.goods_name}}</span>
-          </div>
-        </el-col>
-        <el-col :span="6" >
-          <div class="grid-content bg-purple self-style">
-            {{ $t('serviceDetail.goods_num') }}:<span>{{goods.goods_num}}</span>
-          </div>
-        </el-col>
-        <el-col :span="6" >
-          <div class="grid-content bg-purple self-style">
-            <span>{{goods.goods_price}}元</span>
-          </div>
-        </el-col>
-      </el-row>
     </el-dialog>
   </div>
 </template>
@@ -147,6 +170,8 @@
 <script>
 
 import { inventoryDetailList, createInventoryDetail, getInventoryDetail, updateInventoryDetail, deleteInventoryDetail } from '@/api/inventoryDetail'
+import { userAll, } from '@/api/user'
+import { goodsAll, } from '@/api/goods'
 import waves from '@/directive/waves' // 水波纹指令
 import { parseTime } from '@/utils'
 
@@ -192,10 +217,19 @@ export default {
       listLoading: true,
       listQuery: {
         page: 1,
+        selectDate: '',
+        creater_id: '',
+        inventory_type: '',
+        goods_id: '',
       },
+      userList: [],
+      goodsList: [],
       calendarTypeOptions,
       temp: { 
         belongs_to_goods: {},
+        belongs_to_service_detail: {
+          has_many_service_detail_goods: {},
+        },
       },
       typeStatusMap: chuRuKu,
       dialogInfoVisible: false,
@@ -203,9 +237,11 @@ export default {
     }
   },
   created() {
-    this.getList()
-    /*console.log(chuRuKu)
-    console.log(this.typeStatusMap)*/
+    Promise.all([
+      this.getList(),
+      this.getUserList(),
+      this.getGoodsList(),
+    ])
   },
   methods: {
     getList() {
@@ -220,8 +256,24 @@ export default {
         }, 1.5 * 1000)
       })
     },
+    getUserList() {
+      userAll().then(response => {
+        // console.log(response.data)
+        // return false
+        this.userList = response.data
+      })
+    },
+    getGoodsList() {
+      goodsAll().then(response => {
+        // console.log(response.data)
+        // return false
+        this.goodsList = response.data.data
+      })
+    },
     handleFilter() {
       this.listQuery.page = 1
+      console.log(this.listQuery)
+      // return false
       this.getList()
     },
     handleSizeChange(val) {
@@ -285,5 +337,13 @@ export default {
     text-align: -webkit-center;
     font-size: 20px;
     padding: 10px 0px;
+  }
+
+  .el-date-editor .el-range-separator{
+    padding:0px;
+  }
+
+  .filter-container .filter-item {
+    margin-bottom: 5px;
   }
 </style>

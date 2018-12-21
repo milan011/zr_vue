@@ -37,13 +37,17 @@ class ServiceDetailRepository implements ServiceDetailRepositoryInterface
     }
 
     // 获得业务列表
-    public function getAllServiceDetail()
+    public function getAllServiceDetail($query_list)
     {   
-        return ServiceDetail::where('status', '1')
-                            ->with('belongsToCreater')
-                            ->with('hasManyServiceDetailGoods')
-                            ->orderBy('created_at', 'DESC')
-                            ->paginate(10);
+        $query = new ServiceDetail();       // 返回的是一个Plan实例,两种方法均可
+        // dd($request->all());
+        $query = $query->addCondition($query_list); //根据条件组合语句
+
+        return $query->where('status', '1')
+                     ->with('belongsToCreater')
+                     ->with('hasManyServiceDetailGoods')
+                     ->orderBy('created_at', 'DESC')
+                     ->paginate(10);
     }
 
     // 获得所有业务

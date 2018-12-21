@@ -33,14 +33,18 @@ class InventoryDetailRepository implements InventoryDetailRepositoryInterface
     }
 
     // 获得套餐列表
-    public function getAllInventoryDetail()
+    public function getAllInventoryDetail($queryList)
     {   
-        return InventoryDetail::where('status', '1')
-                              ->with('belongsToCreater')
-                              ->with('belongsToGoods')
-                              ->with('belongsToServiceDetail')
-                              ->orderBy('id', 'DESC')
-                              ->paginate(10);
+        $query = new InventoryDetail();       // 返回的是一个Plan实例,两种方法均可
+        // dd($request->all());
+        $query = $query->addCondition($queryList); //根据条件组合语句
+
+        return $query->where('status', '1')
+                     ->with('belongsToCreater')
+                     ->with('belongsToGoods')
+                     ->with('belongsToServiceDetail')
+                     ->orderBy('id', 'DESC')
+                     ->paginate(10);
     }
 
     // 获得所有套餐

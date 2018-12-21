@@ -33,7 +33,7 @@ class ServiceController extends Controller
     public function index(Request $request)
     {
         // dd($request->all());
-
+        
         $services = $this->service->getAllService();
 
         // dd($services);

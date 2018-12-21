@@ -294,6 +294,7 @@ export default {
   inventoryDetail:{
     serviceName: '业务',
     goodsName: '礼品',
+    inventory_code: '单号',
     type: '出/入库',
     inventory_num: '数量',
     remark: '备注',

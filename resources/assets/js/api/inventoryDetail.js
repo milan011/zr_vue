@@ -9,7 +9,7 @@ export function inventoryDetailList(query, token = getToken()) {
     // url: '/user/list',
     url: ROAST_CONFIG.API_URL + '/inventoryDetailList',
     method: 'get',
-    params: {token, page:query.page}
+    params: {token, query, page:query.page}
   })
 }
 

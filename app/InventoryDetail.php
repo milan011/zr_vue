@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use DB;
+use Auth;
 
 class InventoryDetail extends Model
 {
@@ -54,6 +55,36 @@ class InventoryDetail extends Model
             ') values (?'.str_repeat(',?',count($array) - 1).')',array_values($array));
     }
 
+    // 搜索条件处理
+    public function addCondition($queryList){
+
+        $query = $this;
+
+        // dd($queryList);
+
+        if(!(Auth::user()->isSuperAdmin())){
+
+            $query = $query->where('creater_id', Auth::id());  
+        }else{
+            if(!empty($queryList['creater_id'])){
+                $query = $query->where('creater_id',$queryList['creater_id']);
+            }
+        }         
+
+        if(!empty($queryList['inventory_type'])){
+            $query = $query->where('inventory_type',$queryList['inventory_type']);
+        }
+
+        if(!empty($queryList['goods_id'])){
+            $query = $query->where('goods_id', $queryList['goods_id']);
+        }
+
+        if(!empty($queryList['selectDate'])){
+            $query = $query->whereBetween('created_at', $queryList['selectDate']);
+        }
+       
+        return $query;
+    }
 
     // 定义ServiecDetail表与InventoryDetail表一对多关系
     public function belongsToServiceDetail(){
