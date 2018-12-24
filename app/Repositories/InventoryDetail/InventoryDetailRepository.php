@@ -21,7 +21,7 @@ class InventoryDetailRepository implements InventoryDetailRepositoryInterface
     //默认查询数据
     protected $select_columns = ['id','goods_id', 'inventory_code', 'inventory_type', 'inventory_price', 'goods_nums', 'remark', 'creater_id', 'created_at', 'updated_at'];
 
-    // 根据ID获得套餐信息
+    // 根据ID获得库存明细信息
     public function find($id)
     {
         return InventoryDetail::select($this->select_columns)
@@ -32,22 +32,31 @@ class InventoryDetailRepository implements InventoryDetailRepositoryInterface
                               ->findOrFail($id);
     }
 
-    // 获得套餐列表
+    // 获得库存明细列表
     public function getAllInventoryDetail($queryList)
     {   
         $query = new InventoryDetail();       // 返回的是一个Plan实例,两种方法均可
         // dd($request->all());
         $query = $query->addCondition($queryList); //根据条件组合语句
 
-        return $query->where('status', '1')
+        $query = $query->where('status', '1')
                      ->with('belongsToCreater')
                      ->with('belongsToGoods')
                      ->with('belongsToServiceDetail')
-                     ->orderBy('id', 'DESC')
-                     ->paginate(10);
+                     ->orderBy('id', 'DESC');
+
+        if($queryList['withNoPage']){ //无分页,全部返还
+
+            return $query->get();
+        }else{
+
+            return $query->paginate(10);
+        }
+
+        
     }
 
-    // 获得所有套餐
+    // 获得所有库存明细
     public function getInventoryDetails()
     {   
         return InventoryDetail::select($this->select_columns)
@@ -59,7 +68,7 @@ class InventoryDetailRepository implements InventoryDetailRepositoryInterface
                        ->get();
     }
 
-    // 创建套餐
+    // 创建库存明细
     public function create($requestData)
     {   
         // dd($requestData->all());
@@ -82,7 +91,7 @@ class InventoryDetailRepository implements InventoryDetailRepositoryInterface
            
             foreach ($requestData->return_moon_price_list as $key => $price) {
 
-                $package_info = new InventoryDetailInfo(); //套餐信息对象
+                $package_info = new InventoryDetailInfo(); //库存明细信息对象
 
                 $package_info->pid           = $package->id;
                 $package_info->nums          = $package->month_nums;
@@ -98,7 +107,7 @@ class InventoryDetailRepository implements InventoryDetailRepositoryInterface
         return $package_obj;
     }
 
-    // 修改套餐
+    // 修改库存明细
     public function update($requestData, $id)
     {   
         $package_obj = (object) '';
@@ -114,15 +123,15 @@ class InventoryDetailRepository implements InventoryDetailRepositoryInterface
             $package->fill($input)->save();
             // dd($package->hasManyInventoryDetailInfo);
             foreach ($package->hasManyInventoryDetailInfo as $key => $value) {
-                //删除原有套餐月返还信息
+                //删除原有库存明细月返还信息
                 $value->status = '0';
                 $value->save();
                 // dd(lastSql());
             }
             
             foreach ($requestData->return_moon_price_list as $key => $price) {
-                //新建套餐月返还信息
-                $package_info = new InventoryDetailInfo(); //套餐信息对象
+                //新建库存明细月返还信息
+                $package_info = new InventoryDetailInfo(); //库存明细信息对象
 
                 $package_info->pid          = $package->id;
                 $package_info->nums         = $package->month_nums;
@@ -136,7 +145,7 @@ class InventoryDetailRepository implements InventoryDetailRepositoryInterface
         return $package_obj;
     }
 
-    // 删除套餐
+    // 删除库存明细
     public function destroy($id)
     {
         try {
@@ -151,7 +160,7 @@ class InventoryDetailRepository implements InventoryDetailRepositoryInterface
         }      
     }
 
-    //判断套餐是否重复
+    //判断库存明细是否重复
     public function isRepeat($requestData){
 
         $package = InventoryDetail::select('id', 'name')

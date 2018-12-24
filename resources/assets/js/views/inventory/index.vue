@@ -1,13 +1,15 @@
 <template>
   <div class="app-container">
     <div class="filter-container">       
-      <el-input 
-        :placeholder="$t('infoDianxin.return_telephone')"
-        clearable 
-        v-model="listQuery.selectTelephone"
-        style="width: 150px;" 
-        class="filter-item">
-      </el-input>
+      <el-date-picker
+        v-model="listQuery.inventoryDate"
+        type="date"
+        placeholder="选择日期"
+        value-format="yyyy-MM-dd HH-mm-ss">
+      </el-date-picker>
+      <el-select  clearable style="width:100px;" v-model="listQuery.goods_id" class="filter-item" filterable placeholder="礼品">
+        <el-option v-for="goods in goodsList" :key="goods.id" :label="goods.name" :value="goods.id"/>
+      </el-select>
       <el-button v-waves class="filter-item" type="primary" icon="el-icon-search" @click="handleFilter">{{ $t('table.search') }}</el-button>
     </div>
 
@@ -19,7 +21,7 @@
       fit
       highlight-current-row
       style="width: 100%;">
-      <el-table-column :label="$t('table.id')" width="60%" align="center">
+      <el-table-column :label="$t('table.id')" width="80%" align="center">
         <template slot-scope="scope">
           <span>{{ scope.row.id }}</span>
         </template>
@@ -104,6 +106,7 @@
 
 // import { goodsAll } from '@/api/goods'
 import { inventoryList, createInventory } from '@/api/inventory'
+import { goodsAll, } from '@/api/goods'
 import waves from '@/directive/waves' // 水波纹指令
 import { parseTime } from '@/utils'
 import { foodStatus }  from '@/config.js'
@@ -148,7 +151,11 @@ export default {
       listLoading: true,
       listQuery: {
         page: 1,
+        inventoryDate: '',
+        withNoPage: false,
+        goods_id: '',
       },
+      goodsList: [],
       calendarTypeOptions,
       showReviewer: false,
       temp: {
@@ -175,7 +182,7 @@ export default {
   },
   created() {
     this.getInventoryList()
-
+    this.getGoodsList()
   },
   methods: {
     getInventoryList() {
@@ -190,8 +197,17 @@ export default {
         }, 1.5 * 1000)
       })
     },
+    getGoodsList() {
+      goodsAll().then(response => {
+        // console.log(response.data)
+        // return false
+        this.goodsList = response.data.data
+      })
+    },
     handleFilter() {
       this.listQuery.page = 1
+      console.log(this.listQuery)
+      // return false
       this.getInventoryList()
     },
     handleCurrentChange(val) {
@@ -316,5 +332,8 @@ export default {
     text-align: -webkit-center;
     font-size: 20px;
     padding: 10px 0px;
+  }
+  .filter-container .filter-item {
+    margin-bottom: 5px;
   }
 </style>

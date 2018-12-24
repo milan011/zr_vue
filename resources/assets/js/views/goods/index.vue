@@ -443,7 +443,7 @@ export default {
     },
     handleUpdate(row) {
         //row.bottom_price   = parseInt(row.bottom_price)
-        row.in_price       = parseInt(row.in_price)
+        row.in_price       = parseFloat(row.in_price)
         this.temp = Object.assign({}, row) // copy obj
         this.dialogStatus = 'update'
         this.dialogFormVisible = true

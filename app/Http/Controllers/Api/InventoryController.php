@@ -33,8 +33,17 @@ class InventoryController extends Controller
     public function index(Request $request)
     {
         // dd($request->all());
+        $query_list = jsonToArray($request->input('query')); //获取搜索信息
 
-        $inventorys = $this->inventory->getAllInventory();
+        // dd($query_list);
+        if(!empty($query_list['inventoryDate'])){
+            //查询历史库存
+            // dd('查理斯');
+            $inventorys = $this->inventory->getHistoryInventory($query_list);
+        }else{
+            $inventorys = $this->inventory->getAllInventory($query_list);
+        }
+
         // dd($inventorys[1]);
 
         /*foreach ($inventorys as $key => $value) {

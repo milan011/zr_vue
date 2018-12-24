@@ -6,7 +6,7 @@ interface InventoryRepositoryInterface
     
     public function find($id);
     
-    public function getAllInventory();
+    public function getAllInventory($query_list);
 
     public function create($requestData);
 

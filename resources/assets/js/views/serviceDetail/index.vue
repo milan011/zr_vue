@@ -470,9 +470,9 @@ export default {
         id: undefined,
         serviceName: '',
         service_id: '',
-        customer: '阿宝',
-        customer_telephone: '13731080174',
-        charge_price: 1200,
+        customer: '',
+        customer_telephone: '',
+        charge_price: 0,
         goodsIdList: [
           {goodsId:'', num: '1',  add: true}, 
         ],

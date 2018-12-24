@@ -16,12 +16,23 @@ use DB;
 use Debugbar;
 use App\Repositories\BaseInterface\Repository;
 use App\Repositories\Inventory\InventoryRepositoryInterface;
+use App\Repositories\InventoryDetail\InventoryDetailRepositoryInterface;
 
 class InventoryRepository implements InventoryRepositoryInterface
 {
 
     //默认查询数据
     protected $select_columns = ['id','goods_id', 'inventory_now',  'created_at', 'updated_at'];
+    protected $inventoryDetail;
+
+    public function __construct(
+
+        InventoryDetailRepositoryInterface $inventoryDetail
+    ) {
+    
+        $this->inventoryDetail = $inventoryDetail;
+        // $this->middleware('brand.create', ['only' => ['create']]);
+    }
 
     // 根据ID获得库存信息
     public function find($id)
@@ -31,7 +42,7 @@ class InventoryRepository implements InventoryRepositoryInterface
     }
 
     // 获得库存列表
-    public function getAllInventory()
+    public function getAllInventory($query_list)
     {   
         $goodsNowList = [];
         $goodsNow = Goods::where('status', '1')->select('id')->get(); //当前有效商品
@@ -42,25 +53,62 @@ class InventoryRepository implements InventoryRepositoryInterface
         }
 
         // dd($goodsNowList);
+        $query = new Inventory();       // 返回的是一个Plan实例,两种方法均可
+        // dd($request->all());
+        $query = $query->addCondition($query_list); //根据条件组合语句
 
-        return Inventory::where('status', '1')
-                        /*->with(['belongsToGoods'=>function($query){
-                            $query->where('status','1');
-                        }])*/
-                        ->whereIn('id', $goodsNowList)
-                        ->with('belongsToGoods')
-
-                        ->orderBy('created_at', 'DESC')
-                        ->paginate(10);
+        return $query->where('status', '1')
+                     /*->with(['belongsToGoods'=>function($query){
+                         $query->where('status','1');
+                     }])*/
+                     ->whereIn('id', $goodsNowList)
+                     ->with('belongsToGoods') 
+                     ->orderBy('created_at', 'DESC')
+                     ->paginate(10);
     }
 
-    // 获得所有库存
-    public function getInventorys()
+    // 获得历史有库存
+    public function getHistoryInventory($query_list)
     {   
-        return Inventory::select($this->select_columns)
-                       ->where('status', '1')
-                       ->orderBy('package_price')
-                       ->get();
+        //首选查询当前库存,再根据需查询的历史时间点,查询历史时间点到现在所有库存明细,计算出历史库存
+        // p($query_list);
+        $date_now = Carbon::tomorrow()->toDateTimeString();
+
+        // dd($date_now);
+        //当前库存状态
+        $inventory_now = $this->getAllInventory($query_list);
+
+        // dd($this->inventoryDetail);
+        foreach ($inventory_now as $key => $value) {
+            // dd($value);
+            $query['goods_id']   = $value['goods_id'];
+            $query['withNoPage'] = true;
+            $query['selectDate'] = array(
+                $query_list['inventoryDate'],
+                $date_now
+            );
+            // dd($query);
+            $inventory_details = $this->inventoryDetail->getAllInventoryDetail($query);
+            // dd(lastSql());
+            foreach ($inventory_details as $k => $v) {
+                # code...
+                // dd($v);
+                if($v->inventory_type == '1'){
+                    //入库
+                    /*p('入库');
+                    dd($v->goods_nums);*/
+                    $value->inventory_now += $v->goods_nums;
+                }else{
+                    //出库
+                    /*p('出库');
+                    dd($v->goods_nums);*/
+                    $value->inventory_now -= $v->goods_nums;
+                }
+            }
+            // dd($inventory_details);
+        }
+
+        return $inventory_now;
     }
 
     // 创建库存

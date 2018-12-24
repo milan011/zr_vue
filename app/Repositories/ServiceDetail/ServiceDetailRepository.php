@@ -113,7 +113,7 @@ class ServiceDetailRepository implements ServiceDetailRepositoryInterface
             }
 
             $inventory_profit = $inventory_percentage - $goods_cost;
-            $inventer_ticheng = $inventory_profit*30/100;
+            $inventer_ticheng = $inventory_profit*25/100;
 
             // dd($serviceInfo);
             // dd($inventory_percentage);

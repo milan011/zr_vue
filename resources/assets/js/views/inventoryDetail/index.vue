@@ -221,6 +221,7 @@ export default {
         creater_id: '',
         inventory_type: '',
         goods_id: '',
+        withNoPage: false,
       },
       userList: [],
       goodsList: [],
