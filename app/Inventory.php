@@ -25,7 +25,7 @@ class Inventory extends Model
      * 定义可批量赋值字段
      * @var array
      */
-    protected $fillable = ['id','goods_id', 'inventory_now',  'created_at', 'updated_at'];
+    protected $fillable = ['id','goods_id', 'repertory_id', 'inventory_now',  'created_at', 'updated_at'];
 
     /**
      * The attributes excluded from the model's JSON form.
@@ -75,6 +75,10 @@ class Inventory extends Model
             $query = $query->where('goods_id', $queryList['goods_id']);
         }
 
+        if(!empty($queryList['repertory_id'])){
+            $query = $query->where('repertory_id', $queryList['repertory_id']);
+        }
+
         /*if(!empty($queryList['selectDate'])){
             $query = $query->whereBetween('created_at', $queryList['selectDate']);
         }*/
@@ -92,6 +96,12 @@ class Inventory extends Model
     public function hasManyInventoryDetail(){
 
       return $this->hasMany('App\InventoryDetail', 'goods_id', 'goods_id');
+    }
+
+    // 定义Inventory表与Repertory表一对多关系
+    public function belongsToRepertory(){
+
+      return $this->belongsTo('App\Repertory', 'repertory_id', 'id');
     }
 
     // 定义User表与Inventory表一对多关系

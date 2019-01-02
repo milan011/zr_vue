@@ -138,7 +138,9 @@ class ServiceDetailRepository implements ServiceDetailRepositoryInterface
             foreach ($goodsList as $key => $g) {
                 //添加业务赠品详情,对应赠品库存处理(减库存)
                 $sevice_goods_info      = new ServiceDetailGoods(); //业务信息赠品对象
-                $sevice_goods_inventory = Inventory::findorFail($g['goodsId']); //业务信息赠品库存对象
+                $sevice_goods_inventory = Inventory::where('repertory_id', Auth::user()
+                                                   ->repertory_id)
+                                                   ->findorFail($g['goodsId']); //业务信息赠品库存对象
                 $out_inventory          = new InventoryDetail(); //出库明细
 
                 //业务赠品处理
@@ -161,6 +163,7 @@ class ServiceDetailRepository implements ServiceDetailRepositoryInterface
 
                 $out_inventory->inventory_type    = '2';
                 $out_inventory->service_detail_id = $new_sevice->id;
+                $out_inventory->repertory_id      = Auth::user()->repertory_id;
                 $out_inventory->inventory_code    = $code;
                 $out_inventory->creater_id        = Auth::id();
                 $out_inventory->goods_id          = $g['goodsId'];

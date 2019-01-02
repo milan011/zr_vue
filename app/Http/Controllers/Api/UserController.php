@@ -36,10 +36,13 @@ class UserController extends Controller
     public function index(Request $request)
     {
 
-        $users = User::where('id', '!=', '1')->orderBy('created_at', 'DESC')->paginate(10);
+        $users = User::where('id', '!=', '1')
+                     ->with('belongsToRepertory')
+                     ->orderBy('created_at', 'DESC')
+                     ->paginate(10);
 
         // return new UserResource($users);
-
+        // dd($users[2]);
         return $users;
     }
 

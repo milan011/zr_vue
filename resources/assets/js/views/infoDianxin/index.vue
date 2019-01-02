@@ -124,7 +124,7 @@ import { infoDianxinStatus, package_year ,package_month }  from '@/config.js'
 import UploadExcelComponent from '@/components/UploadExcel/upload.vue'
 
 export default {
-  name: 'infoSelfList',
+  name: 'infoDianxinList',
   components: { FormInfo, ShowInfo, UploadExcelComponent },
   directives: {
     waves

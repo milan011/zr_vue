@@ -18,6 +18,7 @@ import infoStatisticsRouter from './modules/infoStatistics'
 import goodsRouter from './modules/goods'
 import serviceRouter from './modules/service'
 import inventoryRouter from './modules/inventory'
+import repertoryRouter from './modules/repertory'
 /*import componentsRouter from './modules/components'
 import chartsRouter from './modules/charts'
 import tableRouter from './modules/table'
@@ -115,8 +116,10 @@ export const asyncRouterMap = [
   managerRouter,
   packageRouter,
   goodsRouter,
+  repertoryRouter,
   serviceRouter,
   inventoryRouter,
+  
 
   { path: '*', redirect: '/404', hidden: true }
 ]

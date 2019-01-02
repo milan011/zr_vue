@@ -25,7 +25,7 @@ class InventoryDetail extends Model
      * 定义可批量赋值字段
      * @var array
      */
-    protected $fillable = ['id','goods_id', 'inventory_code', 'inventory_type', 'inventory_price', 'goods_nums', 'remark', 'creater_id', 'created_at', 'updated_at'];
+    protected $fillable = ['id','goods_id', 'inventory_code', 'repertory_id', 'inventory_type', 'inventory_price', 'goods_nums', 'remark', 'creater_id', 'created_at', 'updated_at'];
 
     /**
      * The attributes excluded from the model's JSON form.
@@ -91,7 +91,16 @@ class InventoryDetail extends Model
 
       return $this->belongsTo('App\ServiceDetail', 'service_detail_id', 'id')
                   ->withDefault([
-                        'name' => '管理员入库',
+                        'name' => '管理员入库/调拨',
+                    ]);
+    }
+
+    // 定义Repertory表与Repertory表一对多关系
+    public function belongsToRepertory(){
+
+      return $this->belongsTo('App\Repertory', 'repertory_id', 'id')
+                  ->withDefault([
+                        'name' => '无',
                     ]);
     }
 

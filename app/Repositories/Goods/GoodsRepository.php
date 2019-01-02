@@ -2,6 +2,8 @@
 namespace App\Repositories\Goods;
 
 use App\Goods;
+use App\Inventory;
+use App\Repertory;
 use Session;
 use Illuminate\Http\Request;
 use Gate;
@@ -50,20 +52,45 @@ class GoodsRepository implements GoodsRepositoryInterface
     public function create($requestData)
     {   
         // dd($requestData->all());
-
-        $requestData['creater_id']    = Auth::id();
-        $requestData['status']        = '1';
-        
-        $goods = new Goods();
-        $input =  array_replace($requestData->all());
-        // $input =  array_filter($input);
-        $goods->fill($input);
-        // dd($goods);
-        $newGoods = $goods->create($input);
-        // dd($goods);
-        // dd($requestData->month_price);
+        DB::beginTransaction();
+        try {
+            $requestData['creater_id']    = Auth::id();
+            $requestData['status']        = '1';
+            
+            $goods = new Goods();
+            $input =  array_replace($requestData->all());
+            // $input =  array_filter($input);
+            $goods->fill($input);
+            // dd($goods);
+            $newGoods = $goods->create($input);
+            // dd($goods);
+            // dd($requestData->month_price);
            
-        return $newGoods;
+            //库存添加
+            $inventory = new Inventory();
+
+            $allRepertory = Repertory::where('status', '1')->get();
+
+            foreach ($allRepertory as $key => $value) {
+                # code...
+                $inventory->goods_id       = $newGoods->id;
+                $inventory->status         = '1';
+                $inventory->repertory_id   = $value->id;
+                $inventory->inventory_now  = '0';
+    
+                $inventory->save();
+            }
+
+            
+
+            DB::commit();
+            return $newGoods;
+        } catch (\Exception $e) {
+            throw $e;
+            DB::rollBack();
+            return false;
+        }
+        
     }
 
     // 修改商品

@@ -59,8 +59,9 @@ class InventoryController extends Controller
                 return $value;
             }
         });
-
-        dd($inventorys);*/
+        */
+        // dd(lastSql());
+        // dd($inventorys);
         return new InventoryResource($inventorys);
     }
 
@@ -100,6 +101,25 @@ class InventoryController extends Controller
         // dd($new_inventory);
         if($new_inventory){ //添加成功
             return $this->baseSucceed($respond_data = $new_inventory, $message = '添加成功');
+        }else{  //添加失败
+            return $this->baseFailed($message = '内部错误');
+        }   
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     * 库存调拨
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function allocationInventory(Request $inventoryRequest)
+    {
+        // dd($inventoryRequest->all());
+        $new_inventory = $this->inventory->allocation($inventoryRequest);
+        // $new_inventory->belongsToCreater;
+        // dd($new_inventory);
+        if($new_inventory){ //添加成功
+            return $this->baseSucceed($respond_data = $new_inventory, $message = '调拨成功');
         }else{  //添加失败
             return $this->baseFailed($message = '内部错误');
         }   

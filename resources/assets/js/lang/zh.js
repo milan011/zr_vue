@@ -42,7 +42,7 @@ export default {
     inventoryDetail: '库存明细',
     serviceList: '业务列表',
     serviceDetail: '业务明细',
-
+    cangku: '仓库管理',
   },
   navbar: {
     logOut: '退出登录',
@@ -148,6 +148,7 @@ export default {
     status: '状态',
     remark: '备注',
     creater: '创建者',
+    repertory: '所属仓库',
     add: '添加'
   },
   role: {
@@ -290,6 +291,8 @@ export default {
     goodsName: '礼品',
     inventoryNow: '当前库存',
     inventoryAdd: '添加库存',
+    target_repertory: '目标仓库',
+    allocation: '库存调拨',
   },
   inventoryDetail:{
     serviceName: '业务',
@@ -298,5 +301,10 @@ export default {
     type: '出/入库',
     inventory_num: '数量',
     remark: '备注',
+    inventory_repertory: '所属仓库',
+  },
+  repertory:{
+    name: '仓库',
+    address: '仓库地址',
   },
 }

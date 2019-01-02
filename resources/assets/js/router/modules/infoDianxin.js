@@ -9,6 +9,7 @@ const infoDianxinRouter = {
     meta: {
       title: '',
       icon: 'message',
+      noCache: true,
       roles: ['admin', 'manager'],
     },
     children: [
@@ -16,7 +17,7 @@ const infoDianxinRouter = {
         path: 'index',
         component: resolve => void(require(['@/views/infoDianxin/index'], resolve)),
         name: 'infoDianxinList',
-        meta: { title: 'infoDianXin' }
+        meta: { title: 'infoDianXin', noCache: true }
       },
     ]
 }

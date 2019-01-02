@@ -30,6 +30,15 @@ export function getInventory(data, token = getToken()) {
   })
 }
 
+export function allocationInventory(data, token = getToken()) {
+  return request({
+    url: ROAST_CONFIG.API_URL + '/allocationInventory',
+    method: 'post',
+    data,
+    params: {token}
+  })
+}
+
 export function createInventory(data, token = getToken()) {
   return request({
     url: ROAST_CONFIG.API_URL + '/inventory',

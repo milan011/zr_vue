@@ -10,6 +10,9 @@
       <el-select  clearable style="width:100px;" v-model="listQuery.goods_id" class="filter-item" filterable placeholder="礼品">
         <el-option v-for="goods in goodsList" :key="goods.id" :label="goods.name" :value="goods.id"/>
       </el-select>
+      <el-select  clearable style="width:100px;" v-model="listQuery.repertory_id" class="filter-item" filterable placeholder="仓库">
+        <el-option v-for="repertory in repertoryList" :key="repertory.id" :label="repertory.name" :value="repertory.id"/>
+      </el-select>
       <el-button v-waves class="filter-item" type="primary" icon="el-icon-search" @click="handleFilter">{{ $t('table.search') }}</el-button>
     </div>
 
@@ -32,6 +35,12 @@
             <span v-else></span>
         </template>
       </el-table-column>
+      <el-table-column :label="$t('repertory.name')" show-overflow-tooltip align="center">
+        <template slot-scope="scope">
+          <span v-if="scope.row.belongs_to_repertory">{{scope.row.belongs_to_repertory.name}}</span>
+            <span v-else></span>
+        </template>
+      </el-table-column>
       <el-table-column :label="$t('inventory.inventoryNow')" show-overflow-tooltip align="center">
         <template slot-scope="scope">
           <span>{{ scope.row.inventory_now }}</span>
@@ -40,8 +49,8 @@
       <el-table-column :label="$t('table.actions')" align="center" width="230" class-name="small-padding fixed-width">
         <template slot-scope="scope">
           <el-button type="success" size="mini" @click="handleCreate(scope.row)">{{ $t('inventory.inventoryAdd') }}</el-button>
-          <!-- <el-button type="primary" size="mini" @click="handleUpdate(scope.row)">{{ $t('table.edit') }}</el-button>
-          <el-button v-if="scope.row.status!='deleted'" size="mini" type="danger" @click="handleModifyStatus(scope.row,'deleted')">{{ $t('table.delete') }}
+          <el-button type="primary" size="mini" @click="handleallocation(scope.row)">{{ $t('inventory.allocation') }}</el-button>
+          <!-- <el-button v-if="scope.row.status!='deleted'" size="mini" type="danger" @click="handleModifyStatus(scope.row,'deleted')">{{ $t('table.delete') }}
           </el-button> -->
         </template>
       </el-table-column>
@@ -66,7 +75,7 @@
               <el-form-item :label="$t('goods.name')">
                 <el-input :disabled="true" v-model="temp.goods_name"/>
               </el-form-item>
-            </el-col>   
+            </el-col>             
             <el-col :span="12">
               <el-form-item :label="$t('goods.goods_num')">
                 <el-input-number 
@@ -80,23 +89,62 @@
               </el-form-item>
             </el-col> 
           </el-row>
-          <el-row>
-            <!-- <el-col :span="12">
-                 <el-form-item :label="$t('goods.in_price')" prop="goods_in_price">
-                   <el-input @change="inPriceChange" v-model.number="temp.goods_in_price"/>
-                 </el-form-item>
-               </el-col> -->   
-            <!-- <el-col :span="12">
-               <el-form-item :label="$t('goods.ruku_price')" prop="ruku_price">
-                 <el-input :disabled="true" v-model.number="temp.ruku_price"/>
-               </el-form-item>
-             </el-col> --> 
-          </el-row>
+
         </div>       
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="dialogFormVisible = false">{{ $t('table.cancel') }}</el-button>
         <el-button  type="primary" @click="createData">{{ $t('table.confirm') }}</el-button>
+      </div>
+    </el-dialog>
+    <el-dialog title="库存调拨" :visible.sync="allocationFormVisible">
+      <el-form 
+        ref="allocationdataForm" 
+        :rules="rules" 
+        :model="allocationTtemp" 
+        :inline="false"
+        label-position="right" 
+        label-width="100px" 
+        style="margin-left:0px;margin-right: 60px;">
+        <div class="createPost-main-container">
+          <el-row>
+            <el-col :span="12">
+              <el-form-item :label="$t('goods.name')">
+                <el-input :disabled="true" v-model="allocationTtemp.goods_name"/>
+              </el-form-item>
+            </el-col> 
+            <el-col :span="12">
+              <el-form-item :label="$t('inventory.target_repertory')" prop="target_repertory_id">
+                <el-select  clearable  v-model="allocationTtemp.target_repertory_id" class="filter-item" filterable placeholder="仓库">
+                  <el-option
+                    v-for="repertory in repertoryList" 
+                    :key="repertory.id" 
+                    :label="repertory.name" 
+                    :value="repertory.id"
+                    v-if="repertory.id != allocationTtemp.repertory_id_now" 
+                  />
+                </el-select>
+              </el-form-item>
+            </el-col>  
+            <el-col :span="12">
+              <el-form-item :label="$t('goods.goods_num')">
+                <el-input-number 
+                  v-model="allocationTtemp.goods_num" 
+                  size="small" 
+                  style="margin-bottom:5px;" 
+                  :min="1" 
+                  :max="100" 
+                  label="数量">
+                </el-input-number>
+              </el-form-item>
+            </el-col> 
+          </el-row>
+          
+        </div>       
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="allocationFormVisible = false">{{ $t('table.cancel') }}</el-button>
+        <el-button  type="primary" @click="allocationData">{{ $t('table.confirm') }}</el-button>
       </div>
     </el-dialog>
   </div>
@@ -105,8 +153,9 @@
 <script>
 
 // import { goodsAll } from '@/api/goods'
-import { inventoryList, createInventory } from '@/api/inventory'
+import { inventoryList, createInventory, allocationInventory } from '@/api/inventory'
 import { goodsAll, } from '@/api/goods'
+import { repertoryAll, } from '@/api/cangku'
 import waves from '@/directive/waves' // 水波纹指令
 import { parseTime } from '@/utils'
 import { foodStatus }  from '@/config.js'
@@ -154,8 +203,10 @@ export default {
         inventoryDate: '',
         withNoPage: false,
         goods_id: '',
+        repertory_id: '',
       },
       goodsList: [],
+      repertoryList: [],
       calendarTypeOptions,
       showReviewer: false,
       temp: {
@@ -171,18 +222,32 @@ export default {
           name: '',
         }         
       },
+      allocationTtemp: {
+        id: undefined,
+        goods_id: '',
+        goods_name: '',
+        goods_num: 0,
+        target_repertory_id: '',
+        inventory_now: '',
+        repertory_id_now: '',
+        belongs_to_goods:{
+          name: '',
+        },  
+        belongs_to_repertory:{
+          name: '',
+        },       
+      },
       dialogFormVisible: false,
+      allocationFormVisible: false,
       rules: {
-        /*goods_in_price: [
-          { required: true, message: '请输入进价' },
-          { type: 'number',  message: '价格应为数字' },
-        ],*/
+        target_repertory_id: [{ required: true, message: '请选择仓库', trigger: 'blur' }],
       },
     }
   },
   created() {
     this.getInventoryList()
     this.getGoodsList()
+    this.getRepertoryList()
   },
   methods: {
     getInventoryList() {
@@ -204,6 +269,13 @@ export default {
         this.goodsList = response.data.data
       })
     },
+    getRepertoryList() {
+      repertoryAll().then(response => {
+        /*console.log(response.data)
+        return false*/
+        this.repertoryList = response.data.data
+      })
+    },
     handleFilter() {
       this.listQuery.page = 1
       console.log(this.listQuery)
@@ -221,7 +293,7 @@ export default {
       this.temp.ruku_price = this.temp.goods_num * this.temp.goods_in_price
     },*/
     resetTemp(row) {
-      this.temp = {
+      this.emp = {
         id: row.id,
         goods_id: row.goods_id,
         goods_name: row.belongs_to_goods.name,
@@ -234,6 +306,79 @@ export default {
           name: '',
         }  
       }
+    },
+    resetAllocationTemp(row) {
+      console.log(row)
+      this.allocationTtemp = {
+        id: row.id,
+        goods_id: row.goods_id,
+        goods_name: row.belongs_to_goods.name,
+        goods_num: 1,
+        target_repertory_id: '',
+        repertory_id_now: row.repertory_id,
+        inventory_now: row.inventory_now,
+        belongs_to_goods:{
+          name: '',
+        },
+        belongs_to_repertory:{
+            name: row.belongs_to_repertory.name
+        }      
+      }
+    },
+    handleallocation(row){
+
+      this.resetAllocationTemp(row)
+      this.allocationFormVisible = true  
+      this.$nextTick(() => {
+        this.$refs['allocationdataForm'].clearValidate()
+      })
+    },
+    allocationData(){
+      this.$refs['allocationdataForm'].validate((valid) => {
+        if (valid) {
+          /*console.log(this.allocationTtemp)
+          return false*/
+          if(this.allocationTtemp.inventory_now < this.allocationTtemp.goods_num){
+            this.$notify.error({
+              title: '失败',
+              message: '库存数量不足',
+              duration: 2000
+            })
+          }else{
+            allocationInventory(this.allocationTtemp).then((response) => {
+              console.log(response.data.data);
+              console.log(this.allocationTtemp);
+              // return false
+              this.allocationTtemp.inventory_now = response.data.data.inventory_now
+              this.allocationTtemp.belongs_to_goods.name     = this.allocationTtemp.goods_name
+  
+              if(response.data.status){
+                for (const v of this.list) {
+                  if (v.id === this.allocationTtemp.id) {
+                    const index = this.list.indexOf(v)
+                    this.list.splice(index, 1, this.allocationTtemp)
+                    break
+                  }
+                }
+                this.allocationFormVisible = false
+                this.$notify({
+                  title: '成功',
+                  message: response.data.message,
+                  type: 'success',
+                  duration: 2000
+                })
+                this.$router.go(0)
+              }else{
+                this.$notify.error({
+                  title: '失败',
+                  message: response.data.message,
+                  duration: 2000
+                })
+              }           
+            })
+          }
+        }
+      })
     },
     handleCreate(row) {
       // console.log(row)
@@ -252,8 +397,8 @@ export default {
           /*console.log(this.temp)
           return false*/
           createInventory(this.temp).then((response) => {
-            console.log(response.data.data);
-            console.log(this.temp);
+            //console.log(response.data.data);
+            //console.log(this.temp);
             // return false
             this.temp.inventory_now = response.data.data.inventory_now
             this.temp.belongs_to_goods.name = this.temp.goods_name

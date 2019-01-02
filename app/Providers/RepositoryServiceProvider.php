@@ -44,5 +44,6 @@ class RepositoryServiceProvider extends ServiceProvider
     $this->app->bind('App\Repositories\Service\ServiceRepositoryInterface','App\Repositories\Service\ServiceRepository');
     $this->app->bind('App\Repositories\ServiceDetail\ServiceDetailRepositoryInterface','App\Repositories\ServiceDetail\ServiceDetailRepository');
     $this->app->bind('App\Repositories\ServiceDetailGoods\ServiceDetailGoodsRepositoryInterface','App\Repositories\ServiceDetailGoods\ServiceDetailGoodsRepository');
+    $this->app->bind('App\Repositories\Repertory\RepertoryRepositoryInterface','App\Repositories\Repertory\RepertoryRepository');
   }
 }

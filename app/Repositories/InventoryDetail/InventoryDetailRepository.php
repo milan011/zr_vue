@@ -42,6 +42,7 @@ class InventoryDetailRepository implements InventoryDetailRepositoryInterface
         $query = $query->where('status', '1')
                      ->with('belongsToCreater')
                      ->with('belongsToGoods')
+                     ->with('belongsToRepertory')
                      ->with('belongsToServiceDetail')
                      ->orderBy('id', 'DESC');
 

@@ -9,6 +9,7 @@ const infoSelfRouter = {
     name: 'InfoSelf',
     meta: {
       title: '',
+      noCache: true,
       icon: 'documentation'
     },
     children: [
@@ -16,7 +17,7 @@ const infoSelfRouter = {
         path: 'index',
         component: resolve => void(require(['@/views/infoSelf/index'], resolve)),
         name: 'infoSelfList',
-        meta: { title: 'info' }
+        meta: { title: 'info' ,noCache: true }
       },
     ]
 }

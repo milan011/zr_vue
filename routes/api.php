@@ -110,6 +110,7 @@ Route::group([
     //Inventory
     Route::get('inventoryList', 'InventoryController@index');
     Route::post('inventory', 'InventoryController@store');
+    Route::post('allocationInventory', 'InventoryController@allocationInventory');
     Route::get('getInventoryInfo/{id}', 'InventoryController@getInfo');
     Route::put('inventory/{id}', 'InventoryController@update');
     Route::delete('inventory/{id}', 'InventoryController@destroy');
@@ -121,6 +122,13 @@ Route::group([
     Route::put('inventoryDetail/{id}', 'InventoryDetailController@update');
     Route::delete('inventoryDetail/{id}', 'InventoryDetailController@destroy');
 
+    //Repertory
+    Route::get('repertoryList', 'RepertoryController@index');
+    Route::get('repertoryAll', 'RepertoryController@repertoryAll'); //所有仓库列表,无分页
+    Route::post('repertory', 'RepertoryController@store');
+    Route::get('getRepertoryInfo/{id}', 'RepertoryController@getInfo');
+    Route::put('repertory/{id}', 'RepertoryController@update');
+    Route::delete('repertory/{id}', 'RepertoryController@destroy');
     /*
     Route::get('all_roles', 'RolesController@allRoles');
     Route::delete('roles/{role}', 'RolesController@destroy');*/

@@ -9,6 +9,7 @@ const serviceRouter = {
     name: 'Service',
     meta: {
       title: 'service',
+      noCache: true,
       icon: 'money',
     },
     children: [
@@ -16,13 +17,13 @@ const serviceRouter = {
         path: 'index',
         component: resolve => void(require(['@/views/service/index'], resolve)),
         name: 'serviceList',
-        meta: { title: 'serviceList', roles: ['admin', 'manager'] }
+        meta: { title: 'serviceList', roles: ['admin', 'manager'], noCache: true }
       },
       {
         path: 'detail',
         component: resolve => void(require(['@/views/serviceDetail/index'], resolve)),
         name: 'serviceDetail',
-        meta: { title: 'serviceDetail', roles: ['admin', 'manager'] }
+        meta: { title: 'serviceDetail', roles: ['admin', 'manager'], noCache: true }
       }
     ]
 }

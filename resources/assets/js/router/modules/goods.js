@@ -10,6 +10,7 @@ const goodsRouter = {
     meta: {
       title: '',
       icon: 'theme',
+      noCache: true,
       roles: ['admin', 'manager']
     },
     children: [
@@ -17,7 +18,7 @@ const goodsRouter = {
         path: 'index',
         component: resolve => void(require(['@/views/goods/index'], resolve)),
         name: 'goodsList',
-        meta: { title: 'goods' }
+        meta: { title: 'goods', noCache: true}
       }
     ]
 }

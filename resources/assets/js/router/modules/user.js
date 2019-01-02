@@ -10,6 +10,7 @@ const userRouter = {
     meta: {
       title: '',
       icon: 'user',
+      noCache: true,
       roles: ['admin', 'manager']
     },
     children: [
@@ -17,7 +18,7 @@ const userRouter = {
         path: 'index',
         component: resolve => void(require(['@/views/user/index'], resolve)),
         name: 'userList',
-        meta: { title: 'user' }
+        meta: { title: 'user', noCache: true }
       },
       /*{
         hidden: true,

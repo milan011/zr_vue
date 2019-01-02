@@ -9,6 +9,7 @@ const infoStatisticsRouter = {
     name: 'InfoStatistics',
     meta: {
       title: '',
+      noCache: true,
       roles: ['admin', 'manager'],
       icon: 'star'
     },
@@ -17,7 +18,7 @@ const infoStatisticsRouter = {
         path: 'index',
         component: resolve => void(require(['@/views/infoStatistics/index'], resolve)),
         name: 'infoStatistics',
-        meta: { title: 'InfoStatistics' }
+        meta: { title: 'InfoStatistics', noCache: true}
       },
     ]
 }

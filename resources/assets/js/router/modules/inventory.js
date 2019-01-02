@@ -10,6 +10,7 @@ const inventoryRouter = {
     meta: {
       title: 'inventory',
       icon: 'component',
+      noCache: true,
       roles: ['admin', 'manager']
     },
     children: [
@@ -17,13 +18,13 @@ const inventoryRouter = {
         path: 'index',
         component: resolve => void(require(['@/views/inventory/index'], resolve)),
         name: 'inventoryGoodsList',
-        meta: { title: 'inventoryList' }
+        meta: { title: 'inventoryList', noCache: true }
       },
       {
         path: 'detail',
         component: resolve => void(require(['@/views/inventoryDetail/index'], resolve)),
         name: 'inventoryDetail',
-        meta: { title: 'inventoryDetail' }
+        meta: { title: 'inventoryDetail' ,noCache: true }
       }
     ]
 }

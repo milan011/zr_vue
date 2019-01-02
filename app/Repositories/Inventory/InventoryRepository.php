@@ -4,6 +4,7 @@ namespace App\Repositories\Inventory;
 use App\Inventory;
 use App\InventoryDetail;
 use App\Goods;
+use App\Repertory;
 use Session;
 use Illuminate\Http\Request;
 use Gate;
@@ -46,23 +47,34 @@ class InventoryRepository implements InventoryRepositoryInterface
     {   
         $goodsNowList = [];
         $goodsNow = Goods::where('status', '1')->select('id')->get(); //当前有效商品
+
+        $repertoryNowList = [];
+        $repertoryNow = Repertory::where('status', '1')->select('id')->get(); //当前有效仓库
         
 
         foreach ($goodsNow as $key => $value) {
             $goodsNowList[] = $value->id;
         }
 
+        foreach ($repertoryNow as $key => $value) {
+            $repertoryNowList[] = $value->id;
+        }
+
+        // dd($repertoryNowList);
+
         // dd($goodsNowList);
         $query = new Inventory();       // 返回的是一个Plan实例,两种方法均可
         // dd($request->all());
         $query = $query->addCondition($query_list); //根据条件组合语句
-
+        // dd($query);
         return $query->where('status', '1')
                      /*->with(['belongsToGoods'=>function($query){
                          $query->where('status','1');
                      }])*/
-                     ->whereIn('id', $goodsNowList)
+                     ->whereIn('goods_id', $goodsNowList)
+                     ->whereIn('repertory_id', $repertoryNowList)
                      ->with('belongsToGoods') 
+                     ->with('belongsToRepertory') 
                      ->orderBy('created_at', 'DESC')
                      ->paginate(10);
     }
@@ -143,6 +155,7 @@ class InventoryRepository implements InventoryRepositoryInterface
             // dd($requestData->$inventory_type);
             
             $newInventoryDetail->goods_id        = $requestData->goods_id;
+            $newInventoryDetail->repertory_id    = Auth::user()->repertory_id;
             $newInventoryDetail->inventory_code  = $code;
             $newInventoryDetail->inventory_type  = $requestData->inventory_type;
             // $newInventoryDetail->inventory_price = $requestData->goods_in_price;
@@ -195,6 +208,80 @@ class InventoryRepository implements InventoryRepositoryInterface
             $package_obj->scalar = $package;         
         });
         return $package_obj;*/
+    }
+
+    public function allocation($requestData){
+        // p(0);
+        // dd($requestData->all());
+        DB::beginTransaction();
+        try {
+            
+            //当前仓库库存减少
+            $inventory = Inventory::findorFail($requestData->id);
+            
+            $inventory->goods_id      = $requestData->goods_id;
+            $inventory->inventory_now = $requestData->inventory_now - $requestData->goods_num;
+
+            $inventory->save();
+            /*p('22');
+            dd($newInventory);*/
+            //出库明细
+            $newInventoryDetail = new InventoryDetail();
+
+            
+            $date = (string) (time());
+            $date = substr($date, 1);
+
+            $code_out = 'O-'.$date; //出库单号
+
+            // dd($requestData->inventory_type);
+            // dd($requestData->$inventory_type);
+            
+            $newInventoryDetail->goods_id        = $requestData->goods_id;
+            $newInventoryDetail->repertory_id    = $requestData->repertory_id_now;
+            $newInventoryDetail->inventory_code  = $code_out;
+            $newInventoryDetail->inventory_type  = '2';
+            // $newInventoryDetail->inventory_price = $requestData->goods_in_price;
+            $newInventoryDetail->goods_nums      = $requestData->goods_num;
+            $newInventoryDetail->creater_id      = Auth::id();
+
+            $detail = $newInventoryDetail->save();
+
+
+            //目标仓库库存添加
+            $inventory_target = Inventory::where('goods_id', $requestData->goods_id)
+                                         ->where('repertory_id', $requestData->target_repertory_id)
+                                         ->first();
+            $inventory_target->inventory_now = $inventory_target->inventory_now + $requestData->goods_num;
+
+            $inventory_target->save();
+
+            //入库明细
+            $newInInventoryDetail = new InventoryDetail();
+
+            $code_in = 'I-'.$date; //入库单号
+
+            // dd($requestData->inventory_type);
+            // dd($requestData->$inventory_type);
+            
+            $newInInventoryDetail->goods_id        = $requestData->goods_id;
+            $newInInventoryDetail->repertory_id    = $requestData->target_repertory_id;
+            $newInInventoryDetail->inventory_code  = $code_in;
+            $newInInventoryDetail->inventory_type  = '1';
+            $newInInventoryDetail->goods_nums      = $requestData->goods_num;
+            $newInInventoryDetail->creater_id      = Auth::id();
+
+            $detailIn = $newInInventoryDetail->save();
+
+            // dd($inventory_target);
+
+            DB::commit();
+            return $inventory;
+        } catch (\Exception $e) {
+            throw $e;
+            DB::rollBack();
+            return false;
+        }
     }
 
     // 修改库存
@@ -253,10 +340,11 @@ class InventoryRepository implements InventoryRepositoryInterface
     public function isEnoughInventory($goodsList){
 
         // dd($goodsList);
-
+        $user_repertory = Auth::user()->repertory_id;
+        // dd($user_repertory);
         foreach ($goodsList as $key => $value) {
             if(!empty($value['goodsId'])){
-                $inventoryInfo = Inventory::findorFail($value['goodsId']);
+                $inventoryInfo = Inventory::where('repertory_id', $user_repertory)->findorFail($value['goodsId']);
                 // dd($inventoryInfo);
                 if($value['num'] > $inventoryInfo->inventory_now){
                     return false;

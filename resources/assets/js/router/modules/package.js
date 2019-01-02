@@ -10,6 +10,7 @@ const packageRouter = {
     meta: {
       title: '',
       icon: 'size',
+      noCache: true,
       roles: ['admin', 'manager']
     },
     children: [
@@ -17,7 +18,7 @@ const packageRouter = {
         path: 'index',
         component: resolve => void(require(['@/views/package/index'], resolve)),
         name: 'packageList',
-        meta: { title: 'package' }
+        meta: { title: 'package', noCache: true }
       }
     ]
 }

@@ -10,6 +10,7 @@ const permissionRouter = {
     meta: {
       title: '',
       icon: 'list',
+      noCache: true,
       roles: ['admin', 'manager'] //页面需要的权限
     },
     children: [
@@ -17,7 +18,7 @@ const permissionRouter = {
         path: 'index',
         component: resolve => void(require(['@/views/manager/index'], resolve)),
         name: 'managerList',
-        meta: { title: 'manager' }
+        meta: { title: 'manager', noCache: true }
       }
     ]
 }

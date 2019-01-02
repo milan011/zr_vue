@@ -10,6 +10,7 @@ const permissionRouter = {
     meta: {
       title: '',
       icon: 'password',
+      noCache: true,
       roles: ['admin']
     },
     children: [
@@ -17,7 +18,7 @@ const permissionRouter = {
         path: 'index',
         component: resolve => void(require(['@/views/permissions/index'], resolve)),
         name: 'permissionList',
-        meta: { title: 'permission' }
+        meta: { title: 'permission' , noCache: true}
       }
     ]
 }

@@ -67,10 +67,24 @@ class User extends Authenticatable
         return $this->hasMany('App\Goods', 'creater_id', 'id');
     }
 
+    // 定义User表与Repertory表一对多关系
+    public function hasManyCreaterRepertory() {
+
+        return $this->hasMany('App\Repertory', 'creater_id', 'id');
+    }
     // 定义User表与Service表一对多关系
     public function hasManyCreaterService() {
 
         return $this->hasMany('App\Service', 'creater_id', 'id');
+    }
+
+    // 定义User表与Repertory表一对多关系
+    public function belongsToRepertory(){
+
+      return $this->belongsTo('App\Repertory', 'repertory_id', 'id')
+                  ->withDefault([
+                        'name' => '无',
+                    ]);
     }
 
     // 定义User表与ServiceDetail表一对多关系

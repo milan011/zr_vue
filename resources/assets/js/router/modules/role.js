@@ -10,6 +10,7 @@ const roleRouter = {
     meta: {
       title: '',
       icon: 'people',
+      noCache: true,
       roles: ['admin']
     },
     children: [
@@ -17,7 +18,7 @@ const roleRouter = {
         path: 'index',
         component: resolve => void(require(['@/views/role/index'], resolve)),
         name: 'roleList',
-        meta: { title: 'role' }
+        meta: { title: 'role', noCache: true }
       },
     ]
 }

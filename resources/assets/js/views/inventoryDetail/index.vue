@@ -54,6 +54,13 @@
           <el-tag :type="scope.row.inventory_type | inventoryTypeFilter">{{ typeStatusMap[scope.row.inventory_type] }}</el-tag>
         </template>
       </el-table-column>
+      <el-table-column :label="$t('inventoryDetail.inventory_repertory')" width="150px" align="center">
+        <template slot-scope="scope">
+          <span>
+            {{scope.row.belongs_to_repertory.name}}
+          </span>
+        </template>
+      </el-table-column>
       <el-table-column :label="$t('inventoryDetail.inventory_num')" width="50%" align="center">
         <template slot-scope="scope">
           <span>{{ scope.row.goods_nums }}</span>

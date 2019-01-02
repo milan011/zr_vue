@@ -33,6 +33,7 @@ class UserRepository implements UserRepositoryInterface
     public function getUsers()
     {   
         return User::select($this->select_columns)
+                   ->with('belongsToRepertory')
                    ->where('status', '1')
                    ->get();
     }

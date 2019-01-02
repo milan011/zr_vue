@@ -27,6 +27,11 @@
           <span>{{ scope.row.telephone }}</span>
         </template>
       </el-table-column>
+      <el-table-column :label="$t('user.repertory')" align="center">
+        <template slot-scope="scope">
+          <span>{{ scope.row.belongs_to_repertory.name }}</span>
+        </template>
+      </el-table-column>
       <el-table-column :label="$t('table.date')" width="150px" align="center">
         <template slot-scope="scope">
           <span>{{ scope.row.created_at | parseTime('{y}-{m}-{d}') }}</span>
