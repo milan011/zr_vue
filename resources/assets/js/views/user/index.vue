@@ -108,9 +108,23 @@
         <el-form-item :label="$t('user.telephone')" prop="telephone">
           <el-input v-model="temp.telephone"/>
         </el-form-item>
-        <!-- <el-form-item :label="$t('user.email')" prop="email">
-          <el-input v-model="temp.email"/>
-        </el-form-item> -->
+        <el-form-item :label="$t('user.repertory')" prop="target_repertory_id">
+          <el-select  
+            ref="cangku" 
+            clearable  
+            v-model="temp.repertory_id" 
+            class="filter-item" 
+            filterable 
+            placeholder="仓库"
+            >
+            <el-option
+              v-for="repertory in repertoryList" 
+              :key="repertory.id" 
+              :label="repertory.name" 
+              :value="repertory.id"
+            />
+          </el-select>
+        </el-form-item>
         <el-form-item :label="$t('user.remark')">
           <el-input :autosize="{ minRows: 2, maxRows: 4}" v-model="temp.remark" type="textarea" placeholder="备注"/>
         </el-form-item>
@@ -141,6 +155,7 @@
 <script>
 // import { fetchList, fetchPv, createArticle, updateArticle } from '@/api/article'
 import { fetchList, fetchPv, createUser, updateUser, deleteUser } from '@/api/user'
+import { repertoryAll, } from '@/api/cangku'
 import waves from '@/directive/waves' // 水波纹指令
 import { parseTime } from '@/utils'
 import { isTelephone } from '@/utils/validate'
@@ -202,6 +217,7 @@ export default {
       listQuery: {
         page: 1
       },
+      repertoryList: [],
       calendarTypeOptions,
       statusOptions: ['published', 'draft', 'deleted'],
       showReviewer: false,
@@ -213,6 +229,7 @@ export default {
         password: '',
         password_confirmation: '',
         email: '',
+        repertory_id: '',
         telephone: ''
       },
       password: 'password',
@@ -239,6 +256,7 @@ export default {
           { min: 6, max: 16, message: '密码长度必须是6-16位', trigger: 'change' },
           { validator: validateRepeatPass, trigger: 'change' }
         ],
+        repertory_id: [{ required: true, message: '请选择仓库', trigger: 'blur' }],
         email: [{ type: 'email', required: true, message: '请输入正确格式的邮箱', trigger: 'change' }],
         telephone: [
           { required: true, message: '请输入有效手机号', trigger: 'blur' }, 
@@ -251,6 +269,7 @@ export default {
   
   created() {
     this.getList()
+    this.getRepertoryList()
   },
   methods: {
     getList() {
@@ -263,6 +282,33 @@ export default {
         setTimeout(() => {
           this.listLoading = false
         }, 1.5 * 1000)
+      })
+    },
+    getSelectObj (val) {
+      // alert('呵呵')
+      /*console.log($(val.target).find("option:selected"))
+      // console.log(this.$refs.cangku.attr)
+      let obj = {};
+ 
+      obj = $(val.target).find((repertory)=>{
+        return repertory.value === val;//比如：选项2
+      })
+      console.log(obj)*/
+
+      /*console.log(val)
+      console.log(this.repertoryList)
+      Array.prototype.forEach.call(this.repertoryList, child => {
+        console.log(child)
+        if(child.id == val){
+
+        }
+      })*/
+    },
+    getRepertoryList() {
+      repertoryAll().then(response => {
+        /*console.log(response.data)
+        return false*/
+        this.repertoryList = response.data.data
       })
     },
     handleFilter() {
@@ -324,6 +370,7 @@ export default {
         name: 'wxm',
         nick_name: 'wxm',
         remark: '闺女',
+        repertory_id: 1,
         password: '111111',
         password_confirmation : '111111',
         email: '',
@@ -337,6 +384,7 @@ export default {
         password: '',
         password_confirmation : '',
         email: '',
+        repertory_id: 1,
         telephone: ''
       }
     },
@@ -355,17 +403,20 @@ export default {
     createData() {
       this.$refs['dataForm'].validate((valid) => {
         if (valid) {
+          /*console.log(this.temp)
+          return false*/
           createUser(this.temp).then((response) => {
-            /*console.log(response.data)
-            return false*/
-            let newUser = {
+            console.log(response.data)
+            // return false
+            /*let newUser = {
               id: response.data.data.id,
               name: response.data.data.name,
               nick_name: response.data.data.nick_name,
               telephone: response.data.data.telephone,
               created_at: new Date()
-            }
-            this.list.unshift(newUser)
+            }*/
+            let newUsers = response.data.data
+            this.list.unshift(newUsers)
             this.dialogFormVisible = false
             this.$notify({
               title: '成功',
@@ -447,11 +498,16 @@ export default {
       this.$refs['dataForm'].validate((valid) => {
         if (valid) {
           const tempData = Object.assign({}, this.temp)
-          updateUser(tempData).then(() => {
+          /*console.log(this.temp)
+          return false*/
+          updateUser(tempData).then((response) => {
+            console.log(response.data.data)
+            // return false
+            let newUser = response.data.data
             for (const v of this.list) {
-              if (v.id === this.temp.id) {
+              if (v.id === newUser.id) {
                 const index = this.list.indexOf(v)
-                this.list.splice(index, 1, this.temp)
+                this.list.splice(index, 1, newUser)
                 break
               }
             }

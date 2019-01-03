@@ -117,6 +117,7 @@ class UserController extends Controller
 
         // return $this->baseSucceed($respond_data = '', $message = '操作成功');
         $user = $this->userRepository->create($userRequest);
+        $user->belongsToRepertory;
 
         if($user){ //添加成功
 
@@ -150,7 +151,8 @@ class UserController extends Controller
     public function update($id, Request $request)
     {
         $user = $this->userRepository->update($id, $request);
-
+        $user->belongsToRepertory;
+        // dd($user);
         return $this->baseSucceed($respond_data = $user, $message = '修改成功');
     }
 

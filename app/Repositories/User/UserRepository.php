@@ -15,7 +15,7 @@ use Auth;
 class UserRepository implements UserRepositoryInterface
 {
     //默认查询数据
-    protected $select_columns = ['id', 'name', 'nick_name', 'telephone', 'creater_id', 'status', 'created_at', 'remark'];
+    protected $select_columns = ['id', 'name', 'repertory_id', 'nick_name', 'telephone', 'creater_id', 'status', 'created_at', 'remark'];
 
     public function model()
     {
@@ -147,15 +147,16 @@ class UserRepository implements UserRepositoryInterface
     }
 
     public function update($id, $requestData) {
-
+        // dd($requestData->all());
         DB::beginTransaction();
         try {
 
             $user = User::findorFail($id);
 
-            $user->nick_name = $requestData->nick_name;
-            $user->telephone = $requestData->telephone;
-            $user->remark    = $requestData->remark;
+            $user->nick_name    = $requestData->nick_name;
+            $user->telephone    = $requestData->telephone;
+            $user->repertory_id = $requestData->repertory_id;
+            $user->remark       = $requestData->remark;
 
             // 更新用户
             $user->save();
