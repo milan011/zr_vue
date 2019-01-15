@@ -53,7 +53,7 @@
           </el-row>
           <el-row>   
             <el-col :span="12">
-              <el-form-item :label="$t('infoDianxin.yongjin')" align="center">
+              <el-form-item :label="$t('infoDianxin.yongjin')" align="center" prop="yongjin">
                 <el-input  v-model="temp.yongjin"/>
               </el-form-item>
             </el-col> 
@@ -105,16 +105,16 @@
       return {
         temp: {
           id: undefined,
-          name: '18元套餐',
-          return_telephone: '13731080174',
-          manager: '阿宝',
-          jituan: '阿宝集团',
+          name: '',
+          return_telephone: '',
+          manager: '',
+          jituan: '',
           netin_year: new Date().getFullYear(),
           netin_month: new Date().getMonth()+1,
-          yongjin: ' ',
-          refunds: 200,
-          jiakuan: 100,
-          balance_month: 0,
+          yongjin: undefined,
+          refunds: 0,
+          jiakuan: 0,
+          balance_month: undefined,
         },
 
         package_year:package_year,
@@ -123,6 +123,7 @@
           name: [{ required: true, message: '请输入套餐名', trigger: 'change' }],
           jituan: [{ required: true, message: '请输入集团', trigger: 'change' }],
           manager: [{ required: true, message: '请输入客户经理', trigger: 'change' }],
+          yongjin:[{ required: true, message: '请输入佣金方案', trigger: 'change' }],
           refunds: [
             { required: true, message: '请确认返款金额' },
             { type: 'number',  message: '返款金额应为数字' },
@@ -193,7 +194,7 @@
         })
       },*/
       resetTemp(monthNow) {
-        this.temp = {
+        /*this.temp = {
           id: undefined,
           name: '18元套餐',
           return_telephone: '13731080174',
@@ -201,10 +202,23 @@
           jituan: '阿宝集团',
           netin_year: new Date().getFullYear(),
           netin_month: monthNow,
-          yongjin: ' ',
+          yongjin: '套餐实缴值佣金方案',
           refunds: 200,
           jiakuan: 100,
           balance_month: 0,
+        }*/
+        this.temp = {
+          id: undefined,
+          name: '',
+          return_telephone: '',
+          manager: '',
+          jituan: '',
+          netin_year: new Date().getFullYear(),
+          netin_month: monthNow,
+          yongjin: '',
+          refunds: 0,
+          jiakuan: 0,
+          balance_month: undefined,
         }
       },
       /*handlePermission(row) { 

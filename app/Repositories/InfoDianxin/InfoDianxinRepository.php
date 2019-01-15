@@ -117,12 +117,13 @@ class InfoDianxinRepository implements InfoDianxinRepositoryInterface
             $info = $infoDianxin->create($input);        
         } catch (\Illuminate\Database\QueryException $e) {
             // return false;
-            // dd($e->getMessage());
+            dd($e->getMessage());
             $info = InfoDianxin::select($this->select_columns)
                                ->where('return_telephone', $requestData->return_telephone)
                                ->where('balance_month', $requestData->balance_month)
                                ->first();
-
+            /*dd(lastSql());
+            dd($info);*/
             if($info->status == '0'){
                 $info->name            = $requestData->name;
                 $info->yongjin         = $requestData->yongjin;
