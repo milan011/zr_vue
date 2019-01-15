@@ -286,7 +286,7 @@
           this.packageList = response.data.data
         })
       },
-      resetTemp() {
+      resetTemp(monthNow) {
         this.temp = {
           id: undefined,
           name: null,
@@ -295,7 +295,8 @@
           uim_number: null,
           remark: ' ',
           netin_year: new Date().getFullYear(),
-          netin_month: new Date().getMonth()+1,
+          // netin_month: new Date().getMonth()+1,
+          netin_month: monthNow,
           manage_id: null,
           package_id: null,
           package_name: '',
@@ -311,7 +312,15 @@
         }
       },
       handleCreateInfo(){
-        this.resetTemp()
+        let monthNow = new Date().getMonth()+1;
+        //console.log(this.temp.netin_month)
+        //console.log(this.temp.netin_month.toString().length)
+        //return false
+        if(monthNow.toString().length == 1){
+          monthNow = '0' + monthNow
+        }
+        // console.log(this.temp.netin_month)
+        this.resetTemp(monthNow)
         this.dialogStatus = 'create'
         this.infoDialogFormVisible = true
         this.infoNewTelephoneDisabled = false

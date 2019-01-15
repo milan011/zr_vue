@@ -192,7 +192,7 @@
           this.packageAll = response.data.data
         })
       },*/
-      resetTemp() {
+      resetTemp(monthNow) {
         this.temp = {
           id: undefined,
           name: '18元套餐',
@@ -200,7 +200,7 @@
           manager: '阿宝',
           jituan: '阿宝集团',
           netin_year: new Date().getFullYear(),
-          netin_month: new Date().getMonth()+1,
+          netin_month: monthNow,
           yongjin: ' ',
           refunds: 200,
           jiakuan: 100,
@@ -221,7 +221,14 @@
         })
       },*/
       handleCreateInfo(){
-        this.resetTemp()
+        let monthNow = new Date().getMonth()+1;
+        //console.log(this.temp.netin_month)
+        //console.log(this.temp.netin_month.toString().length)
+        //return false
+        if(monthNow.toString().length == 1){
+          monthNow = '0' + monthNow
+        }
+        this.resetTemp(monthNow)
         this.dialogStatus = 'create'
         this.infoDianxinDialogFormVisible = true
         this.$nextTick(() => {

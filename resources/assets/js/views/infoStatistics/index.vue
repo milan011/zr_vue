@@ -73,7 +73,7 @@ export default {
       list: null,
       listLoading: true,
       listQuery: {
-        netin_month: new Date().getMonth()+1,
+        netin_month: undefined,
         netin_year: new Date().getFullYear(),
       },
       package_year:package_year,
@@ -83,6 +83,7 @@ export default {
   created() {
     Promise.all([
       this.getList(),
+      this.setNetInMonth(),
     ])
   },
   methods: {
@@ -97,7 +98,17 @@ export default {
           this.listLoading = false
         }, 1.5 * 1000)
       })
-    },  
+    }, 
+    setNetInMonth(){
+      let monthNow = new Date().getMonth()+1;
+      //console.log(this.temp.netin_month)
+      //console.log(this.temp.netin_month.toString().length)
+      //return false
+      if(monthNow.toString().length == 1){
+        monthNow = '0' + monthNow
+      }
+      this.listQuery.netin_month = monthNow
+    },
     handleFilter() {
       this.getList()
     },  

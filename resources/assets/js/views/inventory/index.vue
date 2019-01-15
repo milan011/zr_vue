@@ -93,8 +93,8 @@
         </div>       
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button @click="dialogFormVisible = false">{{ $t('table.cancel') }}</el-button>
-        <el-button  type="primary" @click="createData">{{ $t('table.confirm') }}</el-button>
+        <el-button @click="dialogFormVisible = false;createDesabled = false">{{ $t('table.cancel') }}</el-button>
+        <el-button :disabled="createDesabled"  type="primary" @click="createData">{{ $t('table.confirm') }}</el-button>
       </div>
     </el-dialog>
     <el-dialog title="库存调拨" :visible.sync="allocationFormVisible">
@@ -205,6 +205,7 @@ export default {
         goods_id: '',
         repertory_id: '',
       },
+      createDesabled:false,
       goodsList: [],
       repertoryList: [],
       calendarTypeOptions,
@@ -293,7 +294,7 @@ export default {
       this.temp.ruku_price = this.temp.goods_num * this.temp.goods_in_price
     },*/
     resetTemp(row) {
-      this.emp = {
+      this.temp = {
         id: row.id,
         goods_id: row.goods_id,
         goods_name: row.belongs_to_goods.name,
@@ -304,11 +305,14 @@ export default {
         inventory_now: row.inventory_now,
         belongs_to_goods:{
           name: '',
-        }  
+        },
+        belongs_to_repertory:{
+            name: row.belongs_to_repertory.name
+        } 
       }
     },
     resetAllocationTemp(row) {
-      console.log(row)
+      // console.log(row)
       this.allocationTtemp = {
         id: row.id,
         goods_id: row.goods_id,
@@ -382,7 +386,6 @@ export default {
     },
     handleCreate(row) {
       // console.log(row)
-      // return false
       this.resetTemp(row)
       this.dialogFormVisible = true
       this.$nextTick(() => {
@@ -392,13 +395,15 @@ export default {
     createData() {
       /*console.log(this.temp)
       return false*/
+      this.createDesabled = true
+      // return false
       this.$refs['dataForm'].validate((valid) => {
         if (valid) {
           /*console.log(this.temp)
           return false*/
           createInventory(this.temp).then((response) => {
-            //console.log(response.data.data);
-            //console.log(this.temp);
+            // console.log(response.data.data);
+            // console.log(this.temp);
             // return false
             this.temp.inventory_now = response.data.data.inventory_now
             this.temp.belongs_to_goods.name = this.temp.goods_name
@@ -412,6 +417,7 @@ export default {
                 }
               }
               this.dialogFormVisible = false
+              this.createDesabled    = false
               this.$notify({
                 title: '成功',
                 message: response.data.message,
